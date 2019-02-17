@@ -1,0 +1,1004 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Always on the way of programming.">
+    <meta name="keywords"  content=" MY Blog, 伊恩的博客, Ian, 伊恩, java, Apple">
+    <meta name="theme-color" content="#000000">
+    
+    <title>Java注解及其应用 - 伊恩的博客 | MY Blog</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <!-- Safari Webpage Icon    by-BY -->
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:4000/2018/08/11/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Java%E6%B3%A8%E8%A7%A3%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">MY Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">About</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">Tags</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from 
+     * $toggle/$collapse will break global delegation.
+     * 
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.  
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/ian-bg-red.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-image: url('/img/ian-bg-red.jpg')
+    }
+
+    
+</style>
+<header class="intro-header" >
+    <div class="header-mask"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#编程之路" title="编程之路">编程之路</a>
+                        
+                    </div>
+                    <h1>Java注解及其应用</h1>
+                    
+                    
+                    <h2 class="subheading"></h2>
+                    
+                    <span class="meta">Posted by Ian on August 11, 2018</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+				<blockquote>
+  <p>转载：孤傲苍狼 – <a href="http://www.cnblogs.com/xdp-gacl/p/3622275.html">http://www.cnblogs.com/xdp-gacl/p/3622275.html</a></p>
+</blockquote>
+
+<h3 id="认识注解">认识注解</h3>
+<p>注解(Annotation)很重要，现在的开发模式都是基于注解，已经是一种趋势，注解是JDK1.5之后才有的新特性，JDK1.5之后提供的三个注解：</p>
+
+<ul>
+  <li>@Deprecated ：废弃的，过时的</li>
+  <li>@Override ：重写、覆盖</li>
+  <li>@SuppressWarnings：压缩警告</li>
+</ul>
+
+<p>栗子 – 注解的应用</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+ * @className: BlogDemo
+ * @description: 此类用来掩饰注解(Annotation)的应用，注解也是JDK1.5新增加的特性之一
+ * JDK1.5内部提供的三种注解是：@SuppressWarnings(":deprecation")、@Deprecated、@Override
+ * @author: Ian
+ * @create: 2018-08-11 16:18
+ **/</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">BlogDemo</span> <span class="o">{</span>
+
+	<span class="cm">/**
+	 * 这里就是注解，称谓压缩警告，这是JDK内部自带的一个注解，一个注解就是一个类，在这里使用了这个注解就是创建了SuppressWarnings类的一个实例对象
+	 */</span>
+	<span class="nd">@SuppressWarnings</span><span class="o">(</span> <span class="s">":deprecation"</span> <span class="o">)</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
+		<span class="cm">/*
+		下面这个runFinalizersOnExit()方法画了一条横线表示此方法已经过时，不建议使用
+		 */</span>
+		<span class="n">System</span><span class="o">.</span><span class="na">runFinalizersOnExit</span><span class="o">(</span> <span class="kc">true</span> <span class="o">);</span>
+	<span class="o">}</span>
+
+	<span class="cm">/**
+	 * 这个也是JDK内部自带的一个注解，意思是已经废弃，不建议使用
+	 */</span>
+	<span class="nd">@Deprecated</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">hello</span><span class="o">(){</span>
+		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"hi,Ian"</span><span class="o">);</span>
+	<span class="o">}</span>
+
+	<span class="cm">/**
+	 * 这也是JDK1.5之后内部提供的一个注解，意思就是重写(覆盖)JDK内部的toString()方法
+	 */</span>
+	<span class="nd">@Override</span>
+	<span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">(){</span>
+		<span class="k">return</span> <span class="s">"Ian"</span><span class="o">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<p>总结：注解(Annotation)相当于一种标记，在程序中加入注解就等于程序打上某种标记，没有加，则等于没有任何标记，javac编译器、开发工具和其它程序可以通过反射来了解你的类及各种元素上有无任何标记，看你程序有什么标记，就去干相应的事，标记可以加在包、类、属性、方法、方法形参以及局部变量上。
+<img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-08-11-%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B3%A8%E8%A7%A3%E7%B4%A0%E6%9D%90.jpg" alt="" /></p>
+
+<p>注解就相当于一个你的源程序要调用一个类，在源程序中用用某个注解，得事先准备好这个注解类。就像你要调用某个类，得事先开发好这个类。</p>
+
+<h3 id="自定义注解及其应用">自定义注解及其应用</h3>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+ * 这是一个自定义的注解(Annotation)类，在定义注解类时使用了另一个注解类Retention
+ * 在注解类上使用另一个注解类，那么被使用的注解类就称为元注解
+ * @author: Ian
+ *
+ * Rentention注解决定MyAnnotation注解的生命周期
+ */</span>
+
+<span class="nd">@Retention</span><span class="o">(</span> <span class="n">RetentionPolicy</span><span class="o">.</span><span class="na">RUNTIME</span> <span class="o">)</span>
+
+<span class="c1">//Target 注解决定MyAnnotation注解可以加上哪些成分上面，比如加在类身上，或者属性身上，或者方法等等</span>
+<span class="nd">@Target</span><span class="o">({</span><span class="n">ElementType</span><span class="o">.</span><span class="na">METHOD</span><span class="o">,</span> <span class="n">ElementType</span><span class="o">.</span><span class="na">TYPE</span><span class="o">})</span>
+
+<span class="cm">/*
+@Retention(RetentionPolicy.ROURCE)
+这个注解的意思是让MyAnnotation注解只在java源文件中存在，编译成.class文件之后注解就不存在了
+
+@Retention(RetentionPolicy.CLASS)
+这个注解的意思是让MyAnnotation注解在Java源文件(.java)中存在，编译成.class文件之后注解也还存在，
+被MyAnnotation注解类标识的类加载器加载到内存中后MyAnnotation注解就不存在了。
+
+这里是在注解类MyAnnotation上使用另一个注解类，这里的Retention称为元注解。
+Retention注解括号中的“RetentionPolicy.RUNTIME”意思是让MyAnnotation这个注解的声明周期一直在程序运行时都存在
+ */</span>
+<span class="kd">public</span> <span class="nd">@interface</span> <span class="n">MyAnnotation</span><span class="o">{</span>
+	
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>把自定义注解加到某个类上并用反射进行测试AnnotationUser的定义上是否有@MyAnnotation：</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="n">cn</span><span class="o">.</span><span class="na">gacl</span><span class="o">.</span><span class="na">annotation</span><span class="o">;</span>
+ <span class="mi">2</span> <span class="nd">@MyAnnotation</span>
+ <span class="mi">3</span> <span class="c1">//这里是将新创建好的注解类MyAnnotation标记到AnnotaionTest类上</span>
+ <span class="mi">4</span> <span class="kd">public</span> <span class="kd">class</span> <span class="nc">AnnotationUse</span> <span class="o">{</span>
+ <span class="mi">5</span>     <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+ <span class="mi">6</span>         <span class="c1">// 这里是检查Annotation类是否有注解，这里需要使用反射才能完成对Annotation类的检查</span>
+ <span class="mi">7</span>         <span class="k">if</span> <span class="o">(</span><span class="n">AnnotationUse</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">isAnnotationPresent</span><span class="o">(</span><span class="n">MyAnnotation</span><span class="o">.</span><span class="na">class</span><span class="o">))</span> <span class="o">{</span>
+ <span class="mi">8</span>             <span class="cm">/*
+ 9              * MyAnnotation是一个类，这个类的实例对象annotation是通过反射得到的，这个实例对象是如何创建的呢？
+10              * 一旦在某个类上使用了@MyAnnotation，那么这个MyAnnotation类的实例对象annotation就会被创建出来了
+11              * 假设很多人考驾照，教练在有些学员身上贴一些绿牌子、黄牌子，贴绿牌子的表示送礼送得比较多的，
+12              * 贴黄牌子的学员表示送礼送得比较少的，不贴牌子的学员表示没有送过礼的，通过这个牌子就可以标识出不同的学员
+13              * 教官在考核时一看，哦，这个学员是有牌子的，是送过礼给他的，优先让有牌子的学员过，此时这个牌子就是一个注解
+14              * 一个牌子就是一个注解的实例对象，实实在在存在的牌子就是一个实实在在的注解对象，把牌子拿下来(去掉注解)注解对象就不存在了
+15              */</span>
+<span class="mi">16</span>             <span class="n">MyAnnotation</span> <span class="n">annotation</span> <span class="o">=</span> <span class="o">(</span><span class="n">MyAnnotation</span><span class="o">)</span> <span class="n">AnnotationUse</span><span class="o">.</span><span class="na">class</span>
+<span class="mi">17</span>                     <span class="o">.</span><span class="na">getAnnotation</span><span class="o">(</span><span class="n">MyAnnotation</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+<span class="mi">18</span>             <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">annotation</span><span class="o">);</span><span class="c1">// 打印MyAnnotation对象，这里输出的结果为：@cn.itcast.day2.MyAnnotation()</span>
+<span class="mi">19</span>         <span class="o">}</span>
+<span class="mi">20</span>     <span class="o">}</span>
+<span class="mi">21</span> <span class="o">}</span>
+</code></pre></div></div>
+
+<p>把自定义的注解加到某个类上并用反射测试进行测试AnnotationUse的定义上是否有@MyAnnotation：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@MyAnnotation</span>
+<span class="c1">//这里是将新创建好的注解类MyAnnotation标记到AnnotaionTest类上</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">AnnotationUse</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// 这里是检查Annotation类是否有注解，这里需要使用反射才能完成对Annotation类的检查</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">AnnotationUse</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">isAnnotationPresent</span><span class="o">(</span><span class="n">MyAnnotation</span><span class="o">.</span><span class="na">class</span><span class="o">))</span> <span class="o">{</span>
+            <span class="cm">/*
+             * MyAnnotation是一个类，这个类的实例对象annotation是通过反射得到的，这个实例对象是如何创建的呢？
+             * 一旦在某个类上使用了@MyAnnotation，那么这个MyAnnotation类的实例对象annotation就会被创建出来了
+             * 比如：各种商品上都有自己的价格，也就是标识，消费者一看就知道该商品的价格是多少。
+             * 每个商品对应的价格就是一个注解的实例对象，实实在在存在的价格就是一个实实在在的注解对象，把对应价格去掉(去掉注解)注解对象就不存在了
+             */</span>
+            <span class="n">MyAnnotation</span> <span class="n">annotation</span> <span class="o">=</span> <span class="o">(</span><span class="n">MyAnnotation</span><span class="o">)</span> <span class="n">AnnotationUse</span><span class="o">.</span><span class="na">class</span>
+                    <span class="o">.</span><span class="na">getAnnotation</span><span class="o">(</span><span class="n">MyAnnotation</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">annotation</span><span class="o">);</span><span class="c1">// 打印MyAnnotation对象，这里输出的结果为：@cn.itcast.day2.MyAnnotation()</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h3 id="retention元注解">@Retention元注解</h3>
+<p>根据反射的测试问题，引出@Retention元注解，其三种取值：<code class="highlighter-rouge">RetentionPolicy.SOURCE</code>、<code class="highlighter-rouge">RetentionPolicy.CLASS</code>、<code class="highlighter-rouge">RetentionPolicy.RUNTIME</code>分别对应：Java源文件(.java文件)—-&gt;.class文件—-&gt;内存中的字节码</p>
+
+<h3 id="retention注解说明">Retention注解说明</h3>
+<p>当在Java源程序上加了一个注解，这个Java源程序要由javac去编译，javac把java源文件编译成.class文件，在编译成class时可能会把Java源程序上的一些注解给去掉，java编译器在处理java源程序时，可能会认为这个注解没有用了，于是就把这个注解去掉，那么此时在编译好的class就找不到该注解，这是编译器编译Java源程序时对注解进行处理的第一种可能情况，假设Java编译器在把Java源程序编译成class时，没有把注解去掉，那么此时在编译好的class中就可以找到注解，当程序使用编译好的class文件时，需要用类加载器把class文件加载到内存中并进行处理，如安全检查，处理完以后得到的最终在内存中的二进制的东西才是字节码，类加载器把class文件加载到内存中时也有转换，转换时是把class文件中的注解保留下来，这也有说法，所以说<strong>一个注解的生命周期有三个阶段：java源文件、class文件、内存中的字节码分别都是一个阶段</strong>，javac把java源文件编译成.class文件时，有可能去掉里面的注解，类加载器把.class文件加载到内存时也有可能去掉里面的注解，因此<strong>在自定义注解时就可以使用Retention注解知名自定义注解的生命周期，自定义注解的生命周期是在RetentionPolicy.SOURCE阶段（java源文件阶段），还是在RetentionPolicy.CLASS阶段(class文件阶段)，或者是在RetentionPolicy.RUNTIME阶段(内存中的字节码运行时阶段)，根据JDK提供的API可以知道默认是在RetentionPolicy.CLASS阶段 (JDK的API写到：the retention policy defaults to RetentionPolicy.CLASS)</strong></p>
+
+<p>下面看看@Deprecated、@Override、@SuppressWarnings这三个注解的@Retention注解的属性值分别是什么吧</p>
+
+<h4 id="deprecated">@Deprecated</h4>
+<p>java API中是这样定义的@Deprecated的</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Documented</span>
+<span class="nd">@Retention</span><span class="o">(</span><span class="n">value</span><span class="o">=</span><span class="n">RUNTIME</span><span class="o">)</span>
+<span class="kd">public</span> <span class="nd">@interface</span> <span class="n">Deprecated</span>
+</code></pre></div></div>
+
+<h4 id="override">@Override</h4>
+<p>Java API中是这样定义的@Override的</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Target</span><span class="o">(</span><span class="n">value</span><span class="o">=</span><span class="n">METHOD</span><span class="o">)</span>
+<span class="nd">@Retention</span><span class="o">(</span><span class="n">value</span><span class="o">=</span><span class="n">SOURCE</span><span class="o">)</span>
+<span class="kd">public</span> <span class="nd">@interface</span> <span class="n">Override</span>
+</code></pre></div></div>
+<p>@Override 是给javac看的，编译完以后@Override就没有价值了，@Override注解在源代码中有用，编译成.class文件后@Override注解就没有用了，因此@Override的Retention的属性值是RetentionPolicy.SOURCE</p>
+
+<h4 id="suppresswarnings">SuppressWarnings</h4>
+<p>Java API中是这样定义的@SuppressWarnings的</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Target</span><span class="o">(</span><span class="n">value</span><span class="o">{</span><span class="n">TYPE</span><span class="o">,</span><span class="n">FIELD</span><span class="o">,</span><span class="n">METHOD</span><span class="o">,</span><span class="n">PARAMETER</span><span class="o">,</span><span class="n">CONSTRUCTOR</span><span class="o">,</span><span class="n">LOCAL_VARIABLE</span><span class="o">})</span>
+<span class="nd">@Retention</span><span class="o">(</span><span class="n">value</span><span class="o">=</span><span class="n">SOURCE</span><span class="o">)</span>
+<span class="kd">public</span> <span class="nd">@interface</span> <span class="n">SuppressWarnings</span>
+</code></pre></div></div>
+<p>@SuppressWarnings是给javac(java编译器)看的，编译器编译完java文件后，@SuppressWarnings注解就没有用了，所以@SuppressWarnings的Retention的属性值是RetentionPolicy.SOURCE</p>
+
+<h4 id="target元注解">Target元注解</h4>
+<p>@Target元注解决定了一个注解可以标识到哪些成分上，如标识在在类身上，或者属性身上，或者方法身上等成分，@Target默认值为任何元素(成分)
+例如：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Target</span><span class="o">(</span><span class="n">value</span><span class="o">={</span><span class="n">TYPE</span><span class="o">,</span><span class="n">FIELD</span><span class="o">,</span><span class="n">METHOD</span><span class="o">,</span><span class="n">PARAMETER</span><span class="o">,</span><span class="n">CONSTRUCTOR</span><span class="o">,</span><span class="n">LOCAL_VARIABLE</span><span class="o">})</span>
+<span class="nd">@Retention</span><span class="o">(</span><span class="n">value</span><span class="o">=</span><span class="n">SOURCE</span><span class="o">)</span>
+<span class="kd">public</span> <span class="nd">@interface</span> <span class="n">SuppressWarnings</span>
+</code></pre></div></div>
+
+<h3 id="为注解增加属性">为注解增加属性</h3>
+<p>注解可以看成是一种特殊的类，既然是类，那自然可以为类添加属性</p>
+
+<h4 id="添加属性">添加属性</h4>
+<p>语法：类型 属性名();</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//Retention注解决定MyAnnotation注解的生命周期</span>
+<span class="nd">@Retention</span><span class="o">(</span><span class="n">RetentionPolicy</span><span class="o">.</span><span class="na">RUNTIME</span><span class="o">)</span>
+<span class="nd">@Target</span><span class="o">({</span><span class="n">ElementType</span><span class="o">.</span><span class="na">METHOD</span><span class="o">,</span> <span class="n">ElementType</span><span class="o">.</span><span class="na">TYPE</span><span class="o">})</span>
+<span class="kd">public</span> <span class="nd">@interface</span> <span class="n">MyAnnotation</span><span class="o">{</span>
+    <span class="cm">/*
+    	定义基本属性
+    */</span>
+    <span class="n">String</span> <span class="nf">color</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<p>其实从代码的写法上来看，注解更像是一种特殊的接口，注解的属性定义方式就和接口中定义方法的方式一样，而应用了注解的类可以认为是实现了这个特殊的接口</p>
+
+<h4 id="应用属性">应用属性</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//应用MyAnnotation注解的color属性</span>
+<span class="nd">@MyAnnotation</span><span class="o">(</span><span class="n">color</span><span class="o">=</span><span class="s">"red"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyAnnotationTest</span><span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
+        <span class="cm">/*
+        	用反射方式获得注解对应的实例对象后，在通过该对象调用属性对应的方法
+        */</span>
+        <span class="n">MyAnnotation</span> <span class="n">annotation</span> <span class="o">=</span> <span class="o">(</span><span class="n">MyAnnotation</span><span class="o">)</span><span class="n">MyAnnotationTest</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getAnnotation</span><span class="o">(</span><span class="n">MyAnnotation</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+        <span class="c1">//输出red</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">annotation</span><span class="o">.</span><span class="na">color</span><span class="o">());</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="为属性指定缺省值默认值">为属性指定缺省值(默认值)</h4>
+<p>语法：类型 属性名() default 默认值;</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//Retention注解决定MyAnnotation注解的生命周期</span>
+<span class="nd">@Retention</span><span class="o">(</span><span class="n">RetentionPolicy</span><span class="o">.</span><span class="na">RUNTIME</span><span class="o">)</span>
+<span class="nd">@Target</span><span class="o">({</span><span class="n">ElementType</span><span class="o">.</span><span class="na">METHOD</span><span class="o">,</span> <span class="n">ElementType</span><span class="o">.</span><span class="na">TYPE</span><span class="o">})</span>
+<span class="kd">public</span> <span class="nd">@interface</span> <span class="n">MyAnnotation</span><span class="o">{</span>
+    <span class="c1">//为属性指定缺省值</span>
+    <span class="n">String</span> <span class="nf">color</span><span class="o">()</span> <span class="k">default</span> <span class="s">"blue"</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@MyAnnotation</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyAnnotationTest</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="cm">/**
+         * 用反射方式获得注解对应的实例对象后，在通过该对象调用属性对应的方法
+         */</span>
+        <span class="n">MyAnnotation</span> <span class="n">annotation</span> <span class="o">=</span> <span class="o">(</span><span class="n">MyAnnotation</span><span class="o">)</span> <span class="n">MyAnnotationTest</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getAnnotation</span><span class="o">(</span><span class="n">MyAnnotation</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">annotation</span><span class="o">.</span><span class="na">color</span><span class="o">());</span><span class="c1">//输出color属性的默认值：blue</span>
+        
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h4 id="value属性">value属性</h4>
+<p>如果一个注解中有一个名称为value的属性，且你只想设置value属性(即其他属性都采用默认值或者你只有一个value属性)，那么可以省略掉“value=”部分。
+例如：@SuppressWarnings(“deprecation”)</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Retention</span><span class="o">(</span><span class="n">RetentionPolicy</span><span class="o">.</span><span class="na">RUNTIME</span><span class="o">)</span>
+<span class="nd">@Terget</span><span class="o">({</span><span class="n">ElementType</span><span class="o">.</span><span class="na">METHOD</span><span class="o">,</span> <span class="n">ElementType</span><span class="o">.</span><span class="na">Type</span><span class="o">})</span>
+<span class="kd">public</span> <span class="nd">@interface</span> <span class="n">MyAnnotation</span><span class="o">{</span>
+	
+	<span class="c1">//为属性指定缺省值</span>
+    <span class="n">String</span> <span class="nf">color</span><span class="o">()</span> <span class="k">default</span> <span class="s">"blue"</span><span class="o">;</span>
+	
+	<span class="c1">//定义一个名称为value的属性</span>
+	<span class="n">String</span> <span class="nf">value</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@MyAnnotation</span><span class="o">(</span><span class="s">"Ian"</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyAnnotationTest</span><span class="o">{</span>
+    <span class="c1">//用反射方式获得注解对应的实例对象后，在通过该对象调用属性对应的方法</span>
+    <span class="n">MyAnnotation</span> <span class="n">annotation</span> <span class="o">=</span> <span class="o">(</span><span class="n">MyAnnotation</span><span class="o">)</span><span class="n">MyAnnotationTest</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getAnnotation</span><span class="o">(</span><span class="n">MyAnnotation</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="c1">//输出color属性的默认值：blue</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">annotation</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    
+    <span class="c1">//输出Ian</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">annotation</span><span class="o">.</span><span class="na">value</span><span class="o">());</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1fqj5aochgoj309k09kmwz.jpg" alt="" />
+<b><center>扫描关注：热爱生活的大叔</center>
+<b><center><font size="2">（<font size="2" color="#FF0000">转载本站文章请注明作者和出处</font> <font size="2" color="#0000FF">热爱生活的大叔-uniquezhangqi</font><font size="2">）</font></font></center></b></b></p>
+
+
+                <hr style="visibility: hidden;">
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2018/08/11/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Java8%E6%96%B0%E7%89%B9%E6%80%A7Base64%E7%BB%93%E5%90%88MD5%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86/" data-toggle="tooltip" data-placement="top" title="Java8新特性Base64结合MD5对称加密">
+                        Previous<br>
+                        <span>Java8新特性Base64结合MD5对称加密</span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2018/08/11/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Java%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B3%A8%E8%A7%A3/" data-toggle="tooltip" data-placement="top" title="Java自定义注解">
+                        Next<br>
+                        <span>Java自定义注解</span>
+                        </a>
+                    </li>
+                    
+                </ul>
+
+
+                <!--Gitalk评论start  -->
+                
+                <!-- Gitalk end -->
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+            </div>  
+
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">CATALOG</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+        				
+                            
+                				<a href="/tags/#生活" title="生活" rel="18">
+                                    生活
+                                </a>
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#自我总结" title="自我总结" rel="31">
+                                    自我总结
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#编程之路" title="编程之路" rel="80">
+                                    编程之路
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#设计模式" title="设计模式" rel="4">
+                                    设计模式
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#杂谈" title="杂谈" rel="6">
+                                    杂谈
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#随笔" title="随笔" rel="6">
+                                    随笔
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Quartz" title="Quartz" rel="2">
+                                    Quartz
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#SpringDataJPA" title="SpringDataJPA" rel="2">
+                                    SpringDataJPA
+                                </a>
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#前端" title="前端" rel="5">
+                                    前端
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#咖啡" title="咖啡" rel="4">
+                                    咖啡
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#shiro" title="shiro" rel="5">
+                                    shiro
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#摄影" title="摄影" rel="3">
+                                    摄影
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#理财" title="理财" rel="5">
+                                    理财
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#jvm" title="jvm" rel="3">
+                                    jvm
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#MySql" title="MySql" rel="6">
+                                    MySql
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#java8" title="java8" rel="4">
+                                    java8
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#分布式" title="分布式" rel="3">
+                                    分布式
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#MongoDB" title="MongoDB" rel="2">
+                                    MongoDB
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+        			</div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+                    
+                        <li><a href="https://apple.com">Apple</a></li>
+                    
+                        <li><a href="https://www.google.com">google</a></li>
+                    
+                        <li><a href="http://www.cnblogs.com/zuoxiaolong">左潇龙</a></li>
+                    
+                        <li><a href="http://www.importnew.com/">ImportNew</a></li>
+                    
+                        <li><a href="https://www.csdn.net/">CSND</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "uniquezhangqi";
+    var disqus_identifier = "/2018/08/11/编程之路-Java注解及其应用";
+    var disqus_url = "http://localhost:4000/2018/08/11/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Java%E6%B3%A8%E8%A7%A3%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <!-- add jianshu add target = "_blank" to <a> by BY -->
+                    
+                    
+                    <li>
+                        <a href="https://twitter.com/Mr_javaian">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/伊恩">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="http://weibo.com/_____ZzZzZzq">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+
+                    
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/schooljavaian@gmail.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/uniquezhangqi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; MY Blog 2019
+                    <br>
+                    Theme on <a href="https://github.com/uniquezhangqi/uniquezhangqi.github.io.git">GitHub</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=uniquezhangqi&repo=uniquezhangqi.github.io&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+<!-- Service Worker -->
+
+<script type="text/javascript">
+    if(navigator.serviceWorker){
+        // For security reasons, a service worker can only control the pages that are in the same directory level or below it. That's why we put sw.js at ROOT level.
+        navigator.serviceWorker
+            .register('/sw.js')
+            .then((registration) => {console.log('Service Worker Registered. ', registration)})
+            .catch((error) => {console.log('ServiceWorker registration failed: ', error)})
+    }
+</script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/ 
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers   
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async('/js/jquery.tagcloud.js',function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-113450573-1';
+    var _gaDomain = 'uniquezhangqi.top';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = 'b50bf2b12b5338a1845e33832976fd68';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;    
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="/img/apple-touch-icon.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

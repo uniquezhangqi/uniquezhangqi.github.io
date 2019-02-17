@@ -1,0 +1,4125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Always on the way of programming.">
+    <meta name="keywords"  content=" MY Blog, 伊恩的博客, Ian, 伊恩, java, Apple">
+    <meta name="theme-color" content="#000000">
+    
+    <title>Tags - 伊恩的博客 | MY Blog</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <!-- Safari Webpage Icon    by-BY -->
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:4000/tags/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">MY Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">About</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">Tags</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from 
+     * $toggle/$collapse will break global delegation.
+     * 
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.  
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+
+    <!-- Page Header -->
+<header class="intro-header" style="background-image: url('/img/tag-bg.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="site-heading" id="tag-heading">
+                    <h1>Tags</h1>
+                    <span class="subheading">keep hungry keep foolish</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Main Content -->
+<div class="container">
+	<div class="row">
+		<div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+            <!-- 标签云 -->
+			<div id='tag_cloud' class="tags">
+				
+				<a href="#生活" title="生活" rel="18">生活</a>
+				
+				<a href="#古典乐" title="古典乐" rel="1">古典乐</a>
+				
+				<a href="#自我总结" title="自我总结" rel="31">自我总结</a>
+				
+				<a href="#编程之路" title="编程之路" rel="80">编程之路</a>
+				
+				<a href="#设计模式" title="设计模式" rel="4">设计模式</a>
+				
+				<a href="#杂谈" title="杂谈" rel="6">杂谈</a>
+				
+				<a href="#随笔" title="随笔" rel="6">随笔</a>
+				
+				<a href="#Quartz" title="Quartz" rel="2">Quartz</a>
+				
+				<a href="#SpringDataJPA" title="SpringDataJPA" rel="2">SpringDataJPA</a>
+				
+				<a href="#集合" title="集合" rel="1">集合</a>
+				
+				<a href="#前端" title="前端" rel="5">前端</a>
+				
+				<a href="#咖啡" title="咖啡" rel="4">咖啡</a>
+				
+				<a href="#Maven" title="Maven" rel="1">Maven</a>
+				
+				<a href="#oracle" title="oracle" rel="1">oracle</a>
+				
+				<a href="#shiro" title="shiro" rel="5">shiro</a>
+				
+				<a href="#摄影" title="摄影" rel="3">摄影</a>
+				
+				<a href="#理财" title="理财" rel="5">理财</a>
+				
+				<a href="#jvm" title="jvm" rel="3">jvm</a>
+				
+				<a href="#MySql" title="MySql" rel="6">MySql</a>
+				
+				<a href="#项目" title="项目" rel="1">项目</a>
+				
+				<a href="#Linux" title="Linux" rel="1">Linux</a>
+				
+				<a href="#消息队列" title="消息队列" rel="1">消息队列</a>
+				
+				<a href="#jrebel" title="jrebel" rel="1">jrebel</a>
+				
+				<a href="#vps" title="vps" rel="1">vps</a>
+				
+				<a href="#Mac" title="Mac" rel="1">Mac</a>
+				
+				<a href="#java8" title="java8" rel="4">java8</a>
+				
+				<a href="#分布式" title="分布式" rel="3">分布式</a>
+				
+				<a href="#MongoDB" title="MongoDB" rel="2">MongoDB</a>
+				
+				<a href="#Tomcat" title="Tomcat" rel="1">Tomcat</a>
+				
+				<a href="#redis" title="redis" rel="1">redis</a>
+				
+				<a href="#session" title="session" rel="1">session</a>
+				
+			</div>
+
+            <!--<blockquote class="tag-comments">
+                标签命名规范：
+                    <li>行业观察、职位、公司优先使用中文</li>
+                    <li>外国产品、术语优先使用英文</li>
+            </blockquote>-->
+
+            <!-- 标签列表 -->
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="生活">
+                    <span class="tag-text">生活</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-10-12">2018-10-12</time>
+				  <a href="/2018/10/12/%E7%94%9F%E6%B4%BB-Workflow-%E6%8D%B7%E5%BE%84/" title="Workflow（捷径，效率神器）">Workflow（捷径，效率神器）</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/10/12/%E7%94%9F%E6%B4%BB-Workflow-%E6%8D%B7%E5%BE%84/">
+				        <h2 class="post-title">
+                            Workflow（捷径，效率神器）
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            手机和iPad神器，没有之一
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-10-12</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-07-25">2018-07-25</time>
+				  <a href="/2018/07/25/%E7%94%9F%E6%B4%BB-%E5%8C%BA%E5%9D%97%E9%93%BE/" title="区块链">区块链</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/07/25/%E7%94%9F%E6%B4%BB-%E5%8C%BA%E5%9D%97%E9%93%BE/">
+				        <h2 class="post-title">
+                            区块链
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-07-25</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-07-12">2018-07-12</time>
+				  <a href="/2018/07/12/%E7%94%9F%E6%B4%BB-%E7%90%86%E8%B4%A2%E4%BA%A7%E5%93%81%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" title="理财产品基础知识">理财产品基础知识</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/07/12/%E7%94%9F%E6%B4%BB-%E7%90%86%E8%B4%A2%E4%BA%A7%E5%93%81%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">
+				        <h2 class="post-title">
+                            理财产品基础知识
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            转载 七点半理财：
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-07-12</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-07-12">2018-07-12</time>
+				  <a href="/2018/07/12/%E7%94%9F%E6%B4%BB-%E4%BB%80%E4%B9%88%E6%98%AFP2P/" title="什么是P2P">什么是P2P</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/07/12/%E7%94%9F%E6%B4%BB-%E4%BB%80%E4%B9%88%E6%98%AFP2P/">
+				        <h2 class="post-title">
+                            什么是P2P
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            转载七点半理财
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-07-12</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-06-09">2018-06-09</time>
+				  <a href="/2018/06/09/%E7%94%9F%E6%B4%BB-%E8%81%8A%E8%81%8A%E6%91%84%E5%BD%B1%E4%B8%80%E4%BA%9B%E9%87%8D%E8%A6%81%E7%9A%84%E7%9F%A5%E8%AF%86/" title="聊聊摄影一些重要的知识">聊聊摄影一些重要的知识</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/06/09/%E7%94%9F%E6%B4%BB-%E8%81%8A%E8%81%8A%E6%91%84%E5%BD%B1%E4%B8%80%E4%BA%9B%E9%87%8D%E8%A6%81%E7%9A%84%E7%9F%A5%E8%AF%86/">
+				        <h2 class="post-title">
+                            聊聊摄影一些重要的知识
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            转载：toutiao 作者：Shylock想
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-06-09</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-06-09">2018-06-09</time>
+				  <a href="/2018/06/09/%E7%94%9F%E6%B4%BB-%E6%89%8B%E5%86%B2%E5%92%96%E5%95%A1-%E9%9B%AA%E5%86%B0-%E6%98%9F%E5%86%B0%E4%B9%90/" title="手冲咖啡-雪冰、星冰乐">手冲咖啡-雪冰、星冰乐</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/06/09/%E7%94%9F%E6%B4%BB-%E6%89%8B%E5%86%B2%E5%92%96%E5%95%A1-%E9%9B%AA%E5%86%B0-%E6%98%9F%E5%86%B0%E4%B9%90/">
+				        <h2 class="post-title">
+                            手冲咖啡-雪冰、星冰乐
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-06-09</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-06-06">2018-06-06</time>
+				  <a href="/2018/06/06/%E7%94%9F%E6%B4%BB-%E5%8F%A4%E5%85%B8%E4%B9%90/" title="古典乐入门">古典乐入门</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/06/06/%E7%94%9F%E6%B4%BB-%E5%8F%A4%E5%85%B8%E4%B9%90/">
+				        <h2 class="post-title">
+                            古典乐入门
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            🎻
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-06-06</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-06-02">2018-06-02</time>
+				  <a href="/2018/06/02/%E7%94%9F%E6%B4%BB-%E4%BD%9C%E5%93%81%E9%89%B4%E8%B5%8F/" title="作品鉴赏">作品鉴赏</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/06/02/%E7%94%9F%E6%B4%BB-%E4%BD%9C%E5%93%81%E9%89%B4%E8%B5%8F/">
+				        <h2 class="post-title">
+                            作品鉴赏
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-06-02</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-05-09">2018-05-09</time>
+				  <a href="/2018/05/09/%E7%94%9F%E6%B4%BB-%E7%BE%8E%E8%82%A1%E5%BC%80%E6%88%B7%E4%B8%8E%E5%BF%85%E9%9C%80%E7%9F%A5%E6%99%93%E7%9A%84%E5%85%A5%E9%87%91/" title="美股开户与必需知晓的入金">美股开户与必需知晓的入金</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/05/09/%E7%94%9F%E6%B4%BB-%E7%BE%8E%E8%82%A1%E5%BC%80%E6%88%B7%E4%B8%8E%E5%BF%85%E9%9C%80%E7%9F%A5%E6%99%93%E7%9A%84%E5%85%A5%E9%87%91/">
+				        <h2 class="post-title">
+                            美股开户与必需知晓的入金
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            转载：地铁仔
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-05-09</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-05-05">2018-05-05</time>
+				  <a href="/2018/05/05/%E7%94%9F%E6%B4%BB-%E5%86%B0%E6%BB%B4%E5%92%96%E5%95%A1%E5%92%8C%E5%86%B7%E8%90%83%E5%92%96%E5%95%A1%E7%9A%84%E5%8C%BA%E5%88%AB/" title="冰滴、冷泡和冷萃咖啡的区别">冰滴、冷泡和冷萃咖啡的区别</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/05/05/%E7%94%9F%E6%B4%BB-%E5%86%B0%E6%BB%B4%E5%92%96%E5%95%A1%E5%92%8C%E5%86%B7%E8%90%83%E5%92%96%E5%95%A1%E7%9A%84%E5%8C%BA%E5%88%AB/">
+				        <h2 class="post-title">
+                            冰滴、冷泡和冷萃咖啡的区别
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            ☕️
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-05-05</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-04-21">2018-04-21</time>
+				  <a href="/2018/04/21/%E7%94%9F%E6%B4%BB-%E7%A8%8B%E5%BA%8F%E5%91%98%E8%AF%A5%E7%94%A8%E5%93%AA%E7%A7%8D%E5%A7%BF%E5%8A%BF%E6%9D%A5%E7%90%86%E8%B4%A2/" title="程序员该用哪种姿势来理财">程序员该用哪种姿势来理财</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/04/21/%E7%94%9F%E6%B4%BB-%E7%A8%8B%E5%BA%8F%E5%91%98%E8%AF%A5%E7%94%A8%E5%93%AA%E7%A7%8D%E5%A7%BF%E5%8A%BF%E6%9D%A5%E7%90%86%E8%B4%A2/">
+				        <h2 class="post-title">
+                            程序员该用哪种姿势来理财
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            转载：纯洁的微笑
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-04-21</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-04-20">2018-04-20</time>
+				  <a href="/2018/04/20/%E7%94%9F%E6%B4%BB-%E4%BB%AA%E5%BC%8F%E4%B8%8E%E9%85%8D%E6%96%B9/" title="仪式与配方">仪式与配方</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/04/20/%E7%94%9F%E6%B4%BB-%E4%BB%AA%E5%BC%8F%E4%B8%8E%E9%85%8D%E6%96%B9/">
+				        <h2 class="post-title">
+                            仪式与配方
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            🍮🍰☕️
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-04-20</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-04-20">2018-04-20</time>
+				  <a href="/2018/04/20/%E7%94%9F%E6%B4%BB-%E4%B8%80%E4%BA%9B%E4%B9%8B%E5%89%8D%E6%8B%8D%E6%91%84%E7%9A%84%E7%85%A7%E7%89%87/" title="一些之前拍摄的照片">一些之前拍摄的照片</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/04/20/%E7%94%9F%E6%B4%BB-%E4%B8%80%E4%BA%9B%E4%B9%8B%E5%89%8D%E6%8B%8D%E6%91%84%E7%9A%84%E7%85%A7%E7%89%87/">
+				        <h2 class="post-title">
+                            一些之前拍摄的照片
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-04-20</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-04-15">2018-04-15</time>
+				  <a href="/2018/04/15/%E7%94%9F%E6%B4%BB-%E8%81%8A%E8%81%8A%E6%88%91%E7%9A%84%E6%89%8B%E5%86%B2%E5%92%96%E5%95%A1%E5%99%A8%E5%85%B7/" title="聊聊我的手冲咖啡器具">聊聊我的手冲咖啡器具</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/04/15/%E7%94%9F%E6%B4%BB-%E8%81%8A%E8%81%8A%E6%88%91%E7%9A%84%E6%89%8B%E5%86%B2%E5%92%96%E5%95%A1%E5%99%A8%E5%85%B7/">
+				        <h2 class="post-title">
+                            聊聊我的手冲咖啡器具
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            ☕️
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-04-15</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-04-13">2018-04-13</time>
+				  <a href="/2018/04/13/%E7%94%9F%E6%B4%BB-%E4%BA%9A%E9%A9%AC%E9%80%8A%E8%B4%AD%E7%89%A9(%E9%A2%84%E6%8E%88%E6%9D%83)/" title="亚马逊购物(预授权)">亚马逊购物(预授权)</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/04/13/%E7%94%9F%E6%B4%BB-%E4%BA%9A%E9%A9%AC%E9%80%8A%E8%B4%AD%E7%89%A9(%E9%A2%84%E6%8E%88%E6%9D%83)/">
+				        <h2 class="post-title">
+                            亚马逊购物(预授权)
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            👿
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-04-13</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-04-13">2018-04-13</time>
+				  <a href="/2018/04/13/%E7%94%9F%E6%B4%BB-AdBlock%E5%85%8D%E8%B4%B9%E5%8E%BB%E5%B9%BF%E5%91%8A%E7%9A%84%E6%8F%92%E4%BB%B6/" title="AdBlock免费去广告的插件">AdBlock免费去广告的插件</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/04/13/%E7%94%9F%E6%B4%BB-AdBlock%E5%85%8D%E8%B4%B9%E5%8E%BB%E5%B9%BF%E5%91%8A%E7%9A%84%E6%8F%92%E4%BB%B6/">
+				        <h2 class="post-title">
+                            AdBlock免费去广告的插件
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            😛
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-04-13</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-03-02">2018-03-02</time>
+				  <a href="/2018/03/02/%E9%9A%8F%E7%AC%94-%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E7%9A%84%E8%B5%B6%E9%A3%9E%E6%9C%BA/" title="如何正确的赶飞机">如何正确的赶飞机</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/03/02/%E9%9A%8F%E7%AC%94-%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E7%9A%84%E8%B5%B6%E9%A3%9E%E6%9C%BA/">
+				        <h2 class="post-title">
+                            如何正确的赶飞机
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-03-02</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-01-16">2018-01-16</time>
+				  <a href="/2018/01/16/%E7%94%9F%E6%B4%BB-%E8%81%8A%E8%81%8A%E5%88%9D%E5%AD%A6%E8%80%85%E5%AD%A6%E5%90%AC%E5%8F%A4%E5%85%B8%E4%B9%90/" title="聊聊初学者学听古典乐">聊聊初学者学听古典乐</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/01/16/%E7%94%9F%E6%B4%BB-%E8%81%8A%E8%81%8A%E5%88%9D%E5%AD%A6%E8%80%85%E5%AD%A6%E5%90%AC%E5%8F%A4%E5%85%B8%E4%B9%90/">
+				        <h2 class="post-title">
+                            聊聊初学者学听古典乐
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-01-16</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="古典乐">
+                    <span class="tag-text">古典乐</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-01-16">2018-01-16</time>
+				  <a href="/2018/01/16/%E7%94%9F%E6%B4%BB-%E8%81%8A%E8%81%8A%E5%88%9D%E5%AD%A6%E8%80%85%E5%AD%A6%E5%90%AC%E5%8F%A4%E5%85%B8%E4%B9%90/" title="聊聊初学者学听古典乐">聊聊初学者学听古典乐</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/01/16/%E7%94%9F%E6%B4%BB-%E8%81%8A%E8%81%8A%E5%88%9D%E5%AD%A6%E8%80%85%E5%AD%A6%E5%90%AC%E5%8F%A4%E5%85%B8%E4%B9%90/">
+				        <h2 class="post-title">
+                            聊聊初学者学听古典乐
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-01-16</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="自我总结">
+                    <span class="tag-text">自我总结</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-02-17">2019-02-17</time>
+				  <a href="/2019/02/17/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-java8-Lambda%E6%8E%92%E5%BA%8F/" title="java8--Lambda排序">java8--Lambda排序</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/02/17/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-java8-Lambda%E6%8E%92%E5%BA%8F/">
+				        <h2 class="post-title">
+                            java8--Lambda排序
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-02-17</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-02-17">2019-02-17</time>
+				  <a href="/2019/02/17/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-String.format%E8%AF%A6%E8%A7%A3/" title="String.format详解">String.format详解</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/02/17/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-String.format%E8%AF%A6%E8%A7%A3/">
+				        <h2 class="post-title">
+                            String.format详解
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-02-17</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-02-17">2019-02-17</time>
+				  <a href="/2019/02/17/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-PostConstruct%E6%B3%A8%E8%A7%A3/" title="PostConstruct注解">PostConstruct注解</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/02/17/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-PostConstruct%E6%B3%A8%E8%A7%A3/">
+				        <h2 class="post-title">
+                            PostConstruct注解
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-02-17</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-02-05">2019-02-05</time>
+				  <a href="/2019/02/05/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%8B%A6%E6%88%AA%E5%99%A8%E5%A4%84%E7%90%86%E8%B7%A8%E5%9F%9F%E9%AA%8C%E8%AF%81token/" title="微服务拦截器处理跨域验证token">微服务拦截器处理跨域验证token</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/02/05/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%8B%A6%E6%88%AA%E5%99%A8%E5%A4%84%E7%90%86%E8%B7%A8%E5%9F%9F%E9%AA%8C%E8%AF%81token/">
+				        <h2 class="post-title">
+                            微服务拦截器处理跨域验证token
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-02-05</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-02-05">2019-02-05</time>
+				  <a href="/2019/02/05/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-mysql%E8%87%AA%E6%88%91%E6%80%BB%E7%BB%93%E4%B8%80/" title="mysql自我总结一">mysql自我总结一</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/02/05/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-mysql%E8%87%AA%E6%88%91%E6%80%BB%E7%BB%93%E4%B8%80/">
+				        <h2 class="post-title">
+                            mysql自我总结一
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-02-05</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-02-04">2019-02-04</time>
+				  <a href="/2019/02/04/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E5%87%A0%E7%A7%8D%E8%AF%BB%E5%8F%96%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E7%9A%84%E6%96%B9%E6%B3%95/" title="几种读取配置文件的方法">几种读取配置文件的方法</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/02/04/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E5%87%A0%E7%A7%8D%E8%AF%BB%E5%8F%96%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E7%9A%84%E6%96%B9%E6%B3%95/">
+				        <h2 class="post-title">
+                            几种读取配置文件的方法
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-02-04</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-10-27">2018-10-27</time>
+				  <a href="/2018/10/27/%E8%87%AA%E6%88%91%E6%80%BB%E7%BB%93-Spring-MVC-Controller%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E6%80%A7%E9%97%AE%E9%A2%98/" title="Spring MVC Controller线程安全性问题">Spring MVC Controller线程安全性问题</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/10/27/%E8%87%AA%E6%88%91%E6%80%BB%E7%BB%93-Spring-MVC-Controller%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E6%80%A7%E9%97%AE%E9%A2%98/">
+				        <h2 class="post-title">
+                            Spring MVC Controller线程安全性问题
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-10-27</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-10-27">2018-10-27</time>
+				  <a href="/2018/10/27/session-%E5%A4%9A%E5%8F%B0%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%85%B1%E4%BA%ABsession%E9%97%AE%E9%A2%98/" title="多台服务器共享session问题">多台服务器共享session问题</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/10/27/session-%E5%A4%9A%E5%8F%B0%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%85%B1%E4%BA%ABsession%E9%97%AE%E9%A2%98/">
+				        <h2 class="post-title">
+                            多台服务器共享session问题
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-10-27</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-10-27">2018-10-27</time>
+				  <a href="/2018/10/27/Tomcat-Tomcat%E6%94%AF%E6%8C%81%E7%9A%84%E5%9B%9B%E7%A7%8D%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B/" title="Tomcat支持的四种线程模型">Tomcat支持的四种线程模型</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/10/27/Tomcat-Tomcat%E6%94%AF%E6%8C%81%E7%9A%84%E5%9B%9B%E7%A7%8D%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B/">
+				        <h2 class="post-title">
+                            Tomcat支持的四种线程模型
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-10-27</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-10-27">2018-10-27</time>
+				  <a href="/2018/10/27/MongoDB-MongoDB%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%BB%8B%E7%BB%8D/" title="MongoDB的数据类型介绍">MongoDB的数据类型介绍</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/10/27/MongoDB-MongoDB%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%BB%8B%E7%BB%8D/">
+				        <h2 class="post-title">
+                            MongoDB的数据类型介绍
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-10-27</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-09-09">2018-09-09</time>
+				  <a href="/2018/09/09/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Java8%E6%96%B0%E7%89%B9%E6%80%A7%E5%AE%9E%E6%88%98/" title="Java8新特性实战">Java8新特性实战</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/09/09/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Java8%E6%96%B0%E7%89%B9%E6%80%A7%E5%AE%9E%E6%88%98/">
+				        <h2 class="post-title">
+                            Java8新特性实战
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-09-09</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-08-18">2018-08-18</time>
+				  <a href="/2018/08/18/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-MongoDB%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/" title="MongoDB常用操作">MongoDB常用操作</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/08/18/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-MongoDB%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/">
+				        <h2 class="post-title">
+                            MongoDB常用操作
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-08-18</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-07-10">2018-07-10</time>
+				  <a href="/2018/07/10/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Java8%E6%96%B0%E7%89%B9%E6%80%A7%E6%8C%87%E5%8D%97/" title="自我总结Java8新特性">自我总结Java8新特性</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/07/10/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Java8%E6%96%B0%E7%89%B9%E6%80%A7%E6%8C%87%E5%8D%97/">
+				        <h2 class="post-title">
+                            自我总结Java8新特性
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            🧐
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-07-10</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-07-10">2018-07-10</time>
+				  <a href="/2018/07/10/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Java8%E4%B9%8B%E5%89%8D%E7%89%88%E6%9C%AC%E7%9A%84%E7%89%B9%E6%80%A7/" title="Java8之前版本的特性">Java8之前版本的特性</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/07/10/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Java8%E4%B9%8B%E5%89%8D%E7%89%88%E6%9C%AC%E7%9A%84%E7%89%B9%E6%80%A7/">
+				        <h2 class="post-title">
+                            Java8之前版本的特性
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            转载：王爵nice
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-07-10</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-07-03">2018-07-03</time>
+				  <a href="/2018/07/03/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-HttpClient%E4%B9%8BGet/" title="HttpClient之Get">HttpClient之Get</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/07/03/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-HttpClient%E4%B9%8BGet/">
+				        <h2 class="post-title">
+                            HttpClient之Get
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-07-03</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-06-17">2018-06-17</time>
+				  <a href="/2018/06/17/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E8%87%AA%E6%88%91%E6%80%BB%E7%BB%93Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80%E7%AF%87-%E4%B8%80/" title="自我总结Java并发编程基础篇（一）">自我总结Java并发编程基础篇（一）</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/06/17/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E8%87%AA%E6%88%91%E6%80%BB%E7%BB%93Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80%E7%AF%87-%E4%B8%80/">
+				        <h2 class="post-title">
+                            自我总结Java并发编程基础篇（一）
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-06-17</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-04-15">2018-04-15</time>
+				  <a href="/2018/04/15/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/" title="跨域问题">跨域问题</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/04/15/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/">
+				        <h2 class="post-title">
+                            跨域问题
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            😈
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-04-15</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-04-12">2018-04-12</time>
+				  <a href="/2018/04/12/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E5%9C%A8Controller%E4%B8%8A%E4%BD%BF%E7%94%A8@CrossOrigin%E6%B3%A8%E8%A7%A3/" title="Controller上使用@CrossOrigin注解">Controller上使用@CrossOrigin注解</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/04/12/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E5%9C%A8Controller%E4%B8%8A%E4%BD%BF%E7%94%A8@CrossOrigin%E6%B3%A8%E8%A7%A3/">
+				        <h2 class="post-title">
+                            Controller上使用@CrossOrigin注解
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            😅
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-04-12</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-04-12">2018-04-12</time>
+				  <a href="/2018/04/12/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-window.location.href.indexOf/" title="window.location.href.indexOf">window.location.href.indexOf</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/04/12/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-window.location.href.indexOf/">
+				        <h2 class="post-title">
+                            window.location.href.indexOf
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            😼
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-04-12</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-04-12">2018-04-12</time>
+				  <a href="/2018/04/12/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-java%E7%88%AC%E8%99%AB%E4%B9%8B%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="java爬虫之正则表达式">java爬虫之正则表达式</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/04/12/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-java%E7%88%AC%E8%99%AB%E4%B9%8B%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">
+				        <h2 class="post-title">
+                            java爬虫之正则表达式
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            🐛🐍
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-04-12</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-04-12">2018-04-12</time>
+				  <a href="/2018/04/12/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Tomcat%E5%90%AF%E5%8A%A8%E6%8A%A5%E9%94%99/" title="Tomcat启动报错">Tomcat启动报错</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/04/12/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Tomcat%E5%90%AF%E5%8A%A8%E6%8A%A5%E9%94%99/">
+				        <h2 class="post-title">
+                            Tomcat启动报错
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            🙈
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-04-12</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-04-12">2018-04-12</time>
+				  <a href="/2018/04/12/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-SpringContextHolder-%E9%9D%99%E6%80%81%E6%8C%81%E6%9C%89SpringContext%E7%9A%84%E5%BC%95%E7%94%A8/" title="SpringContextHolder静态持有SpringContext的引用">SpringContextHolder静态持有SpringContext的引用</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/04/12/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-SpringContextHolder-%E9%9D%99%E6%80%81%E6%8C%81%E6%9C%89SpringContext%E7%9A%84%E5%BC%95%E7%94%A8/">
+				        <h2 class="post-title">
+                            SpringContextHolder静态持有SpringContext的引用
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            转载江南烟雨
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-04-12</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-04-07">2018-04-07</time>
+				  <a href="/2018/04/07/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E5%B8%B8%E7%94%A8xml%E5%A4%B4%E6%96%87%E4%BB%B6/" title="常用xml头文件">常用xml头文件</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/04/07/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E5%B8%B8%E7%94%A8xml%E5%A4%B4%E6%96%87%E4%BB%B6/">
+				        <h2 class="post-title">
+                            常用xml头文件
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            👊🏿
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-04-07</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-04-07">2018-04-07</time>
+				  <a href="/2018/04/07/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-SpringDataJPA%E5%87%A0%E7%A7%8Dsql%E6%96%B9%E5%BC%8F/" title="SpringDataJPA几种sql方式">SpringDataJPA几种sql方式</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/04/07/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-SpringDataJPA%E5%87%A0%E7%A7%8Dsql%E6%96%B9%E5%BC%8F/">
+				        <h2 class="post-title">
+                            SpringDataJPA几种sql方式
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            👣
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-04-07</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-04-07">2018-04-07</time>
+				  <a href="/2018/04/07/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-HttpClientDemo/" title="HttpClientTest">HttpClientTest</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/04/07/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-HttpClientDemo/">
+				        <h2 class="post-title">
+                            HttpClientTest
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            ✍🏻
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-04-07</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-03-28">2018-03-28</time>
+				  <a href="/2018/03/28/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Quartz%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/" title="Quartz遇到的问题">Quartz遇到的问题</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/03/28/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Quartz%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/">
+				        <h2 class="post-title">
+                            Quartz遇到的问题
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            🤔
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-03-28</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-03-28">2018-03-28</time>
+				  <a href="/2018/03/28/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-List%E5%8E%BB%E9%87%8D/" title="List去重">List去重</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/03/28/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-List%E5%8E%BB%E9%87%8D/">
+				        <h2 class="post-title">
+                            List去重
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            方便复制粘贴
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-03-28</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-03-08">2018-03-08</time>
+				  <a href="/2018/03/08/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%93(%E5%9B%9B)/" title="设计模式总结(四)">设计模式总结(四)</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/03/08/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%93(%E5%9B%9B)/">
+				        <h2 class="post-title">
+                            设计模式总结(四)
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            Always on the way of programming.
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-03-08</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-03-05">2018-03-05</time>
+				  <a href="/2018/03/05/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%93(%E4%B8%89)/" title="设计模式总结(三)">设计模式总结(三)</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/03/05/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%93(%E4%B8%89)/">
+				        <h2 class="post-title">
+                            设计模式总结(三)
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            Always on the way of programming.
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-03-05</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-03-02">2018-03-02</time>
+				  <a href="/2018/03/02/%E8%87%AA%E6%88%91%E6%80%BB%E7%BB%93-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%93(%E4%BA%8C)/" title="设计模式总结(二)">设计模式总结(二)</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/03/02/%E8%87%AA%E6%88%91%E6%80%BB%E7%BB%93-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%93(%E4%BA%8C)/">
+				        <h2 class="post-title">
+                            设计模式总结(二)
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            Always on the way of programming.
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-03-02</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-02-04">2018-02-04</time>
+				  <a href="/2018/02/04/%E8%87%AA%E6%88%91%E6%80%BB%E7%BB%93-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%93(%E4%B8%80)/" title="设计模式总结(一)">设计模式总结(一)</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/02/04/%E8%87%AA%E6%88%91%E6%80%BB%E7%BB%93-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%93(%E4%B8%80)/">
+				        <h2 class="post-title">
+                            设计模式总结(一)
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            Always on the way of programming.
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-02-04</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="编程之路">
+                    <span class="tag-text">编程之路</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-02-17">2019-02-17</time>
+				  <a href="/2019/02/17/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E7%AE%A1%E7%90%86bean%E4%BA%8C%E7%A7%8D%E6%96%B9%E5%BC%8F/" title="动态代理管理bean二种方式">动态代理管理bean二种方式</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/02/17/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E7%AE%A1%E7%90%86bean%E4%BA%8C%E7%A7%8D%E6%96%B9%E5%BC%8F/">
+				        <h2 class="post-title">
+                            动态代理管理bean二种方式
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-02-17</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-02-17">2019-02-17</time>
+				  <a href="/2019/02/17/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-zipkin%E5%88%86%E5%B8%83%E5%BC%8F%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/" title="zipkin分布式链路追踪">zipkin分布式链路追踪</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/02/17/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-zipkin%E5%88%86%E5%B8%83%E5%BC%8F%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/">
+				        <h2 class="post-title">
+                            zipkin分布式链路追踪
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-02-17</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-02-17">2019-02-17</time>
+				  <a href="/2019/02/17/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-java8-Lambda%E6%8E%92%E5%BA%8F/" title="java8--Lambda排序">java8--Lambda排序</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/02/17/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-java8-Lambda%E6%8E%92%E5%BA%8F/">
+				        <h2 class="post-title">
+                            java8--Lambda排序
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-02-17</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-02-17">2019-02-17</time>
+				  <a href="/2019/02/17/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-dubbo-admin/" title="dubbo admin">dubbo admin</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/02/17/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-dubbo-admin/">
+				        <h2 class="post-title">
+                            dubbo admin
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-02-17</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-02-17">2019-02-17</time>
+				  <a href="/2019/02/17/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-String.format%E8%AF%A6%E8%A7%A3/" title="String.format详解">String.format详解</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/02/17/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-String.format%E8%AF%A6%E8%A7%A3/">
+				        <h2 class="post-title">
+                            String.format详解
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-02-17</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-02-17">2019-02-17</time>
+				  <a href="/2019/02/17/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-PostConstruct%E6%B3%A8%E8%A7%A3/" title="PostConstruct注解">PostConstruct注解</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/02/17/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-PostConstruct%E6%B3%A8%E8%A7%A3/">
+				        <h2 class="post-title">
+                            PostConstruct注解
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-02-17</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-02-05">2019-02-05</time>
+				  <a href="/2019/02/05/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%8B%A6%E6%88%AA%E5%99%A8%E5%A4%84%E7%90%86%E8%B7%A8%E5%9F%9F%E9%AA%8C%E8%AF%81token/" title="微服务拦截器处理跨域验证token">微服务拦截器处理跨域验证token</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/02/05/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%8B%A6%E6%88%AA%E5%99%A8%E5%A4%84%E7%90%86%E8%B7%A8%E5%9F%9F%E9%AA%8C%E8%AF%81token/">
+				        <h2 class="post-title">
+                            微服务拦截器处理跨域验证token
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-02-05</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-02-05">2019-02-05</time>
+				  <a href="/2019/02/05/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-mysql%E8%87%AA%E6%88%91%E6%80%BB%E7%BB%93%E4%B8%80/" title="mysql自我总结一">mysql自我总结一</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/02/05/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-mysql%E8%87%AA%E6%88%91%E6%80%BB%E7%BB%93%E4%B8%80/">
+				        <h2 class="post-title">
+                            mysql自我总结一
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-02-05</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-02-04">2019-02-04</time>
+				  <a href="/2019/02/04/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E5%87%A0%E7%A7%8D%E8%AF%BB%E5%8F%96%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E7%9A%84%E6%96%B9%E6%B3%95/" title="几种读取配置文件的方法">几种读取配置文件的方法</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/02/04/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E5%87%A0%E7%A7%8D%E8%AF%BB%E5%8F%96%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E7%9A%84%E6%96%B9%E6%B3%95/">
+				        <h2 class="post-title">
+                            几种读取配置文件的方法
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-02-04</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-11-04">2018-11-04</time>
+				  <a href="/2018/11/04/%E4%BD%BF%E7%94%A8ConfigFilter%E5%9C%A8Spring-Boot%E9%85%8D%E7%BD%AE%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AF%86%E7%A0%81%E5%8A%A0%E8%A7%A3%E5%AF%86/" title="使用ConfigFilter在Spring Boot配置数据库密码加解密">使用ConfigFilter在Spring Boot配置数据库密码加解密</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/11/04/%E4%BD%BF%E7%94%A8ConfigFilter%E5%9C%A8Spring-Boot%E9%85%8D%E7%BD%AE%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AF%86%E7%A0%81%E5%8A%A0%E8%A7%A3%E5%AF%86/">
+				        <h2 class="post-title">
+                            使用ConfigFilter在Spring Boot配置数据库密码加解密
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-11-04</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-10-27">2018-10-27</time>
+				  <a href="/2018/10/27/%E8%87%AA%E6%88%91%E6%80%BB%E7%BB%93-Spring-MVC-Controller%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E6%80%A7%E9%97%AE%E9%A2%98/" title="Spring MVC Controller线程安全性问题">Spring MVC Controller线程安全性问题</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/10/27/%E8%87%AA%E6%88%91%E6%80%BB%E7%BB%93-Spring-MVC-Controller%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E6%80%A7%E9%97%AE%E9%A2%98/">
+				        <h2 class="post-title">
+                            Spring MVC Controller线程安全性问题
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-10-27</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-10-27">2018-10-27</time>
+				  <a href="/2018/10/27/shiro-shiro(%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86%E6%A1%86%E6%9E%B6)/" title="shiro各个组件及概念">shiro各个组件及概念</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/10/27/shiro-shiro(%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86%E6%A1%86%E6%9E%B6)/">
+				        <h2 class="post-title">
+                            shiro各个组件及概念
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-10-27</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-10-27">2018-10-27</time>
+				  <a href="/2018/10/27/session-%E5%A4%9A%E5%8F%B0%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%85%B1%E4%BA%ABsession%E9%97%AE%E9%A2%98/" title="多台服务器共享session问题">多台服务器共享session问题</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/10/27/session-%E5%A4%9A%E5%8F%B0%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%85%B1%E4%BA%ABsession%E9%97%AE%E9%A2%98/">
+				        <h2 class="post-title">
+                            多台服务器共享session问题
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-10-27</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-10-27">2018-10-27</time>
+				  <a href="/2018/10/27/Tomcat-Tomcat%E6%94%AF%E6%8C%81%E7%9A%84%E5%9B%9B%E7%A7%8D%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B/" title="Tomcat支持的四种线程模型">Tomcat支持的四种线程模型</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/10/27/Tomcat-Tomcat%E6%94%AF%E6%8C%81%E7%9A%84%E5%9B%9B%E7%A7%8D%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B/">
+				        <h2 class="post-title">
+                            Tomcat支持的四种线程模型
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-10-27</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-10-27">2018-10-27</time>
+				  <a href="/2018/10/27/MongoDB-MongoDB%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%BB%8B%E7%BB%8D/" title="MongoDB的数据类型介绍">MongoDB的数据类型介绍</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/10/27/MongoDB-MongoDB%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%BB%8B%E7%BB%8D/">
+				        <h2 class="post-title">
+                            MongoDB的数据类型介绍
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-10-27</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-09-09">2018-09-09</time>
+				  <a href="/2018/09/09/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Java8%E6%96%B0%E7%89%B9%E6%80%A7%E5%AE%9E%E6%88%98/" title="Java8新特性实战">Java8新特性实战</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/09/09/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Java8%E6%96%B0%E7%89%B9%E6%80%A7%E5%AE%9E%E6%88%98/">
+				        <h2 class="post-title">
+                            Java8新特性实战
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-09-09</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-08-18">2018-08-18</time>
+				  <a href="/2018/08/18/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-MongoDB%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/" title="MongoDB常用操作">MongoDB常用操作</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/08/18/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-MongoDB%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/">
+				        <h2 class="post-title">
+                            MongoDB常用操作
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-08-18</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-08-13">2018-08-13</time>
+				  <a href="/2018/08/13/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-UUID/" title="UUID">UUID</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/08/13/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-UUID/">
+				        <h2 class="post-title">
+                            UUID
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-08-13</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-08-11">2018-08-11</time>
+				  <a href="/2018/08/11/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Java%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B3%A8%E8%A7%A3/" title="Java自定义注解">Java自定义注解</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/08/11/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Java%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B3%A8%E8%A7%A3/">
+				        <h2 class="post-title">
+                            Java自定义注解
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-08-11</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-08-11">2018-08-11</time>
+				  <a href="/2018/08/11/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Java%E6%B3%A8%E8%A7%A3%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/" title="Java注解及其应用">Java注解及其应用</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/08/11/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Java%E6%B3%A8%E8%A7%A3%E5%8F%8A%E5%85%B6%E5%BA%94%E7%94%A8/">
+				        <h2 class="post-title">
+                            Java注解及其应用
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-08-11</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-08-11">2018-08-11</time>
+				  <a href="/2018/08/11/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Java8%E6%96%B0%E7%89%B9%E6%80%A7Base64%E7%BB%93%E5%90%88MD5%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86/" title="Java8新特性Base64结合MD5对称加密">Java8新特性Base64结合MD5对称加密</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/08/11/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Java8%E6%96%B0%E7%89%B9%E6%80%A7Base64%E7%BB%93%E5%90%88MD5%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86/">
+				        <h2 class="post-title">
+                            Java8新特性Base64结合MD5对称加密
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-08-11</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-08-03">2018-08-03</time>
+				  <a href="/2018/08/03/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E8%AE%BE%E8%AE%A1%E5%90%8E%E5%8F%B0%E6%8E%A5%E5%8F%A3%E5%B9%82%E7%AD%89/" title="设计后台接口幂等">设计后台接口幂等</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/08/03/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E8%AE%BE%E8%AE%A1%E5%90%8E%E5%8F%B0%E6%8E%A5%E5%8F%A3%E5%B9%82%E7%AD%89/">
+				        <h2 class="post-title">
+                            设计后台接口幂等
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-08-03</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-08-03">2018-08-03</time>
+				  <a href="/2018/08/03/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-MD5%E5%9C%A8Java%E4%B8%AD%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/" title="MD5在Java中的实现方式">MD5在Java中的实现方式</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/08/03/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-MD5%E5%9C%A8Java%E4%B8%AD%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/">
+				        <h2 class="post-title">
+                            MD5在Java中的实现方式
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-08-03</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-07-28">2018-07-28</time>
+				  <a href="/2018/07/28/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-ZooKeeper%E5%8E%9F%E7%90%86%E4%B8%8E%E5%BA%94%E7%94%A8/" title="ZooKeeper原理与应用">ZooKeeper原理与应用</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/07/28/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-ZooKeeper%E5%8E%9F%E7%90%86%E4%B8%8E%E5%BA%94%E7%94%A8/">
+				        <h2 class="post-title">
+                            ZooKeeper原理与应用
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-07-28</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-07-20">2018-07-20</time>
+				  <a href="/2018/07/20/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-springboot%E6%95%B4%E5%90%88shiro/" title="springboot整合shiro">springboot整合shiro</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/07/20/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-springboot%E6%95%B4%E5%90%88shiro/">
+				        <h2 class="post-title">
+                            springboot整合shiro
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-07-20</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-07-17">2018-07-17</time>
+				  <a href="/2018/07/17/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E4%B8%80%E4%B8%AA%E5%90%8E%E5%8F%B0%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" title="一个后台管理系统">一个后台管理系统</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/07/17/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E4%B8%80%E4%B8%AA%E5%90%8E%E5%8F%B0%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/">
+				        <h2 class="post-title">
+                            一个后台管理系统
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-07-17</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-07-14">2018-07-14</time>
+				  <a href="/2018/07/14/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-JQuery-EasyUI%E5%B1%9E%E6%80%A7%E5%92%8C%E5%B8%B8%E8%A7%81%E7%94%A8%E6%B3%95/" title="JQuery EasyUI属性和常见用法">JQuery EasyUI属性和常见用法</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/07/14/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-JQuery-EasyUI%E5%B1%9E%E6%80%A7%E5%92%8C%E5%B8%B8%E8%A7%81%E7%94%A8%E6%B3%95/">
+				        <h2 class="post-title">
+                            JQuery EasyUI属性和常见用法
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-07-14</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-07-10">2018-07-10</time>
+				  <a href="/2018/07/10/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Java8%E6%96%B0%E7%89%B9%E6%80%A7%E6%8C%87%E5%8D%97/" title="自我总结Java8新特性">自我总结Java8新特性</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/07/10/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Java8%E6%96%B0%E7%89%B9%E6%80%A7%E6%8C%87%E5%8D%97/">
+				        <h2 class="post-title">
+                            自我总结Java8新特性
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            🧐
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-07-10</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-07-10">2018-07-10</time>
+				  <a href="/2018/07/10/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Java8%E4%B9%8B%E5%89%8D%E7%89%88%E6%9C%AC%E7%9A%84%E7%89%B9%E6%80%A7/" title="Java8之前版本的特性">Java8之前版本的特性</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/07/10/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Java8%E4%B9%8B%E5%89%8D%E7%89%88%E6%9C%AC%E7%9A%84%E7%89%B9%E6%80%A7/">
+				        <h2 class="post-title">
+                            Java8之前版本的特性
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            转载：王爵nice
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-07-10</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-07-08">2018-07-08</time>
+				  <a href="/2018/07/08/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-DownloadBase64Png/" title="DownloadBase64Png">DownloadBase64Png</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/07/08/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-DownloadBase64Png/">
+				        <h2 class="post-title">
+                            DownloadBase64Png
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            😏
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-07-08</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-07-03">2018-07-03</time>
+				  <a href="/2018/07/03/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-HttpClient%E4%B9%8BGet/" title="HttpClient之Get">HttpClient之Get</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/07/03/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-HttpClient%E4%B9%8BGet/">
+				        <h2 class="post-title">
+                            HttpClient之Get
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-07-03</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-06-18">2018-06-18</time>
+				  <a href="/2018/06/18/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-MySQL%E4%BC%98%E5%8C%96%E6%80%BB%E7%BB%93+%E8%87%AA%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0%E4%B9%8B%E9%80%92%E5%BD%92/" title="MySQL优化总结+自定义函数之递归">MySQL优化总结+自定义函数之递归</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/06/18/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-MySQL%E4%BC%98%E5%8C%96%E6%80%BB%E7%BB%93+%E8%87%AA%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0%E4%B9%8B%E9%80%92%E5%BD%92/">
+				        <h2 class="post-title">
+                            MySQL优化总结+自定义函数之递归
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-06-18</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-06-17">2018-06-17</time>
+				  <a href="/2018/06/17/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E8%87%AA%E6%88%91%E6%80%BB%E7%BB%93Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80%E7%AF%87-%E4%B8%80/" title="自我总结Java并发编程基础篇（一）">自我总结Java并发编程基础篇（一）</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/06/17/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E8%87%AA%E6%88%91%E6%80%BB%E7%BB%93Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80%E7%AF%87-%E4%B8%80/">
+				        <h2 class="post-title">
+                            自我总结Java并发编程基础篇（一）
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-06-17</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-06-03">2018-06-03</time>
+				  <a href="/2018/06/03/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-lombok%E7%9A%84%E4%BD%BF%E7%94%A8/" title="lombok的使用">lombok的使用</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/06/03/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-lombok%E7%9A%84%E4%BD%BF%E7%94%A8/">
+				        <h2 class="post-title">
+                            lombok的使用
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-06-03</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-06-03">2018-06-03</time>
+				  <a href="/2018/06/03/%E7%94%9F%E6%B4%BB-win%E5%92%8CMac%E9%AB%98%E6%95%88%E7%8E%87%E8%BD%AF%E4%BB%B6/" title="win和Mac高效率软件(持续更新)">win和Mac高效率软件(持续更新)</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/06/03/%E7%94%9F%E6%B4%BB-win%E5%92%8CMac%E9%AB%98%E6%95%88%E7%8E%87%E8%BD%AF%E4%BB%B6/">
+				        <h2 class="post-title">
+                            win和Mac高效率软件(持续更新)
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-06-03</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-06-02">2018-06-02</time>
+				  <a href="/2018/06/02/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-vulrt%E7%BF%BB%E5%A2%99%E9%97%AE%E9%A2%98/" title="vulrt翻墙问题">vulrt翻墙问题</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/06/02/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-vulrt%E7%BF%BB%E5%A2%99%E9%97%AE%E9%A2%98/">
+				        <h2 class="post-title">
+                            vulrt翻墙问题
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            ✍🏻
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-06-02</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-05-27">2018-05-27</time>
+				  <a href="/2018/05/27/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Java%E5%B8%B8%E7%94%A8%E9%9B%86%E5%90%88%E5%8C%BA%E5%88%AB%E5%8F%8A%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF%E6%80%BB%E7%BB%93/" title="Java常用集合区别及适用场景总结">Java常用集合区别及适用场景总结</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/05/27/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Java%E5%B8%B8%E7%94%A8%E9%9B%86%E5%90%88%E5%8C%BA%E5%88%AB%E5%8F%8A%E9%80%82%E7%94%A8%E5%9C%BA%E6%99%AF%E6%80%BB%E7%BB%93/">
+				        <h2 class="post-title">
+                            Java常用集合区别及适用场景总结
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-05-27</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-05-26">2018-05-26</time>
+				  <a href="/2018/05/26/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-idea-Jrebel-%E6%9C%80%E6%96%B0%E7%89%88%E7%A0%B4%E8%A7%A3%E6%95%99%E7%A8%8B/" title="idea Jrebel 最新版破解教程">idea Jrebel 最新版破解教程</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/05/26/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-idea-Jrebel-%E6%9C%80%E6%96%B0%E7%89%88%E7%A0%B4%E8%A7%A3%E6%95%99%E7%A8%8B/">
+				        <h2 class="post-title">
+                            idea Jrebel 最新版破解教程
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            ✍🏽
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-05-26</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-05-26">2018-05-26</time>
+				  <a href="/2018/05/26/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-DB%E5%B1%82%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86/" title="DB层对称加密">DB层对称加密</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/05/26/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-DB%E5%B1%82%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86/">
+				        <h2 class="post-title">
+                            DB层对称加密
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            🧐
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-05-26</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-05-20">2018-05-20</time>
+				  <a href="/2018/05/20/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E5%88%86%E5%B8%83%E5%BC%8F%E4%B9%8B%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E5%A4%8D%E4%B9%A0/" title="分布式之消息队列复习">分布式之消息队列复习</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/05/20/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E5%88%86%E5%B8%83%E5%BC%8F%E4%B9%8B%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E5%A4%8D%E4%B9%A0/">
+				        <h2 class="post-title">
+                            分布式之消息队列复习
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            转载：孤独烟 IT轻社区
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-05-20</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-05-20">2018-05-20</time>
+				  <a href="/2018/05/20/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Linux%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" title="Linux环境搭建">Linux环境搭建</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/05/20/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Linux%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
+				        <h2 class="post-title">
+                            Linux环境搭建
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-05-20</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-05-19">2018-05-19</time>
+				  <a href="/2018/05/19/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E5%A4%8D%E4%B9%A0%E5%B8%B8%E7%94%A8%E6%8A%80%E6%9C%AF%E6%A1%86%E6%9E%B6/" title="复习常用技术框架">复习常用技术框架</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/05/19/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E5%A4%8D%E4%B9%A0%E5%B8%B8%E7%94%A8%E6%8A%80%E6%9C%AF%E6%A1%86%E6%9E%B6/">
+				        <h2 class="post-title">
+                            复习常用技术框架
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            🧐
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-05-19</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-05-07">2018-05-07</time>
+				  <a href="/2018/05/07/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-mysql%E5%A4%9A%E8%A1%A8%E6%8F%92%E5%85%A5/" title="mysql多表插入">mysql多表插入</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/05/07/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-mysql%E5%A4%9A%E8%A1%A8%E6%8F%92%E5%85%A5/">
+				        <h2 class="post-title">
+                            mysql多表插入
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-05-07</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-05-04">2018-05-04</time>
+				  <a href="/2018/05/04/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E4%B8%BB%E6%B5%81Java%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5%E6%B1%A0%E6%AF%94%E8%BE%83/" title="主流Java数据库连接池比较">主流Java数据库连接池比较</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/05/04/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E4%B8%BB%E6%B5%81Java%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5%E6%B1%A0%E6%AF%94%E8%BE%83/">
+				        <h2 class="post-title">
+                            主流Java数据库连接池比较
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            转载自微信公众号「工匠小猪猪的技术世界」
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-05-04</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-05-02">2018-05-02</time>
+				  <a href="/2018/05/02/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-MySql%E4%BC%98%E5%8C%96%E5%8E%9F%E7%90%86/" title="MySql优化原理">MySql优化原理</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/05/02/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-MySql%E4%BC%98%E5%8C%96%E5%8E%9F%E7%90%86/">
+				        <h2 class="post-title">
+                            MySql优化原理
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            转载：CHEN川
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-05-02</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-04-30">2018-04-30</time>
+				  <a href="/2018/04/30/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-jvm%E7%B3%BB%E5%88%97(%E4%B8%89)-GC%E7%AE%97%E6%B3%95-%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/" title="jvm系列(三)：GC算法、垃圾收集器">jvm系列(三)：GC算法、垃圾收集器</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/04/30/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-jvm%E7%B3%BB%E5%88%97(%E4%B8%89)-GC%E7%AE%97%E6%B3%95-%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/">
+				        <h2 class="post-title">
+                            jvm系列(三)：GC算法、垃圾收集器
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-04-30</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-04-29">2018-04-29</time>
+				  <a href="/2018/04/29/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-jvm%E7%B3%BB%E5%88%97(%E4%BA%8C)-%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F%E4%B8%8E%E5%86%85%E5%AD%98%E6%BA%A2%E5%87%BA/" title="jvm系列(二)：内存区域与内存溢出">jvm系列(二)：内存区域与内存溢出</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/04/29/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-jvm%E7%B3%BB%E5%88%97(%E4%BA%8C)-%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F%E4%B8%8E%E5%86%85%E5%AD%98%E6%BA%A2%E5%87%BA/">
+				        <h2 class="post-title">
+                            jvm系列(二)：内存区域与内存溢出
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-04-29</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-04-26">2018-04-26</time>
+				  <a href="/2018/04/26/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E6%B5%81%E7%A8%8B/" title="项目开发流程">项目开发流程</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/04/26/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E9%A1%B9%E7%9B%AE%E5%BC%80%E5%8F%91%E6%B5%81%E7%A8%8B/">
+				        <h2 class="post-title">
+                            项目开发流程
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            ☕️
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-04-26</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-04-26">2018-04-26</time>
+				  <a href="/2018/04/26/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-jvm%E7%B3%BB%E5%88%97(%E4%B8%80)-%E7%B1%BB%E7%9A%84%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6%E5%92%8C%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/" title="jvm系列(一)：类的加载机制和文件结构">jvm系列(一)：类的加载机制和文件结构</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/04/26/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-jvm%E7%B3%BB%E5%88%97(%E4%B8%80)-%E7%B1%BB%E7%9A%84%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6%E5%92%8C%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/">
+				        <h2 class="post-title">
+                            jvm系列(一)：类的加载机制和文件结构
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            ✍🏻☕️
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-04-26</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-04-18">2018-04-18</time>
+				  <a href="/2018/04/18/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-shrio%E6%9D%83%E9%99%90%E9%85%8D%E7%BD%AE/" title="shrio权限配置">shrio权限配置</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/04/18/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-shrio%E6%9D%83%E9%99%90%E9%85%8D%E7%BD%AE/">
+				        <h2 class="post-title">
+                            shrio权限配置
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            🤠
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-04-18</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-04-18">2018-04-18</time>
+				  <a href="/2018/04/18/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-shiro%E8%AE%BE%E7%BD%AE%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" title="shiro设置加密算法源码解析">shiro设置加密算法源码解析</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/04/18/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-shiro%E8%AE%BE%E7%BD%AE%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/">
+				        <h2 class="post-title">
+                            shiro设置加密算法源码解析
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-04-18</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-04-17">2018-04-17</time>
+				  <a href="/2018/04/17/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-shiro%E7%9A%84-favicon.ico%E9%97%AE%E9%A2%98/" title="shiro的/favicon.ico问题">shiro的/favicon.ico问题</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/04/17/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-shiro%E7%9A%84-favicon.ico%E9%97%AE%E9%A2%98/">
+				        <h2 class="post-title">
+                            shiro的/favicon.ico问题
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            ✍🏻
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-04-17</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-04-17">2018-04-17</time>
+				  <a href="/2018/04/17/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-oracle%E6%95%B4%E5%90%88%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/" title="oracle整合遇到的问题">oracle整合遇到的问题</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/04/17/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-oracle%E6%95%B4%E5%90%88%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/">
+				        <h2 class="post-title">
+                            oracle整合遇到的问题
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-04-17</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-04-15">2018-04-15</time>
+				  <a href="/2018/04/15/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/" title="跨域问题">跨域问题</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/04/15/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/">
+				        <h2 class="post-title">
+                            跨域问题
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            😈
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-04-15</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-04-15">2018-04-15</time>
+				  <a href="/2018/04/15/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Maven%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" title="Maven配置文件">Maven配置文件</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/04/15/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Maven%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/">
+				        <h2 class="post-title">
+                            Maven配置文件
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            🤓
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-04-15</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-04-15">2018-04-15</time>
+				  <a href="/2018/04/15/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Map%E5%B0%81%E8%A3%85-(%E4%B8%80%E4%B8%AA%E9%94%AE%E5%A4%9A%E4%B8%AA%E5%80%BC)/" title="Map封装 (一个键多个值)">Map封装 (一个键多个值)</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/04/15/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Map%E5%B0%81%E8%A3%85-(%E4%B8%80%E4%B8%AA%E9%94%AE%E5%A4%9A%E4%B8%AA%E5%80%BC)/">
+				        <h2 class="post-title">
+                            Map封装 (一个键多个值)
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            转载
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-04-15</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-04-15">2018-04-15</time>
+				  <a href="/2018/04/15/%E7%94%9F%E6%B4%BB-%E8%81%8A%E8%81%8A%E6%88%91%E7%9A%84%E6%89%8B%E5%86%B2%E5%92%96%E5%95%A1%E5%99%A8%E5%85%B7/" title="聊聊我的手冲咖啡器具">聊聊我的手冲咖啡器具</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/04/15/%E7%94%9F%E6%B4%BB-%E8%81%8A%E8%81%8A%E6%88%91%E7%9A%84%E6%89%8B%E5%86%B2%E5%92%96%E5%95%A1%E5%99%A8%E5%85%B7/">
+				        <h2 class="post-title">
+                            聊聊我的手冲咖啡器具
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            ☕️
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-04-15</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-04-12">2018-04-12</time>
+				  <a href="/2018/04/12/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E5%9C%A8Controller%E4%B8%8A%E4%BD%BF%E7%94%A8@CrossOrigin%E6%B3%A8%E8%A7%A3/" title="Controller上使用@CrossOrigin注解">Controller上使用@CrossOrigin注解</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/04/12/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E5%9C%A8Controller%E4%B8%8A%E4%BD%BF%E7%94%A8@CrossOrigin%E6%B3%A8%E8%A7%A3/">
+				        <h2 class="post-title">
+                            Controller上使用@CrossOrigin注解
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            😅
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-04-12</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-04-12">2018-04-12</time>
+				  <a href="/2018/04/12/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-window.location.href.indexOf/" title="window.location.href.indexOf">window.location.href.indexOf</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/04/12/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-window.location.href.indexOf/">
+				        <h2 class="post-title">
+                            window.location.href.indexOf
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            😼
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-04-12</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-04-12">2018-04-12</time>
+				  <a href="/2018/04/12/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-java%E7%88%AC%E8%99%AB%E4%B9%8B%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="java爬虫之正则表达式">java爬虫之正则表达式</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/04/12/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-java%E7%88%AC%E8%99%AB%E4%B9%8B%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">
+				        <h2 class="post-title">
+                            java爬虫之正则表达式
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            🐛🐍
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-04-12</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-04-12">2018-04-12</time>
+				  <a href="/2018/04/12/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Tomcat%E5%90%AF%E5%8A%A8%E6%8A%A5%E9%94%99/" title="Tomcat启动报错">Tomcat启动报错</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/04/12/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Tomcat%E5%90%AF%E5%8A%A8%E6%8A%A5%E9%94%99/">
+				        <h2 class="post-title">
+                            Tomcat启动报错
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            🙈
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-04-12</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-04-12">2018-04-12</time>
+				  <a href="/2018/04/12/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-SpringContextHolder-%E9%9D%99%E6%80%81%E6%8C%81%E6%9C%89SpringContext%E7%9A%84%E5%BC%95%E7%94%A8/" title="SpringContextHolder静态持有SpringContext的引用">SpringContextHolder静态持有SpringContext的引用</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/04/12/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-SpringContextHolder-%E9%9D%99%E6%80%81%E6%8C%81%E6%9C%89SpringContext%E7%9A%84%E5%BC%95%E7%94%A8/">
+				        <h2 class="post-title">
+                            SpringContextHolder静态持有SpringContext的引用
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            转载江南烟雨
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-04-12</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-04-12">2018-04-12</time>
+				  <a href="/2018/04/12/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-ChromeGoogle%E7%99%BB%E5%BD%95%E4%B8%8D%E4%BA%86/" title="Chrome Google登录不了">Chrome Google登录不了</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/04/12/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-ChromeGoogle%E7%99%BB%E5%BD%95%E4%B8%8D%E4%BA%86/">
+				        <h2 class="post-title">
+                            Chrome Google登录不了
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            🌕
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-04-12</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-04-08">2018-04-08</time>
+				  <a href="/2018/04/08/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E4%B8%8D%E5%80%9F%E7%94%A8%E7%AC%AC%E4%B8%89%E4%B8%AA%E5%8F%98%E9%87%8F,%E6%80%8E%E4%B9%88%E6%8A%8Aa,b%E7%9A%84%E5%80%BC%E4%BA%92%E6%8D%A2/" title="不借用第三个变量,怎么把a,b的值互换">不借用第三个变量,怎么把a,b的值互换</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/04/08/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E4%B8%8D%E5%80%9F%E7%94%A8%E7%AC%AC%E4%B8%89%E4%B8%AA%E5%8F%98%E9%87%8F,%E6%80%8E%E4%B9%88%E6%8A%8Aa,b%E7%9A%84%E5%80%BC%E4%BA%92%E6%8D%A2/">
+				        <h2 class="post-title">
+                            不借用第三个变量,怎么把a,b的值互换
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            🎧
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-04-08</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-04-07">2018-04-07</time>
+				  <a href="/2018/04/07/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E5%B8%B8%E7%94%A8xml%E5%A4%B4%E6%96%87%E4%BB%B6/" title="常用xml头文件">常用xml头文件</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/04/07/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E5%B8%B8%E7%94%A8xml%E5%A4%B4%E6%96%87%E4%BB%B6/">
+				        <h2 class="post-title">
+                            常用xml头文件
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            👊🏿
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-04-07</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-04-07">2018-04-07</time>
+				  <a href="/2018/04/07/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-SpringDataJPA%E5%87%A0%E7%A7%8Dsql%E6%96%B9%E5%BC%8F/" title="SpringDataJPA几种sql方式">SpringDataJPA几种sql方式</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/04/07/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-SpringDataJPA%E5%87%A0%E7%A7%8Dsql%E6%96%B9%E5%BC%8F/">
+				        <h2 class="post-title">
+                            SpringDataJPA几种sql方式
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            👣
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-04-07</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-04-07">2018-04-07</time>
+				  <a href="/2018/04/07/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-HttpClientDemo/" title="HttpClientTest">HttpClientTest</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/04/07/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-HttpClientDemo/">
+				        <h2 class="post-title">
+                            HttpClientTest
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            ✍🏻
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-04-07</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-04-07">2018-04-07</time>
+				  <a href="/2018/04/07/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Element+Vue.js-%E9%80%89%E6%8B%A9%E5%99%A8%E5%B8%B8%E7%94%A8%E5%B1%9E%E6%80%A7/" title="Element+Vue.js 选择器常用属性">Element+Vue.js 选择器常用属性</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/04/07/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Element+Vue.js-%E9%80%89%E6%8B%A9%E5%99%A8%E5%B8%B8%E7%94%A8%E5%B1%9E%E6%80%A7/">
+				        <h2 class="post-title">
+                            Element+Vue.js 选择器常用属性
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            🎃
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-04-07</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-03-28">2018-03-28</time>
+				  <a href="/2018/03/28/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Quartz%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/" title="Quartz遇到的问题">Quartz遇到的问题</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/03/28/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Quartz%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/">
+				        <h2 class="post-title">
+                            Quartz遇到的问题
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            🤔
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-03-28</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-03-28">2018-03-28</time>
+				  <a href="/2018/03/28/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-List%E5%8E%BB%E9%87%8D/" title="List去重">List去重</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/03/28/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-List%E5%8E%BB%E9%87%8D/">
+				        <h2 class="post-title">
+                            List去重
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            方便复制粘贴
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-03-28</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-03-25">2018-03-25</time>
+				  <a href="/2018/03/25/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-SpringDataJPA/" title="SpringDataJPA">SpringDataJPA</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/03/25/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-SpringDataJPA/">
+				        <h2 class="post-title">
+                            SpringDataJPA
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-03-25</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-03-24">2018-03-24</time>
+				  <a href="/2018/03/24/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Error-during-artifact-deployment.-See-server-log-for-details/" title="IDEA:Error during artifact deployment. See server log for details.详解">IDEA:Error during artifact deployment. See server log for details.详解</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/03/24/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Error-during-artifact-deployment.-See-server-log-for-details/">
+				        <h2 class="post-title">
+                            IDEA:Error during artifact deployment. See server log for details.详解
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-03-24</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-03-23">2018-03-23</time>
+				  <a href="/2018/03/23/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Intellij-IDEA%E8%AE%BE%E7%BD%AEHTTP-Proxy/" title="Intellij IDEA设置HTTP Proxy">Intellij IDEA设置HTTP Proxy</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/03/23/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Intellij-IDEA%E8%AE%BE%E7%BD%AEHTTP-Proxy/">
+				        <h2 class="post-title">
+                            Intellij IDEA设置HTTP Proxy
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-03-23</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-03-16">2018-03-16</time>
+				  <a href="/2018/03/16/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-quartz%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1/" title="Quartz定时任务">Quartz定时任务</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/03/16/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-quartz%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1/">
+				        <h2 class="post-title">
+                            Quartz定时任务
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            Always on the way of programming.
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-03-16</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-03-08">2018-03-08</time>
+				  <a href="/2018/03/08/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%93(%E5%9B%9B)/" title="设计模式总结(四)">设计模式总结(四)</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/03/08/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%93(%E5%9B%9B)/">
+				        <h2 class="post-title">
+                            设计模式总结(四)
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            Always on the way of programming.
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-03-08</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-03-08">2018-03-08</time>
+				  <a href="/2018/03/08/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-JDK-10%E4%B8%AD%E7%9A%84109%E4%B8%AA%E6%96%B0%E5%8A%9F%E8%83%BD/" title="JDK10中的109个新功能">JDK10中的109个新功能</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/03/08/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-JDK-10%E4%B8%AD%E7%9A%84109%E4%B8%AA%E6%96%B0%E5%8A%9F%E8%83%BD/">
+				        <h2 class="post-title">
+                            JDK10中的109个新功能
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-03-08</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-03-05">2018-03-05</time>
+				  <a href="/2018/03/05/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%93(%E4%B8%89)/" title="设计模式总结(三)">设计模式总结(三)</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/03/05/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%93(%E4%B8%89)/">
+				        <h2 class="post-title">
+                            设计模式总结(三)
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            Always on the way of programming.
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-03-05</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-03-02">2018-03-02</time>
+				  <a href="/2018/03/02/%E8%87%AA%E6%88%91%E6%80%BB%E7%BB%93-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%93(%E4%BA%8C)/" title="设计模式总结(二)">设计模式总结(二)</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/03/02/%E8%87%AA%E6%88%91%E6%80%BB%E7%BB%93-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%93(%E4%BA%8C)/">
+				        <h2 class="post-title">
+                            设计模式总结(二)
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            Always on the way of programming.
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-03-02</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-02-05">2018-02-05</time>
+				  <a href="/2018/02/05/%E9%9A%8F%E7%AC%94-%E7%A8%8B%E5%BA%8F%E7%8C%BF%E7%9A%84%E9%AA%84%E5%82%B2,%E4%BB%A5%E5%8F%8A%E9%AA%84%E5%82%B2%E8%83%8C%E5%90%8E%E7%9C%9F%E5%AE%9E%E7%9A%84%E5%8E%9F%E5%9B%A0/" title="程序猿的骄傲,以及骄傲背后真实的原因">程序猿的骄傲,以及骄傲背后真实的原因</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/02/05/%E9%9A%8F%E7%AC%94-%E7%A8%8B%E5%BA%8F%E7%8C%BF%E7%9A%84%E9%AA%84%E5%82%B2,%E4%BB%A5%E5%8F%8A%E9%AA%84%E5%82%B2%E8%83%8C%E5%90%8E%E7%9C%9F%E5%AE%9E%E7%9A%84%E5%8E%9F%E5%9B%A0/">
+				        <h2 class="post-title">
+                            程序猿的骄傲,以及骄傲背后真实的原因
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            Always on the way of programming.
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-02-05</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-02-04">2018-02-04</time>
+				  <a href="/2018/02/04/%E8%87%AA%E6%88%91%E6%80%BB%E7%BB%93-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%93(%E4%B8%80)/" title="设计模式总结(一)">设计模式总结(一)</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/02/04/%E8%87%AA%E6%88%91%E6%80%BB%E7%BB%93-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%93(%E4%B8%80)/">
+				        <h2 class="post-title">
+                            设计模式总结(一)
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            Always on the way of programming.
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-02-04</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="设计模式">
+                    <span class="tag-text">设计模式</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-03-08">2018-03-08</time>
+				  <a href="/2018/03/08/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%93(%E5%9B%9B)/" title="设计模式总结(四)">设计模式总结(四)</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/03/08/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%93(%E5%9B%9B)/">
+				        <h2 class="post-title">
+                            设计模式总结(四)
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            Always on the way of programming.
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-03-08</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-03-05">2018-03-05</time>
+				  <a href="/2018/03/05/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%93(%E4%B8%89)/" title="设计模式总结(三)">设计模式总结(三)</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/03/05/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%93(%E4%B8%89)/">
+				        <h2 class="post-title">
+                            设计模式总结(三)
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            Always on the way of programming.
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-03-05</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-03-02">2018-03-02</time>
+				  <a href="/2018/03/02/%E8%87%AA%E6%88%91%E6%80%BB%E7%BB%93-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%93(%E4%BA%8C)/" title="设计模式总结(二)">设计模式总结(二)</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/03/02/%E8%87%AA%E6%88%91%E6%80%BB%E7%BB%93-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%93(%E4%BA%8C)/">
+				        <h2 class="post-title">
+                            设计模式总结(二)
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            Always on the way of programming.
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-03-02</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-02-04">2018-02-04</time>
+				  <a href="/2018/02/04/%E8%87%AA%E6%88%91%E6%80%BB%E7%BB%93-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%93(%E4%B8%80)/" title="设计模式总结(一)">设计模式总结(一)</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/02/04/%E8%87%AA%E6%88%91%E6%80%BB%E7%BB%93-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%93(%E4%B8%80)/">
+				        <h2 class="post-title">
+                            设计模式总结(一)
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            Always on the way of programming.
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-02-04</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="杂谈">
+                    <span class="tag-text">杂谈</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-07-25">2018-07-25</time>
+				  <a href="/2018/07/25/%E7%94%9F%E6%B4%BB-%E5%8C%BA%E5%9D%97%E9%93%BE/" title="区块链">区块链</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/07/25/%E7%94%9F%E6%B4%BB-%E5%8C%BA%E5%9D%97%E9%93%BE/">
+				        <h2 class="post-title">
+                            区块链
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-07-25</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-06-06">2018-06-06</time>
+				  <a href="/2018/06/06/%E7%94%9F%E6%B4%BB-%E5%8F%A4%E5%85%B8%E4%B9%90/" title="古典乐入门">古典乐入门</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/06/06/%E7%94%9F%E6%B4%BB-%E5%8F%A4%E5%85%B8%E4%B9%90/">
+				        <h2 class="post-title">
+                            古典乐入门
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            🎻
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-06-06</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-03-28">2018-03-28</time>
+				  <a href="/2018/03/28/%E6%9D%82%E8%B0%88-%E6%AF%94%E7%89%B9%E5%B8%81/" title="【链接】调查显示：超20%美国大学生曾花学生贷款投">【链接】调查显示：超20%美国大学生曾花学生贷款投</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/03/28/%E6%9D%82%E8%B0%88-%E6%AF%94%E7%89%B9%E5%B8%81/">
+				        <h2 class="post-title">
+                            【链接】调查显示：超20%美国大学生曾花学生贷款投
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-03-28</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-03-08">2018-03-08</time>
+				  <a href="/2018/03/08/%E6%9D%82%E8%B0%88-3%E6%9C%887%E6%97%A5%E8%BF%99%E4%B8%80%E5%A4%9C-%E9%BB%91%E5%AE%A2%E8%80%8D%E4%BA%86%E6%89%80%E6%9C%89%E4%BA%BA/" title="3月7日这一夜，黑客耍了所有人">3月7日这一夜，黑客耍了所有人</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/03/08/%E6%9D%82%E8%B0%88-3%E6%9C%887%E6%97%A5%E8%BF%99%E4%B8%80%E5%A4%9C-%E9%BB%91%E5%AE%A2%E8%80%8D%E4%BA%86%E6%89%80%E6%9C%89%E4%BA%BA/">
+				        <h2 class="post-title">
+                            3月7日这一夜，黑客耍了所有人
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-03-08</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-03-02">2018-03-02</time>
+				  <a href="/2018/03/02/%E9%9A%8F%E7%AC%94-%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E7%9A%84%E8%B5%B6%E9%A3%9E%E6%9C%BA/" title="如何正确的赶飞机">如何正确的赶飞机</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/03/02/%E9%9A%8F%E7%AC%94-%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E7%9A%84%E8%B5%B6%E9%A3%9E%E6%9C%BA/">
+				        <h2 class="post-title">
+                            如何正确的赶飞机
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-03-02</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-02-05">2018-02-05</time>
+				  <a href="/2018/02/05/%E9%9A%8F%E7%AC%94-%E7%A8%8B%E5%BA%8F%E7%8C%BF%E7%9A%84%E9%AA%84%E5%82%B2,%E4%BB%A5%E5%8F%8A%E9%AA%84%E5%82%B2%E8%83%8C%E5%90%8E%E7%9C%9F%E5%AE%9E%E7%9A%84%E5%8E%9F%E5%9B%A0/" title="程序猿的骄傲,以及骄傲背后真实的原因">程序猿的骄傲,以及骄傲背后真实的原因</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/02/05/%E9%9A%8F%E7%AC%94-%E7%A8%8B%E5%BA%8F%E7%8C%BF%E7%9A%84%E9%AA%84%E5%82%B2,%E4%BB%A5%E5%8F%8A%E9%AA%84%E5%82%B2%E8%83%8C%E5%90%8E%E7%9C%9F%E5%AE%9E%E7%9A%84%E5%8E%9F%E5%9B%A0/">
+				        <h2 class="post-title">
+                            程序猿的骄傲,以及骄傲背后真实的原因
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            Always on the way of programming.
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-02-05</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="随笔">
+                    <span class="tag-text">随笔</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-04-13">2018-04-13</time>
+				  <a href="/2018/04/13/%E7%94%9F%E6%B4%BB-%E4%BA%9A%E9%A9%AC%E9%80%8A%E8%B4%AD%E7%89%A9(%E9%A2%84%E6%8E%88%E6%9D%83)/" title="亚马逊购物(预授权)">亚马逊购物(预授权)</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/04/13/%E7%94%9F%E6%B4%BB-%E4%BA%9A%E9%A9%AC%E9%80%8A%E8%B4%AD%E7%89%A9(%E9%A2%84%E6%8E%88%E6%9D%83)/">
+				        <h2 class="post-title">
+                            亚马逊购物(预授权)
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            👿
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-04-13</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-04-12">2018-04-12</time>
+				  <a href="/2018/04/12/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-ChromeGoogle%E7%99%BB%E5%BD%95%E4%B8%8D%E4%BA%86/" title="Chrome Google登录不了">Chrome Google登录不了</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/04/12/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-ChromeGoogle%E7%99%BB%E5%BD%95%E4%B8%8D%E4%BA%86/">
+				        <h2 class="post-title">
+                            Chrome Google登录不了
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            🌕
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-04-12</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-03-08">2018-03-08</time>
+				  <a href="/2018/03/08/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-JDK-10%E4%B8%AD%E7%9A%84109%E4%B8%AA%E6%96%B0%E5%8A%9F%E8%83%BD/" title="JDK10中的109个新功能">JDK10中的109个新功能</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/03/08/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-JDK-10%E4%B8%AD%E7%9A%84109%E4%B8%AA%E6%96%B0%E5%8A%9F%E8%83%BD/">
+				        <h2 class="post-title">
+                            JDK10中的109个新功能
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-03-08</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-03-08">2018-03-08</time>
+				  <a href="/2018/03/08/%E6%9D%82%E8%B0%88-3%E6%9C%887%E6%97%A5%E8%BF%99%E4%B8%80%E5%A4%9C-%E9%BB%91%E5%AE%A2%E8%80%8D%E4%BA%86%E6%89%80%E6%9C%89%E4%BA%BA/" title="3月7日这一夜，黑客耍了所有人">3月7日这一夜，黑客耍了所有人</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/03/08/%E6%9D%82%E8%B0%88-3%E6%9C%887%E6%97%A5%E8%BF%99%E4%B8%80%E5%A4%9C-%E9%BB%91%E5%AE%A2%E8%80%8D%E4%BA%86%E6%89%80%E6%9C%89%E4%BA%BA/">
+				        <h2 class="post-title">
+                            3月7日这一夜，黑客耍了所有人
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-03-08</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-03-02">2018-03-02</time>
+				  <a href="/2018/03/02/%E9%9A%8F%E7%AC%94-%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E7%9A%84%E8%B5%B6%E9%A3%9E%E6%9C%BA/" title="如何正确的赶飞机">如何正确的赶飞机</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/03/02/%E9%9A%8F%E7%AC%94-%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E7%9A%84%E8%B5%B6%E9%A3%9E%E6%9C%BA/">
+				        <h2 class="post-title">
+                            如何正确的赶飞机
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-03-02</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-02-05">2018-02-05</time>
+				  <a href="/2018/02/05/%E9%9A%8F%E7%AC%94-%E7%A8%8B%E5%BA%8F%E7%8C%BF%E7%9A%84%E9%AA%84%E5%82%B2,%E4%BB%A5%E5%8F%8A%E9%AA%84%E5%82%B2%E8%83%8C%E5%90%8E%E7%9C%9F%E5%AE%9E%E7%9A%84%E5%8E%9F%E5%9B%A0/" title="程序猿的骄傲,以及骄傲背后真实的原因">程序猿的骄傲,以及骄傲背后真实的原因</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/02/05/%E9%9A%8F%E7%AC%94-%E7%A8%8B%E5%BA%8F%E7%8C%BF%E7%9A%84%E9%AA%84%E5%82%B2,%E4%BB%A5%E5%8F%8A%E9%AA%84%E5%82%B2%E8%83%8C%E5%90%8E%E7%9C%9F%E5%AE%9E%E7%9A%84%E5%8E%9F%E5%9B%A0/">
+				        <h2 class="post-title">
+                            程序猿的骄傲,以及骄傲背后真实的原因
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            Always on the way of programming.
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-02-05</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="Quartz">
+                    <span class="tag-text">Quartz</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-03-28">2018-03-28</time>
+				  <a href="/2018/03/28/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Quartz%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/" title="Quartz遇到的问题">Quartz遇到的问题</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/03/28/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Quartz%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/">
+				        <h2 class="post-title">
+                            Quartz遇到的问题
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            🤔
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-03-28</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-03-16">2018-03-16</time>
+				  <a href="/2018/03/16/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-quartz%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1/" title="Quartz定时任务">Quartz定时任务</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/03/16/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-quartz%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1/">
+				        <h2 class="post-title">
+                            Quartz定时任务
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            Always on the way of programming.
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-03-16</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="SpringDataJPA">
+                    <span class="tag-text">SpringDataJPA</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-04-07">2018-04-07</time>
+				  <a href="/2018/04/07/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-SpringDataJPA%E5%87%A0%E7%A7%8Dsql%E6%96%B9%E5%BC%8F/" title="SpringDataJPA几种sql方式">SpringDataJPA几种sql方式</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/04/07/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-SpringDataJPA%E5%87%A0%E7%A7%8Dsql%E6%96%B9%E5%BC%8F/">
+				        <h2 class="post-title">
+                            SpringDataJPA几种sql方式
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            👣
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-04-07</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-03-25">2018-03-25</time>
+				  <a href="/2018/03/25/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-SpringDataJPA/" title="SpringDataJPA">SpringDataJPA</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/03/25/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-SpringDataJPA/">
+				        <h2 class="post-title">
+                            SpringDataJPA
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-03-25</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="集合">
+                    <span class="tag-text">集合</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-03-28">2018-03-28</time>
+				  <a href="/2018/03/28/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-List%E5%8E%BB%E9%87%8D/" title="List去重">List去重</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/03/28/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-List%E5%8E%BB%E9%87%8D/">
+				        <h2 class="post-title">
+                            List去重
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            方便复制粘贴
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-03-28</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="前端">
+                    <span class="tag-text">前端</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-07-14">2018-07-14</time>
+				  <a href="/2018/07/14/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-JQuery-EasyUI%E5%B1%9E%E6%80%A7%E5%92%8C%E5%B8%B8%E8%A7%81%E7%94%A8%E6%B3%95/" title="JQuery EasyUI属性和常见用法">JQuery EasyUI属性和常见用法</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/07/14/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-JQuery-EasyUI%E5%B1%9E%E6%80%A7%E5%92%8C%E5%B8%B8%E8%A7%81%E7%94%A8%E6%B3%95/">
+				        <h2 class="post-title">
+                            JQuery EasyUI属性和常见用法
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-07-14</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-07-08">2018-07-08</time>
+				  <a href="/2018/07/08/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-DownloadBase64Png/" title="DownloadBase64Png">DownloadBase64Png</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/07/08/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-DownloadBase64Png/">
+				        <h2 class="post-title">
+                            DownloadBase64Png
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            😏
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-07-08</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-04-15">2018-04-15</time>
+				  <a href="/2018/04/15/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/" title="跨域问题">跨域问题</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/04/15/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/">
+				        <h2 class="post-title">
+                            跨域问题
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            😈
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-04-15</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-04-12">2018-04-12</time>
+				  <a href="/2018/04/12/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-window.location.href.indexOf/" title="window.location.href.indexOf">window.location.href.indexOf</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/04/12/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-window.location.href.indexOf/">
+				        <h2 class="post-title">
+                            window.location.href.indexOf
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            😼
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-04-12</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-04-07">2018-04-07</time>
+				  <a href="/2018/04/07/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Element+Vue.js-%E9%80%89%E6%8B%A9%E5%99%A8%E5%B8%B8%E7%94%A8%E5%B1%9E%E6%80%A7/" title="Element+Vue.js 选择器常用属性">Element+Vue.js 选择器常用属性</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/04/07/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Element+Vue.js-%E9%80%89%E6%8B%A9%E5%99%A8%E5%B8%B8%E7%94%A8%E5%B1%9E%E6%80%A7/">
+				        <h2 class="post-title">
+                            Element+Vue.js 选择器常用属性
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            🎃
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-04-07</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="咖啡">
+                    <span class="tag-text">咖啡</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-06-09">2018-06-09</time>
+				  <a href="/2018/06/09/%E7%94%9F%E6%B4%BB-%E6%89%8B%E5%86%B2%E5%92%96%E5%95%A1-%E9%9B%AA%E5%86%B0-%E6%98%9F%E5%86%B0%E4%B9%90/" title="手冲咖啡-雪冰、星冰乐">手冲咖啡-雪冰、星冰乐</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/06/09/%E7%94%9F%E6%B4%BB-%E6%89%8B%E5%86%B2%E5%92%96%E5%95%A1-%E9%9B%AA%E5%86%B0-%E6%98%9F%E5%86%B0%E4%B9%90/">
+				        <h2 class="post-title">
+                            手冲咖啡-雪冰、星冰乐
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-06-09</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-05-05">2018-05-05</time>
+				  <a href="/2018/05/05/%E7%94%9F%E6%B4%BB-%E5%86%B0%E6%BB%B4%E5%92%96%E5%95%A1%E5%92%8C%E5%86%B7%E8%90%83%E5%92%96%E5%95%A1%E7%9A%84%E5%8C%BA%E5%88%AB/" title="冰滴、冷泡和冷萃咖啡的区别">冰滴、冷泡和冷萃咖啡的区别</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/05/05/%E7%94%9F%E6%B4%BB-%E5%86%B0%E6%BB%B4%E5%92%96%E5%95%A1%E5%92%8C%E5%86%B7%E8%90%83%E5%92%96%E5%95%A1%E7%9A%84%E5%8C%BA%E5%88%AB/">
+				        <h2 class="post-title">
+                            冰滴、冷泡和冷萃咖啡的区别
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            ☕️
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-05-05</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-04-20">2018-04-20</time>
+				  <a href="/2018/04/20/%E7%94%9F%E6%B4%BB-%E4%BB%AA%E5%BC%8F%E4%B8%8E%E9%85%8D%E6%96%B9/" title="仪式与配方">仪式与配方</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/04/20/%E7%94%9F%E6%B4%BB-%E4%BB%AA%E5%BC%8F%E4%B8%8E%E9%85%8D%E6%96%B9/">
+				        <h2 class="post-title">
+                            仪式与配方
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            🍮🍰☕️
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-04-20</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-04-15">2018-04-15</time>
+				  <a href="/2018/04/15/%E7%94%9F%E6%B4%BB-%E8%81%8A%E8%81%8A%E6%88%91%E7%9A%84%E6%89%8B%E5%86%B2%E5%92%96%E5%95%A1%E5%99%A8%E5%85%B7/" title="聊聊我的手冲咖啡器具">聊聊我的手冲咖啡器具</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/04/15/%E7%94%9F%E6%B4%BB-%E8%81%8A%E8%81%8A%E6%88%91%E7%9A%84%E6%89%8B%E5%86%B2%E5%92%96%E5%95%A1%E5%99%A8%E5%85%B7/">
+				        <h2 class="post-title">
+                            聊聊我的手冲咖啡器具
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            ☕️
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-04-15</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="Maven">
+                    <span class="tag-text">Maven</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-04-15">2018-04-15</time>
+				  <a href="/2018/04/15/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Maven%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" title="Maven配置文件">Maven配置文件</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/04/15/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Maven%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/">
+				        <h2 class="post-title">
+                            Maven配置文件
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            🤓
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-04-15</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="oracle">
+                    <span class="tag-text">oracle</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-04-17">2018-04-17</time>
+				  <a href="/2018/04/17/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-oracle%E6%95%B4%E5%90%88%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/" title="oracle整合遇到的问题">oracle整合遇到的问题</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/04/17/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-oracle%E6%95%B4%E5%90%88%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/">
+				        <h2 class="post-title">
+                            oracle整合遇到的问题
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-04-17</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="shiro">
+                    <span class="tag-text">shiro</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-10-27">2018-10-27</time>
+				  <a href="/2018/10/27/shiro-shiro(%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86%E6%A1%86%E6%9E%B6)/" title="shiro各个组件及概念">shiro各个组件及概念</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/10/27/shiro-shiro(%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86%E6%A1%86%E6%9E%B6)/">
+				        <h2 class="post-title">
+                            shiro各个组件及概念
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-10-27</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-07-20">2018-07-20</time>
+				  <a href="/2018/07/20/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-springboot%E6%95%B4%E5%90%88shiro/" title="springboot整合shiro">springboot整合shiro</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/07/20/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-springboot%E6%95%B4%E5%90%88shiro/">
+				        <h2 class="post-title">
+                            springboot整合shiro
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-07-20</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-04-18">2018-04-18</time>
+				  <a href="/2018/04/18/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-shrio%E6%9D%83%E9%99%90%E9%85%8D%E7%BD%AE/" title="shrio权限配置">shrio权限配置</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/04/18/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-shrio%E6%9D%83%E9%99%90%E9%85%8D%E7%BD%AE/">
+				        <h2 class="post-title">
+                            shrio权限配置
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            🤠
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-04-18</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-04-18">2018-04-18</time>
+				  <a href="/2018/04/18/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-shiro%E8%AE%BE%E7%BD%AE%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/" title="shiro设置加密算法源码解析">shiro设置加密算法源码解析</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/04/18/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-shiro%E8%AE%BE%E7%BD%AE%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/">
+				        <h2 class="post-title">
+                            shiro设置加密算法源码解析
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-04-18</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-04-17">2018-04-17</time>
+				  <a href="/2018/04/17/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-shiro%E7%9A%84-favicon.ico%E9%97%AE%E9%A2%98/" title="shiro的/favicon.ico问题">shiro的/favicon.ico问题</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/04/17/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-shiro%E7%9A%84-favicon.ico%E9%97%AE%E9%A2%98/">
+				        <h2 class="post-title">
+                            shiro的/favicon.ico问题
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            ✍🏻
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-04-17</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="摄影">
+                    <span class="tag-text">摄影</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-06-09">2018-06-09</time>
+				  <a href="/2018/06/09/%E7%94%9F%E6%B4%BB-%E8%81%8A%E8%81%8A%E6%91%84%E5%BD%B1%E4%B8%80%E4%BA%9B%E9%87%8D%E8%A6%81%E7%9A%84%E7%9F%A5%E8%AF%86/" title="聊聊摄影一些重要的知识">聊聊摄影一些重要的知识</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/06/09/%E7%94%9F%E6%B4%BB-%E8%81%8A%E8%81%8A%E6%91%84%E5%BD%B1%E4%B8%80%E4%BA%9B%E9%87%8D%E8%A6%81%E7%9A%84%E7%9F%A5%E8%AF%86/">
+				        <h2 class="post-title">
+                            聊聊摄影一些重要的知识
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            转载：toutiao 作者：Shylock想
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-06-09</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-06-02">2018-06-02</time>
+				  <a href="/2018/06/02/%E7%94%9F%E6%B4%BB-%E4%BD%9C%E5%93%81%E9%89%B4%E8%B5%8F/" title="作品鉴赏">作品鉴赏</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/06/02/%E7%94%9F%E6%B4%BB-%E4%BD%9C%E5%93%81%E9%89%B4%E8%B5%8F/">
+				        <h2 class="post-title">
+                            作品鉴赏
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-06-02</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-04-20">2018-04-20</time>
+				  <a href="/2018/04/20/%E7%94%9F%E6%B4%BB-%E4%B8%80%E4%BA%9B%E4%B9%8B%E5%89%8D%E6%8B%8D%E6%91%84%E7%9A%84%E7%85%A7%E7%89%87/" title="一些之前拍摄的照片">一些之前拍摄的照片</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/04/20/%E7%94%9F%E6%B4%BB-%E4%B8%80%E4%BA%9B%E4%B9%8B%E5%89%8D%E6%8B%8D%E6%91%84%E7%9A%84%E7%85%A7%E7%89%87/">
+				        <h2 class="post-title">
+                            一些之前拍摄的照片
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-04-20</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="理财">
+                    <span class="tag-text">理财</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-09-09">2018-09-09</time>
+				  <a href="/2018/09/09/%E7%90%86%E8%B4%A2-%E7%90%86%E8%B4%A2%E5%B0%8F%E7%99%BD%E8%AE%A4%E8%AF%86%E5%9F%BA%E9%87%91/" title="理财小白认识基金">理财小白认识基金</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/09/09/%E7%90%86%E8%B4%A2-%E7%90%86%E8%B4%A2%E5%B0%8F%E7%99%BD%E8%AE%A4%E8%AF%86%E5%9F%BA%E9%87%91/">
+				        <h2 class="post-title">
+                            理财小白认识基金
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-09-09</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-07-12">2018-07-12</time>
+				  <a href="/2018/07/12/%E7%94%9F%E6%B4%BB-%E7%90%86%E8%B4%A2%E4%BA%A7%E5%93%81%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/" title="理财产品基础知识">理财产品基础知识</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/07/12/%E7%94%9F%E6%B4%BB-%E7%90%86%E8%B4%A2%E4%BA%A7%E5%93%81%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">
+				        <h2 class="post-title">
+                            理财产品基础知识
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            转载 七点半理财：
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-07-12</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-07-12">2018-07-12</time>
+				  <a href="/2018/07/12/%E7%94%9F%E6%B4%BB-%E4%BB%80%E4%B9%88%E6%98%AFP2P/" title="什么是P2P">什么是P2P</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/07/12/%E7%94%9F%E6%B4%BB-%E4%BB%80%E4%B9%88%E6%98%AFP2P/">
+				        <h2 class="post-title">
+                            什么是P2P
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            转载七点半理财
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-07-12</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-05-09">2018-05-09</time>
+				  <a href="/2018/05/09/%E7%94%9F%E6%B4%BB-%E7%BE%8E%E8%82%A1%E5%BC%80%E6%88%B7%E4%B8%8E%E5%BF%85%E9%9C%80%E7%9F%A5%E6%99%93%E7%9A%84%E5%85%A5%E9%87%91/" title="美股开户与必需知晓的入金">美股开户与必需知晓的入金</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/05/09/%E7%94%9F%E6%B4%BB-%E7%BE%8E%E8%82%A1%E5%BC%80%E6%88%B7%E4%B8%8E%E5%BF%85%E9%9C%80%E7%9F%A5%E6%99%93%E7%9A%84%E5%85%A5%E9%87%91/">
+				        <h2 class="post-title">
+                            美股开户与必需知晓的入金
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            转载：地铁仔
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-05-09</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-04-21">2018-04-21</time>
+				  <a href="/2018/04/21/%E7%94%9F%E6%B4%BB-%E7%A8%8B%E5%BA%8F%E5%91%98%E8%AF%A5%E7%94%A8%E5%93%AA%E7%A7%8D%E5%A7%BF%E5%8A%BF%E6%9D%A5%E7%90%86%E8%B4%A2/" title="程序员该用哪种姿势来理财">程序员该用哪种姿势来理财</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/04/21/%E7%94%9F%E6%B4%BB-%E7%A8%8B%E5%BA%8F%E5%91%98%E8%AF%A5%E7%94%A8%E5%93%AA%E7%A7%8D%E5%A7%BF%E5%8A%BF%E6%9D%A5%E7%90%86%E8%B4%A2/">
+				        <h2 class="post-title">
+                            程序员该用哪种姿势来理财
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            转载：纯洁的微笑
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-04-21</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="jvm">
+                    <span class="tag-text">jvm</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-04-30">2018-04-30</time>
+				  <a href="/2018/04/30/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-jvm%E7%B3%BB%E5%88%97(%E4%B8%89)-GC%E7%AE%97%E6%B3%95-%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/" title="jvm系列(三)：GC算法、垃圾收集器">jvm系列(三)：GC算法、垃圾收集器</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/04/30/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-jvm%E7%B3%BB%E5%88%97(%E4%B8%89)-GC%E7%AE%97%E6%B3%95-%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/">
+				        <h2 class="post-title">
+                            jvm系列(三)：GC算法、垃圾收集器
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-04-30</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-04-29">2018-04-29</time>
+				  <a href="/2018/04/29/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-jvm%E7%B3%BB%E5%88%97(%E4%BA%8C)-%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F%E4%B8%8E%E5%86%85%E5%AD%98%E6%BA%A2%E5%87%BA/" title="jvm系列(二)：内存区域与内存溢出">jvm系列(二)：内存区域与内存溢出</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/04/29/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-jvm%E7%B3%BB%E5%88%97(%E4%BA%8C)-%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F%E4%B8%8E%E5%86%85%E5%AD%98%E6%BA%A2%E5%87%BA/">
+				        <h2 class="post-title">
+                            jvm系列(二)：内存区域与内存溢出
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-04-29</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-04-26">2018-04-26</time>
+				  <a href="/2018/04/26/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-jvm%E7%B3%BB%E5%88%97(%E4%B8%80)-%E7%B1%BB%E7%9A%84%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6%E5%92%8C%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/" title="jvm系列(一)：类的加载机制和文件结构">jvm系列(一)：类的加载机制和文件结构</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/04/26/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-jvm%E7%B3%BB%E5%88%97(%E4%B8%80)-%E7%B1%BB%E7%9A%84%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6%E5%92%8C%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/">
+				        <h2 class="post-title">
+                            jvm系列(一)：类的加载机制和文件结构
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            ✍🏻☕️
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-04-26</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="MySql">
+                    <span class="tag-text">MySql</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-02-05">2019-02-05</time>
+				  <a href="/2019/02/05/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-mysql%E8%87%AA%E6%88%91%E6%80%BB%E7%BB%93%E4%B8%80/" title="mysql自我总结一">mysql自我总结一</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/02/05/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-mysql%E8%87%AA%E6%88%91%E6%80%BB%E7%BB%93%E4%B8%80/">
+				        <h2 class="post-title">
+                            mysql自我总结一
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-02-05</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-06-18">2018-06-18</time>
+				  <a href="/2018/06/18/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-MySQL%E4%BC%98%E5%8C%96%E6%80%BB%E7%BB%93+%E8%87%AA%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0%E4%B9%8B%E9%80%92%E5%BD%92/" title="MySQL优化总结+自定义函数之递归">MySQL优化总结+自定义函数之递归</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/06/18/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-MySQL%E4%BC%98%E5%8C%96%E6%80%BB%E7%BB%93+%E8%87%AA%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0%E4%B9%8B%E9%80%92%E5%BD%92/">
+				        <h2 class="post-title">
+                            MySQL优化总结+自定义函数之递归
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-06-18</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-05-26">2018-05-26</time>
+				  <a href="/2018/05/26/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-DB%E5%B1%82%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86/" title="DB层对称加密">DB层对称加密</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/05/26/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-DB%E5%B1%82%E5%AF%B9%E7%A7%B0%E5%8A%A0%E5%AF%86/">
+				        <h2 class="post-title">
+                            DB层对称加密
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            🧐
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-05-26</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-05-07">2018-05-07</time>
+				  <a href="/2018/05/07/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-mysql%E5%A4%9A%E8%A1%A8%E6%8F%92%E5%85%A5/" title="mysql多表插入">mysql多表插入</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/05/07/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-mysql%E5%A4%9A%E8%A1%A8%E6%8F%92%E5%85%A5/">
+				        <h2 class="post-title">
+                            mysql多表插入
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-05-07</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-05-04">2018-05-04</time>
+				  <a href="/2018/05/04/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E4%B8%BB%E6%B5%81Java%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5%E6%B1%A0%E6%AF%94%E8%BE%83/" title="主流Java数据库连接池比较">主流Java数据库连接池比较</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/05/04/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E4%B8%BB%E6%B5%81Java%E6%95%B0%E6%8D%AE%E5%BA%93%E8%BF%9E%E6%8E%A5%E6%B1%A0%E6%AF%94%E8%BE%83/">
+				        <h2 class="post-title">
+                            主流Java数据库连接池比较
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            转载自微信公众号「工匠小猪猪的技术世界」
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-05-04</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-05-02">2018-05-02</time>
+				  <a href="/2018/05/02/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-MySql%E4%BC%98%E5%8C%96%E5%8E%9F%E7%90%86/" title="MySql优化原理">MySql优化原理</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/05/02/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-MySql%E4%BC%98%E5%8C%96%E5%8E%9F%E7%90%86/">
+				        <h2 class="post-title">
+                            MySql优化原理
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            转载：CHEN川
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-05-02</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="项目">
+                    <span class="tag-text">项目</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-05-19">2018-05-19</time>
+				  <a href="/2018/05/19/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E5%A4%8D%E4%B9%A0%E5%B8%B8%E7%94%A8%E6%8A%80%E6%9C%AF%E6%A1%86%E6%9E%B6/" title="复习常用技术框架">复习常用技术框架</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/05/19/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E5%A4%8D%E4%B9%A0%E5%B8%B8%E7%94%A8%E6%8A%80%E6%9C%AF%E6%A1%86%E6%9E%B6/">
+				        <h2 class="post-title">
+                            复习常用技术框架
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            🧐
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-05-19</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="Linux">
+                    <span class="tag-text">Linux</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-05-20">2018-05-20</time>
+				  <a href="/2018/05/20/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Linux%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" title="Linux环境搭建">Linux环境搭建</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/05/20/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Linux%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/">
+				        <h2 class="post-title">
+                            Linux环境搭建
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-05-20</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="消息队列">
+                    <span class="tag-text">消息队列</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-05-20">2018-05-20</time>
+				  <a href="/2018/05/20/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E5%88%86%E5%B8%83%E5%BC%8F%E4%B9%8B%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E5%A4%8D%E4%B9%A0/" title="分布式之消息队列复习">分布式之消息队列复习</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/05/20/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E5%88%86%E5%B8%83%E5%BC%8F%E4%B9%8B%E6%B6%88%E6%81%AF%E9%98%9F%E5%88%97%E5%A4%8D%E4%B9%A0/">
+				        <h2 class="post-title">
+                            分布式之消息队列复习
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            转载：孤独烟 IT轻社区
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-05-20</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="jrebel">
+                    <span class="tag-text">jrebel</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-05-26">2018-05-26</time>
+				  <a href="/2018/05/26/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-idea-Jrebel-%E6%9C%80%E6%96%B0%E7%89%88%E7%A0%B4%E8%A7%A3%E6%95%99%E7%A8%8B/" title="idea Jrebel 最新版破解教程">idea Jrebel 最新版破解教程</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/05/26/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-idea-Jrebel-%E6%9C%80%E6%96%B0%E7%89%88%E7%A0%B4%E8%A7%A3%E6%95%99%E7%A8%8B/">
+				        <h2 class="post-title">
+                            idea Jrebel 最新版破解教程
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            ✍🏽
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-05-26</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="vps">
+                    <span class="tag-text">vps</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-06-02">2018-06-02</time>
+				  <a href="/2018/06/02/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-vulrt%E7%BF%BB%E5%A2%99%E9%97%AE%E9%A2%98/" title="vulrt翻墙问题">vulrt翻墙问题</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/06/02/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-vulrt%E7%BF%BB%E5%A2%99%E9%97%AE%E9%A2%98/">
+				        <h2 class="post-title">
+                            vulrt翻墙问题
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            ✍🏻
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-06-02</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="Mac">
+                    <span class="tag-text">Mac</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-06-03">2018-06-03</time>
+				  <a href="/2018/06/03/%E7%94%9F%E6%B4%BB-win%E5%92%8CMac%E9%AB%98%E6%95%88%E7%8E%87%E8%BD%AF%E4%BB%B6/" title="win和Mac高效率软件(持续更新)">win和Mac高效率软件(持续更新)</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/06/03/%E7%94%9F%E6%B4%BB-win%E5%92%8CMac%E9%AB%98%E6%95%88%E7%8E%87%E8%BD%AF%E4%BB%B6/">
+				        <h2 class="post-title">
+                            win和Mac高效率软件(持续更新)
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-06-03</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="java8">
+                    <span class="tag-text">java8</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-02-17">2019-02-17</time>
+				  <a href="/2019/02/17/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-java8-Lambda%E6%8E%92%E5%BA%8F/" title="java8--Lambda排序">java8--Lambda排序</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/02/17/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-java8-Lambda%E6%8E%92%E5%BA%8F/">
+				        <h2 class="post-title">
+                            java8--Lambda排序
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-02-17</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-09-09">2018-09-09</time>
+				  <a href="/2018/09/09/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Java8%E6%96%B0%E7%89%B9%E6%80%A7%E5%AE%9E%E6%88%98/" title="Java8新特性实战">Java8新特性实战</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/09/09/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Java8%E6%96%B0%E7%89%B9%E6%80%A7%E5%AE%9E%E6%88%98/">
+				        <h2 class="post-title">
+                            Java8新特性实战
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-09-09</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-07-10">2018-07-10</time>
+				  <a href="/2018/07/10/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Java8%E6%96%B0%E7%89%B9%E6%80%A7%E6%8C%87%E5%8D%97/" title="自我总结Java8新特性">自我总结Java8新特性</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/07/10/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Java8%E6%96%B0%E7%89%B9%E6%80%A7%E6%8C%87%E5%8D%97/">
+				        <h2 class="post-title">
+                            自我总结Java8新特性
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            🧐
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-07-10</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-07-10">2018-07-10</time>
+				  <a href="/2018/07/10/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Java8%E4%B9%8B%E5%89%8D%E7%89%88%E6%9C%AC%E7%9A%84%E7%89%B9%E6%80%A7/" title="Java8之前版本的特性">Java8之前版本的特性</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/07/10/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Java8%E4%B9%8B%E5%89%8D%E7%89%88%E6%9C%AC%E7%9A%84%E7%89%B9%E6%80%A7/">
+				        <h2 class="post-title">
+                            Java8之前版本的特性
+				        </h2>
+				        
+				        <h3 class="post-subtitle">
+				            转载：王爵nice
+				        </h3>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-07-10</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="分布式">
+                    <span class="tag-text">分布式</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-02-17">2019-02-17</time>
+				  <a href="/2019/02/17/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-zipkin%E5%88%86%E5%B8%83%E5%BC%8F%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/" title="zipkin分布式链路追踪">zipkin分布式链路追踪</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/02/17/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-zipkin%E5%88%86%E5%B8%83%E5%BC%8F%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/">
+				        <h2 class="post-title">
+                            zipkin分布式链路追踪
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-02-17</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2019-02-17">2019-02-17</time>
+				  <a href="/2019/02/17/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-dubbo-admin/" title="dubbo admin">dubbo admin</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2019/02/17/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-dubbo-admin/">
+				        <h2 class="post-title">
+                            dubbo admin
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2019-02-17</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-07-28">2018-07-28</time>
+				  <a href="/2018/07/28/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-ZooKeeper%E5%8E%9F%E7%90%86%E4%B8%8E%E5%BA%94%E7%94%A8/" title="ZooKeeper原理与应用">ZooKeeper原理与应用</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/07/28/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-ZooKeeper%E5%8E%9F%E7%90%86%E4%B8%8E%E5%BA%94%E7%94%A8/">
+				        <h2 class="post-title">
+                            ZooKeeper原理与应用
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-07-28</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="MongoDB">
+                    <span class="tag-text">MongoDB</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-10-27">2018-10-27</time>
+				  <a href="/2018/10/27/MongoDB-MongoDB%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%BB%8B%E7%BB%8D/" title="MongoDB的数据类型介绍">MongoDB的数据类型介绍</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/10/27/MongoDB-MongoDB%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%BB%8B%E7%BB%8D/">
+				        <h2 class="post-title">
+                            MongoDB的数据类型介绍
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-10-27</p> -->
+				</div>
+				<hr>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-08-18">2018-08-18</time>
+				  <a href="/2018/08/18/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-MongoDB%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/" title="MongoDB常用操作">MongoDB常用操作</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/08/18/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-MongoDB%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/">
+				        <h2 class="post-title">
+                            MongoDB常用操作
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-08-18</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="Tomcat">
+                    <span class="tag-text">Tomcat</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-10-27">2018-10-27</time>
+				  <a href="/2018/10/27/Tomcat-Tomcat%E6%94%AF%E6%8C%81%E7%9A%84%E5%9B%9B%E7%A7%8D%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B/" title="Tomcat支持的四种线程模型">Tomcat支持的四种线程模型</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/10/27/Tomcat-Tomcat%E6%94%AF%E6%8C%81%E7%9A%84%E5%9B%9B%E7%A7%8D%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B/">
+				        <h2 class="post-title">
+                            Tomcat支持的四种线程模型
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-10-27</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="redis">
+                    <span class="tag-text">redis</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-10-27">2018-10-27</time>
+				  <a href="/2018/10/27/session-%E5%A4%9A%E5%8F%B0%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%85%B1%E4%BA%ABsession%E9%97%AE%E9%A2%98/" title="多台服务器共享session问题">多台服务器共享session问题</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/10/27/session-%E5%A4%9A%E5%8F%B0%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%85%B1%E4%BA%ABsession%E9%97%AE%E9%A2%98/">
+				        <h2 class="post-title">
+                            多台服务器共享session问题
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-10-27</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+			<div class="one-tag-list">
+			  	<span class="fa fa-tag listing-seperator" id="session">
+                    <span class="tag-text">session</span>
+                </span>
+				
+				  <!-- <li class="listing-item">
+				  <time datetime="2018-10-27">2018-10-27</time>
+				  <a href="/2018/10/27/session-%E5%A4%9A%E5%8F%B0%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%85%B1%E4%BA%ABsession%E9%97%AE%E9%A2%98/" title="多台服务器共享session问题">多台服务器共享session问题</a>
+				  </li> -->
+				 <div class="post-preview">
+				    <a href="/2018/10/27/session-%E5%A4%9A%E5%8F%B0%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%85%B1%E4%BA%ABsession%E9%97%AE%E9%A2%98/">
+				        <h2 class="post-title">
+                            多台服务器共享session问题
+				        </h2>
+				        
+				    </a>
+				    <!-- <p class="post-meta">2018-10-27</p> -->
+				</div>
+				<hr>
+				
+			</div>
+			
+
+		</div>
+	</div>
+</div>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <!-- add jianshu add target = "_blank" to <a> by BY -->
+                    
+                    
+                    <li>
+                        <a href="https://twitter.com/Mr_javaian">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/伊恩">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="http://weibo.com/_____ZzZzZzq">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+
+                    
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/schooljavaian@gmail.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/uniquezhangqi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; MY Blog 2019
+                    <br>
+                    Theme on <a href="https://github.com/uniquezhangqi/uniquezhangqi.github.io.git">GitHub</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=uniquezhangqi&repo=uniquezhangqi.github.io&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+<!-- Service Worker -->
+
+<script type="text/javascript">
+    if(navigator.serviceWorker){
+        // For security reasons, a service worker can only control the pages that are in the same directory level or below it. That's why we put sw.js at ROOT level.
+        navigator.serviceWorker
+            .register('/sw.js')
+            .then((registration) => {console.log('Service Worker Registered. ', registration)})
+            .catch((error) => {console.log('ServiceWorker registration failed: ', error)})
+    }
+</script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/ 
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers   
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async('/js/jquery.tagcloud.js',function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-113450573-1';
+    var _gaDomain = 'uniquezhangqi.top';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = 'b50bf2b12b5338a1845e33832976fd68';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+<!-- Side Catalog -->
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="/img/apple-touch-icon.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Always on the way of programming.">
+    <meta name="keywords"  content=" MY Blog, 伊恩的博客, Ian, 伊恩, java, Apple">
+    <meta name="theme-color" content="#000000">
+    
+    <title>ZooKeeper原理与应用 - 伊恩的博客 | MY Blog</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <!-- Safari Webpage Icon    by-BY -->
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:4000/2018/07/28/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-ZooKeeper%E5%8E%9F%E7%90%86%E4%B8%8E%E5%BA%94%E7%94%A8/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">MY Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">About</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">Tags</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from 
+     * $toggle/$collapse will break global delegation.
+     * 
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.  
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/ian-bg-red.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-image: url('/img/ian-bg-red.jpg')
+    }
+
+    
+</style>
+<header class="intro-header" >
+    <div class="header-mask"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#编程之路" title="编程之路">编程之路</a>
+                        
+                        <a class="tag" href="/tags/#分布式" title="分布式">分布式</a>
+                        
+                    </div>
+                    <h1>ZooKeeper原理与应用</h1>
+                    
+                    
+                    <h2 class="subheading"></h2>
+                    
+                    <span class="meta">Posted by Ian on July 28, 2018</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+				<blockquote>
+  <p>转载：Jeffbond– <a href="https://www.jianshu.com/p/84ad63127cd1">https://www.jianshu.com/p/84ad63127cd1</a></p>
+</blockquote>
+
+<h3 id="简介">简介</h3>
+<p>最近公司有项目会用到这玩意<a href="https://dubbo.incubator.apache.org/#!/?lang=zh-cn">Apache Dubbo</a>所以得学习下ZooKeeper。</p>
+
+<p>ZooKeeper是一个开源的分布式协调服务，由雅虎创建，是Google chubby的开源实现。ZooKeeper的设计目地是将那些复杂且容易出错的分布式一致性服务封装起来，构成一个高效可靠的原语集，并以一系列简单易用的接口提供给用户使用。</p>
+
+<p>ZooKeeper是一个典型的分布式数据<strong>一致性</strong>的解决方案。分布式应用程序可以基于它实现诸如：数据发布/订阅、负载均衡、命名服务、分布式协调/通知、集群管理、Master选举、分布式锁和风不是队列等功能。ZooKeeper可以保证如下分布式一致性特性。</p>
+
+<ul>
+  <li>
+    <p>顺序一致性
+  从同一个客户端发起事务请求，最终将会严格按照其<strong>发起顺序</strong>被应用到ZooKeeper中。</p>
+  </li>
+  <li>
+    <p>原子性
+  所有事务请求的结果在集群中<strong>所有机器</strong>上的应用情况是一致的，也就是说要么整个集群所有集群<strong>都成功</strong>应用了某一个事务，要么<strong>都没有</strong>应用，一定<strong>不会出现</strong>集群中部分机器应用了该事务，而另外一部分没有应用的情况，这个是不可能出现de。</p>
+  </li>
+  <li>
+    <p>单一视图
+  无论客户端连接的是哪个Zookeeper服务器，其看到的服务端数据模型都是<strong>一致</strong>的。</p>
+  </li>
+  <li>
+    <p>可靠性
+  一旦服务端成功地应用了一个事务，并完成对客户端的响应，那么该事务所引起的服务端状态变更将会<strong>被一直保留</strong>下来，除非有另一个事务又对其进行了变更。</p>
+  </li>
+  <li>
+    <p>实时性
+  通常人们看到的实时性的第一反应是，一旦一个事务被成功应用，那么客户端能够立即从服务端上读取到这个事务变更后的最新数据状态。这里需要注意的是，Zookeeper<strong>仅仅保证在一定时间段内</strong>，客户端<strong>最终</strong>一定能够从服务端上读取到<strong>最新</strong>的数据状态。</p>
+  </li>
+</ul>
+
+<h3 id="基本概念">基本概念</h3>
+<h4 id="集群角色">集群角色</h4>
+<p>在Zookeeper中，有三种角色：</p>
+
+<ul>
+  <li>Leader</li>
+  <li>Follower</li>
+  <li>Observer</li>
+</ul>
+
+<p>一个Zookeeper集群同一时刻只会有一个Leader，其它都是Follower或者Observer。</p>
+
+<p>我自己电脑的环境：Mac   zookeeper-3.4.10  配置文件是zoo_sample.cfg
+Zookeeper配置很简单，每个节点的配置文件(zoo_sample.cfg 需要改成 zoo.cfg，不然会报错)都是一样的，只有myid 文件不一样，myid的值必须是zoo.cfg中server.{数值}的{数值}部分。</p>
+
+<p>zoo.cfg文件内容示例：</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>maxClientCnxns=0
+# The number of milliseconds of each tick
+tickTime=2000
+# The number of ticks that the initial
+# synchronization phase can take
+initLimit=10
+# The number of ticks that can pass between
+# sending a request and getting an acknowledgement
+syncLimit=5
+# the directory where the snapshot is stored.
+dataDir=/var/lib/zookeeper/data
+# the port at which the clients will connect
+clientPort=2181
+# the directory where the transaction logs are stored.
+dataLogDir=/var/lib/zookeeper/logs
+server.1=192.168.20.101:2888:3888
+server.2=192.168.20.102:2888:3888
+server.3=192.168.20.103:2888:3888
+server.4=192.168.20.104:2888:3888
+server.5=192.168.20.105:2888:3888
+minSessionTimeout=4000
+maxSessionTimeout=100000
+</code></pre></div></div>
+
+<p>在装有Zookeeper的机器的终端执行<code class="highlighter-rouge">zookeeper-server status</code>可以查看当前节点的Zookeeper是什么角色(Leader or Follower)。</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[root@node-20-103 ~]# zookeeper-server status
+JMX enabled by default
+Using config: /etc/zookeeper/conf/zoo.cfg
+Mode: follower
+</code></pre></div></div>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[root@node-20-104 ~]# zookeeper-server status
+JMX enabled by default
+Using config: /etc/zookeeper/conf/zoo.cfg
+Mode: leader
+</code></pre></div></div>
+<p>如上，node-20-104是Leader，node-20-103是follower。</p>
+
+<p>Zookeeper默认只有Leader和Follower两种角色，没有Observer角色。</p>
+
+<p>为了使用Observer模式，在任何想变成Observer的节点的配置文件中加入：
+<code class="highlighter-rouge">peerType=observer</code>
+并在所有server的配置文件中，配置成observer模式的server的那行配置追加：observer，例如：
+<code class="highlighter-rouge">server.1:localhost:2888:3888:observer</code></p>
+
+<p>Zookeeper集群的所有机器通过一个<strong>Leader选举过程</strong>来选定一台称为<strong>Leader</strong>的机器，<strong>Leader服务器</strong>为客户端提供<strong>读</strong>和<strong>写</strong>服务。</p>
+
+<p>Follower和Observer都能提供<strong>读</strong>服务，<strong>不能</strong>提供<strong>写</strong>服务。两者唯一的区别在于，Observer机器<strong>不参与Leader选举</strong>过程，也不参与写操作的<strong>过半写成功</strong>策略，因此Observer可以在<strong>不影响写性能</strong>的情况下<strong>提升</strong>集群的<strong>读性能</strong>。</p>
+
+<h4 id="会话session">会话(Session)</h4>
+<p>Session是指<strong>客户端会话</strong>，说这个之前我们先了解下<strong>客户端连接</strong>。在Zookeeper中，一个客户端连接是指客户端和Zookeeper服务器之间的<strong>TCP</strong>。Zookeeper对外的服务端口默认<strong>2181</strong>，客户端启动时，首先会与服务器建立一个TCP连接，从第一次连接建立开始，客户端会话的生命周期也开始了，通过这个连接，客户端能够通过<strong>心跳检测</strong>和服务器保持有效的会话，也能够向Zookeeper服务器<strong>发送请求</strong>并<strong>接受响应</strong>，同时还能通过该连接接收来自服务器的<strong>Watch时间通知</strong>。Session的<strong>SessionTimeout</strong>值用来设置一个客户端会话的<strong>超时时间</strong>。当由于服务器压力太大、网络故障或者客户端主动断开连接等各种原因导致客户端连接断开时，只要在SessionTimeout规定的时间内能够<strong>重新连接上</strong>集群中<strong>任意一台</strong>服务器，那么之前创建的会话<strong>任然有效</strong>。</p>
+
+<h4 id="数据节点znode">数据节点(ZNode)</h4>
+<p>在谈到分布式的时候，一般<strong>节点</strong>指的是组成集群的每一台机器。而Zookeeper中的数据节点是指<strong>数据模型</strong>中的<strong>数据单元</strong>，称为ZNode。Zookeeper将所有数据存储在内存中，数据模型是一棵<strong>树(ZNode Tree)</strong>,由斜杠(/)进行分割，就是一个ZNode，如/hbase/master，其中hbase和master都是ZNode。每个ZNode上都会保存<strong>自己的数据内容</strong>，同时会保存一系列<strong>属性信息</strong>。</p>
+
+<p>注：这里的ZNode可以理解成既是Unix文件，又是Unix里的目录。因为每个ZNode不仅本身可以写数据(相当于Unix里的文件)，还可以有下一级文件或者目录(相当于Unix里的目录)。</p>
+
+<p>在Zookeeper中，ZNode可以分为<strong>持久节点</strong>和<strong>临时节点</strong>两类。</p>
+
+<h5 id="持久节点">持久节点</h5>
+<p>所谓持久节点是指一旦这个ZNode被创建了，除非主动进行ZNode的移除操作，否则这个ZNode将一直保存在Zookeeper上。</p>
+
+<h5 id="临时节点">临时节点</h5>
+<p>临时节点的生命周期跟客户端会话绑定，一旦客户端绘画失效，那么这个客户端创建的所有临时节点都会被移除。</p>
+
+<p>另外，Zookeeper还允许用户为每个节点添加一个特殊的属性：SEQUENTIAL。一旦节点被标记上这个属性，那么这个节点被创建的时候，Zookeeper就会自动在其节点后面追加上一个整型数字，这个整型数字是由父节点维护的自增数字。</p>
+
+<h4 id="版本">版本</h4>
+<p>Zookeeper的每个ZNode上都会存储数据，对应于每个ZNode，Zookeeper都会为其维护一个叫做Stat的数据结构，Stat中记录了这个ZNode的三个数据版本，分别是version（当前ZNode的版本）、cversion（当前ZNode子节点的版本）和aversion（当前ZNode的ACL版本）。</p>
+
+<h4 id="状态信息">状态信息</h4>
+<p>每个ZNode除了存储数据内容之外，还存储了ZNode本身的一些状态信息。用get命令可以同时获得某个ZNode的内容和状态信息。如下:</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[zk: localhost:2181(CONNECTED) 23] get /yarn-leader-election/appcluster-yarn/ActiveBreadCrumb
+
+appcluster-yarnrm1
+cZxid = 0x1b00133dc0    //Created ZXID,表示该ZNode被创建时的事务ID
+ctime = Tue Jan 03 15:44:42 CST 2017    //Created Time,表示该ZNode被创建的时间
+mZxid = 0x1d00000063    //Modified ZXID，表示该ZNode最后一次被更新时的事务ID
+mtime = Fri Jan 06 08:44:25 CST 2017    //Modified Time，表示该节点最后一次被更新的时间
+pZxid = 0x1b00133dc0    //表示该节点的子节点列表最后一次被修改时的事务ID。注意，只有子节点列表变更了才会变更pZxid，子节点内容变更不会影响pZxid。
+cversion = 0    //子节点的版本号
+dataVersion = 11    //数据节点的版本号
+aclVersion = 0    //ACL版本号
+ephemeralOwner = 0x0    //创建该节点的会话的seddionID。如果该节点是持久节点，那么这个属性值为0。
+dataLength = 22    //数据内容的长度
+numChildren = 0    //子节点的个数
+</code></pre></div></div>
+<p>在Zookeeper中，version属性是用来实现乐观锁机制中的<strong>写入校验</strong>的(保证分布式数据原子性操作)。</p>
+
+<h4 id="事务操作">事务操作</h4>
+<p>在Zookeeper中，能改变Zookeeper服务器状态的操作称为事务操作。一般包括数据节点创建与删除、数据内容更新和客户端会话创建与失效等操作。对应每一个事务请求，Zookeeper都会为其分配一个全局唯一的事务ID，用ZXID标识，通常是一个64位的数字。每一个ZXID对应一次更新操作，从这些ZXID中可以间接识别出Zookeeper处理这些事务操作请求的全局顺序。</p>
+
+<h4 id="watcher">Watcher</h4>
+<p>Watcher（事件监听器），是ZooKeeper中一个很重要的特性。ZooKeeper允许用户在指定节点上注册一些Watcher，并且在一些特定事件触发的时候，ZooKeeper服务端会将事件通知到感兴趣的客户端上去。该机制是ZooKeeper实现分布式协调服务的重要特性。</p>
+
+<h4 id="acl">ACL</h4>
+<p>ZooKeeper采用ACL（Access Control Lists）策略来进行权限控制。ZooKeeper定义了如下5种权限。</p>
+
+<ul>
+  <li>CREATE:创建子节点的权限。</li>
+  <li>READ:获取节点数据和子节点列表的权限。</li>
+  <li>WRITE：更新节点数据的权限。</li>
+  <li>DELETE：删除子节点的权限。</li>
+  <li>ADMIN：设置节点ACL的权限。</li>
+</ul>
+
+<p>注意：CREATE 和 DELETE 都是针对子节点的控制权限。</p>
+
+<h3 id="zab协议">ZAB协议</h3>
+<h4 id="zab协议概览">ZAB协议概览</h4>
+<p>Zookeeper是Chubby开源实现，而Chubby是Paxos的工程实现，所以很多人以为Zookeeper也是Paxos算法的工程实现。事实上，Zookeeper并没有完全采用Paxos算法，而是使用了一种称为<strong>Zookeeper Atomic Broadcast(ZAB,Zookeeper原子广播协议)</strong>的协议作为其<strong>数据一致性</strong>的核心算法。</p>
+
+<p>ZAB协议并不像Paxos算法和Raft协议一样，是通用的分布式一致性算法，它是一种特别为Zookeeper设计的奔溃可恢复的原子广播算法。</p>
+
+<p>接下来对ZAB协议做一个浅显的介绍，基于ZAB协议，Zookeeper实现了一种主备模式(Leader、Follower)的系统架构来保持集群中各副本之间数据的一致性。</p>
+
+<p>具体的，Zookeeper使用了一个<strong>单一的主进程(Leader)</strong>来接受并处理客户端的所有<strong>事物请求</strong>，并采用ZAB的原子广播协议，将服务器数据的<strong>状态变更</strong>以事物Proposal的形式广播到所有的副本进程上去(Follower)。ZAB协议的这个主备模式架构保证了同一时刻集群中只能有一个主进程来广播服务器的状态变更，因此能够很好的处理客户端大量的并发请求。另一方面，考虑到分布式环境中，顺序执行的一些状态变更，例如 变更C需要依赖变更A和变更B。这样的依赖关系野队ZAB协议提出了一个要求：ZAB协议必须保证一个<strong>全局的变更顺序</strong>被<strong>顺序应用</strong>。也就是说，ZAB协议需要保证如果一个状态变更已经被处理了，那么所有依赖的状态变更都应该已经被提前处理掉了。最后考虑到<strong>主进程</strong>在任何时候都有可能出现<strong>奔溃</strong>退出或<strong>重启</strong>现象，因此，ZAB协议还需要做到在当前进程出现上述<strong>异常</strong>情况的时候，依然能够<strong>正常工作</strong>。</p>
+
+<p>ZAB协议的<strong>核心</strong>是定义了对应那些会改变Zookeeper服务器数据状态的<strong>事务请求</strong>的处理方式，即：</p>
+<blockquote>
+  <p>所有事务请求必须由一个全局唯一的服务器来协调处理，这样的服务器被称为Leader服务器，而剩下的其他服务器则成为Follower服务器。Leader服务器负责将一个客户端事务请求转换成一个事务Proposal（提案）并将该Proposal分发给集群中所有的Follower服务器。之后Leader服务器需要等待所有Follower服务器的反馈，一旦超过半数的Follower服务器进行了正确的反馈后，Leader就会再次向所有的Follower服务器分发Commit消息，要求对刚才的Proposal进行提交。</p>
+
+</blockquote>
+
+<h4 id="zab协议介绍">ZAB协议介绍</h4>
+<p>从上面的介绍中，我们已经了解了ZAB协议的核心，接下来更加详细地讲解下ZAB协议的具体内容。</p>
+
+<p>ZAB协议包括两种节本的模式，分别是从上面的介绍中，我们已经了解了ZAB协议的核心，接下来更加详细地讲解下ZAB协议的具体内容。</p>
+
+<p>ZAB协议包括两种基本的模式，分别是<strong>奔溃恢复</strong>和<strong>消息广播</strong>。在整个Zookeeper<strong>集群启动</strong>过程中，或是当<strong>Leader服务器</strong>出现<strong>网络中断、崩溃退出与重启</strong>等异常情况时，ZAB协议就会进入<strong>恢复模式</strong>并<strong>选举产生新的Leader服务器</strong>。当选举产生了心的Leader服务器，同时集群中有<strong>过半</strong>的机器与该Leader服务器完成了<strong>状态同步</strong>之后，ZAB协议就会<strong>退出恢复模式</strong>。其中，状态同步是指数据同步，用来保证集群中存在<strong>过半的机器</strong>能够和Leader服务器的<strong>数据状态保持一致</strong>。</p>
+
+<p>崩溃恢复模式包括两个阶段：Leader选举和数据同步。</p>
+
+<p>当集群中有过半的Follower服务器完成了和Leader服务器的状态同步，那么整个集群就可以进入<strong>消息广播模式</strong>了。</p>
+
+<h3 id="zookeeper典型应用场景">Zookeeper典型应用场景</h3>
+<p>ZooKeeper是一个高可用的分布式数据管理与协调框架。基于对ZAB算法的实现，该框架能够很好地保证分布式环境中数据的一致性。也是基于这样的特性，使得ZooKeeper成为了解决分布式一致性问题的利器。</p>
+
+<h4 id="数据发布与订阅配置中心">数据发布与订阅（配置中心）</h4>
+<p>数据发布与订阅，即所谓的<strong>配置中心</strong>，顾名思义就是发布者将数据发布到Zookeeper节点上，供订阅者进行数据订阅，进而达到<strong>动态获取数据</strong>的目的，实现配饰信息的<strong>集中式管理</strong>和<strong>动态更新</strong>。</p>
+
+<p>在我们平常的应用系统开发中，经常会碰到这样的需求：系统中需要使用一些通用的配置信息，例如<strong>机器列表信息、数据库配置信息</strong>等。这些全局配置信息通常具备以下3个特性。</p>
+
+<ul>
+  <li>数据量通常比较小。</li>
+  <li>数据内容在运行时动态变化。</li>
+  <li>集群中各机器共享，配置一致。</li>
+</ul>
+
+<p>对于这样的全局配置信息就可以发布到ZooKeeper上，让客户端（集群的机器）去订阅该消息。</p>
+
+<p>发布/订阅系统一般有两种设计模式，分别是推（Push）和拉（Pull）模式。</p>
+
+<ul>
+  <li>推：<strong>服务器主动</strong>将数据更新发送给所有订阅的客户端。</li>
+  <li>拉：<strong>客户端主动</strong>发起请求来获取最新数据，通常客户端都采用<strong>定时轮询</strong>拉取的方式。</li>
+</ul>
+
+<p>Zookeeper采用的是<strong>推拉相结合</strong>的方式。如下：</p>
+
+<p>客户端想服务端<strong>注册</strong>自己需要关注的节点，一旦该节点的数据发生<strong>变更</strong>，那么服务端就会响应的客户端发送Watcher事件<strong>通知</strong>，客户端接受到这个消息通知后，需要<strong>主动</strong>到服务端<strong>获取</strong>最新的数据<strong>(推拉结合)</strong>。</p>
+
+<h4 id="命名服务naming-service">命名服务(Naming Service)</h4>
+<p>命名服务也是分布式系统中比较常见的一类常见。在分布式系统中，通过使用命名服务，客户端应用能够根据指定<strong>名字</strong>来获取<strong>资源或者服务的地址，提供者等信息</strong>。被命名的尸体通常可以是<strong>集群中的机器，提供的服务，远程对象等等</strong> – 这些我们都可以统称它们为<strong>名字</strong>，其中较为常见的就是一些分布式服务框架(如RPC、RMI)中的服务地址列表。通过在Zookeeper里创建顺序节点，能够很容易创建一个<strong>全局唯一的路径</strong>，这个路径就可以作为一个<strong>名字</strong>。</p>
+
+<p>Zookeeper的命名服务即生成<strong>全局唯一的ID</strong>。</p>
+
+<h4 id="分布式协调通知">分布式协调/通知</h4>
+<p>ZooKeeper中特有<strong>Watcher</strong>注册与异步通知机制，能够很好的实现分布式环境下不同机器，甚至不同系统之间的<strong>通知与协调</strong>，从而实现<strong>对数据变更的实时处理</strong>。使用方法通常是不同的客户端都对ZK上同一个ZNode进行注册，监听ZNode的变化（包括ZNode本身内容及子节点的），如果ZNode发生了变化，那么所有订阅的客户端都能够接收到相应的Watcher通知，并做出相应的处理。</p>
+
+<p><strong>ZK的分布式协调/通知，是一种通用的分布式系统机器间的通信方式。</strong></p>
+
+<h4 id="心跳检测">心跳检测</h4>
+<p>机器间的心跳检测机制是指在分布式环境中，不同机器(或进程)之间需要检测到彼此是否在正常运行，例如A机器需要知道B机器是否正常运行。在传统的开发中，我们通常是通过主机直接是否可以<strong>相互ping通</strong>来判断，更复杂一点的话，则会通过在机器之间建立长连接，通过<strong>TCP连接</strong>固有心跳检测机制来实现上层机器的心跳检测，这些都是非常常见的心跳检测方法。</p>
+
+<h5 id="如何使用zk来实现分布式机器进程间的心跳检测">如何使用ZK来实现分布式机器(进程)间的心跳检测</h5>
+<p>基于ZK的<strong>临时节点</strong>的特性，可以让不同的进程都在ZK的一个<strong>指定节点</strong>下创建<strong>临时子节点</strong>，不同的进程直接可以根据这个临时子节点来判断对应的进程<strong>是否存活</strong>。通过这种方式，检测和被检测系统直接并不需要直接相关联，而是通过ZK上的某个节点进行关联，大大<strong>减少了系统耦合</strong>。</p>
+
+<h4 id="工作进度汇报">工作进度汇报</h4>
+<p>在一个常见的<strong>任务分发系统</strong>中，通常任务被分发到不同的机器上执行后，需要实时地将自己的任务执行进度<strong>汇报</strong>给分发系统。这个时候就可以通过ZK来实现。在ZK上选择一个节点，每个任务客户端都在这个节点下面创建<strong>临时子节点</strong>，这样可以实现两个功能：</p>
+
+<ul>
+  <li>通过判断临时节点是否存在来确定任务机器<strong>是否存活</strong>。</li>
+  <li>各个任务机器会实时地将自己的<strong>任务执行进度写到这个临时节点上去</strong>，以便中心系统能够实时地获取到任务的<strong>执行进度</strong>。</li>
+</ul>
+
+<h4 id="master选举">Master选举</h4>
+<p><strong>Master选举</strong>可以说是Zookeeper<strong>最典型的应用场景</strong>了。比如HDFS中Active NameNode的选举、YARN中Active ResourceManager的选举和HBase中Active HMaster的选举等。</p>
+
+<p>针对Master选举的需求，通常情况下，我们可以选择常见的<strong>关系型数据库</strong>中的<strong>主键特性</strong>来实现：希望成为Master的机器都想数据库中插入一条<strong>相同主键ID</strong>的记录，数据库会帮我们进行<strong>主键冲突检查</strong>，也就是说，<strong>只有一台</strong>机器能插入成功 – 那么，我们就认为向数据库中<strong>成功插入</strong>数据的客户端机器<strong>成为Master</strong>。</p>
+
+<p>依靠关系型数据库的主键特性确实能够很好地保证在集群中选举出唯一的一个Master。但是，如果当前选举出的master挂了，那么该如何处理？谁来告诉我Master挂了呢？显然，关系型数据库无法通知我们这个事件。但是，ZooKeeper可以做到！</p>
+
+<p>利用Zookeeper的强一致性，能够很好地保证在分布式高并发情况下节点的创建一定能够保证全局唯一性，即Zookeeper将会保证客户端<strong>无法创建一个已经存在的ZNode。</strong>也就是说，如果同时有多个客户端请求创建<strong>同一个</strong>临时节点，那么最终一定<strong>只有一个</strong>客户端请求能够创建成功。利用这个特性，就能很容易地在分布式环境中进行Master选举了。</p>
+
+<p>成功创建该节点的客户端所在的机器就称为了master。同时，其它没有成功创建该节点的客户端，都会在该节点上<strong>注册</strong>一个子节点变更的<strong>Watcher</strong>，用于监控当前Master机器是否存活，一旦发现当前的Master挂了，那么其它客户机将会<strong>重新进行Master选举</strong>。</p>
+
+<p>这样就实现了master的<strong>动态选举</strong>。</p>
+
+<h4 id="分布式锁">分布式锁</h4>
+<p>分布式锁是控制<strong>分布式系统</strong>之间<strong>同步访问共享资源</strong>的一种方式。</p>
+
+<p>分布式锁又分为<strong>排它锁</strong>和<strong>共享锁</strong>两种。</p>
+
+<h4 id="排他锁">排他锁</h4>
+<p>排他锁（Exclusive Locks，简称X锁），又称为写锁或独占锁。</p>
+<blockquote>
+  <p>如果事务T1对数据对象O1加上了排他锁，那么在整个加锁期间，只允许事务T1对O1进行<strong>读取和更新</strong>操作，其他任何事务都不能在对这个数据对象进行任何类型的操作（不能再对该对象加锁），直到T1释放了排他锁。</p>
+
+</blockquote>
+
+<p>可以看出，排他锁的核心是如何保证当前<strong>只有一个事务获得锁</strong>，并且锁<strong>被释放</strong>后，所有正在等待获取锁的事务都能够<strong>被通知到</strong>。</p>
+
+<p>如何利用ZooKeeper实现排他锁？</p>
+<h5 id="定义锁">定义锁</h5>
+<p>ZooKeeper上的一个<strong>ZNode可以表示一个锁</strong>。例如/exclusive_lock/lock节点就可以被定义为一个锁。</p>
+
+<h5 id="获得锁">获得锁</h5>
+<p>如上所说，把ZooKeeper上的一个ZNode看作是一个锁，获得锁就通过创建ZNode的方式来实现。所有客户端都去/exclusive_lock节点下创建临时子节点/exclusive_lock/lock。ZooKeeper会保证在所有客户端中，最终只有一个客户端能够创建成功，那么就可以认为该客户端获得了锁。同时，所有没有获取到锁的客户端就需要到/exclusive_lock节点上注册一个子节点变更的Watcher监听，以便实时监听到lock节点的变更情况。</p>
+
+<h5 id="释放锁">释放锁</h5>
+<p>因为/exclusive_lock/lock是一个<strong>临时节点</strong>，因此以下两种情况下，都有可能释放锁。</p>
+
+<ul>
+  <li>当前获得锁的客户端机器发生<strong>宕机</strong>或者<strong>重启</strong>，那么该临时节点就会<strong>被删除，释放锁</strong>。</li>
+  <li>正常执行完业务逻辑后，客户端就会<strong>主动</strong>将自己创建的节点<strong>删除，释放锁</strong>。</li>
+</ul>
+
+<p>无论在什么情况下移除了lock节点，Zookeeper都会<strong>通知</strong>所有在/exclusive_lock节点上注册了节点变更Watcher监听的客户端。这些客户端在接收到通知后，再次<strong>重新发起</strong>分布式锁获取，即重复获取锁的过程。</p>
+
+<h4 id="共享锁">共享锁</h4>
+<blockquote>
+  <p>共享锁（Shared Locks，简称S锁），又称为读锁。如果事务T1对数据对象O1加上了共享锁，那么T1只能对O1进行<strong>读操作</strong>，其他事务也能<strong>同时对O1加共享锁</strong>（不能是排他锁），直到O1上的所有共享锁都释放后O1才能被加排他锁。</p>
+
+</blockquote>
+
+<p>总结：可以<strong>多个事务同时获得</strong>一个对象的<strong>共享锁</strong>（同时读），有共享锁就不能再加排他锁（因为排他锁是写锁）</p>
+
+<h4 id="结语">结语</h4>
+<p>自己用到的时候方便查找，希望对你有所帮助，共勉。</p>
+
+<p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1fqj5aochgoj309k09kmwz.jpg" alt="" />
+<b><center>扫描关注：热爱生活的大叔</center>
+<b><center><font size="2">（<font size="2" color="#FF0000">转载本站文章请注明作者和出处</font> <font size="2" color="#0000FF">热爱生活的大叔-uniquezhangqi</font><font size="2">）</font></font></center></b></b></p>
+
+
+                <hr style="visibility: hidden;">
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2018/07/25/%E7%94%9F%E6%B4%BB-%E5%8C%BA%E5%9D%97%E9%93%BE/" data-toggle="tooltip" data-placement="top" title="区块链">
+                        Previous<br>
+                        <span>区块链</span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2018/08/03/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-MD5%E5%9C%A8Java%E4%B8%AD%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%96%B9%E5%BC%8F/" data-toggle="tooltip" data-placement="top" title="MD5在Java中的实现方式">
+                        Next<br>
+                        <span>MD5在Java中的实现方式</span>
+                        </a>
+                    </li>
+                    
+                </ul>
+
+
+                <!--Gitalk评论start  -->
+                
+                <!-- Gitalk end -->
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+            </div>  
+
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">CATALOG</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+        				
+                            
+                				<a href="/tags/#生活" title="生活" rel="18">
+                                    生活
+                                </a>
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#自我总结" title="自我总结" rel="31">
+                                    自我总结
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#编程之路" title="编程之路" rel="80">
+                                    编程之路
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#设计模式" title="设计模式" rel="4">
+                                    设计模式
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#杂谈" title="杂谈" rel="6">
+                                    杂谈
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#随笔" title="随笔" rel="6">
+                                    随笔
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Quartz" title="Quartz" rel="2">
+                                    Quartz
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#SpringDataJPA" title="SpringDataJPA" rel="2">
+                                    SpringDataJPA
+                                </a>
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#前端" title="前端" rel="5">
+                                    前端
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#咖啡" title="咖啡" rel="4">
+                                    咖啡
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#shiro" title="shiro" rel="5">
+                                    shiro
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#摄影" title="摄影" rel="3">
+                                    摄影
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#理财" title="理财" rel="5">
+                                    理财
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#jvm" title="jvm" rel="3">
+                                    jvm
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#MySql" title="MySql" rel="6">
+                                    MySql
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#java8" title="java8" rel="4">
+                                    java8
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#分布式" title="分布式" rel="3">
+                                    分布式
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#MongoDB" title="MongoDB" rel="2">
+                                    MongoDB
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+        			</div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+                    
+                        <li><a href="https://apple.com">Apple</a></li>
+                    
+                        <li><a href="https://www.google.com">google</a></li>
+                    
+                        <li><a href="http://www.cnblogs.com/zuoxiaolong">左潇龙</a></li>
+                    
+                        <li><a href="http://www.importnew.com/">ImportNew</a></li>
+                    
+                        <li><a href="https://www.csdn.net/">CSND</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "uniquezhangqi";
+    var disqus_identifier = "/2018/07/28/编程之路-ZooKeeper原理与应用";
+    var disqus_url = "http://localhost:4000/2018/07/28/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-ZooKeeper%E5%8E%9F%E7%90%86%E4%B8%8E%E5%BA%94%E7%94%A8/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <!-- add jianshu add target = "_blank" to <a> by BY -->
+                    
+                    
+                    <li>
+                        <a href="https://twitter.com/Mr_javaian">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/伊恩">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="http://weibo.com/_____ZzZzZzq">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+
+                    
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/schooljavaian@gmail.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/uniquezhangqi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; MY Blog 2019
+                    <br>
+                    Theme on <a href="https://github.com/uniquezhangqi/uniquezhangqi.github.io.git">GitHub</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=uniquezhangqi&repo=uniquezhangqi.github.io&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+<!-- Service Worker -->
+
+<script type="text/javascript">
+    if(navigator.serviceWorker){
+        // For security reasons, a service worker can only control the pages that are in the same directory level or below it. That's why we put sw.js at ROOT level.
+        navigator.serviceWorker
+            .register('/sw.js')
+            .then((registration) => {console.log('Service Worker Registered. ', registration)})
+            .catch((error) => {console.log('ServiceWorker registration failed: ', error)})
+    }
+</script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/ 
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers   
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async('/js/jquery.tagcloud.js',function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-113450573-1';
+    var _gaDomain = 'uniquezhangqi.top';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = 'b50bf2b12b5338a1845e33832976fd68';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;    
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="/img/apple-touch-icon.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

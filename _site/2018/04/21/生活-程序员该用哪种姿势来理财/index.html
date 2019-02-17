@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Always on the way of programming.">
+    <meta name="keywords"  content=" MY Blog, 伊恩的博客, Ian, 伊恩, java, Apple">
+    <meta name="theme-color" content="#000000">
+    
+    <title>程序员该用哪种姿势来理财 - 伊恩的博客 | MY Blog</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <!-- Safari Webpage Icon    by-BY -->
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:4000/2018/04/21/%E7%94%9F%E6%B4%BB-%E7%A8%8B%E5%BA%8F%E5%91%98%E8%AF%A5%E7%94%A8%E5%93%AA%E7%A7%8D%E5%A7%BF%E5%8A%BF%E6%9D%A5%E7%90%86%E8%B4%A2/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">MY Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">About</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">Tags</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from 
+     * $toggle/$collapse will break global delegation.
+     * 
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.  
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/post-bg-re-vs-ng2.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-image: url('/img/post-bg-re-vs-ng2.jpg')
+    }
+
+    
+</style>
+<header class="intro-header" >
+    <div class="header-mask"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#生活" title="生活">生活</a>
+                        
+                        <a class="tag" href="/tags/#理财" title="理财">理财</a>
+                        
+                    </div>
+                    <h1>程序员该用哪种姿势来理财</h1>
+                    
+                    
+                    <h2 class="subheading">转载：纯洁的微笑</h2>
+                    
+                    <span class="meta">Posted by Ian on April 21, 2018</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+				<p>其实一直想写一篇文章名字都想好了，叫做“程序员该不该理财？”。后来想了想，该不该这个就不用想了，必须要理财！那么市面上那么多理财的方式对于我们屌丝的程序员该如何选择呢？</p>
+
+<p>其实我也是那种土的掉咋的那种类型，以前几乎没有想过神马理财的，一来呢毕业的时候工资全都不够花的还理个毛线，二来总是感觉理财好像都是有钱人搞的东西；后来偶然进入了互联网金融行业，呆了几年，慢慢也接触了很多理财方式，但也还是一个门外汉，此文就是和大家一起聊聊我们程序员该如何去理财？算是抛砖引玉，欢迎拍砖。</p>
+
+<p>我的理财经历</p>
+
+<p>先聊聊我的理财经历，我的理财大概也是从毕业三年之后才慢慢开始的，对了也就是从余额宝开始，后来在第三方支付、互联网金融公司工作，对理财的种类了解慢慢多了起来，互联网金融也就是P2P或者金融公司产品各种变种（其实也是债权类产品的进一步封装），有活期产品、封闭期的固定收益产品（日、月、年类的固定收益）；买了股票（先是A股，后来美股），在了解了基金（指数基金、债券基金、股票基金等等），后来也看了黄金和期货（了解较少）、保险接触最少。</p>
+
+<p>一路慢慢走来，理财的这种想法和认识也是在不断的发展变化，不认识、不了解、不认同的一些偏见也在慢慢的消失，可以以更理性的角度去看待投资理财的这件事情，理财真的是我们每一个人都应该好好的学习的事情，如何让你辛辛苦苦的积蓄可以跑赢通货膨胀，不随着时间推移我们的资产不断缩水；但是在工作中常常发现我们的程序员对于理财目前来讲大多都还是比较保守，常常是全部都银行或者全部宝宝类产品，更有激进者全都投入股市，有一年损失十几万的。下面分几个阶段来聊聊我对理财的几个认识：</p>
+
+<p>宝宝时代</p>
+
+<p>说起了理财或者第三方支付，总是不能避开一家伟大的公司-支付宝，支付宝一直在引领、教育着我们这一代人对于理财的认识；我的理财起点就是从余额宝开始的，清晰的记得13年6月余额宝出来的时候，大家都感觉到稀奇或者不了解（当时仍然有很多人认为还是把钱放到银行保险，哪怕余额宝也是！），记得当初刚开始余额宝转进去了100元，每天看着它给带来的几分钱收益都很满足，然后就一发不扣收拾，几乎是前脚收到发工资的短信，下一分钟钱就同步到了余额宝里面，曾经有一段时间中国闹钱荒，导致余额宝的最高收益高达6.76；</p>
+
+<p>不过后来由于这块的蛋糕太大了，各大银行也都着急出了很多的政策来限制：第一步，开限额，导致大额资金无法进入；第二步，自己干，很多银行自己也推出了资金的货币基金理财产品和余额宝来竞争，理财通也横空出世，理财通搞了一个同卡进出的理念比较好，很大程度上对资金安全起了很大的作用。</p>
+
+<p>互联网金融</p>
+
+<p>2014年算是互联网金融的元年，其实互联网金融在很早的时候就被引入了国内，之前一直是不温不火的发展着，突然到了2014年随着资本的大量进入催化了互联网金融的大发展。现在的互联网金融主要分为大的两个部分：p2p和众筹，p2p在中国发展进行非常多的变种，现在主要的产品有活期债权、封装成月或者年的理财产品，然后后面去打包，从债权方面又分为，企业和个人。我也是在2014年由于工作原因接触到了p2p，小做尝试了之后，发现完爆余额宝，几乎又是全部积蓄投入到p2p里面，当初算了一笔账，按照年化12的标的来计算的话，投入10万，一年的收益就是1.2万，投资1000万，那么每年不用工作就是120万！，轻轻松松的年收入破百万！对了没有一点税！！</p>
+
+<p>那时候各家平台又是送苹果手机、又是送电脑的各种活动玩的不亦乐乎，后来到了15年跑路了很多平台，慢慢的才把很大的一部分撤了出来。众筹也是在中国玩出了很多的花样，主要还是分为产品众筹和股权众筹，产品众筹主要是以高科技产品为主，但是现在很多新品发布会也搞上去了；股权众筹也就是拿出自己的钱去投资一些比较看好的小公司来占一部分原始股权，一般股权众筹都有一定的门槛，没有资金百万级别以上基本上不用参与了，风险也非常大不是咱这小市民可以玩的。</p>
+
+<p>股票</p>
+
+<p>我是在第一次股灾快结束的时候进入的，15年股市正火爆的时候公司有很多的同事整天都在关注着股票，什么过了3000点了，这会进去就是炮灰了，然后大盘到了4000点，有同事又说，人民日报都刊登了文章，4000点只是一个起点，好吧，他们最后的结局都是什么，我就不说了大家也猜的到，那时候我们部门几乎有一半的程序员多多少少都在在A股开了户，活动的时候也是在讨论着各种的股票。</p>
+
+<p>到了6月份以后我突然有了点时间，也就特别好奇股市为啥有这么大的吸引力，也试探性的在网上开了户，在网上找了费率最便宜的那种，好多同事都是在模拟炒股的软件上面模拟的先玩上一段时候再进入市场，但是我觉得模拟因为没有真正的资金在上面，感觉不到任何的刺激。于是乎刚开始搞了1000元的资金去试探。清楚的记得买的第一只股票是“苏宁云商”，然后迫不及待的每天看着它涨了还是跌了乐此不疲，买了没有多久“苏宁云商”就停牌了，发公告说阿里投资，重大利好！好多人都说股市新手的运气都会比较好，先给你一点甜头，让你先陷进去，然后慢慢在和你玩，后来“苏宁云商”开盘后连续三个涨停，赚了几百块钱。</p>
+
+<p>我立刻对股市产生了极大的兴趣，大家是不是又准备看一个A股小散被收割的故事：） 于是乎，追涨杀跌、专门看股票技术指标（成交量、KDJ、MACD …）、请教一些玩股票的朋友推荐股票，分析股票。专门组建了一个讨论组，把喜欢炒股的几个IT的朋友都拉进去，大家讨论每天的行情，那是一个热闹！慢慢的发现很多科技股票买不了才发现创业板是需要专门去线下开通，好吧，迫不及待就去开通了创业板。短短的6个月买了很多股票，乐视、掌趣科技、东方财富、卫宁健康、华裔兄弟、万达院线、信息发展。。。。。多到我也不清楚到底买了多少，全部短线交易！资金也从最初的1000一直增加到最高50000，经历了股灾2.0、3.0，也经历了创业板最低的1800点、10月份的超级大反弹、今年的熔断。认识的两个朋友中，有一个在牛市的时候曾经一周每天盈利1万（这样还有什么心情上班），有一个在股灾中还么赔多少但是熔断没有躲过去，搭进去近一年的工资。</p>
+
+<p>作为一个IT男，中国最优秀的互联网几乎都在美国上市，所以就一直了解如何去买美股，那时候“宜人贷”刚上纳斯达克破发了，”lending club 简称LC” 也跌到12美元左右，觉得是个机会。刚好积木出了一款产品叫做积木股票，就迫不及待的注册、开通海外汇款。进去之后就买了LC ，结果LC没多久就跌到8美元、7、6 …。失望之极，刚退出没多久LC又出黑天鹅时间 ，直接从7左右跌到最低3.44美元！美股由于没有涨跌幅度的限制比A股要刺激很多，经常看到某一个股票一天涨40%、50%，但跌的时候也一样经常一下子一半市值就没了，我在美股的亏损几乎都来自LC。宜人贷是让我非常震撼的一只股票，因为从开盘一直跌到3美元左右，然后开始上升到现在达30美元左右，没有抓住非常可惜。现在手里拿的都是一些中概念股，京东、58、猎豹等。</p>
+
+<p>基金</p>
+
+<p>一个人的精力总是有限，整天看股票真的很累还影响工作、有时候甚至影响心情还不一定赚钱。如何想让牛逼的人来替我们理财，这时候也就慢慢的了解到了基金，特别是在关注了微信公共账号的“股社区”学了很多的知识，目前也是刚刚了解一些。基金我了解主要是这几种：债卷基金，主要是买国家的债卷或者国企类型的公司债卷为主，风险度比较低，收益率也偏低一些，我目前就是定投的这类；股票基金，也就是找一个牛逼的基金经理帮我们炒股，盈利了大家分钱这种模式，风险也很高，也比较依赖于基金经理的个人水平。大盘类的基金，比如ETF300 之类，就是买主板最牛逼的股票各买一点，只要大盘涨，我们收益就会涨，大盘跌，我们就会亏损这种，短期看收益很难确定，长期来看肯定收益为正；也有一部分混合基金就是股票和债卷都买一些。</p>
+
+<p>黄金</p>
+
+<p>2016年初的时候，各种报道黄金跌破1000美元就是底部，那时候是1100美元左右吧，感觉差不多了，就买了交通银行黄金延期（T+D）买了不到一万元，没几天亏损了一点就出来了没有坚持，如果坚持到现在那也赚了一些；有时候你想到和做到完全是两种情形。现在如果想投资黄金的话，直接买蚂蚁聚宝的“存金宝”，关键方便快捷。</p>
+
+<p>我的投资经验与教训</p>
+
+<p>结合我这三年多的投资理财教训，谈一些对投资的看法。</p>
+
+<p>银行存款</p>
+
+<p>一直流行着一句话，穷人往银行里面存钱，富人从银行中贷款，可以很大程度上反应中国情况。如果你把积蓄都放到银行里面躺着，结合通货膨胀来讲，你就是在亏钱！而且银行的服务超级烂，办业务超级慢，因此建议银行卡里面一分钱也不要放！</p>
+
+<p>宝宝类产品</p>
+
+<p>可以把平时需要紧急用的钱和零花的钱都可以放到这里面，既可以享受一定的收益性，也可以灵活的存取、消费，建议以大平台余额宝、理财通为主，其它类的谨慎选择。</p>
+
+<p>互联网金融</p>
+
+<p>平台真的重要！ 平台真的重要！！ 平台真的重要！！！ 重要的事情说三遍，如果选择不好平台就是0和1的事情，投资的平台跑路了就一分钱都没有了，笔者就投资了一个跑路的公司e租宝和一个在跑路之前投资过的公司。我们经常说，你贪恋的是人家的利息 ，人家贪恋的是你的本金。 但回过头来看其实大多数跑路的公司都是骗子公司，几乎没有什么正经的互联网金融公司，只是打着互联网金融的旗号来行骗而已。P2P真的风险很高吗，其实笔者看来只要选择好平台，应该还是非常好的一种理财方式。那怎么选择平台呢，尽量选择评级靠前、国企或者上市公司背景的企业。</p>
+
+<p>股市和基金</p>
+
+<p>股市是一个学问很深的东西，有人穷尽一生也不能领悟，主要看性格、价值观、人性的把握。大家要以我为戒，禁忌追涨杀跌、频繁买卖，要坚持价值投资，持续持用，追求长远的收益。股市也是一个风险度很高的投资，大家需要根据自己的风险偏好来选择投资，也可以适当的选择合适的基金产品来投资，一般股票配置比率应该和年龄成反比，越年轻就可以多占比你投资的一部分，最重要的是不要让股票影响了我们正常的生活和工作！一直想找一个既可以买A股、港股和美股的产品，一直没有发现很可惜。对于股市，要敬畏它、尊重它、理解它。</p>
+
+<p>黄金和保险</p>
+
+<p>和平时期买股票，战乱期间买黄金，这个要看每个的理解了，我了解也不是很多；保险是我了解最少的一部分了，总感觉我们这么年轻考虑保险干啥呢，但是这种保险的意识也需要慢慢的养成。</p>
+
+<p>买房</p>
+
+<p>好多人评论说没有提到买房，是因为对于这个买房还真不太懂，但我感觉拐点也快到了，一线城市的房价很难说，但是三四线投资房产的必要性真的不太大了，而且买房建议一定买核心地段或者位置环境偏好的小区，贵一点不要紧，方便以后转手。</p>
+
+<p>资产配置</p>
+
+<p>我目前的资金配置是，宝宝类产品1/4、p2p投资1/4、a股+美股3/8、基金1/8；大家可以根据各自风险承受度来选择自己的资产配比。</p>
+
+<p>最后</p>
+
+<p>理财是我们每一个人必须要关注的事情，那怕我们现在并没有多少钱，经常看到一个广告说，投资是你人生最后的一个事业，随着年龄的增长投资理财对我们越来越重要。投资也是一件谨慎、严肃的事情毕竟关系着我们辛苦赚的血汗钱。</p>
+
+<p>最后的最后</p>
+
+<p>对于我们，投资自己更重要！
+投资有风险，理财需谨慎 ！</p>
+
+<blockquote>
+  <p>转载：纯洁的微笑–<a href="https://mp.weixin.qq.com/s/4YtgLgfmjs-4N5UmyriJzg">https://mp.weixin.qq.com/s/4YtgLgfmjs-4N5UmyriJzg</a></p>
+</blockquote>
+
+<p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1fqj5aochgoj309k09kmwz.jpg" alt="" />
+<b><center>扫描关注：热爱生活的大叔</center>
+<b><center><font size="2">（<font size="2" color="#FF0000">转载本站文章请注明作者和出处</font> <font size="2" color="#0000FF">热爱生活的大叔-uniquezhangqi</font><font size="2">）</font></font></center></b></b></p>
+
+
+
+                <hr style="visibility: hidden;">
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2018/04/20/%E7%94%9F%E6%B4%BB-%E4%BB%AA%E5%BC%8F%E4%B8%8E%E9%85%8D%E6%96%B9/" data-toggle="tooltip" data-placement="top" title="仪式与配方">
+                        Previous<br>
+                        <span>仪式与配方</span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2018/04/26/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-jvm%E7%B3%BB%E5%88%97(%E4%B8%80)-%E7%B1%BB%E7%9A%84%E5%8A%A0%E8%BD%BD%E6%9C%BA%E5%88%B6%E5%92%8C%E6%96%87%E4%BB%B6%E7%BB%93%E6%9E%84/" data-toggle="tooltip" data-placement="top" title="jvm系列(一)：类的加载机制和文件结构">
+                        Next<br>
+                        <span>jvm系列(一)：类的加载机制和文件结构</span>
+                        </a>
+                    </li>
+                    
+                </ul>
+
+
+                <!--Gitalk评论start  -->
+                
+                <!-- Gitalk end -->
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+            </div>  
+
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">CATALOG</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+        				
+                            
+                				<a href="/tags/#生活" title="生活" rel="18">
+                                    生活
+                                </a>
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#自我总结" title="自我总结" rel="31">
+                                    自我总结
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#编程之路" title="编程之路" rel="80">
+                                    编程之路
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#设计模式" title="设计模式" rel="4">
+                                    设计模式
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#杂谈" title="杂谈" rel="6">
+                                    杂谈
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#随笔" title="随笔" rel="6">
+                                    随笔
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Quartz" title="Quartz" rel="2">
+                                    Quartz
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#SpringDataJPA" title="SpringDataJPA" rel="2">
+                                    SpringDataJPA
+                                </a>
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#前端" title="前端" rel="5">
+                                    前端
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#咖啡" title="咖啡" rel="4">
+                                    咖啡
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#shiro" title="shiro" rel="5">
+                                    shiro
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#摄影" title="摄影" rel="3">
+                                    摄影
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#理财" title="理财" rel="5">
+                                    理财
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#jvm" title="jvm" rel="3">
+                                    jvm
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#MySql" title="MySql" rel="6">
+                                    MySql
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#java8" title="java8" rel="4">
+                                    java8
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#分布式" title="分布式" rel="3">
+                                    分布式
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#MongoDB" title="MongoDB" rel="2">
+                                    MongoDB
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+        			</div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+                    
+                        <li><a href="https://apple.com">Apple</a></li>
+                    
+                        <li><a href="https://www.google.com">google</a></li>
+                    
+                        <li><a href="http://www.cnblogs.com/zuoxiaolong">左潇龙</a></li>
+                    
+                        <li><a href="http://www.importnew.com/">ImportNew</a></li>
+                    
+                        <li><a href="https://www.csdn.net/">CSND</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "uniquezhangqi";
+    var disqus_identifier = "/2018/04/21/生活-程序员该用哪种姿势来理财";
+    var disqus_url = "http://localhost:4000/2018/04/21/%E7%94%9F%E6%B4%BB-%E7%A8%8B%E5%BA%8F%E5%91%98%E8%AF%A5%E7%94%A8%E5%93%AA%E7%A7%8D%E5%A7%BF%E5%8A%BF%E6%9D%A5%E7%90%86%E8%B4%A2/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <!-- add jianshu add target = "_blank" to <a> by BY -->
+                    
+                    
+                    <li>
+                        <a href="https://twitter.com/Mr_javaian">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/伊恩">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="http://weibo.com/_____ZzZzZzq">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+
+                    
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/schooljavaian@gmail.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/uniquezhangqi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; MY Blog 2019
+                    <br>
+                    Theme on <a href="https://github.com/uniquezhangqi/uniquezhangqi.github.io.git">GitHub</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=uniquezhangqi&repo=uniquezhangqi.github.io&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+<!-- Service Worker -->
+
+<script type="text/javascript">
+    if(navigator.serviceWorker){
+        // For security reasons, a service worker can only control the pages that are in the same directory level or below it. That's why we put sw.js at ROOT level.
+        navigator.serviceWorker
+            .register('/sw.js')
+            .then((registration) => {console.log('Service Worker Registered. ', registration)})
+            .catch((error) => {console.log('ServiceWorker registration failed: ', error)})
+    }
+</script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/ 
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers   
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async('/js/jquery.tagcloud.js',function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-113450573-1';
+    var _gaDomain = 'uniquezhangqi.top';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = 'b50bf2b12b5338a1845e33832976fd68';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;    
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="/img/apple-touch-icon.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

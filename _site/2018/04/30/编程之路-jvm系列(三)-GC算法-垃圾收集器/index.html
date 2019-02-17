@@ -1,0 +1,949 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Always on the way of programming.">
+    <meta name="keywords"  content=" MY Blog, 伊恩的博客, Ian, 伊恩, java, Apple">
+    <meta name="theme-color" content="#000000">
+    
+    <title>jvm系列(三)：GC算法、垃圾收集器 - 伊恩的博客 | MY Blog</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <!-- Safari Webpage Icon    by-BY -->
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:4000/2018/04/30/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-jvm%E7%B3%BB%E5%88%97(%E4%B8%89)-GC%E7%AE%97%E6%B3%95-%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">MY Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">About</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">Tags</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from 
+     * $toggle/$collapse will break global delegation.
+     * 
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.  
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/ian-bg-blue.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-image: url('/img/ian-bg-blue.jpg')
+    }
+
+    
+</style>
+<header class="intro-header" >
+    <div class="header-mask"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#编程之路" title="编程之路">编程之路</a>
+                        
+                        <a class="tag" href="/tags/#jvm" title="jvm">jvm</a>
+                        
+                    </div>
+                    <h1>jvm系列(三)：GC算法、垃圾收集器</h1>
+                    
+                    
+                    <h2 class="subheading"></h2>
+                    
+                    <span class="meta">Posted by Ian on April 30, 2018</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+				<blockquote>
+  <p>本文首次发布于<a href="http://uniquezhangqi.top">My Blog</a>,作者<a href="http://uniquezhangqi.top/about/">@张琦(Ian)</a>,转载请保留原文链接。</p>
+</blockquote>
+
+<h3 id="概述">概述</h3>
+<p>GC 的历史比Java久远，而不是Java语言的伴生产物。GC需要完成3个件事情：</p>
+
+<ol>
+  <li>哪些内存需要回收</li>
+  <li>什么时候回收</li>
+  <li>如何回收</li>
+</ol>
+
+<h4 id="我们为什么要去了解gc和内存分配呢">我们为什么要去了解GC和内存分配呢？</h4>
+<p>当需要排查各种内存溢出、内存泄漏问题时，当垃圾收集器称为系统达到更高并发量的瓶颈时，我们就需要对这些“自动化”的技术实施必要的监控和调节。</p>
+
+<p>其中程序计数器、虚拟机栈、本地方法栈3个区域随线程而生，随线程而灭；栈中的栈帧随方法的进入和退出而有条不絮地执行着出栈和入栈操作。在方法结束或者线程结束时，内存自然就跟随着回收了。</p>
+
+<h3 id="对象是否已经死掉">对象是否已经死掉</h3>
+<p>在堆里面存放着Java世界中几乎所有的对象实例，垃圾收集器在对堆进行回收前，第一件事就是要确定这些对象之中哪些还“活着”，哪些已经“死掉了”（即不可能再被任何途径使用的对象）。</p>
+
+<h4 id="引用计数算法">引用计数算法</h4>
+<p>很多教科书判断对象是否存活的的算法是这样的：给对象中添加一个引用计数器，每当有一个地方引用它时，计数器值就加1；当引用失效时，计数器只就减1；任何时刻计数器为0的对象就是不可能再被使用的。</p>
+
+<h5 id="优点">优点</h5>
+<p>引用计数算法的实现简单，判定效率也很高，在大部分情况下它都是一个不错的算法。</p>
+
+<h5 id="缺点">缺点</h5>
+<p>它很难解决对象之间相互循环引用的问题。
+比如：</p>
+
+<p>对象objA和objB都有字段instance，赋值令objA.instance = objB 及 objB.instance = objA，除此之外，这两个对象再无任何引用，实际上这两个对戏那个寂静部坑再被访问，但是它们因为相互引用着对象，导致它们的引用计数都不为0，于是引用计数算法无法通知GC收集器回收它们。</p>
+
+<h4 id="可达性分析算法">可达性分析算法</h4>
+<p>这个算法的基本思路就是通过一系列的称为“GC Roots”的对象作为起始点，从这些节点开始向下搜索，搜索所走过的路径称为<code class="highlighter-rouge">引用链</code>,当一个对象到GC Roots没有任何引用链相连时，则证明此对象是不可用的。</p>
+
+<h5 id="什么是gc-roots">什么是GC Roots</h5>
+<p>可作为GC Roots的对象包括下面几种：</p>
+
+<ul>
+  <li>虚拟机栈（栈帧中的本地变量表）中引用的对象。</li>
+  <li>方法区中类静态属性引用的对象。</li>
+  <li>方法区中常量引用的对象。</li>
+  <li>本地方法区栈中JNI（即一搬说的Native方法）引用的对象。</li>
+</ul>
+
+<h3 id="再谈引用">再谈引用</h3>
+<p>在JDK1.2之后，Java对引用的概念进行了扩充，将引用分为强引用、软引用、弱引用、虚引用、4中，这4种引用强度依次减弱。</p>
+
+<ol>
+  <li>强引用就是指在程序代码之中普遍存在的，类似“Object obj = new Object()”这类的引用，只要强引用还存在，垃圾收集器永远不会回收掉被引用的对象。</li>
+  <li>软引用是用来描述一些还有用单并非必需的对象。对于软引用关联着的对象，在系统将要发生内存溢出异常之前，将会把这些对象列进回收范围之中进行第二次回收。如果这次回收还没有足够的内存，才会抛出内存溢出异常。在JDK1.2之后，提供了SoftReference类来实现软引用。</li>
+  <li>弱引用也是用来描述非必需对象的，但是他的强度比软引用更弱一些，被若引用关联的对象只能生存到一次垃圾收集发生之前。当垃圾收集器重做时，无论当前内存是否足够，都会回收掉只被引用关联的对象。JDK1.2之后提供了WeakReference类来实现弱引用。</li>
+  <li>虚引用也称为幽灵引用或者幻影引用，它是最弱的一种引用关系。一个对象是否有虚引用的存在，完全不会对其生存时间构成影响，也无法通过虚引用来却的一个对象实例。为一个对象设置虚引用关联的唯一目的就是能在这个对象被收集器回收时受到一个系统通知。JDK1.2之后，提供了PhantomReference类来实现虚引用。</li>
+</ol>
+
+<h3 id="生存还是死亡">生存还是死亡</h3>
+<p>即使在可达性分析算法中不可达对象，也并非是“非死不可”的，这时候它们暂时处于“缓行”阶段，要真正宣告一个对象死亡，至少要经历两次标记过程：如果对象在进行可达性分析后发现没有与GC Roots相连接的引用链，那它将会被第一次标记并且进行一次筛选，筛选的条件是此对象是否有必要执行finalize()方法。当对象没有覆盖finalize()方法，或者finalize()方法已经被虚拟机调用过，虚拟机将这两种情况都视为“<code class="highlighter-rouge">没有必要执行</code>”。</p>
+
+<p>如果这个对象被判定为有必要执行finalize()方法，那么这个对象将会放置在一个叫做F-Queue的队列中，并在稍后由虚拟机自动建立的、低优先级的Finalizer线程去执行它。这里所谓的“<code class="highlighter-rouge">执行</code>”是指虚拟机会触发这个方法，但并不承诺会等待它运行结束，这样做的原因是，如果一个对象在finalize()方法中执行缓慢，或者发生了死循环，将很可能导致F-Queue队列中其它对象永久处于等待，甚至导致整个内存回收系统崩溃。finalize()方法是对象逃脱死亡命运的最后一次机会，稍后GC将堆F-Queue中的对象进行第二次小规模的标记，如果对象要在finalize()中成功拯救自己–只要重新与引用的链上的任何一个对象建立关联即可，譬如把自己（this关键字）赋值给某个类变量或者对象的成员变量上，拿在第二次标记时它将被移除出“即将回收”的集合；如果对象这时候还没有逃脱，那基本上它就真的被回收了。</p>
+
+<h4 id="一次对象自我拯救的演示">一次对象自我拯救的演示</h4>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+* 1. 对象可以在被GC时自我拯救。
+* 2. 这种自救机会只有一次，因为一个对象的finalize()方法最多只会被系统自动调用一次
+*/</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">FinalizeEscapeGC</span><span class="o">{</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="n">FinalizeEescapeGC</span> <span class="n">SAVE_HOOK</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+	
+	<span class="n">pulbic</span> <span class="kt">void</span> <span class="nf">isAlive</span><span class="o">(){</span>
+		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"yes, i am still alive:)"</span><span class="o">);</span>
+	<span class="o">}</span>
+	
+	<span class="nd">@Override</span>
+	<span class="kd">protected</span> <span class="n">oid</span> <span class="nf">finalize</span><span class="o">()</span><span class="kd">throws</span> <span class="n">Thowable</span><span class="o">{</span>
+		<span class="kd">super</span><span class="o">.</span><span class="na">finalize</span><span class="o">();</span>
+		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"finalize method executed!"</span><span class="o">);</span>
+	<span class="o">}</span>
+	
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
+		<span class="n">SAVE_HOOK</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FinalizeEscapeGC</span><span class="o">();</span>
+		
+		<span class="c1">//对象第一次成功拯救自己</span>
+		<span class="n">SAVE_HOOK</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="n">System</span><span class="o">.</span><span class="na">gc</span><span class="o">();</span>
+		<span class="c1">//因为finalize方法优先级很低，所有暂停0.5秒以等待它</span>
+		<span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">500</span><span class="o">);</span>
+		<span class="k">if</span><span class="o">(</span><span class="n">SAVE_HOOK</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">){</span>
+			<span class="n">SAVE_HOOK</span><span class="o">.</span><span class="na">isAlive</span><span class="o">();</span>
+		<span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+			<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"no, i am dead :("</span><span class="o">);</span>
+		<span class="o">}</span>
+		
+		<span class="c1">//下面这段代码与上面的完全相同，但是这次自救失败</span>
+		<span class="n">SAVE_HOOK</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="n">System</span><span class="o">.</span><span class="na">gc</span><span class="o">();</span>
+		<span class="c1">//因为finalize方法优先级很低，所有暂停0.5秒以等待它</span>
+		<span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">500</span><span class="o">);</span>
+		<span class="k">if</span><span class="o">(</span><span class="n">SAVE_HOOK</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">){</span>
+			<span class="n">SAVE_HOOK</span><span class="o">.</span><span class="na">isAlive</span><span class="o">();</span>
+		<span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+			<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"no, i am dead :("</span><span class="o">);</span>
+		<span class="o">}</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+
+<span class="err">运行结果：</span>
+<span class="n">finalize</span> <span class="n">mehtod</span> <span class="n">executed</span><span class="o">!</span>
+<span class="n">yes</span><span class="o">,</span><span class="n">i</span> <span class="n">am</span> <span class="n">still</span> <span class="n">alive</span> <span class="o">:)</span>
+<span class="n">no</span><span class="o">,</span><span class="n">i</span> <span class="n">am</span> <span class="n">dead</span> <span class="o">:(</span>
+
+</code></pre></div></div>
+
+<h3 id="垃圾收集算法">垃圾收集算法</h3>
+<h4 id="标记-清除算法">标记-清除算法</h4>
+<p>最基础的收集算法是“标记-清除”算法，如同它的名字一样，算法分为“标记”和“清除”两个阶段：首先标记出所有需要回收的对象，在标记完成后统一回收所有被标记的对象，它的标记过程前面已经说过了，只所有说它是最基础的收集算法，是因为后续的收集算法都是基于这种思路并对其不足进行改进而得到的。</p>
+
+<h5 id="不足">不足：</h5>
+
+<ul>
+  <li>一个是效率问题，标记和清除两个过程的效率都不高；</li>
+  <li>另一个是空间问题，标记清除之后会产生大量不连续的内存碎片，空间碎片太多可能会导致以后在程序运行过程中需要分配较大对象时，无法找到足够的连续内存而不得不提前触发另一次垃圾收集动作。</li>
+</ul>
+
+<p><img src="https://ws4.sinaimg.cn/large/006tKfTcgy1fqvu3zpk1xj30d809i0tb.jpg" alt="" /></p>
+
+<h4 id="复制算法">复制算法</h4>
+<p>为了解决效率问题，一种“复制”的收集算法出现了，它将可用内存按容量划分为大小相等的两块，每次只使用其中的一块。当这一块的内存用完了，就将还存活着的对象复制到另一块上面，然后再把已使用过的内存空间一次清理掉。这样使得每次都是对整个半区进行内存回收，内存分配时也就不用考虑内存碎片等复杂情况，只要一动堆定指针，按顺序分配内存即可，实现简单，运行效率高。</p>
+
+<h5 id="缺点-1">缺点</h5>
+<p>这种算法的代价是将内存缩小为了原来的一半，代价有点高。在对象存活率较高时就要进行较多的复制操作，效率会变低。更关键的是，如果不想浪费50%的空间，就需要额外的空间进行分配担保，以应对被使用的内存中所有对象都100%存活的极端情况，所以在老年代一般不能直接选用这种算法。</p>
+
+<p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1fqvu9fasl5j30ds09x3z1.jpg" alt="" /></p>
+
+<h5 id="场景">场景</h5>
+<p>商业虚拟机都是采用这种收集算法来回收新生代。</p>
+
+<h4 id="标记-整理算法">标记-整理算法</h4>
+<p>根据老年代的特点，有人提出了另外异种骨“标记-整理”算法，标记过程仍然与“标记-清除”算法一样，但是后续步骤不是直接对可回收对象进行清理，而是让所有存活的对象都向一端移动，然后直接清理掉端边界以外的内存，如下图：
+<img src="https://ws1.sinaimg.cn/large/006tKfTcgy1fqvufw0ud7j30dy0b6dgk.jpg" alt="" /></p>
+
+<h4 id="分代收集算法">分代收集算法</h4>
+<p>当前商业虚拟机的垃圾收集都采用“分代收集“算法，这种算法并没有什么新的思想，只是根据对象存活周期的不同将内存划分为几块。一般是把Java堆分为新生代和老年代，这样就可以根据各个年代的特点采用最适当的收集算法。在新生代中，每次垃圾收集时都发现有大批对象死去，只有少量存活，那就选用复制算法，只需要付出少量存活对象的复制成本就可以完成收集。而老年代中因为对象存活率高、没有额外空间对它进行分配担保，就必须使用”标记-清理“或者”标记-整理“算法来进行回收。</p>
+
+<h3 id="垃圾收集器">垃圾收集器</h3>
+<p>如果说收集算法是内存回收的方法论，那么垃圾收集器就是内存回收的具体实现。</p>
+
+<h4 id="serial收集器">Serial收集器</h4>
+<p>Serial收集器是最基本、发展历史最悠久的收集器，主要用来新生代收集，是一个单线程的收集器。</p>
+
+<h5 id="优点-1">优点</h5>
+<p>现在目前为止，它依然是虚拟机运行在Client模式下的默认新生收集器，简单而高效（与其他收集器的单线程相比），对于限定单个CPU环境来说，Serial收集器由于没有线程交互的开销，专心做垃圾收集自然可以获得最高的单线程收集效率。</p>
+
+<h4 id="parnew收集器">ParNew收集器</h4>
+<p>ParNew收集器其实就是Serial收集器的多线程版本。</p>
+
+<h4 id="parallel-scavenge收集器">Parallel Scavenge收集器</h4>
+<p>Parallel Scavenge收集器是一个新生代收集器，它也是使用复制算法的收集器，又并行的多线程收集器。</p>
+
+<h5 id="特点">特点</h5>
+<p>Parallel Scavenge收集器的特点是它关注点与其他收集器不同，CMS等收集器的关注点是尽可能地缩短垃圾收集时用户线程的停顿时间，而Parallel Scavenge收集器收集器的目标则是达到一个可控的吞吐量。</p>
+
+<p>停顿时间越短就越适合 需要与用户交互的程序，良好的响应速度能提升用户体验，而高吞吐量则可以高效率的利用CPU时间，尽快完成程序的运算任务，主要适合在后台运算而不需要太多交互的任务。</p>
+
+<h4 id="serial-old收集器">Serial Old收集器</h4>
+<p>Serial Old 也是Serial收集器的来年代版本，它同样是一个单线程收集器，使用“标记-整理”算法。这个收集器的主要意义也是在于给Client模式下的虚拟机使用。</p>
+
+<h4 id="parallel-old收集器">Parallel Old收集器</h4>
+<p>Parallel Old 是Parallel Scavenge收集器的老年代版本，使用多线程和“标记-整理”算法。</p>
+
+<h4 id="cms收集器">CMS收集器</h4>
+<p>CMS收集器是一种以获取最短回收停顿时间为目标的收集器。目前很大一部分的Java应用集中在互联网站或者B/S系统的服务端上，这类应用尤其重视服务的响应速度，希望系统停顿时间最短，以给用户带来较好的体验</p>
+
+<p>CMS收集器是基于“标记-清除”算法实现的，它的运作整个过程分为4个步骤：</p>
+
+<ul>
+  <li>初始标记</li>
+  <li>并发标记</li>
+  <li>重新标记</li>
+  <li>并发清除</li>
+</ul>
+
+<h5 id="优点-2">优点</h5>
+<p>并发收集、低停顿。</p>
+
+<h5 id="缺点-2">缺点</h5>
+
+<ul>
+  <li>CMS收集器对CPU资源非常敏感。在并发阶段，它虽然不会导致用户线程停顿，单是会因为占用了一部分线程（或者说CPU资源）而导致应用程序变慢，总吞吐量会降低。</li>
+  <li>CMS收集器无法处理浮动垃圾，可能会出现“Concurrent Mode Failure”失败而导致另一次Full GC的产生。</li>
+  <li>收集结束时会有大量空间碎片产生。</li>
+</ul>
+
+<h4 id="g1收集器">G1收集器</h4>
+<p>G1是一款面向服务端应用的垃圾收集器。 与其他GC收集器相比，G1具备以下特点：</p>
+
+<ul>
+  <li>并行与并发：G1能充分利用多CPU、多核环境下的硬件优势，使用多个CPU来缩短停顿的时间，部分其他收集器原来需要停顿Java线程执行GC动作，G1收集器仍然可以通过并发的方式让Java程序继续执行。</li>
+  <li>分代收集：与其他收集器一样，分代概念在G1中仍然得以保留。虽然G1可以不需要其他收集器配合就能独立管理整个GC堆，但它能够采用不同的方式去处理新创建的对象和已经存活了一段时间、熬过多次GC的就对象以获取更好的收集效果。</li>
+  <li>空间整合：与CMS的“标记清理”算法不同，G1从整体来看是基于“标记-整理”算法实现的收集器，从局部（两个Region之间）上来看是基于“复制”算法实现的，但无论如何，这两种算法都意味着G1运作期间不会产生内存碎片，手机后能提供规整的可用内存。这种特性有利于程序长时间运行，分配大对象时不会因为无法找到连续内存空间而提前触发下一次GC。</li>
+  <li>可预测的停顿：这是G1相对于CMS的另一大优势，降低停顿时间时G1和CMS共同的关注点，但G1出了追求低停顿外，还能建立可预测的停顿时间模型，能让使用者明确指定在一个长度M浩渺的时间片段内，消耗在垃圾收集上的时间不得超过N毫秒，这几乎已经时实时Java的垃圾收集器的特征了。</li>
+</ul>
+
+<p>有兴趣的可以看下常用的收集器组合：
+<a href="http://www.ityouknow.com/jvm/2017/08/29/GC-garbage-collection.html">http://www.ityouknow.com/jvm/2017/08/29/GC-garbage-collection.html</a></p>
+
+<p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1fqj5aochgoj309k09kmwz.jpg" alt="" />
+<b><center>扫描关注：热爱生活的大叔</center>
+<b><center><font size="2">（<font size="2" color="#FF0000">转载本站文章请注明作者和出处</font> <font size="2" color="#0000FF">热爱生活的大叔-uniquezhangqi</font><font size="2">）</font></font></center></b></b></p>
+
+
+                <hr style="visibility: hidden;">
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2018/04/29/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-jvm%E7%B3%BB%E5%88%97(%E4%BA%8C)-%E5%86%85%E5%AD%98%E5%8C%BA%E5%9F%9F%E4%B8%8E%E5%86%85%E5%AD%98%E6%BA%A2%E5%87%BA/" data-toggle="tooltip" data-placement="top" title="jvm系列(二)：内存区域与内存溢出">
+                        Previous<br>
+                        <span>jvm系列(二)：内存区域与内存溢出</span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2018/05/02/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-MySql%E4%BC%98%E5%8C%96%E5%8E%9F%E7%90%86/" data-toggle="tooltip" data-placement="top" title="MySql优化原理">
+                        Next<br>
+                        <span>MySql优化原理</span>
+                        </a>
+                    </li>
+                    
+                </ul>
+
+
+                <!--Gitalk评论start  -->
+                
+                <!-- Gitalk end -->
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+            </div>  
+
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">CATALOG</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+        				
+                            
+                				<a href="/tags/#生活" title="生活" rel="18">
+                                    生活
+                                </a>
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#自我总结" title="自我总结" rel="31">
+                                    自我总结
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#编程之路" title="编程之路" rel="80">
+                                    编程之路
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#设计模式" title="设计模式" rel="4">
+                                    设计模式
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#杂谈" title="杂谈" rel="6">
+                                    杂谈
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#随笔" title="随笔" rel="6">
+                                    随笔
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Quartz" title="Quartz" rel="2">
+                                    Quartz
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#SpringDataJPA" title="SpringDataJPA" rel="2">
+                                    SpringDataJPA
+                                </a>
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#前端" title="前端" rel="5">
+                                    前端
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#咖啡" title="咖啡" rel="4">
+                                    咖啡
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#shiro" title="shiro" rel="5">
+                                    shiro
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#摄影" title="摄影" rel="3">
+                                    摄影
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#理财" title="理财" rel="5">
+                                    理财
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#jvm" title="jvm" rel="3">
+                                    jvm
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#MySql" title="MySql" rel="6">
+                                    MySql
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#java8" title="java8" rel="4">
+                                    java8
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#分布式" title="分布式" rel="3">
+                                    分布式
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#MongoDB" title="MongoDB" rel="2">
+                                    MongoDB
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+        			</div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+                    
+                        <li><a href="https://apple.com">Apple</a></li>
+                    
+                        <li><a href="https://www.google.com">google</a></li>
+                    
+                        <li><a href="http://www.cnblogs.com/zuoxiaolong">左潇龙</a></li>
+                    
+                        <li><a href="http://www.importnew.com/">ImportNew</a></li>
+                    
+                        <li><a href="https://www.csdn.net/">CSND</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "uniquezhangqi";
+    var disqus_identifier = "/2018/04/30/编程之路-jvm系列(三)：GC算法、垃圾收集器";
+    var disqus_url = "http://localhost:4000/2018/04/30/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-jvm%E7%B3%BB%E5%88%97(%E4%B8%89)-GC%E7%AE%97%E6%B3%95-%E5%9E%83%E5%9C%BE%E6%94%B6%E9%9B%86%E5%99%A8/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <!-- add jianshu add target = "_blank" to <a> by BY -->
+                    
+                    
+                    <li>
+                        <a href="https://twitter.com/Mr_javaian">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/伊恩">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="http://weibo.com/_____ZzZzZzq">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+
+                    
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/schooljavaian@gmail.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/uniquezhangqi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; MY Blog 2019
+                    <br>
+                    Theme on <a href="https://github.com/uniquezhangqi/uniquezhangqi.github.io.git">GitHub</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=uniquezhangqi&repo=uniquezhangqi.github.io&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+<!-- Service Worker -->
+
+<script type="text/javascript">
+    if(navigator.serviceWorker){
+        // For security reasons, a service worker can only control the pages that are in the same directory level or below it. That's why we put sw.js at ROOT level.
+        navigator.serviceWorker
+            .register('/sw.js')
+            .then((registration) => {console.log('Service Worker Registered. ', registration)})
+            .catch((error) => {console.log('ServiceWorker registration failed: ', error)})
+    }
+</script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/ 
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers   
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async('/js/jquery.tagcloud.js',function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-113450573-1';
+    var _gaDomain = 'uniquezhangqi.top';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = 'b50bf2b12b5338a1845e33832976fd68';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;    
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="/img/apple-touch-icon.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

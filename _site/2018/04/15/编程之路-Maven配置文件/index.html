@@ -1,0 +1,1608 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Always on the way of programming.">
+    <meta name="keywords"  content=" MY Blog, 伊恩的博客, Ian, 伊恩, java, Apple">
+    <meta name="theme-color" content="#000000">
+    
+    <title>Maven配置文件 - 伊恩的博客 | MY Blog</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <!-- Safari Webpage Icon    by-BY -->
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:4000/2018/04/15/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Maven%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">MY Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">About</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">Tags</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from 
+     * $toggle/$collapse will break global delegation.
+     * 
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.  
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/post-bg-re-vs-ng2.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-image: url('/img/post-bg-re-vs-ng2.jpg')
+    }
+
+    
+</style>
+<header class="intro-header" >
+    <div class="header-mask"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#编程之路" title="编程之路">编程之路</a>
+                        
+                        <a class="tag" href="/tags/#Maven" title="Maven">Maven</a>
+                        
+                    </div>
+                    <h1>Maven配置文件</h1>
+                    
+                    
+                    <h2 class="subheading">🤓</h2>
+                    
+                    <span class="meta">Posted by Ian on April 15, 2018</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+				<blockquote>
+  <p>本文首次发布于<a href="http://uniquezhangqi.top">My Blog</a>,作者<a href="http://uniquezhangqi.top/about/">@张琦(Ian)</a>,转载请保留原文链接。</p>
+</blockquote>
+
+<p>最近Z 在搭建一个新项目，是一个mysql、spring、Springmvc、SpringDataJpa的maven然后把之前知其然不知其所以然的全部都总结出来了，再这个pom.xml的后面，方便以后复制粘贴😁</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;?</span><span class="n">xml</span> <span class="n">version</span><span class="o">=</span><span class="s">"1.0"</span> <span class="n">encoding</span><span class="o">=</span><span class="s">"UTF-8"</span><span class="o">?&gt;</span>
+<span class="o">&lt;</span><span class="n">project</span> <span class="nl">xmlns:</span><span class="n">xsi</span><span class="o">=</span><span class="s">"http://www.w3.org/2001/XMLSchema-instance"</span>
+         <span class="n">xmlns</span><span class="o">=</span><span class="s">"http://maven.apache.org/POM/4.0.0"</span>
+         <span class="nl">xsi:</span><span class="n">schemaLocation</span><span class="o">=</span><span class="s">"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">modelVersion</span><span class="o">&gt;</span><span class="mf">4.0</span><span class="o">.</span><span class="mi">0</span><span class="o">&lt;/</span><span class="n">modelVersion</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">name</span><span class="o">&gt;</span><span class="n">java</span><span class="o">&lt;/</span><span class="n">name</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">com</span><span class="o">.</span><span class="na">java</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">com</span><span class="o">.</span><span class="na">java</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">packaging</span><span class="o">&gt;</span><span class="n">pom</span><span class="o">&lt;/</span><span class="n">packaging</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="mf">1.8</span><span class="o">.</span><span class="mi">8</span><span class="o">&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+
+    <span class="o">&lt;</span><span class="n">repositories</span><span class="o">&gt;&lt;!--</span> <span class="err">代码库</span> <span class="o">--&gt;</span>
+        <span class="o">&lt;</span><span class="n">repository</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">id</span><span class="o">&gt;</span><span class="n">maven</span><span class="o">-</span><span class="n">ali</span><span class="o">&lt;/</span><span class="n">id</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">url</span><span class="o">&gt;</span><span class="nl">http:</span><span class="c1">//maven.aliyun.com/nexus/content/groups/public/&lt;/url&gt;</span>
+            <span class="o">&lt;</span><span class="n">releases</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="n">enabled</span><span class="o">&gt;</span><span class="kc">true</span><span class="o">&lt;/</span><span class="n">enabled</span><span class="o">&gt;</span>
+            <span class="o">&lt;/</span><span class="n">releases</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">repository</span><span class="o">&gt;</span>
+    <span class="o">&lt;/</span><span class="n">repositories</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">properties</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">encoding</span><span class="o">&gt;</span><span class="n">UTF</span><span class="o">-</span><span class="mi">8</span><span class="o">&lt;/</span><span class="n">encoding</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">project</span><span class="o">.</span><span class="na">build</span><span class="o">.</span><span class="na">sourceEncoding</span><span class="o">&gt;</span><span class="n">UTF</span><span class="o">-</span><span class="mi">8</span><span class="o">&lt;/</span><span class="n">project</span><span class="o">.</span><span class="na">build</span><span class="o">.</span><span class="na">sourceEncoding</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">maven</span><span class="o">.</span><span class="na">compiler</span><span class="o">.</span><span class="na">encoding</span><span class="o">&gt;</span><span class="n">UTF</span><span class="o">-</span><span class="mi">8</span><span class="o">&lt;/</span><span class="n">maven</span><span class="o">.</span><span class="na">compiler</span><span class="o">.</span><span class="na">encoding</span><span class="o">&gt;</span>
+        <span class="o">&lt;!--</span> <span class="n">java</span> <span class="err">环境</span> <span class="o">--&gt;</span>
+        <span class="o">&lt;</span><span class="n">java</span><span class="o">.</span><span class="na">version</span><span class="o">&gt;</span><span class="mf">1.8</span><span class="o">&lt;/</span><span class="n">java</span><span class="o">.</span><span class="na">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">spring</span><span class="o">.</span><span class="na">version</span><span class="o">&gt;</span><span class="mf">4.3</span><span class="o">.</span><span class="mi">3</span><span class="o">.</span><span class="na">RELEASE</span><span class="o">&lt;/</span><span class="n">spring</span><span class="o">.</span><span class="na">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">spring</span><span class="o">.</span><span class="na">data</span><span class="o">.</span><span class="na">redis</span><span class="o">.</span><span class="na">version</span><span class="o">&gt;</span><span class="mf">1.5</span><span class="o">.</span><span class="mi">0</span><span class="o">.</span><span class="na">RELEASE</span><span class="o">&lt;/</span><span class="n">spring</span><span class="o">.</span><span class="na">data</span><span class="o">.</span><span class="na">redis</span><span class="o">.</span><span class="na">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">spring</span><span class="o">.</span><span class="na">data</span><span class="o">.</span><span class="na">jpa</span><span class="o">.</span><span class="na">version</span><span class="o">&gt;</span><span class="mf">1.10</span><span class="o">.</span><span class="mi">4</span><span class="o">.</span><span class="na">RELEASE</span><span class="o">&lt;/</span><span class="n">spring</span><span class="o">.</span><span class="na">data</span><span class="o">.</span><span class="na">jpa</span><span class="o">.</span><span class="na">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;!--&lt;</span><span class="n">mysql</span><span class="o">-</span><span class="n">connector</span><span class="o">-</span><span class="n">java</span><span class="o">.</span><span class="na">version</span><span class="o">&gt;</span><span class="mf">5.1</span><span class="o">.</span><span class="mi">35</span><span class="o">&lt;/</span><span class="n">mysql</span><span class="o">-</span><span class="n">connector</span><span class="o">-</span><span class="n">java</span><span class="o">.</span><span class="na">version</span><span class="o">&gt;--&gt;</span>
+        <span class="o">&lt;</span><span class="n">shiro</span><span class="o">.</span><span class="na">version</span><span class="o">&gt;</span><span class="mf">1.3</span><span class="o">.</span><span class="mi">2</span><span class="o">&lt;/</span><span class="n">shiro</span><span class="o">.</span><span class="na">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">hibernate</span><span class="o">.</span><span class="na">validator</span><span class="o">.</span><span class="na">version</span><span class="o">&gt;</span><span class="mf">5.2</span><span class="o">.</span><span class="mi">2</span><span class="o">.</span><span class="na">Final</span><span class="o">&lt;/</span><span class="n">hibernate</span><span class="o">.</span><span class="na">validator</span><span class="o">.</span><span class="na">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">hibernate</span><span class="o">.</span><span class="na">version</span><span class="o">&gt;</span><span class="mf">5.2</span><span class="o">.</span><span class="mi">3</span><span class="o">.</span><span class="na">Final</span><span class="o">&lt;/</span><span class="n">hibernate</span><span class="o">.</span><span class="na">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">ehcache</span><span class="o">.</span><span class="na">version</span><span class="o">&gt;</span><span class="mf">2.6</span><span class="o">.</span><span class="mi">11</span><span class="o">&lt;/</span><span class="n">ehcache</span><span class="o">.</span><span class="na">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">el</span><span class="o">.</span><span class="na">api</span><span class="o">.</span><span class="na">version</span><span class="o">&gt;</span><span class="mf">2.2</span><span class="o">.</span><span class="mi">4</span><span class="o">&lt;/</span><span class="n">el</span><span class="o">.</span><span class="na">api</span><span class="o">.</span><span class="na">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;!--&lt;</span><span class="n">ehcache</span><span class="o">.</span><span class="na">version</span><span class="o">&gt;</span><span class="mf">2.4</span><span class="o">.</span><span class="mi">3</span><span class="o">&lt;/</span><span class="n">ehcache</span><span class="o">.</span><span class="na">version</span><span class="o">&gt;--&gt;</span>
+        <span class="o">&lt;</span><span class="n">guava</span><span class="o">.</span><span class="na">version</span><span class="o">&gt;</span><span class="mf">18.0</span><span class="o">&lt;/</span><span class="n">guava</span><span class="o">.</span><span class="na">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">log4j</span><span class="o">.</span><span class="na">version</span><span class="o">&gt;</span><span class="mf">2.3</span><span class="o">&lt;/</span><span class="n">log4j</span><span class="o">.</span><span class="na">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">slf4j</span><span class="o">.</span><span class="na">version</span><span class="o">&gt;</span><span class="mf">1.7</span><span class="o">.</span><span class="mi">12</span><span class="o">&lt;/</span><span class="n">slf4j</span><span class="o">.</span><span class="na">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">hutool</span><span class="o">.</span><span class="na">version</span><span class="o">&gt;</span><span class="mf">2.12</span><span class="o">.</span><span class="mi">0</span><span class="o">&lt;/</span><span class="n">hutool</span><span class="o">.</span><span class="na">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">javax</span><span class="o">.</span><span class="na">servlet</span><span class="o">.</span><span class="na">version</span><span class="o">&gt;</span><span class="mf">3.1</span><span class="o">.</span><span class="mi">0</span><span class="o">&lt;/</span><span class="n">javax</span><span class="o">.</span><span class="na">servlet</span><span class="o">.</span><span class="na">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">javax</span><span class="o">.</span><span class="na">servlet</span><span class="o">.</span><span class="na">jstl</span><span class="o">.</span><span class="na">version</span><span class="o">&gt;</span><span class="mf">1.2</span><span class="o">&lt;/</span><span class="n">javax</span><span class="o">.</span><span class="na">servlet</span><span class="o">.</span><span class="na">jstl</span><span class="o">.</span><span class="na">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">jsp</span><span class="o">-</span><span class="n">api</span><span class="o">.</span><span class="na">version</span><span class="o">&gt;</span><span class="mf">2.2</span><span class="o">.</span><span class="mi">1</span><span class="o">-</span><span class="n">b03</span><span class="o">&lt;/</span><span class="n">jsp</span><span class="o">-</span><span class="n">api</span><span class="o">.</span><span class="na">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">jackson</span><span class="o">.</span><span class="na">version</span><span class="o">&gt;</span><span class="mf">2.8</span><span class="o">.</span><span class="mi">3</span><span class="o">&lt;/</span><span class="n">jackson</span><span class="o">.</span><span class="na">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">commons</span><span class="o">.</span><span class="na">lang3</span><span class="o">.</span><span class="na">version</span><span class="o">&gt;</span><span class="mf">3.4</span><span class="o">&lt;/</span><span class="n">commons</span><span class="o">.</span><span class="na">lang3</span><span class="o">.</span><span class="na">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">jsoup</span><span class="o">.</span><span class="na">version</span><span class="o">&gt;</span><span class="mf">1.8</span><span class="o">.</span><span class="mi">2</span><span class="o">&lt;/</span><span class="n">jsoup</span><span class="o">.</span><span class="na">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">jedis</span><span class="o">.</span><span class="na">version</span><span class="o">&gt;</span><span class="mf">2.6</span><span class="o">.</span><span class="mi">2</span><span class="o">&lt;/</span><span class="n">jedis</span><span class="o">.</span><span class="na">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">druid</span><span class="o">.</span><span class="na">version</span><span class="o">&gt;</span><span class="mf">1.0</span><span class="o">.</span><span class="mi">26</span><span class="o">&lt;/</span><span class="n">druid</span><span class="o">.</span><span class="na">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">logback</span><span class="o">.</span><span class="na">version</span><span class="o">&gt;</span><span class="mf">1.1</span><span class="o">.</span><span class="mi">6</span><span class="o">&lt;/</span><span class="n">logback</span><span class="o">.</span><span class="na">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">logstash</span><span class="o">-</span><span class="n">logback</span><span class="o">-</span><span class="n">encoder</span><span class="o">.</span><span class="na">version</span><span class="o">&gt;</span><span class="mf">4.7</span><span class="o">&lt;/</span><span class="n">logstash</span><span class="o">-</span><span class="n">logback</span><span class="o">-</span><span class="n">encoder</span><span class="o">.</span><span class="na">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">pac4j</span><span class="o">.</span><span class="na">version</span><span class="o">&gt;</span><span class="mf">1.9</span><span class="o">.</span><span class="mi">2</span><span class="o">&lt;/</span><span class="n">pac4j</span><span class="o">.</span><span class="na">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">buji</span><span class="o">-</span><span class="n">pac4j</span><span class="o">.</span><span class="na">version</span><span class="o">&gt;</span><span class="mf">2.0</span><span class="o">.</span><span class="mi">2</span><span class="o">&lt;/</span><span class="n">buji</span><span class="o">-</span><span class="n">pac4j</span><span class="o">.</span><span class="na">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">sitemesh</span><span class="o">.</span><span class="na">version</span><span class="o">&gt;</span><span class="mf">3.0</span><span class="o">.</span><span class="mi">1</span><span class="o">&lt;/</span><span class="n">sitemesh</span><span class="o">.</span><span class="na">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">commons</span><span class="o">-</span><span class="n">fileupload</span><span class="o">.</span><span class="na">version</span><span class="o">&gt;</span><span class="mf">1.3</span><span class="o">.</span><span class="mi">1</span><span class="o">&lt;/</span><span class="n">commons</span><span class="o">-</span><span class="n">fileupload</span><span class="o">.</span><span class="na">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">jpinyin</span><span class="o">.</span><span class="na">version</span><span class="o">&gt;</span><span class="mf">1.0</span><span class="o">&lt;/</span><span class="n">jpinyin</span><span class="o">.</span><span class="na">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">poi</span><span class="o">.</span><span class="na">version</span><span class="o">&gt;</span><span class="mf">3.13</span><span class="o">&lt;/</span><span class="n">poi</span><span class="o">.</span><span class="na">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">querydsl</span><span class="o">.</span><span class="na">version</span><span class="o">&gt;</span><span class="mf">4.1</span><span class="o">.</span><span class="mi">3</span><span class="o">&lt;/</span><span class="n">querydsl</span><span class="o">.</span><span class="na">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">bcprov</span><span class="o">-</span><span class="n">jdk16</span><span class="o">.</span><span class="na">version</span><span class="o">&gt;</span><span class="mf">1.46</span><span class="o">&lt;/</span><span class="n">bcprov</span><span class="o">-</span><span class="n">jdk16</span><span class="o">.</span><span class="na">version</span><span class="o">&gt;</span>
+    <span class="o">&lt;/</span><span class="n">properties</span><span class="o">&gt;</span>
+
+    <span class="o">&lt;</span><span class="n">dependencies</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">com</span><span class="o">.</span><span class="na">thoughtworks</span><span class="o">.</span><span class="na">xstream</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">xstream</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="mf">1.4</span><span class="o">.</span><span class="mi">7</span><span class="o">&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+
+        <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">opensymphony</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">sitemesh</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="mf">2.4</span><span class="o">.</span><span class="mi">2</span><span class="o">&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+
+        <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">com</span><span class="o">.</span><span class="na">alibaba</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">fastjson</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="mf">1.2</span><span class="o">.</span><span class="mi">4</span><span class="o">&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+        <span class="o">&lt;!--</span> <span class="n">xml</span> <span class="err">转</span><span class="n">json</span><span class="o">--&gt;</span>
+        <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">org</span><span class="o">.</span><span class="na">jdom</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">jdom</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="mf">2.0</span><span class="o">.</span><span class="mi">2</span><span class="o">&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+
+
+        <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">httpcomponents</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">httpclient</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="mf">4.5</span><span class="o">.</span><span class="mi">3</span><span class="o">&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">org</span><span class="o">.</span><span class="na">quartz</span><span class="o">-</span><span class="n">scheduler</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">quartz</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="mf">2.2</span><span class="o">.</span><span class="mi">1</span><span class="o">&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">org</span><span class="o">.</span><span class="na">quartz</span><span class="o">-</span><span class="n">scheduler</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">quartz</span><span class="o">-</span><span class="n">jobs</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="mf">2.2</span><span class="o">.</span><span class="mi">1</span><span class="o">&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">httpcomponents</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">httpcore</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="mf">4.4</span><span class="o">.</span><span class="mi">6</span><span class="o">&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+
+        <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">com</span><span class="o">.</span><span class="na">google</span><span class="o">.</span><span class="na">zxing</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">core</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="mf">3.2</span><span class="o">.</span><span class="mi">0</span><span class="o">&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+
+        <span class="o">&lt;!--</span><span class="n">ecahe</span> <span class="n">start</span><span class="o">--&gt;</span>
+        <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">org</span><span class="o">.</span><span class="na">hibernate</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">hibernate</span><span class="o">-</span><span class="n">ehcache</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="err">$</span><span class="o">{</span><span class="n">hibernate</span><span class="o">.</span><span class="na">version</span><span class="o">}&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">net</span><span class="o">.</span><span class="na">sf</span><span class="o">.</span><span class="na">ehcache</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">ehcache</span><span class="o">-</span><span class="n">core</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="err">$</span><span class="o">{</span><span class="n">ehcache</span><span class="o">.</span><span class="na">version</span><span class="o">}&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">shiro</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">shiro</span><span class="o">-</span><span class="n">ehcache</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="err">$</span><span class="o">{</span><span class="n">shiro</span><span class="o">.</span><span class="na">version</span><span class="o">}&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+
+        <span class="o">&lt;!--</span><span class="n">ecahe</span> <span class="n">end</span><span class="o">--&gt;</span>
+        <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">commons</span><span class="o">-</span><span class="n">codec</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">commons</span><span class="o">-</span><span class="n">codec</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="mf">1.9</span><span class="o">&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">commons</span><span class="o">-</span><span class="n">io</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">commons</span><span class="o">-</span><span class="n">io</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="mf">2.6</span><span class="o">&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+
+        <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">com</span><span class="o">.</span><span class="na">querydsl</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">querydsl</span><span class="o">-</span><span class="n">apt</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="err">$</span><span class="o">{</span><span class="n">querydsl</span><span class="o">.</span><span class="na">version</span><span class="o">}&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">scope</span><span class="o">&gt;</span><span class="n">compile</span><span class="o">&lt;/</span><span class="n">scope</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">optional</span><span class="o">&gt;</span><span class="kc">true</span><span class="o">&lt;/</span><span class="n">optional</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+
+        <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">com</span><span class="o">.</span><span class="na">querydsl</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">querydsl</span><span class="o">-</span><span class="n">jpa</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="err">$</span><span class="o">{</span><span class="n">querydsl</span><span class="o">.</span><span class="na">version</span><span class="o">}&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+
+        <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">org</span><span class="o">.</span><span class="na">sitemesh</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">sitemesh</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="err">$</span><span class="o">{</span><span class="n">sitemesh</span><span class="o">.</span><span class="na">version</span><span class="o">}&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">commons</span><span class="o">-</span><span class="n">fileupload</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">commons</span><span class="o">-</span><span class="n">fileupload</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="err">$</span><span class="o">{</span><span class="n">commons</span><span class="o">-</span><span class="n">fileupload</span><span class="o">.</span><span class="na">version</span><span class="o">}&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+        <span class="o">&lt;!--</span>  <span class="err">拼音组件</span> <span class="o">--&gt;</span>
+        <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">com</span><span class="o">.</span><span class="na">github</span><span class="o">.</span><span class="na">stuxuhai</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">jpinyin</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="err">$</span><span class="o">{</span><span class="n">jpinyin</span><span class="o">.</span><span class="na">version</span><span class="o">}&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+        <span class="o">&lt;!--</span> <span class="n">mysql</span> <span class="err">连接驱动</span> <span class="o">--&gt;</span>
+        <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">com</span><span class="o">.</span><span class="na">cwbase</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">logback</span><span class="o">-</span><span class="n">redis</span><span class="o">-</span><span class="n">appender</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="mf">1.1</span><span class="o">.</span><span class="mi">5</span><span class="o">&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+        <span class="o">&lt;!--&lt;</span><span class="n">dependency</span><span class="o">&gt;--&gt;</span>
+            <span class="o">&lt;!--&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">mysql</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;--&gt;</span>
+            <span class="o">&lt;!--&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">mysql</span><span class="o">-</span><span class="n">connector</span><span class="o">-</span><span class="n">java</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;--&gt;</span>
+            <span class="o">&lt;!--&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="err">$</span><span class="o">{</span><span class="n">mysql</span><span class="o">-</span><span class="n">connector</span><span class="o">-</span><span class="n">java</span><span class="o">.</span><span class="na">version</span><span class="o">}&lt;/</span><span class="n">version</span><span class="o">&gt;--&gt;</span>
+        <span class="o">&lt;!--&lt;/</span><span class="n">dependency</span><span class="o">&gt;--&gt;</span>
+        <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">com</span><span class="o">.</span><span class="na">xiaoleilu</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">hutool</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="err">$</span><span class="o">{</span><span class="n">hutool</span><span class="o">.</span><span class="na">version</span><span class="o">}&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">com</span><span class="o">.</span><span class="na">google</span><span class="o">.</span><span class="na">guava</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">guava</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="err">$</span><span class="o">{</span><span class="n">guava</span><span class="o">.</span><span class="na">version</span><span class="o">}&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">commons</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">commons</span><span class="o">-</span><span class="n">lang3</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="err">$</span><span class="o">{</span><span class="n">commons</span><span class="o">.</span><span class="na">lang3</span><span class="o">.</span><span class="na">version</span><span class="o">}&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">org</span><span class="o">.</span><span class="na">jsoup</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">jsoup</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="err">$</span><span class="o">{</span><span class="n">jsoup</span><span class="o">.</span><span class="na">version</span><span class="o">}&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">redis</span><span class="o">.</span><span class="na">clients</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">jedis</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="err">$</span><span class="o">{</span><span class="n">jedis</span><span class="o">.</span><span class="na">version</span><span class="o">}&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+        <span class="o">&lt;!--</span> <span class="err">组件</span> <span class="err">工具类</span> <span class="n">end</span> <span class="o">--&gt;</span>
+
+        <span class="o">&lt;!--</span> <span class="n">spring</span> <span class="n">start</span> <span class="o">--&gt;</span>
+        <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">org</span><span class="o">.</span><span class="na">springframework</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">spring</span><span class="o">-</span><span class="n">aop</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="err">$</span><span class="o">{</span><span class="n">spring</span><span class="o">.</span><span class="na">version</span><span class="o">}&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">org</span><span class="o">.</span><span class="na">springframework</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">spring</span><span class="o">-</span><span class="n">aspects</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="err">$</span><span class="o">{</span><span class="n">spring</span><span class="o">.</span><span class="na">version</span><span class="o">}&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">org</span><span class="o">.</span><span class="na">springframework</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">spring</span><span class="o">-</span><span class="n">beans</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="err">$</span><span class="o">{</span><span class="n">spring</span><span class="o">.</span><span class="na">version</span><span class="o">}&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">org</span><span class="o">.</span><span class="na">springframework</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">spring</span><span class="o">-</span><span class="n">context</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="err">$</span><span class="o">{</span><span class="n">spring</span><span class="o">.</span><span class="na">version</span><span class="o">}&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">org</span><span class="o">.</span><span class="na">springframework</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">spring</span><span class="o">-</span><span class="n">context</span><span class="o">-</span><span class="n">support</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="err">$</span><span class="o">{</span><span class="n">spring</span><span class="o">.</span><span class="na">version</span><span class="o">}&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">org</span><span class="o">.</span><span class="na">springframework</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">spring</span><span class="o">-</span><span class="n">core</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="err">$</span><span class="o">{</span><span class="n">spring</span><span class="o">.</span><span class="na">version</span><span class="o">}&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">org</span><span class="o">.</span><span class="na">springframework</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">spring</span><span class="o">-</span><span class="n">expression</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="err">$</span><span class="o">{</span><span class="n">spring</span><span class="o">.</span><span class="na">version</span><span class="o">}&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">org</span><span class="o">.</span><span class="na">springframework</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">spring</span><span class="o">-</span><span class="n">jdbc</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="err">$</span><span class="o">{</span><span class="n">spring</span><span class="o">.</span><span class="na">version</span><span class="o">}&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">org</span><span class="o">.</span><span class="na">springframework</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">spring</span><span class="o">-</span><span class="n">orm</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="err">$</span><span class="o">{</span><span class="n">spring</span><span class="o">.</span><span class="na">version</span><span class="o">}&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">org</span><span class="o">.</span><span class="na">springframework</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">spring</span><span class="o">-</span><span class="n">test</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="err">$</span><span class="o">{</span><span class="n">spring</span><span class="o">.</span><span class="na">version</span><span class="o">}&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">org</span><span class="o">.</span><span class="na">springframework</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">spring</span><span class="o">-</span><span class="n">tx</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="err">$</span><span class="o">{</span><span class="n">spring</span><span class="o">.</span><span class="na">version</span><span class="o">}&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">org</span><span class="o">.</span><span class="na">springframework</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">spring</span><span class="o">-</span><span class="n">web</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="err">$</span><span class="o">{</span><span class="n">spring</span><span class="o">.</span><span class="na">version</span><span class="o">}&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">org</span><span class="o">.</span><span class="na">springframework</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">spring</span><span class="o">-</span><span class="n">webmvc</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="err">$</span><span class="o">{</span><span class="n">spring</span><span class="o">.</span><span class="na">version</span><span class="o">}&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">org</span><span class="o">.</span><span class="na">springframework</span><span class="o">.</span><span class="na">data</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">spring</span><span class="o">-</span><span class="n">data</span><span class="o">-</span><span class="n">redis</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="err">$</span><span class="o">{</span><span class="n">spring</span><span class="o">.</span><span class="na">data</span><span class="o">.</span><span class="na">redis</span><span class="o">.</span><span class="na">version</span><span class="o">}&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">exclusions</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="n">exclusion</span><span class="o">&gt;</span>
+                    <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">spring</span><span class="o">-</span><span class="n">orm</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+                    <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">org</span><span class="o">.</span><span class="na">springframework</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+                <span class="o">&lt;/</span><span class="n">exclusion</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="n">exclusion</span><span class="o">&gt;</span>
+                    <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">spring</span><span class="o">-</span><span class="n">aop</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+                    <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">org</span><span class="o">.</span><span class="na">springframework</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+                <span class="o">&lt;/</span><span class="n">exclusion</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="n">exclusion</span><span class="o">&gt;</span>
+                    <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">spring</span><span class="o">-</span><span class="n">tx</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+                    <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">org</span><span class="o">.</span><span class="na">springframework</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+                <span class="o">&lt;/</span><span class="n">exclusion</span><span class="o">&gt;</span>
+            <span class="o">&lt;/</span><span class="n">exclusions</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">org</span><span class="o">.</span><span class="na">springframework</span><span class="o">.</span><span class="na">data</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">spring</span><span class="o">-</span><span class="n">data</span><span class="o">-</span><span class="n">jpa</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="err">$</span><span class="o">{</span><span class="n">spring</span><span class="o">.</span><span class="na">data</span><span class="o">.</span><span class="na">jpa</span><span class="o">.</span><span class="na">version</span><span class="o">}&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">exclusions</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="n">exclusion</span><span class="o">&gt;</span>
+                    <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">junit</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+                    <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">junit</span><span class="o">-</span><span class="n">dep</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+                <span class="o">&lt;/</span><span class="n">exclusion</span><span class="o">&gt;</span>
+            <span class="o">&lt;/</span><span class="n">exclusions</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+        <span class="o">&lt;!--</span> <span class="n">spring</span> <span class="n">end</span> <span class="o">--&gt;</span>
+
+        <span class="o">&lt;!--</span> <span class="n">LOGGING</span> <span class="n">begin</span> <span class="o">--&gt;</span>
+        <span class="o">&lt;!--</span> <span class="n">slf4j</span> <span class="o">--&gt;</span>
+        <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">org</span><span class="o">.</span><span class="na">slf4j</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">slf4j</span><span class="o">-</span><span class="n">api</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="err">$</span><span class="o">{</span><span class="n">slf4j</span><span class="o">.</span><span class="na">version</span><span class="o">}&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">ch</span><span class="o">.</span><span class="na">qos</span><span class="o">.</span><span class="na">logback</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">logback</span><span class="o">-</span><span class="n">core</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="err">$</span><span class="o">{</span><span class="n">logback</span><span class="o">.</span><span class="na">version</span><span class="o">}&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">ch</span><span class="o">.</span><span class="na">qos</span><span class="o">.</span><span class="na">logback</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">logback</span><span class="o">-</span><span class="n">classic</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="err">$</span><span class="o">{</span><span class="n">logback</span><span class="o">.</span><span class="na">version</span><span class="o">}&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">net</span><span class="o">.</span><span class="na">logstash</span><span class="o">.</span><span class="na">logback</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">logstash</span><span class="o">-</span><span class="n">logback</span><span class="o">-</span><span class="n">encoder</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="err">$</span><span class="o">{</span><span class="n">logstash</span><span class="o">-</span><span class="n">logback</span><span class="o">-</span><span class="n">encoder</span><span class="o">.</span><span class="na">version</span><span class="o">}&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+        <span class="o">&lt;!--</span> <span class="n">LOGGING</span> <span class="n">end</span> <span class="o">--&gt;</span>
+
+
+        <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">commons</span><span class="o">-</span><span class="n">logging</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">commons</span><span class="o">-</span><span class="n">logging</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="mf">1.2</span><span class="o">&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">com</span><span class="o">.</span><span class="na">squareup</span><span class="o">.</span><span class="na">okhttp3</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">okhttp</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="mf">3.7</span><span class="o">.</span><span class="mi">0</span><span class="o">&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+
+        <span class="o">&lt;!--</span> <span class="n">jackson</span><span class="o">(</span><span class="n">spring</span> <span class="err">的</span><span class="n">json</span><span class="err">转换依赖</span><span class="o">)</span> <span class="n">start</span> <span class="o">--&gt;</span>
+        <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">com</span><span class="o">.</span><span class="na">fasterxml</span><span class="o">.</span><span class="na">jackson</span><span class="o">.</span><span class="na">core</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">jackson</span><span class="o">-</span><span class="n">core</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="err">$</span><span class="o">{</span><span class="n">jackson</span><span class="o">.</span><span class="na">version</span><span class="o">}&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+
+        <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">com</span><span class="o">.</span><span class="na">fasterxml</span><span class="o">.</span><span class="na">jackson</span><span class="o">.</span><span class="na">core</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">jackson</span><span class="o">-</span><span class="n">databind</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="err">$</span><span class="o">{</span><span class="n">jackson</span><span class="o">.</span><span class="na">version</span><span class="o">}&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+
+        <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">com</span><span class="o">.</span><span class="na">fasterxml</span><span class="o">.</span><span class="na">jackson</span><span class="o">.</span><span class="na">core</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">jackson</span><span class="o">-</span><span class="n">annotations</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="err">$</span><span class="o">{</span><span class="n">jackson</span><span class="o">.</span><span class="na">version</span><span class="o">}&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+        <span class="o">&lt;!--</span> <span class="n">jackson</span> <span class="n">end</span> <span class="o">--&gt;</span>
+
+        <span class="o">&lt;!--</span> <span class="err">权限相关</span> <span class="n">shiro</span> <span class="n">start</span> <span class="o">--&gt;</span>
+        <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">shiro</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">shiro</span><span class="o">-</span><span class="n">core</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="err">$</span><span class="o">{</span><span class="n">shiro</span><span class="o">.</span><span class="na">version</span><span class="o">}&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">shiro</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">shiro</span><span class="o">-</span><span class="n">web</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="err">$</span><span class="o">{</span><span class="n">shiro</span><span class="o">.</span><span class="na">version</span><span class="o">}&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">shiro</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">shiro</span><span class="o">-</span><span class="n">spring</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="err">$</span><span class="o">{</span><span class="n">shiro</span><span class="o">.</span><span class="na">version</span><span class="o">}&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+        <span class="o">&lt;!--</span> <span class="err">权限相关</span> <span class="n">shiro</span> <span class="n">end</span> <span class="o">--&gt;</span>
+
+
+        <span class="o">&lt;!--</span> <span class="n">hibernate</span> <span class="n">start</span> <span class="o">--&gt;</span>
+        <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">org</span><span class="o">.</span><span class="na">hibernate</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">hibernate</span><span class="o">-</span><span class="n">jpamodelgen</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="err">$</span><span class="o">{</span><span class="n">hibernate</span><span class="o">.</span><span class="na">version</span><span class="o">}&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">scope</span><span class="o">&gt;</span><span class="n">compile</span><span class="o">&lt;/</span><span class="n">scope</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">optional</span><span class="o">&gt;</span><span class="kc">true</span><span class="o">&lt;/</span><span class="n">optional</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">org</span><span class="o">.</span><span class="na">hibernate</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">hibernate</span><span class="o">-</span><span class="n">core</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="err">$</span><span class="o">{</span><span class="n">hibernate</span><span class="o">.</span><span class="na">version</span><span class="o">}&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">org</span><span class="o">.</span><span class="na">hibernate</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">hibernate</span><span class="o">-</span><span class="n">validator</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="err">$</span><span class="o">{</span><span class="n">hibernate</span><span class="o">.</span><span class="na">validator</span><span class="o">.</span><span class="na">version</span><span class="o">}&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+
+
+        <span class="o">&lt;!--</span> <span class="n">servlet</span> <span class="n">start</span> <span class="o">--&gt;</span>
+        <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">org</span><span class="o">.</span><span class="na">glassfish</span><span class="o">.</span><span class="na">hk2</span><span class="o">.</span><span class="na">external</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">javax</span><span class="o">.</span><span class="na">inject</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="mf">2.5</span><span class="o">.</span><span class="mi">0</span><span class="o">-</span><span class="n">b21</span><span class="o">&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+
+        <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">javax</span><span class="o">.</span><span class="na">el</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">javax</span><span class="o">.</span><span class="na">el</span><span class="o">-</span><span class="n">api</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="err">$</span><span class="o">{</span><span class="n">el</span><span class="o">.</span><span class="na">api</span><span class="o">.</span><span class="na">version</span><span class="o">}&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">scope</span><span class="o">&gt;</span><span class="n">provided</span><span class="o">&lt;/</span><span class="n">scope</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">javax</span><span class="o">.</span><span class="na">servlet</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">javax</span><span class="o">.</span><span class="na">servlet</span><span class="o">-</span><span class="n">api</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="err">$</span><span class="o">{</span><span class="n">javax</span><span class="o">.</span><span class="na">servlet</span><span class="o">.</span><span class="na">version</span><span class="o">}&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">scope</span><span class="o">&gt;</span><span class="n">provided</span><span class="o">&lt;/</span><span class="n">scope</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">javax</span><span class="o">.</span><span class="na">servlet</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">jstl</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="err">$</span><span class="o">{</span><span class="n">javax</span><span class="o">.</span><span class="na">servlet</span><span class="o">.</span><span class="na">jstl</span><span class="o">.</span><span class="na">version</span><span class="o">}&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">javax</span><span class="o">.</span><span class="na">servlet</span><span class="o">.</span><span class="na">jsp</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">jsp</span><span class="o">-</span><span class="n">api</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="err">$</span><span class="o">{</span><span class="n">jsp</span><span class="o">-</span><span class="n">api</span><span class="o">.</span><span class="na">version</span><span class="o">}&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">scope</span><span class="o">&gt;</span><span class="n">provided</span><span class="o">&lt;/</span><span class="n">scope</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+        <span class="o">&lt;!--</span> <span class="n">sevlet</span> <span class="n">end</span> <span class="o">--&gt;</span>
+
+        <span class="o">&lt;!--</span> <span class="err">阿里巴巴提供的连接池</span> <span class="n">druid</span> <span class="o">--&gt;</span>
+        <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">com</span><span class="o">.</span><span class="na">alibaba</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">druid</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="err">$</span><span class="o">{</span><span class="n">druid</span><span class="o">.</span><span class="na">version</span><span class="o">}&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">junit</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">junit</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="n">RELEASE</span><span class="o">&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+
+
+        <span class="o">&lt;!--</span> <span class="o">============================================================================</span> <span class="o">--&gt;</span>
+        <span class="o">&lt;!--</span> <span class="n">security</span> <span class="o">--&gt;</span>
+        <span class="o">&lt;!--</span> <span class="o">============================================================================</span> <span class="o">--&gt;</span>
+        <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">org</span><span class="o">.</span><span class="na">bouncycastle</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">bcprov</span><span class="o">-</span><span class="n">jdk16</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="err">$</span><span class="o">{</span><span class="n">bcprov</span><span class="o">-</span><span class="n">jdk16</span><span class="o">.</span><span class="na">version</span><span class="o">}&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">org</span><span class="o">.</span><span class="na">bouncycastle</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">bcmail</span><span class="o">-</span><span class="n">jdk16</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="err">$</span><span class="o">{</span><span class="n">bcprov</span><span class="o">-</span><span class="n">jdk16</span><span class="o">.</span><span class="na">version</span><span class="o">}&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+
+        <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">com</span><span class="o">.</span><span class="na">caucho</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">hessian</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="mf">4.0</span><span class="o">.</span><span class="mi">38</span><span class="o">&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+
+        <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">httpcomponents</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">httpmime</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="mf">4.5</span><span class="o">.</span><span class="mi">3</span><span class="o">&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">httpcomponents</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">httpclient</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="mf">4.5</span><span class="o">.</span><span class="mi">3</span><span class="o">&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">httpcomponents</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">httpasyncclient</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="mf">4.1</span><span class="o">.</span><span class="mi">3</span><span class="o">&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">httpcomponents</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">httpcore</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="mf">4.4</span><span class="o">.</span><span class="mi">5</span><span class="o">&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+
+        <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">httpcomponents</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">httpcore</span><span class="o">-</span><span class="n">nio</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="mf">4.4</span><span class="o">.</span><span class="mi">6</span><span class="o">&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+
+        <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">javax</span><span class="o">.</span><span class="na">websocket</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">javax</span><span class="o">.</span><span class="na">websocket</span><span class="o">-</span><span class="n">api</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="mf">1.1</span><span class="o">&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">scope</span><span class="o">&gt;</span><span class="n">provided</span><span class="o">&lt;/</span><span class="n">scope</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+
+
+    <span class="o">&lt;/</span><span class="n">dependencies</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">dependencyManagement</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">dependencies</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">poi</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">poi</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="err">$</span><span class="o">{</span><span class="n">poi</span><span class="o">.</span><span class="na">version</span><span class="o">}&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+            <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">poi</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">poi</span><span class="o">-</span><span class="n">ooxml</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="err">$</span><span class="o">{</span><span class="n">poi</span><span class="o">.</span><span class="na">version</span><span class="o">}&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+            <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+
+            <span class="o">&lt;!--</span> <span class="n">websocket</span> <span class="err">支持</span> <span class="o">--&gt;</span>
+            <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">org</span><span class="o">.</span><span class="na">springframework</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">spring</span><span class="o">-</span><span class="n">websocket</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="err">$</span><span class="o">{</span><span class="n">spring</span><span class="o">.</span><span class="na">version</span><span class="o">}&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+            <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">dependency</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">org</span><span class="o">.</span><span class="na">springframework</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">spring</span><span class="o">-</span><span class="n">messaging</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="err">$</span><span class="o">{</span><span class="n">spring</span><span class="o">.</span><span class="na">version</span><span class="o">}&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+            <span class="o">&lt;/</span><span class="n">dependency</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">dependencies</span><span class="o">&gt;</span>
+    <span class="o">&lt;/</span><span class="n">dependencyManagement</span><span class="o">&gt;</span>
+
+
+    <span class="o">&lt;</span><span class="n">build</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">pluginManagement</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">plugins</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="n">plugin</span><span class="o">&gt;</span>
+                    <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">maven</span><span class="o">-</span><span class="n">source</span><span class="o">-</span><span class="n">plugin</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+                    <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="mf">2.1</span><span class="o">.</span><span class="mi">2</span><span class="o">&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+                    <span class="o">&lt;</span><span class="n">executions</span><span class="o">&gt;</span>
+                        <span class="o">&lt;</span><span class="n">execution</span><span class="o">&gt;</span>
+                            <span class="o">&lt;</span><span class="n">phase</span><span class="o">&gt;</span><span class="n">deploy</span><span class="o">&lt;/</span><span class="n">phase</span><span class="o">&gt;</span>
+                            <span class="o">&lt;</span><span class="n">goals</span><span class="o">&gt;</span>
+                                <span class="o">&lt;</span><span class="n">goal</span><span class="o">&gt;</span><span class="n">jar</span><span class="o">&lt;/</span><span class="n">goal</span><span class="o">&gt;</span>
+                            <span class="o">&lt;/</span><span class="n">goals</span><span class="o">&gt;</span>
+                        <span class="o">&lt;/</span><span class="n">execution</span><span class="o">&gt;</span>
+                    <span class="o">&lt;/</span><span class="n">executions</span><span class="o">&gt;</span>
+                <span class="o">&lt;/</span><span class="n">plugin</span><span class="o">&gt;</span>
+            <span class="o">&lt;/</span><span class="n">plugins</span><span class="o">&gt;</span>
+
+        <span class="o">&lt;/</span><span class="n">pluginManagement</span><span class="o">&gt;</span>
+        <span class="o">&lt;</span><span class="n">plugins</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">plugin</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">maven</span><span class="o">.</span><span class="na">plugins</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">maven</span><span class="o">-</span><span class="n">resources</span><span class="o">-</span><span class="n">plugin</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="mf">3.0</span><span class="o">.</span><span class="mi">1</span><span class="o">&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="n">configuration</span><span class="o">&gt;</span>
+                    <span class="o">&lt;</span><span class="n">encoding</span><span class="o">&gt;</span><span class="err">$</span><span class="o">{</span><span class="n">encoding</span><span class="o">}&lt;/</span><span class="n">encoding</span><span class="o">&gt;</span>
+                <span class="o">&lt;/</span><span class="n">configuration</span><span class="o">&gt;</span>
+            <span class="o">&lt;/</span><span class="n">plugin</span><span class="o">&gt;</span>
+            <span class="o">&lt;</span><span class="n">plugin</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">maven</span><span class="o">.</span><span class="na">plugins</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">maven</span><span class="o">-</span><span class="n">install</span><span class="o">-</span><span class="n">plugin</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="mf">2.5</span><span class="o">.</span><span class="mi">2</span><span class="o">&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="n">executions</span><span class="o">&gt;</span>
+                    <span class="o">&lt;</span><span class="n">execution</span><span class="o">&gt;</span>
+                        <span class="o">&lt;</span><span class="n">id</span><span class="o">&gt;</span><span class="k">default</span><span class="o">-</span><span class="n">install</span><span class="o">&lt;/</span><span class="n">id</span><span class="o">&gt;</span>
+                        <span class="o">&lt;</span><span class="n">phase</span><span class="o">&gt;</span><span class="n">none</span><span class="o">&lt;/</span><span class="n">phase</span><span class="o">&gt;</span>
+                    <span class="o">&lt;/</span><span class="n">execution</span><span class="o">&gt;</span>
+                    <span class="o">&lt;</span><span class="n">execution</span><span class="o">&gt;</span>
+                        <span class="o">&lt;</span><span class="n">id</span><span class="o">&gt;</span><span class="n">install</span><span class="o">&lt;/</span><span class="n">id</span><span class="o">&gt;</span>
+                        <span class="o">&lt;</span><span class="n">phase</span><span class="o">&gt;</span><span class="n">install</span><span class="o">&lt;/</span><span class="n">phase</span><span class="o">&gt;</span>
+                        <span class="o">&lt;</span><span class="n">goals</span><span class="o">&gt;</span>
+                            <span class="o">&lt;</span><span class="n">goal</span><span class="o">&gt;</span><span class="n">install</span><span class="o">&lt;/</span><span class="n">goal</span><span class="o">&gt;</span>
+                        <span class="o">&lt;/</span><span class="n">goals</span><span class="o">&gt;</span>
+                    <span class="o">&lt;/</span><span class="n">execution</span><span class="o">&gt;</span>
+                <span class="o">&lt;/</span><span class="n">executions</span><span class="o">&gt;</span>
+            <span class="o">&lt;/</span><span class="n">plugin</span><span class="o">&gt;</span>
+            <span class="o">&lt;!--</span> <span class="n">maven</span> <span class="n">compile</span> <span class="n">plugin</span> <span class="o">--&gt;</span>
+            <span class="o">&lt;</span><span class="n">plugin</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="n">groupId</span><span class="o">&gt;</span><span class="n">org</span><span class="o">.</span><span class="na">apache</span><span class="o">.</span><span class="na">maven</span><span class="o">.</span><span class="na">plugins</span><span class="o">&lt;/</span><span class="n">groupId</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="n">artifactId</span><span class="o">&gt;</span><span class="n">maven</span><span class="o">-</span><span class="n">compiler</span><span class="o">-</span><span class="n">plugin</span><span class="o">&lt;/</span><span class="n">artifactId</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="n">version</span><span class="o">&gt;</span><span class="mf">3.5</span><span class="o">.</span><span class="mi">1</span><span class="o">&lt;/</span><span class="n">version</span><span class="o">&gt;</span>
+                <span class="o">&lt;</span><span class="n">configuration</span><span class="o">&gt;</span>
+                    <span class="o">&lt;!--</span> <span class="err">使用</span><span class="mf">1.8</span> <span class="o">--&gt;</span>
+                    <span class="o">&lt;</span><span class="n">source</span><span class="o">&gt;</span><span class="err">$</span><span class="o">{</span><span class="n">java</span><span class="o">.</span><span class="na">version</span><span class="o">}&lt;/</span><span class="n">source</span><span class="o">&gt;</span>
+                    <span class="o">&lt;</span><span class="n">target</span><span class="o">&gt;</span><span class="err">$</span><span class="o">{</span><span class="n">java</span><span class="o">.</span><span class="na">version</span><span class="o">}&lt;/</span><span class="n">target</span><span class="o">&gt;</span>
+                    <span class="o">&lt;</span><span class="n">encoding</span><span class="o">&gt;</span><span class="err">$</span><span class="o">{</span><span class="n">encoding</span><span class="o">}&lt;/</span><span class="n">encoding</span><span class="o">&gt;</span>
+                    <span class="o">&lt;</span><span class="n">annotationProcessors</span><span class="o">&gt;</span>
+                        <span class="o">&lt;</span><span class="n">annotationProcessor</span><span class="o">&gt;</span><span class="n">org</span><span class="o">.</span><span class="na">hibernate</span><span class="o">.</span><span class="na">jpamodelgen</span><span class="o">.</span><span class="na">JPAMetaModelEntityProcessor</span><span class="o">&lt;/</span><span class="n">annotationProcessor</span><span class="o">&gt;</span>
+                        <span class="o">&lt;</span><span class="n">annotationProcessor</span><span class="o">&gt;</span><span class="n">com</span><span class="o">.</span><span class="na">querydsl</span><span class="o">.</span><span class="na">apt</span><span class="o">.</span><span class="na">jpa</span><span class="o">.</span><span class="na">JPAAnnotationProcessor</span><span class="o">&lt;/</span><span class="n">annotationProcessor</span><span class="o">&gt;</span>
+                    <span class="o">&lt;/</span><span class="n">annotationProcessors</span><span class="o">&gt;</span>
+                <span class="o">&lt;/</span><span class="n">configuration</span><span class="o">&gt;</span>
+            <span class="o">&lt;/</span><span class="n">plugin</span><span class="o">&gt;</span>
+        <span class="o">&lt;/</span><span class="n">plugins</span><span class="o">&gt;</span>
+    <span class="o">&lt;/</span><span class="n">build</span><span class="o">&gt;</span>
+
+<span class="o">&lt;/</span><span class="n">project</span><span class="o">&gt;</span>
+</code></pre></div></div>
+
+<h4 id="标识">标识:</h4>
+
+<ul>
+  <li>参考：<a href="https://blog.csdn.net/ekeuy/article/details/40079475">https://blog.csdn.net/ekeuy/article/details/40079475</a>
+    <ol>
+      <li>JPinyin是一个汉字转拼音的Java开源类库，在PinYin4j的功能基础上做了一些改进。</li>
+      <li>【JPinyin主要特性】</li>
+      <li>准确、完善的字库；
+     Unicode编码从4E00-9FA5范围及3007（〇）的20903个汉字中，JPinyin能转换除46个异体字（异体字不存在标准拼音）之外的所有汉字；</li>
+      <li>拼音转换速度快；
+     经测试，转换Unicode编码从4E00-9FA5范围的20902个汉字，JPinyin耗时约100毫秒。</li>
+      <li>多拼音格式输出支持；
+     JPinyin支持多种拼音输出格式：带音标、不带音标、数字表示音标以及拼音首字母输出格式；</li>
+      <li>常见多音字识别；
+     JPinyin支持常见多音字的识别，其中包括词组、成语、地名等；</li>
+      <li>简繁体中文转换</li>
+    </ol>
+  </li>
+  <li>参考：<a href="http://www.cnblogs.com/china-li/archive/2013/05/15/3080154.html">http://www.cnblogs.com/china-li/archive/2013/05/15/3080154.html</a>
+    <ol>
+      <li>SiteMesh 主要是用来统一页面风格，减少重复编码的。</li>
+      <li>它定义了一个过滤器，然后把页面都加上统一的头部和底部。</li>
+      <li>需要先在WEB-INF/lib下引入sitemesh的jar包：http://wiki.sitemesh.org/display/sitemesh/Download 。这里使用2.4版本。</li>
+    </ol>
+  </li>
+  <li>参考：<a href="https://blog.csdn.net/vbirdbest/article/details/72870714">https://blog.csdn.net/vbirdbest/article/details/72870714</a>
+    <ul>
+      <li>Apache POI使用详解
+        <ol>
+          <li>主要操作Excel;操作Excel目前有两个框架，一个是apache 的poi， 另一个是 Java Excel</li>
+        </ol>
+      </li>
+    </ul>
+    <poi.version>3.13</poi.version>
+  </li>
+  <li>参考：<a href="https://zhuanlan.zhihu.com/p/24778422">https://zhuanlan.zhihu.com/p/24778422</a>
+    <ol>
+      <li>QueryDSL仅仅是一个通用的查询框架，专注于通过Java API构建类型安全的SQL查询。</li>
+      <li>Querydsl可以通过一组通用的查询API为用户构建出适合不同类型ORM框架或者是SQL的查询语句，也就是说QueryDSL是基于各种ORM框架以及SQL之上的一个通用的查询框架。</li>
+      <li>借助QueryDSL可以在任何支持的ORM框架或者SQL平台上以一种通用的API方式来构建查询。目前QueryDSL支持的平台包括JPA,JDO,SQL,Java Collections,RDF,Lucene,Hibernate Search。</li>
+      <li>官网地址:<a href="http://www.querydsl.com/static/querydsl/4.1.3/reference/html_single/">点击进入</a></li>
+    </ol>
+  </li>
+  <li>
+    <p>参考：<a href="https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk16/1.46">https://mvnrepository.com/artifact/org.bouncycastle/bcprov-jdk16/1.46</a></p>
+
+    <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nt">&lt;bcprov-jdk16.version&gt;</span>1.46<span class="nt">&lt;/bcprov-jdk16.version&gt;</span>
+</code></pre></div>    </div>
+
+    <p><strong>加密算法的Java实现</strong></p>
+  </li>
+  <li>参考：<a href="https://zh.wikipedia.org/wiki/XStream">https://zh.wikipedia.org/wiki/XStream</a>
+    <ul>
+      <li>XStream是Java类库，用来将对象序列化成XML （JSON）或反序列化为对象。</li>
+    </ul>
+
+    <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nt">&lt;dependency&gt;&lt;br&gt;</span>
+      <span class="nt">&lt;groupId&gt;</span>com.thoughtworks.xstream<span class="nt">&lt;/groupId&gt;&lt;br&gt;</span>
+      <span class="nt">&lt;artifactId&gt;</span>xstream<span class="nt">&lt;/artifactId&gt;&lt;br&gt;</span>
+      <span class="nt">&lt;version&gt;</span>1.4.7<span class="nt">&lt;/version&gt;&lt;br&gt;</span>
+  <span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>参考：<a href="https://mvnrepository.com/artifact/org.jdom/jdom">https://mvnrepository.com/artifact/org.jdom/jdom</a></p>
+
+    <ul>
+      <li><strong>基于Java的完整访问，操作和输出XML数据的解决方案</strong></li>
+    </ul>
+
+    <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nt">&lt;dependency&gt;</span>
+      <span class="nt">&lt;groupId&gt;</span>org.jdom<span class="nt">&lt;/groupId&gt;</span>
+      <span class="nt">&lt;artifactId&gt;</span>jdom<span class="nt">&lt;/artifactId&gt;</span>
+      <span class="nt">&lt;version&gt;</span>2.0.2<span class="nt">&lt;/version&gt;</span>
+  <span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div>    </div>
+  </li>
+  <li>参考：<a href="https://mvnrepository.com/artifact/opensymphony">https://mvnrepository.com/artifact/opensymphony</a>
+    <ul>
+      <li>SiteMesh是一个网页布局和装饰框架以及网络应用程序集成框架，有助于创建包含多个页面的大型网站，这些页面需要一致的外观/感觉，导航和布局方案。</li>
+    </ul>
+
+    <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nt">&lt;dependency&gt;</span>
+      <span class="nt">&lt;groupId&gt;</span>opensymphony<span class="nt">&lt;/groupId&gt;</span>
+      <span class="nt">&lt;artifactId&gt;</span>sitemesh<span class="nt">&lt;/artifactId&gt;</span>
+      <span class="nt">&lt;version&gt;</span>2.4.2<span class="nt">&lt;/version&gt;</span>
+  <span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div>    </div>
+  </li>
+  <li>参考：<a href="https://hc.apache.org/httpcomponents-core-ga/">https://hc.apache.org/httpcomponents-core-ga/</a></li>
+  <li>HttpCore是一组低级HTTP传输组件，可用于以最小的占用空间构建自定义客户端和服务器端HTTP服务。</li>
+  <li>
+    <p>HttpCore支持两种I / O模型：基于经典的Java I / O和基于Java NIO的非阻塞，事件驱动的I / O模型来阻塞I / O模型。</p>
+
+    <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nt">&lt;dependency&gt;</span>
+     <span class="nt">&lt;groupId&gt;</span>org.apache.httpcomponents<span class="nt">&lt;/groupId&gt;</span>
+     <span class="nt">&lt;artifactId&gt;</span>httpcore<span class="nt">&lt;/artifactId&gt;</span>
+     <span class="nt">&lt;version&gt;</span>4.4.6<span class="nt">&lt;/version&gt;</span>
+ <span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div>    </div>
+  </li>
+  <li>参考：<a href="https://www.jianshu.com/p/85e0bdb8bd2c">https://www.jianshu.com/p/85e0bdb8bd2c</a></li>
+  <li>
+    <p>简单理解， ZXing支持各种条形码，二维码扫描，由多个模块组成， 而且支持PC端，移动端</p>
+
+    <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nt">&lt;dependency&gt;</span>
+     <span class="nt">&lt;groupId&gt;</span>com.google.zxing<span class="nt">&lt;/groupId&gt;</span>
+     <span class="nt">&lt;artifactId&gt;</span>core<span class="nt">&lt;/artifactId&gt;</span>
+     <span class="nt">&lt;version&gt;</span>3.2.0<span class="nt">&lt;/version&gt;</span>
+ <span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div>    </div>
+  </li>
+  <li>参考：<a href="https://mvnrepository.com/artifact/net.sf.ehcache">https://mvnrepository.com/artifact/net.sf.ehcache</a></li>
+  <li>
+    <p>这是ehcache核心模块。将其与其他模块配对以增加功能。</p>
+
+    <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nt">&lt;dependency&gt;</span>
+     <span class="nt">&lt;groupId&gt;</span>net.sf.ehcache<span class="nt">&lt;/groupId&gt;</span>
+     <span class="nt">&lt;artifactId&gt;</span>ehcache-core<span class="nt">&lt;/artifactId&gt;</span>
+     <span class="nt">&lt;version&gt;</span>${ehcache.version}<span class="nt">&lt;/version&gt;</span>
+ <span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div>    </div>
+  </li>
+  <li>参考：<a href="https://mvnrepository.com/artifact/commons-codec/commons-codec">https://mvnrepository.com/artifact/commons-codec/commons-codec</a></li>
+  <li>
+    <p>Apache Commons Codec软件包包含简单的编码器和解码器，适用于各种格式，如Base64和十六进制。除了这些广泛使用的编码器和解码器之外，编解码器软件包还保存了一系列语音编码工具。</p>
+
+    <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nt">&lt;dependency&gt;</span>
+ <span class="nt">&lt;groupId&gt;</span>commons-codec<span class="nt">&lt;/groupId&gt;</span>
+ <span class="nt">&lt;artifactId&gt;</span>commons-codec<span class="nt">&lt;/artifactId&gt;</span>
+ <span class="nt">&lt;version&gt;</span>1.9<span class="nt">&lt;/version&gt;</span>
+ <span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div>    </div>
+  </li>
+  <li><a href="http://blog.51cto.com/drizzlewalk/665590">http://blog.51cto.com/drizzlewalk/665590</a>
+    <ol>
+      <li>maven scope含义的说明 范围</li>
+    </ol>
+  </li>
+  <li>参考：<a href="https://my.oschina.net/kaywu123/blog/610825">https://my.oschina.net/kaywu123/blog/610825</a>
+    <ul>
+      <li>
+        <p>组成 Spring 框架的每个模块集合或者模块都可以单独存在，也可以一个或多个模块联合实现。每个模块的组成和功能如下：</p>
+
+        <ol>
+          <li>
+            <p>核心容器：由spring-beans、spring-core、spring-context和spring-expression（Spring Expression Language, SpEL） 4个模块组成。</p>
+          </li>
+          <li>
+            <p>spring-beans和spring-core模块是Spring框架的核心模块，包含了控制反转（Inversion of Control, IoC）和依赖注入（Dependency Injection, DI）。BeanFactory 接口是Spring框架中的核心接口，它是工厂模式的具体实现。BeanFactory 使用控制反转对应用程序的配置和依赖性规范与实际的应用程序代码进行了分离。但 BeanFactory 容器实例化后并不会自动实例化 Bean，只有当 Bean 被使用时 BeanFactory 容器才会对该 Bean 进行实例化与依赖关系的装配。</p>
+          </li>
+          <li>
+            <p>spring-contest模块构架于核心模块之上，他扩展了BeanFactory，为她添加了Bean生命周期控制、框架事件体系以及资源加载透明化等功能。此外该模块还提供了许多企业级支持，如邮件访问、远程访问、任务调度等，ApplicationContext是该模块的核心接口，她是 BeanFactory 的超类，与 BeanFactory 不同，ApplicationContext 容器实例化后会自动对所有的单实例 Bean 进行实例化与依赖关系的装配，使之处于待用状态。</p>
+          </li>
+          <li>
+            <p>spring-expression模块是统一表达式语言（unified EL）的扩展模块，可以查询、管理运行中的对象，同时也方便的可以调用对象方法、操作数组、集合等。它的语法类似于传统EL，但提供了额外的功能，最出色的要数函数调用和简单字符串的模板函数。这种语言的特性是基于 Spring 产品的需求而设计，他可以非常方便地同Spring IoC进行交互。</p>
+          </li>
+        </ol>
+      </li>
+    </ul>
+  </li>
+  <li>参考：<a href="https://blog.csdn.net/mixika99/article/details/72723374">https://blog.csdn.net/mixika99/article/details/72723374</a>
+    <ol>
+      <li>Spring tx：为JDBC、Hibernate、JDO、JPA等提供的一致的声明式和编程式事务管理。</li>
+    </ol>
+  </li>
+  <li>参考：<a href="http://square.github.io/okhttp/">http://square.github.io/okhttp/</a></li>
+  <li>
+    <p>HTTP是现代应用程序网络的方式。这就是我们如何交换数据和媒体。高效地进行HTTP使得你的东西加载速度更快并且节省了带宽。</p>
+  </li>
+  <li>OkHttp是默认有效的HTTP客户端：
+    <ul>
+      <li>HTTP / 2支持允许同一主机的所有请求共享一个套接字。</li>
+      <li>连接池减少了请求延迟（如果HTTP / 2不可用）。</li>
+      <li>透明GZIP缩小了下载大小。</li>
+      <li>响应缓存完全避免网络重复请求。</li>
+      <li>当网络很麻烦时，OkHttp会坚持下去：它会默默地从常见的连接问题中恢复过来。如果您的服务有多个IP地址，如果第一次连接失败，OkHttp将尝试备用地址。这对IPv4 + IPv6和冗余数据中心托管的服务是必需的。OkHttp发起与现代TLS功能（SNI，ALPN）的新连接，并且如果握手失败则回退到TLS 1.0。</li>
+    </ul>
+  </li>
+  <li>
+    <p>使用OkHttp很容易。其请求/响应API的设计具有流畅的构建器和不变性。它支持同步阻塞调用和带回调的异步调用。</p>
+
+    <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nt">&lt;dependency&gt;</span>
+      <span class="nt">&lt;groupId&gt;</span>com.squareup.okhttp3<span class="nt">&lt;/groupId&gt;</span>
+      <span class="nt">&lt;artifactId&gt;</span>okhttp<span class="nt">&lt;/artifactId&gt;</span>
+      <span class="nt">&lt;version&gt;</span>3.7.0<span class="nt">&lt;/version&gt;</span>
+  <span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div>    </div>
+  </li>
+  <li>参考：<a href="https://mvnrepository.com/artifact/com.caucho/hessian">https://mvnrepository.com/artifact/com.caucho/hessian</a>
+    <ul>
+      <li>Hessian是用于连接Web服务的二进制协议。</li>
+    </ul>
+
+    <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>  <span class="nt">&lt;dependency&gt;</span>
+      <span class="nt">&lt;groupId&gt;</span>com.caucho<span class="nt">&lt;/groupId&gt;</span>
+      <span class="nt">&lt;artifactId&gt;</span>hessian<span class="nt">&lt;/artifactId&gt;</span>
+      <span class="nt">&lt;version&gt;</span>4.0.38<span class="nt">&lt;/version&gt;</span>
+  <span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div>    </div>
+  </li>
+  <li>参考：<a href="https://hc.apache.org/httpcomponents-asyncclient-dev/index.html">https://hc.apache.org/httpcomponents-asyncclient-dev/index.html</a></li>
+  <li><strong>HttpAsyncClient概述</strong>
+    <ul>
+      <li>
+        <p>超文本传输​​协议（HTTP）可能是当今互联网上使用的最重要的协议。网络服务，支持网络的设备以及网络计算的发展继续扩大了HTTP协议在用户驱动的Web浏览器之外的作用，同时增加了需要HTTP支持的应用程序的数量。</p>
+      </li>
+      <li>
+        <p>尽管java.net包提供了通过HTTP访问资源的基本功能，但它并不能提供许多应用程序所需的全部灵活性或功能。HttpAsyncClient试图通过提供一个高效的，最新的，功能丰富的包来实现最新的HTTP标准和建议的客户端，从而填补这一空白。</p>
+      </li>
+      <li>
+        <p>为基础HTTP协议提供强大的支持而设计的扩展，HttpAsyncClient可能是任何构建基于异步，事件驱动I / O模型的HTTP感知客户端应用程序的人感兴趣的。</p>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p><strong>MAVEN 标签：</strong><br /></p>
+
+<ul>
+  <li>参考：<a href="https://blog.csdn.net/liutengteng130/article/details/46991829">https://blog.csdn.net/liutengteng130/article/details/46991829</a>
+    <ul>
+      <li>dependencies即使在子项目中不写该依赖项，那么子项目仍然会从父项目中继承该依赖项(全部继承)</li>
+      <li>dependencyManagement里只是声明依赖，并不实现引入，因此子项目需要显示的声明需要用的依赖。如果不在子项目中声明依赖，是不会从父项目中继承下来的；只有在子项目中写了该依赖项，并且没有指定具体版本，才会从父项目中继承该项，并且version和scope都读取自父pom;另外如果子项目中指定了版本号，那么会使用子项目中指定的jar版本。</li>
+    </ul>
+  </li>
+  <li>参考：<a href="https://mvnrepository.com/artifact/org.apache.poi/poi">https://mvnrepository.com/artifact/org.apache.poi/poi</a>
+    <ul>
+      <li>Apache POI - 访问Microsoft格式文件的Java API</li>
+    </ul>
+  </li>
+</ul>
+
+<p><strong>spring-core.xml</strong> <br /></p>
+
+<ul>
+  <li><code class="highlighter-rouge">&lt;context:component-scan&gt;</code>使用说明
+    <ul>
+      <li>如果配置了<code class="highlighter-rouge">&lt;context:component-scan&gt;</code>那么<code class="highlighter-rouge">&lt;context:annotation-config/&gt;</code>标签就可以不用再xml中配置了，因为前者包含了后者。另外<code class="highlighter-rouge">&lt;context:component-scan&gt;</code>还提供了两个子标签
+        <ol>
+          <li>
+            <p><code class="highlighter-rouge">use-default-filters="false"</code>  <code class="highlighter-rouge">&lt;context:include-filter&gt;</code>:扫描指定包下面的Controller</p>
+          </li>
+          <li>
+            <p><code class="highlighter-rouge">&lt;context:exclude-filter&gt; </code>:指定的不扫描
+  在说明这两个子标签前，先说一下<code class="highlighter-rouge">&lt;context:component-scan&gt;</code>有一个use-default-filters属性，该属性默认为true,这就意味着会扫描指定包下的全部的标有@Component的类，并注册成bean.也就是@Component的子注解@Service,@Reposity等。</p>
+          </li>
+        </ol>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p><strong>EhCache缓存框架</strong><br /></p>
+
+<ul>
+  <li>参考：<a href="https://www.jianshu.com/p/5a0669d6305e">https://www.jianshu.com/p/5a0669d6305e</a></li>
+  <li>Ehcache 从 Hibernate 发展而来，逐渐涵盖了 Cahce 界的全部功能,是目前发展势头最好的一个项目。具有快速,简单,低消耗，依赖性小，扩展性强,支持对象或序列化缓存，支持缓存或元素的失效，提供 LRU、LFU 和 FIFO 缓存策略，支持内存缓存和磁盘缓存，分布式缓存机制等等特点。</li>
+</ul>
+
+<p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1fqj5aochgoj309k09kmwz.jpg" alt="" />
+<b><center>扫描关注：热爱生活的大叔</center>
+<b><center><font size="2">（<font size="2" color="#FF0000">转载本站文章请注明作者和出处</font> <font size="2" color="#0000FF">热爱生活的大叔-uniquezhangqi</font><font size="2">）</font></font></center></b></b></p>
+
+
+                <hr style="visibility: hidden;">
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2018/04/15/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Map%E5%B0%81%E8%A3%85-(%E4%B8%80%E4%B8%AA%E9%94%AE%E5%A4%9A%E4%B8%AA%E5%80%BC)/" data-toggle="tooltip" data-placement="top" title="Map封装 (一个键多个值)">
+                        Previous<br>
+                        <span>Map封装 (一个键多个值)</span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2018/04/15/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/" data-toggle="tooltip" data-placement="top" title="跨域问题">
+                        Next<br>
+                        <span>跨域问题</span>
+                        </a>
+                    </li>
+                    
+                </ul>
+
+
+                <!--Gitalk评论start  -->
+                
+                <!-- Gitalk end -->
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+            </div>  
+
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">CATALOG</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+        				
+                            
+                				<a href="/tags/#生活" title="生活" rel="18">
+                                    生活
+                                </a>
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#自我总结" title="自我总结" rel="31">
+                                    自我总结
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#编程之路" title="编程之路" rel="80">
+                                    编程之路
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#设计模式" title="设计模式" rel="4">
+                                    设计模式
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#杂谈" title="杂谈" rel="6">
+                                    杂谈
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#随笔" title="随笔" rel="6">
+                                    随笔
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Quartz" title="Quartz" rel="2">
+                                    Quartz
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#SpringDataJPA" title="SpringDataJPA" rel="2">
+                                    SpringDataJPA
+                                </a>
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#前端" title="前端" rel="5">
+                                    前端
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#咖啡" title="咖啡" rel="4">
+                                    咖啡
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#shiro" title="shiro" rel="5">
+                                    shiro
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#摄影" title="摄影" rel="3">
+                                    摄影
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#理财" title="理财" rel="5">
+                                    理财
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#jvm" title="jvm" rel="3">
+                                    jvm
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#MySql" title="MySql" rel="6">
+                                    MySql
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#java8" title="java8" rel="4">
+                                    java8
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#分布式" title="分布式" rel="3">
+                                    分布式
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#MongoDB" title="MongoDB" rel="2">
+                                    MongoDB
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+        			</div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+                    
+                        <li><a href="https://apple.com">Apple</a></li>
+                    
+                        <li><a href="https://www.google.com">google</a></li>
+                    
+                        <li><a href="http://www.cnblogs.com/zuoxiaolong">左潇龙</a></li>
+                    
+                        <li><a href="http://www.importnew.com/">ImportNew</a></li>
+                    
+                        <li><a href="https://www.csdn.net/">CSND</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "uniquezhangqi";
+    var disqus_identifier = "/2018/04/15/编程之路-Maven配置文件";
+    var disqus_url = "http://localhost:4000/2018/04/15/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Maven%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <!-- add jianshu add target = "_blank" to <a> by BY -->
+                    
+                    
+                    <li>
+                        <a href="https://twitter.com/Mr_javaian">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/伊恩">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="http://weibo.com/_____ZzZzZzq">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+
+                    
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/schooljavaian@gmail.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/uniquezhangqi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; MY Blog 2019
+                    <br>
+                    Theme on <a href="https://github.com/uniquezhangqi/uniquezhangqi.github.io.git">GitHub</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=uniquezhangqi&repo=uniquezhangqi.github.io&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+<!-- Service Worker -->
+
+<script type="text/javascript">
+    if(navigator.serviceWorker){
+        // For security reasons, a service worker can only control the pages that are in the same directory level or below it. That's why we put sw.js at ROOT level.
+        navigator.serviceWorker
+            .register('/sw.js')
+            .then((registration) => {console.log('Service Worker Registered. ', registration)})
+            .catch((error) => {console.log('ServiceWorker registration failed: ', error)})
+    }
+</script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/ 
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers   
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async('/js/jquery.tagcloud.js',function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-113450573-1';
+    var _gaDomain = 'uniquezhangqi.top';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = 'b50bf2b12b5338a1845e33832976fd68';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;    
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="/img/apple-touch-icon.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

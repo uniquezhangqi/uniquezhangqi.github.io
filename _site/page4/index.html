@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Always on the way of programming.">
+    <meta name="keywords"  content=" MY Blog, 伊恩的博客, Ian, 伊恩, java, Apple">
+    <meta name="theme-color" content="#000000">
+    
+    <title>伊恩的博客 | MY Blog</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <!-- Safari Webpage Icon    by-BY -->
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:4000/page4/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">MY Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">About</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">Tags</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from 
+     * $toggle/$collapse will break global delegation.
+     * 
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.  
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+
+    <!-- Page Header -->
+<header class="intro-header" style="background-image: url('/img/post-bg-desk.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
+                <div class="site-heading">
+                    <h1>MY Blog</h1>
+                    <!--<hr class="small">-->
+                    <span class="subheading">路漫漫其修远兮，吾将上下而求索。</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Main Content -->
+<div class="container">
+	<div class="row">
+        
+
+<!-- USE SIDEBAR -->
+    <!-- PostList Container -->
+    		<div class="
+                col-lg-8 col-lg-offset-1
+                col-md-8 col-md-offset-1
+                col-sm-12
+                col-xs-12
+                postlist-container
+            ">
+    			
+<div class="post-preview">
+    <a href="/2018/07/12/%E7%94%9F%E6%B4%BB-%E7%90%86%E8%B4%A2%E4%BA%A7%E5%93%81%E5%9F%BA%E7%A1%80%E7%9F%A5%E8%AF%86/">
+        <h2 class="post-title">
+            理财产品基础知识
+        </h2>
+        
+        <h3 class="post-subtitle">
+            转载 七点半理财：
+        </h3>
+        
+        <div class="post-content-preview">
+            
+  转载 七点半理财：https://post.smzdm.com/p/681275/
+
+
+如何挑选一款最合适你的理财产品？
+
+内容主要分为几个方面。
+
+第一，我们购买理财产品的目的是什么。
+
+第二，什么样的理财产品才称之为是合格的。
+
+第三，市场上常见的一些理财产品分析。
+
+一、购买理财产品的目的
+在我个人看来，我们购买理财产品最大的目的是，首先战胜通货膨胀，然后才去获取收益。
+
+二、什...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Ian on July 12, 2018
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2018/07/12/%E7%94%9F%E6%B4%BB-%E4%BB%80%E4%B9%88%E6%98%AFP2P/">
+        <h2 class="post-title">
+            什么是P2P
+        </h2>
+        
+        <h3 class="post-subtitle">
+            转载七点半理财
+        </h3>
+        
+        <div class="post-content-preview">
+            
+  转载七点半理财：https://post.smzdm.com/p/671316/
+
+
+什么是真正的P2P？
+
+我认为大部分人对P2P平台的理解，在于它是一个有固定收益的理财平台，跟银行、余额宝的区别就在于它的利息会稍微高一些，是一个有固定周期的还本付息平台。然而，很多人不明白整个P2P的大环境和业务是怎么产生的。
+
+P2P基本业务流程是怎样？
+全球范围内对P2P性质的定义，核心是起到中...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Ian on July 12, 2018
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2018/07/10/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Java8%E6%96%B0%E7%89%B9%E6%80%A7%E6%8C%87%E5%8D%97/">
+        <h2 class="post-title">
+            自我总结Java8新特性
+        </h2>
+        
+        <h3 class="post-subtitle">
+            🧐
+        </h3>
+        
+        <div class="post-content-preview">
+            Z 昨天和大家一起回顾了Java8之前版本的特性 今天是Java 8 的新特性，后面工作使用中遇到问题的话，Z 会单独写，和大家一起学习。 右侧有目录 目录有滚动条，方便阅读。
+
+允许在接口中有默认方法实现
+Java 8 允许我们使用 default 关键字，为接口声明添加非抽象的方法实现。这个特性又被称为扩展方法。下面是我们的第一个例子：
+
+interface Formula{
+    d...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Ian on July 10, 2018
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2018/07/10/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Java8%E4%B9%8B%E5%89%8D%E7%89%88%E6%9C%AC%E7%9A%84%E7%89%B9%E6%80%A7/">
+        <h2 class="post-title">
+            Java8之前版本的特性
+        </h2>
+        
+        <h3 class="post-subtitle">
+            转载：王爵nice
+        </h3>
+        
+        <div class="post-content-preview">
+            
+  转载：王爵nice – https://zhuanlan.zhihu.com/p/28160344
+
+
+引言
+现在JDK的版本已经很高了，但是企业主流应该大多数都是JDK8及以下。虽然我们开始了Java8的旅程，但是很多人直接从Java6上手了Java8，Z也是的，JDK7 好像没用过😅 也许有些JDK7的特性你还不知道，在本篇中一起回顾一下我们忘记了的那些特性。尽管不可能所有的特性都...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Ian on July 10, 2018
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2018/07/08/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-DownloadBase64Png/">
+        <h2 class="post-title">
+            DownloadBase64Png
+        </h2>
+        
+        <h3 class="post-subtitle">
+            😏
+        </h3>
+        
+        <div class="post-content-preview">
+            
+  本文首次发布于My Blog,作者@张琦(Ian),转载请保留原文链接。
+
+
+二维码下载
+思路一：
+
+
+思路二：
+
+
+当然是思路二比较好，不管从哪个方面讲。Z 直接上思路二的代码：
+
+环境
+&lt;!-- 
+环境：easyui、springmvc、maven 
+需要的jar
+--&gt;
+        &lt;!-- 生成二维码 --&gt;
+        &lt;dependen...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Ian on July 8, 2018
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2018/07/03/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-HttpClient%E4%B9%8BGet/">
+        <h2 class="post-title">
+            HttpClient之Get
+        </h2>
+        
+        <div class="post-content-preview">
+            
+  转载：allen的博客：https://blog.csdn.net/qq_20641565/article/details/56509738
+
+
+之前Z 有写一篇 HttpClient post请求的HttpClientTest
+
+亲测没问题，下面这个Get请求的：
+
+package com.lijie.hc;
+
+import java.util.ArrayList;
+import j...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Ian on July 3, 2018
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2018/06/18/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-MySQL%E4%BC%98%E5%8C%96%E6%80%BB%E7%BB%93+%E8%87%AA%E5%AE%9A%E4%B9%89%E5%87%BD%E6%95%B0%E4%B9%8B%E9%80%92%E5%BD%92/">
+        <h2 class="post-title">
+            MySQL优化总结+自定义函数之递归
+        </h2>
+        
+        <div class="post-content-preview">
+            我最近看MySQL优化总结几个可能容易理解错误的技巧：
+
+
+  
+    通常来说把可为 NULL 的列改为 NOT NULL 不会对性能提升有多少帮助，只是如果计划在列上创建索引，就应该将该列设置为 NOT NULL。
+  
+  
+    对整数类型指定宽度，比如 INT(11)，没有任何卵用。INT 使用 32 位（4 个字节）存储空间，那么它的表示范围已经确定，所以 INT(1) 和 ...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Ian on June 18, 2018
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2018/06/17/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E8%87%AA%E6%88%91%E6%80%BB%E7%BB%93Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80%E7%AF%87-%E4%B8%80/">
+        <h2 class="post-title">
+            自我总结Java并发编程基础篇（一）
+        </h2>
+        
+        <div class="post-content-preview">
+            
+  本文首次发布于My Blog,作者@张琦(Ian),转载请保留原文链接。
+
+
+引言
+看标题就知道肯定有二，我自己主要是加深理解和加深印象和大家一起学习，如果有什么不对或者有争议的地方请留言指出，thanks！
+
+简介
+为什么要编写并发程序？线程是java语言中不可或缺的重要功能，它们能使复杂的异步代码变得更简单，从而极大地简化了复杂系统的开发。此外，想要充分发挥多处理器系统的强大计算能...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Ian on June 17, 2018
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2018/06/09/%E7%94%9F%E6%B4%BB-%E8%81%8A%E8%81%8A%E6%91%84%E5%BD%B1%E4%B8%80%E4%BA%9B%E9%87%8D%E8%A6%81%E7%9A%84%E7%9F%A5%E8%AF%86/">
+        <h2 class="post-title">
+            聊聊摄影一些重要的知识
+        </h2>
+        
+        <h3 class="post-subtitle">
+            转载：toutiao 作者：Shylock想
+        </h3>
+        
+        <div class="post-content-preview">
+            
+  来源：青芒杂志  转载：toutiao 作者：Shylock想 蜂鸟摄影
+
+
+引言
+有留言说Z 会好多东西😅 其实最主要的原因是 – 大家都在忙着陪朋友、睡觉一睡睡一上午、忙着打游戏的时候，Z 就在研究这些东西，当然 Z 以前也是和大家一样，陪女朋友啊、一睡睡到下午、打游戏打到转钟啊，都是过来人了😏回到主题，时间久了之后，然后慢慢会了这些东西。Z 之前拍摄的照片 水平就这样了😅 这个是...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Ian on June 9, 2018
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2018/06/09/%E7%94%9F%E6%B4%BB-%E6%89%8B%E5%86%B2%E5%92%96%E5%95%A1-%E9%9B%AA%E5%86%B0-%E6%98%9F%E5%86%B0%E4%B9%90/">
+        <h2 class="post-title">
+            手冲咖啡-雪冰、星冰乐
+        </h2>
+        
+        <div class="post-content-preview">
+            
+  本文首次发布于My Blog,作者@张琦(Ian),转载请保留原文链接。
+
+
+
+  
+    冰滴咖啡和冷萃咖啡的区别
+  
+  
+    聊聊我的手冲咖啡器具
+  
+  
+    生活-仪式与配方
+  
+
+
+现在天气这么热，我都没发手工冰咖啡的比例配方 – 原因有二点：
+
+  由于工作上面要学的东西太多了😷时间完全不够。。。
+  由于我的碎冰机一直在商店 😑 所以选择性的忘记了😂
+
+...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Ian on June 9, 2018
+    </p>
+</div>
+<hr>
+
+
+<!-- Pager -->
+
+<ul class="pager">
+    
+    <li class="previous">
+        <a href="/page3">&larr; Newer Posts</a>
+    </li>
+    
+    
+    <li class="next">
+        <a href="/page5">Older Posts &rarr;</a>
+    </li>
+    
+</ul>
+
+
+    		</div>
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-3 col-lg-offset-0
+                col-md-3 col-md-offset-0
+                col-sm-12
+                col-xs-12
+                sidebar-container
+            ">
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                            
+                                <a href="/tags/#生活" title="生活" rel="18">
+                                    生活
+                                </a>
+                            
+                        
+                            
+                        
+                            
+                                <a href="/tags/#自我总结" title="自我总结" rel="31">
+                                    自我总结
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#编程之路" title="编程之路" rel="80">
+                                    编程之路
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#设计模式" title="设计模式" rel="4">
+                                    设计模式
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#杂谈" title="杂谈" rel="6">
+                                    杂谈
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#随笔" title="随笔" rel="6">
+                                    随笔
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#Quartz" title="Quartz" rel="2">
+                                    Quartz
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#SpringDataJPA" title="SpringDataJPA" rel="2">
+                                    SpringDataJPA
+                                </a>
+                            
+                        
+                            
+                        
+                            
+                                <a href="/tags/#前端" title="前端" rel="5">
+                                    前端
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#咖啡" title="咖啡" rel="4">
+                                    咖啡
+                                </a>
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                                <a href="/tags/#shiro" title="shiro" rel="5">
+                                    shiro
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#摄影" title="摄影" rel="3">
+                                    摄影
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#理财" title="理财" rel="5">
+                                    理财
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#jvm" title="jvm" rel="3">
+                                    jvm
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#MySql" title="MySql" rel="6">
+                                    MySql
+                                </a>
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                                <a href="/tags/#java8" title="java8" rel="4">
+                                    java8
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#分布式" title="分布式" rel="3">
+                                    分布式
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#MongoDB" title="MongoDB" rel="2">
+                                    MongoDB
+                                </a>
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Short About -->
+                <section class="visible-md visible-lg">
+                    <hr><h5><a href="/about/">ABOUT ME</a></h5>
+                    <div class="short-about">
+                        
+                            <a href="/about">
+                                <img src="/img/avatar-by.jpg"/>
+                            </a>
+                        
+                        
+                            <p>Always on the way of programming.</p>
+                        
+                        <!-- SNS Link -->
+                        <ul class="list-inline">
+                            
+                            <!-- add jianshu add target = "_blank" to <a> by BY -->
+                            
+                            
+                            <li>
+                                <a href="https://twitter.com/Mr_javaian">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            
+                            
+                            <li>
+                                <a target="_blank" href="https://www.zhihu.com/people/伊恩">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa  fa-stack-1x fa-inverse">知</i>
+                                    </span>
+                                </a>
+                            </li>
+                            
+                            
+                            <li>
+                                <a target="_blank" href="http://weibo.com/_____ZzZzZzq">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            
+                            
+                            <li>
+                                <a target="_blank" href="https://www.facebook.com/schooljavaian@gmail.com">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            
+                            
+                            <li>
+                                <a target="_blank" href="https://github.com/uniquezhangqi">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            
+                            
+                        </ul>
+                        
+                            <p>✉️ schooljavaian@gmail.com</p>
+                        
+                    </div>
+                </section>
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+                    
+                        <li><a href="https://apple.com">Apple</a></li>
+                    
+                        <li><a href="https://www.google.com">google</a></li>
+                    
+                        <li><a href="http://www.cnblogs.com/zuoxiaolong">左潇龙</a></li>
+                    
+                        <li><a href="http://www.importnew.com/">ImportNew</a></li>
+                    
+                        <li><a href="https://www.csdn.net/">CSND</a></li>
+                    
+                </ul>
+                
+    		</div>
+        
+	</div>
+</div>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <!-- add jianshu add target = "_blank" to <a> by BY -->
+                    
+                    
+                    <li>
+                        <a href="https://twitter.com/Mr_javaian">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/伊恩">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="http://weibo.com/_____ZzZzZzq">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+
+                    
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/schooljavaian@gmail.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/uniquezhangqi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; MY Blog 2019
+                    <br>
+                    Theme on <a href="https://github.com/uniquezhangqi/uniquezhangqi.github.io.git">GitHub</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=uniquezhangqi&repo=uniquezhangqi.github.io&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+<!-- Service Worker -->
+
+<script type="text/javascript">
+    if(navigator.serviceWorker){
+        // For security reasons, a service worker can only control the pages that are in the same directory level or below it. That's why we put sw.js at ROOT level.
+        navigator.serviceWorker
+            .register('/sw.js')
+            .then((registration) => {console.log('Service Worker Registered. ', registration)})
+            .catch((error) => {console.log('ServiceWorker registration failed: ', error)})
+    }
+</script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/ 
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers   
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async('/js/jquery.tagcloud.js',function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-113450573-1';
+    var _gaDomain = 'uniquezhangqi.top';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = 'b50bf2b12b5338a1845e33832976fd68';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+<!-- Side Catalog -->
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="/img/apple-touch-icon.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

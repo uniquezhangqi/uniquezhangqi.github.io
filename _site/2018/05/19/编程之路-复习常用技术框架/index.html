@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Always on the way of programming.">
+    <meta name="keywords"  content=" MY Blog, 伊恩的博客, Ian, 伊恩, java, Apple">
+    <meta name="theme-color" content="#000000">
+    
+    <title>复习常用技术框架 - 伊恩的博客 | MY Blog</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <!-- Safari Webpage Icon    by-BY -->
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:4000/2018/05/19/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E5%A4%8D%E4%B9%A0%E5%B8%B8%E7%94%A8%E6%8A%80%E6%9C%AF%E6%A1%86%E6%9E%B6/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">MY Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">About</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">Tags</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from 
+     * $toggle/$collapse will break global delegation.
+     * 
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.  
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/ian-bg-red.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-image: url('/img/ian-bg-red.jpg')
+    }
+
+    
+</style>
+<header class="intro-header" >
+    <div class="header-mask"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#编程之路" title="编程之路">编程之路</a>
+                        
+                        <a class="tag" href="/tags/#项目" title="项目">项目</a>
+                        
+                    </div>
+                    <h1>复习常用技术框架</h1>
+                    
+                    
+                    <h2 class="subheading">🧐</h2>
+                    
+                    <span class="meta">Posted by Ian on May 19, 2018</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+				<h4 id="日志">日志：</h4>
+<h5 id="log4j2">Log4j2</h5>
+<p>配置文件：</p>
+
+<ul>
+  <li>Log4j2 采用的是.xml、.json或者.jsn</li>
+  <li>Log4j2.xml放置在resource目录下。</li>
+  <li>也可以修改为 log4j 的配置文件.properties （这个需要到web.xml里面配置监听）</li>
+</ul>
+
+<h4 id="spring">spring</h4>
+<ul>
+  <li>一个分层的JavaSE/EEfull(一站式)轻量级开源框架</li>
+  <li>特征
+    <ul>
+      <li>轻量：从大小与开销两方面而言Spring都是轻量的，非侵入式</li>
+      <li>控制反转：通过一种称作控制反转（Ioc）的技术促进了低耦合</li>
+      <li>面向切面：允许通过分离应用的业务逻辑与系统级服务（例如审计（auditing）和事物（transaction）管理）进行内聚性的开发</li>
+      <li>容器：包含并管理应用对象的配置和生命周期，在这个意义上它是一种容器。</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="spring-mvc">spring mvc</h4>
+<ul>
+  <li>与struts2的区别
+    <ol>
+      <li>spring mvc和spring是无缝的</li>
+      <li>struts2是类级别的拦截，spring mvc是方法级别的拦截</li>
+      <li>spring mvc 的入口是servlet，而struts2是filter</li>
+      <li>spring mvc 开发效率和性能高于struts2</li>
+    </ol>
+  </li>
+  <li>进行更简洁的web层的开发；</li>
+  <li>天生与spring框架即成（如Ioc容器、Aop等）；</li>
+  <li>提供强大的约定大于配置的契约式编程支持；</li>
+  <li>能简单的进行web层的单元测试；</li>
+  <li>支持灵活的url到页面控制器的映射；</li>
+</ul>
+
+<h4 id="mybatis-plus">mybatis-plus</h4>
+<ul>
+  <li>一款mybatis的增强crud工具包，简化增删改查操作。启动加载xml配置时注入表单sql操作，为简化开发工作、提高生产率而生。mybatis-plus启动注入非拦截实现、性能更优。</li>
+  <li>与mybatis相比的优势
+    <ul>
+      <li>增强了mybatis通用单表操作的能力，只需要继承通用的service或者dao就能拥有单表增删改查的能力</li>
+      <li>mybatis-plus启动注入非拦截实现、性能更优</li>
+      <li>多种ID选择，类型ID_WORKER,UUID全局唯一、支持实现分库</li>
+      <li>完全继承原生，易理解、扩展使用，支持自定义表、字段、ID动态注解</li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="shiro">shiro</h4>
+<p>一个强大一用的Java安全框架，提供了认证、授权、加密和会话管理等功能，可为任何应用提供安全保障-从命令行应用、移动应用到大型网络及企业应用。</p>
+
+<h4 id="druid监控">druid监控</h4>
+<ul>
+  <li>替换dbcp和c3p0。Druid提供了一个高效、功能强大、可扩展性好的数据库连接池。</li>
+  <li>可以监控数据库访问性能，Druid内置提供了一个功能强大的statFilter插件，能够详细统计sql的执行性能，这对于线上分析数据库访问性能有帮助。</li>
+  <li>数据库密码加密。直接把数据库密码写在配置文件中，这是不好的行为，容易导致安全问题。DruidDruiver和DruidDataSource都支持PasswordCallback。</li>
+  <li>sql执行日志，Druid提供了不同的LogFilter，能够支持Common-Logging、Log4j和JdkLog，你可以按需求选择相应的LogFilter，监控你应用的数据库访问情况。</li>
+  <li>扩展JDBC，如果你要对JDBC层有编程的需求，可以通过Druid提供的Filter机制，很方便编写JDBC层的扩展插件。</li>
+</ul>
+
+<h3 id="使用redis缓存">使用redis缓存</h3>
+<p>pom.xml中将redis放开，将ehcahe注掉!
+spring-config.xml中把ehcache注掉，把redis放开！</p>
+
+<h3 id="项目常用注解">项目常用注解</h3>
+<h4 id="spring-与-spring-mvc">spring 与 spring mvc</h4>
+<ul>
+  <li>@Controller 用于标注控制层组件</li>
+  <li>@Service 服务组件，用于标注业务层组件</li>
+  <li>@Component 泛指组件，当组件不好归类的时候，我们可以使用这个组件进行标注</li>
+  <li>@GetMapping method为get请求的@RequestMapping简写</li>
+  <li>@PostMapping method为post请求的@RequestMapping简写</li>
+  <li>@RequestMapping
+    <ul>
+      <li>处理请求地址映射的注解，可用于类或方法上</li>
+      <li>用于类上，表示类中的所有相应请求的方法都是以改地址作为父路径</li>
+    </ul>
+  </li>
+  <li>@Autowired
+    <ul>
+      <li>对类成员变量、方法及构造函数进行标注，完成自动装配的工作</li>
+      <li>通过@Autowired的使用来消除set、get方法</li>
+      <li>默认是按照byType进行注入的</li>
+    </ul>
+  </li>
+  <li>@ResponseBody
+    <ul>
+      <li>表示该方法的返回结果直接写入HTTP response body中</li>
+      <li>一般在异步获取数据时使用，在使用@RequestMapping后，返回值通常解析为跳转路径，加上@responsebody后返回结果不会被解析为跳转路径，而是直接写入http response body中。比如异步获取json数据，加上@responsebody后，会直接返回json数据。</li>
+    </ul>
+  </li>
+  <li>@Scheduled spring定时任务注解，使用cron表达式</li>
+  <li>@InitBinder 绑定请求参数到指定的属性编辑器，解决类型的转换问题</li>
+</ul>
+
+<h4 id="spring-aop">spring aop</h4>
+<ul>
+  <li>@Pointcut 声明切入点表达式，一般在该方法中不再添加其他代码</li>
+  <li>@Around 环绕通知，围绕着方法执行</li>
+  <li>@Aspect 配置在类上，把这个类声明为一个切面，需要把该类放入到IOC容器中，再声明为一个切面</li>
+  <li>@Order 指定切面的优先级，当有多个切面时，数值越小优先级越高</li>
+</ul>
+
+<h4 id="mybatic-plus">mybatic plus</h4>
+<ul>
+  <li>@TableName 表名注解</li>
+  <li>@TableField 字段注解</li>
+  <li>@TableId 主键注解</li>
+</ul>
+
+<h4 id="其它">其它</h4>
+<ul>
+  <li>@CsrfToken 完成检测登录时是否带有token，防止跨站请求伪造攻击</li>
+  <li>@SuppressWarnings 对被批注的代码元素内部的某些警告保持静默</li>
+  <li>@JsonProperty
+    <ul>
+      <li>@JsonProperty 此注解用于属性上，作用是把该属性的名称序列化为另外一个名称，如把trueName属性序列化为name，@JsonProperty(name)。</li>
+      <li>拓展
+        <ul>
+          <li>@JsonIgnore 此注解用于属性上，作用是进行JSON操作时忽略该属性。</li>
+          <li>@JsonFormat 此注解用于属性上，作用是把Data类型直接转化为想要的格式，如：@JsonFormat(pattern = “yyyy-MM-dd HH-mm-ss”)。</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="validation模版引擎">Validation模版引擎</h3>
+
+<h4 id="注解">注解</h4>
+<p>// Bean Validation 中内置的 constraint<br />
+@Null   被注释的元素必须为 null<br />
+@NotNull    被注释的元素必须不为 null<br />
+@AssertTrue     被注释的元素必须为 true<br />
+@AssertFalse    被注释的元素必须为 false<br />
+@Min(value)     被注释的元素必须是一个数字，其值必须大于等于指定的最小值<br />
+@Max(value)     被注释的元素必须是一个数字，其值必须小于等于指定的最大值<br />
+@DecimalMin(value)  被注释的元素必须是一个数字，其值必须大于等于指定的最小值<br />
+@DecimalMax(value)  被注释的元素必须是一个数字，其值必须小于等于指定的最大值<br />
+@Size(max=, min=)   被注释的元素的大小必须在指定的范围内<br />
+@Digits (integer, fraction)     被注释的元素必须是一个数字，其值必须在可接受的范围内<br />
+@Past   被注释的元素必须是一个过去的日期<br />
+@Future     被注释的元素必须是一个将来的日期<br />
+@Pattern(regex=,flag=)  被注释的元素必须符合指定的正则表达式</p>
+
+<p>// Hibernate Validator 附加的 constraint<br />
+@NotBlank(message =)   验证字符串非null，且长度必须大于0<br />
+@Email  被注释的元素必须是电子邮箱地址<br />
+@Length(min=,max=)  被注释的字符串的大小必须在指定的范围内<br />
+@NotEmpty   被注释的字符串的必须非空<br />
+@Range(min=,max=,message=)  被注释的元素必须在合适的范围内</p>
+
+<h4 id="生成原理">生成原理</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+	 * 生成代码
+	 */</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">execute</span><span class="o">()</span> <span class="o">{</span>
+		<span class="n">logger</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">"==========================准备生成文件...=========================="</span><span class="o">);</span>
+		<span class="c1">// 初始化配置</span>
+		<span class="n">initConfig</span><span class="o">();</span>
+		<span class="c1">// 创建输出文件路径</span>
+		<span class="n">mkdirs</span><span class="o">(</span><span class="n">config</span><span class="o">.</span><span class="na">getPathInfo</span><span class="o">());</span>
+		<span class="c1">// 获取上下文</span>
+		<span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">VelocityContext</span><span class="o">&gt;</span> <span class="n">ctxData</span> <span class="o">=</span> <span class="n">analyzeData</span><span class="o">(</span><span class="n">config</span><span class="o">);</span>
+		<span class="c1">// 循环生成文件</span>
+		<span class="k">for</span> <span class="o">(</span><span class="n">Map</span><span class="o">.</span><span class="na">Entry</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">VelocityContext</span><span class="o">&gt;</span> <span class="n">ctx</span> <span class="o">:</span> <span class="n">ctxData</span><span class="o">.</span><span class="na">entrySet</span><span class="o">())</span> <span class="o">{</span>
+			<span class="n">batchOutput</span><span class="o">(</span><span class="n">ctx</span><span class="o">.</span><span class="na">getKey</span><span class="o">(),</span> <span class="n">ctx</span><span class="o">.</span><span class="na">getValue</span><span class="o">());</span>
+		<span class="o">}</span>
+		<span class="c1">// 打开输出目录</span>
+		<span class="k">if</span> <span class="o">(</span><span class="n">config</span><span class="o">.</span><span class="na">getGlobalConfig</span><span class="o">().</span><span class="na">isOpen</span><span class="o">())</span> <span class="o">{</span>
+			<span class="k">try</span> <span class="o">{</span>
+				<span class="n">String</span> <span class="n">osName</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="s">"os.name"</span><span class="o">);</span>
+				<span class="k">if</span> <span class="o">(</span><span class="n">osName</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+					<span class="k">if</span> <span class="o">(</span><span class="n">osName</span><span class="o">.</span><span class="na">contains</span><span class="o">(</span><span class="s">"Mac"</span><span class="o">))</span> <span class="o">{</span>
+						<span class="n">Runtime</span><span class="o">.</span><span class="na">getRuntime</span><span class="o">().</span><span class="na">exec</span><span class="o">(</span><span class="s">"open "</span> <span class="o">+</span> <span class="n">config</span><span class="o">.</span><span class="na">getGlobalConfig</span><span class="o">().</span><span class="na">getOutputDir</span><span class="o">());</span>
+					<span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">osName</span><span class="o">.</span><span class="na">contains</span><span class="o">(</span><span class="s">"Windows"</span><span class="o">))</span> <span class="o">{</span>
+						<span class="n">Runtime</span><span class="o">.</span><span class="na">getRuntime</span><span class="o">().</span><span class="na">exec</span><span class="o">(</span><span class="s">"cmd /c start "</span> <span class="o">+</span> <span class="n">config</span><span class="o">.</span><span class="na">getGlobalConfig</span><span class="o">().</span><span class="na">getOutputDir</span><span class="o">());</span>
+					<span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+						<span class="n">logger</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">"文件输出目录:"</span> <span class="o">+</span> <span class="n">config</span><span class="o">.</span><span class="na">getGlobalConfig</span><span class="o">().</span><span class="na">getOutputDir</span><span class="o">());</span>
+					<span class="o">}</span>
+				<span class="o">}</span>
+			<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+				<span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+			<span class="o">}</span>
+		<span class="o">}</span>
+		<span class="n">logger</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">"==========================文件生成完成！！！=========================="</span><span class="o">);</span>
+	<span class="o">}</span>
+</code></pre></div></div>
+
+<ol>
+  <li>从mpg.execute()执行开始，根据执行方法一步步走</li>
+  <li>初始化配置
+    <ul>
+      <li>方法：AbstractGenerator.initConfig()</li>
+      <li>涉及初始化数据源DataSourceConfig，数据表StrategyConfig，包配置PackageConfig，模版TemplateConfig配置，全局信息GlobalConfig等属性。</li>
+      <li>就是说你执行前的一些属性设置初始化，方便接下来的取值。</li>
+    </ul>
+  </li>
+  <li>创建输出的文件夹
+    <ul>
+      <li>方法：mkdirs(config.getPathInfo());</li>
+      <li>就是创建你的java文件，jsp文件最终要输出的目录</li>
+    </ul>
+  </li>
+  <li>获取上下文
+    <ul>
+      <li>方法：analyzeData(ConfigBuilder config)</li>
+      <li>根据全局配置取出controller,service等包名，超类的类名等变量</li>
+      <li>循环表信息，为每个表设定controller类名，service类名、自定义属性等信息，为渲染vm模版数据准备</li>
+    </ul>
+  </li>
+  <li>合成上下文模版
+    <ul>
+      <li>根据表信息生成java文件和jsp文件</li>
+      <li>将模版转化成为文件，使用velocity模版引擎合成数据与模版生成新的文件</li>
+    </ul>
+  </li>
+  <li>打开输出目录</li>
+</ol>
+
+<h3 id="异常处理">异常处理</h3>
+<h4 id="spring异常处理">spring异常处理</h4>
+<ul>
+  <li>实现方法 需要实现HandlerExceptionResolver这个接口类，并重写resolveException方法，在resolveExcepiton方法中处理自己的异常逻辑。</li>
+  <li>全局处理器
+    <ul>
+      <li>/scan/ExceptionResolver.java</li>
+      <li>继承HandlerEexceptionResolver并添加注解@Component交给spring处理</li>
+      <li>resolveExcetion方法里面需要做的事情
+        <ul>
+          <li>使用log4j2记录异常，把异常信息记录到日志里面，方便查看日志找出问题</li>
+          <li>判断方法是否是异步请求</li>
+          <li>异步请求应该返回json数据并弹窗提示，同步请求返回到错误页面</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h4 id="java-web项目自带">Java web项目自带</h4>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;error-page&gt;</span>
+
+        <span class="nt">&lt;error-code&gt;</span>404<span class="nt">&lt;/error-code&gt;</span>
+
+        <span class="nt">&lt;location&gt;</span>/WEB-INF/views/error/404.jsp<span class="nt">&lt;/location&gt;</span>
+
+    <span class="nt">&lt;/error-page&gt;</span>
+
+    <span class="nt">&lt;error-page&gt;</span>
+
+        <span class="nt">&lt;error-code&gt;</span>500<span class="nt">&lt;/error-code&gt;</span>
+
+        <span class="nt">&lt;location&gt;</span>/WEB-INF/views/error/500.jsp<span class="nt">&lt;/location&gt;</span>
+
+    <span class="nt">&lt;/error-page&gt;</span>
+</code></pre></div></div>
+<p>web项目的简单异常指引，一般来说有了异常处理之后可以不配这这个。</p>
+
+<p>System.out.println()是指输出信息到控制台，不会记录到日志文件里面</p>
+
+<p>在生成环境中，一般每天会生成一个日志文件，记录系统的运行信息</p>
+
+<h3 id="shiro权限控制">shiro权限控制</h3>
+<h4 id="常用功能">常用功能</h4>
+<p>帮助系统完成认证、授权、加密、会话管理、与web集成、缓存等。</p>
+
+<ul>
+  <li>Authentication：身份认证/登陆，验证永华是不是拥有相应的身份；</li>
+  <li>Authorization：授权，即权限验证，验证某个已认证的用户是否拥有某个权限；即判断用户是否能做事情，常见的如：验证某个用户是否拥有某个角色。或者细粒度的验证某个用户对某个资源是否具有某个权限；</li>
+  <li>Session Manager：会话管理，即用户登陆后就是一次会话，在没有退出之前，它的所有信息都在会话中；会话可以是普通javaSE环境的，也可以是如web环境的；</li>
+  <li>Caching：缓存，比如用户登陆后，其用户信息、拥有的角色/权限不必每次去查，这样可以提高效率；</li>
+  <li>Remember Me：记住我，这个是非常常见的功能，即一次登陆后，下次再来的话不用登陆了。</li>
+</ul>
+
+<h4 id="名词">名词</h4>
+<ul>
+  <li>Subject：主体，代表了当前“用户”</li>
+  <li>SecurityManager：安全管理器；即所有与安全有关的操作都会与SecurityManager交互；且它管理着所有Subject</li>
+  <li>Realm：域，Shiro从Realm获取安全数据（如用户、角色、权限）</li>
+  <li>SessionManager：管理主体与应用之间交互的数据</li>
+  <li>CacheManager：缓存控制器，来管理如用户、角色、权限等的缓存</li>
+  <li>Authrizer：授权器，或者访问控制器，用来决定主体是否有权限进行相应的操作</li>
+  <li>Authenticator：认证器，负责主体认证</li>
+</ul>
+
+<h4 id="shiro使用">shiro使用</h4>
+<p>从配置文件spring-shiro.xml看起，通过这个配置文件集成spring与shiro</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- Shiro Filter --&gt;</span>
+    <span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">"shiroFilter"</span> <span class="na">class=</span><span class="s">"org.apache.shiro.spring.web.ShiroFilterFactoryBean"</span><span class="nt">&gt;</span>
+        <span class="c">&lt;!-- 安全管理器 --&gt;</span>
+        <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"securityManager"</span> <span class="na">ref=</span><span class="s">"securityManager"</span><span class="nt">/&gt;</span>
+        <span class="c">&lt;!-- 默认的登陆访问url --&gt;</span>
+        <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"loginUrl"</span> <span class="na">value=</span><span class="s">"/login"</span><span class="nt">/&gt;</span>
+        <span class="c">&lt;!-- 登陆成功后跳转的url --&gt;</span>
+        <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"successUrl"</span> <span class="na">value=</span><span class="s">"/index"</span><span class="nt">/&gt;</span>
+        <span class="c">&lt;!-- 没有权限跳转的url --&gt;</span>
+        <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"unauthorizedUrl"</span> <span class="na">value=</span><span class="s">"/unauth"</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"filterChainDefinitions"</span><span class="nt">&gt;</span>
+            <span class="nt">&lt;value&gt;</span>
+                <span class="c">&lt;!-- 
+                    anon  不需要认证
+                    authc 需要认证
+                    user  验证通过或RememberMe登录的都可以
+                --&gt;</span>
+                /captcha.jpg = anon
+                /commons/** = anon
+                /static/** = anon
+                /webhooks = anon
+                /login = anon
+                /** = user
+            <span class="nt">&lt;/value&gt;</span>
+        <span class="nt">&lt;/property&gt;</span>
+    <span class="nt">&lt;/bean&gt;</span>
+</code></pre></div></div>
+
+<p>过滤器(Shiro Filter) ：是整个配置文件的入口，用于拦截需要安全控制的请求进行处理；属性主要包括url、登陆成功url、没权限url、不需要验证的url和安全管理器等</p>
+
+<h5 id="安全管理器securitymanager">安全管理器(securityManager)</h5>
+<ul>
+  <li>realm
+    <ul>
+      <li>自定义ShiroDbRealm
+        <ul>
+          <li>重写doGetAuthenticationInfo()方法：主要验证登陆密码是否正确，已经获取用户的权限和角色，交给shiro</li>
+          <li>认证步骤：
+            <ol>
+              <li>用户提交用户名和密码</li>
+              <li>shiro封装令牌(token,包含username和password信息)</li>
+              <li>realm 通过用户名将密码查询返回</li>
+              <li>shiro 自动去比较查询出密码和用户输入密码是否一致</li>
+              <li>进行登陆控制</li>
+            </ol>
+          </li>
+          <li>matcher — RetryLimitCredentialsMatcher — 密码错误5次锁定</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>cacheManager：集成spring-cache作为shiro的缓存，项目中redis和ehcache用其中一个</li>
+  <li>rememberMeManager：记住登陆状态管理器</li>
+  <li>SessionManager — 会话管理器 — 主要配置登陆超时的session管理</li>
+</ul>
+
+<h5 id="注意">注意：</h5>
+<p>Shiro不会去维护用户、维护权限；这些需要我们自己去设计/提供；然后通过相应的接口注入给shiro即可。</p>
+
+<h3 id="缓存机制">缓存机制</h3>
+<h4 id="简介">简介</h4>
+<p>缓存是介于应用程序和物理数据源之间，其作用是为了降低应用程序对物理数据源访问的频次，从而提高了应用的运行性能。</p>
+
+<h4 id="spring-cache">spring-cache</h4>
+<ul>
+  <li>它本质上不是一个具体的混存实现方案，而是一个对缓存使用的抽象</li>
+  <li>通过在既有代码中添加少量它定义的各种annotation，即能够达到缓存方法的返回对象的效果</li>
+  <li>特点：
+    <ul>
+      <li>能够使用SpEL(Spring Expression Language)来定义缓存的key 和 各种 condition</li>
+      <li>支持和主流的专业缓存，例如：EHCache、redis集成</li>
+    </ul>
+  </li>
+</ul>
+
+<p>注解形式：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nd">@Cacheable</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"hour"</span><span class="o">,</span> <span class="n">key</span> <span class="o">=</span> <span class="s">"#id"</span><span class="o">)</span>
+	<span class="kd">public</span> <span class="n">User</span> <span class="nf">selectById</span><span class="o">(</span><span class="n">Serializable</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="n">userMapper</span><span class="o">.</span><span class="na">selectById</span><span class="o">(</span><span class="n">id</span><span class="o">);</span>
+	<span class="o">}</span>
+</code></pre></div></div>
+<p>/impl/TestService.java</p>
+
+<p>@Cacheable 缓存方法返回的值</p>
+
+<p>编码形式：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Autowired</span> <span class="kd">private</span> <span class="n">CacheManager</span> <span class="n">cacheManager</span><span class="o">;</span>
+	
+	<span class="nd">@Scheduled</span><span class="o">(</span><span class="n">cron</span> <span class="o">=</span> <span class="s">"0 5/20 * * * ?"</span><span class="o">)</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">cronTest</span><span class="o">()</span> <span class="o">{</span>
+		<span class="c1">// 测试手动存储cache</span>
+		<span class="n">Cache</span> <span class="n">cache</span> <span class="o">=</span> <span class="n">cacheManager</span><span class="o">.</span><span class="na">getCache</span><span class="o">(</span><span class="s">"hour"</span><span class="o">);</span>
+		<span class="n">Integer</span> <span class="n">xx</span> <span class="o">=</span> <span class="n">cache</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"x"</span><span class="o">,</span> <span class="k">new</span> <span class="n">Callable</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;()</span> <span class="o">{</span>
+			<span class="nd">@Override</span>
+			<span class="kd">public</span> <span class="n">Integer</span> <span class="nf">call</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+				<span class="k">return</span> <span class="mi">111111</span><span class="o">;</span>
+			<span class="o">}</span>
+			
+		<span class="o">});</span>
+		<span class="c1">// 测试redis</span>
+<span class="c1">//		redisTemplate.boundListOps("xxxx").leftPush("xxxx");</span>
+		
+		<span class="c1">// 测试注解</span>
+		<span class="n">testService</span><span class="o">.</span><span class="na">selectById</span><span class="o">(</span><span class="mi">1L</span><span class="o">);</span>
+		<span class="n">testService</span><span class="o">.</span><span class="na">selectById</span><span class="o">(</span><span class="mi">1L</span><span class="o">);</span>
+		<span class="n">testService</span><span class="o">.</span><span class="na">selectById</span><span class="o">(</span><span class="mi">1L</span><span class="o">);</span>
+		
+		<span class="n">logger</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="n">xx</span><span class="o">);</span>
+		<span class="n">logger</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="k">new</span> <span class="n">Date</span><span class="o">());</span>
+	<span class="o">}</span>
+</code></pre></div></div>
+
+<p>/task/TestTask.java</p>
+
+<p>Cache cache = cacheManager.getCache(“hour”);</p>
+<h4 id="redis-和-ehcache-区别">redis 和 ehcache 区别</h4>
+<p>ehcache：</p>
+
+<ul>
+  <li>配置文件chcache.xml，配置缓存时间</li>
+  <li>流行的纯Java开源缓存框架，配置简单、结构清晰、功能强大</li>
+  <li>直接在jvm虚拟机中缓存，速度快，效率高</li>
+  <li>但是缓存共享麻烦，集群分布式应用不方便</li>
+</ul>
+
+<p>redis：</p>
+
+<ul>
+  <li>通过socket访问到缓存服务</li>
+  <li>效率比ecache低，比数据库要快很多</li>
+  <li>处理集群和分布式缓存方便，有成熟的方案</li>
+</ul>
+
+<h4 id="spring-cache集成缓存">spring-cache集成缓存</h4>
+<p>切换两种缓存：只需要注释其中一个即可</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="nt">&lt;import</span> <span class="na">resource=</span><span class="s">"classpath:spring/spring-ehcache.xml"</span><span class="nt">/&gt;</span>
+
+    <span class="c">&lt;!-- 
+
+    &lt;import resource="classpath:spring/spring-redis.xml"/&gt;
+
+     --&gt;</span>
+</code></pre></div></div>
+
+<h5 id="使用建议">使用建议</h5>
+<p>如果是单个应用或者缓存访问要求很高的应用，用ehcache。</p>
+
+<p>如果是大型系统，存在缓存共享、分布式部署、缓存内容很大的，建议用redis。</p>
+
+<h3 id="druid数据源监控">Druid数据源监控</h3>
+<h4 id="一个jdbc组件包括3部分">一个JDBC组件，包括3部分</h4>
+<ul>
+  <li>DruidDriver代理Driver，能够提供基于Filter - Chain模式的插件体系</li>
+  <li>DruidDataSource 高效可管理的数据库连接池。</li>
+  <li>SQLParser</li>
+</ul>
+
+<h4 id="可以做什么">可以做什么</h4>
+<ol>
+  <li>可以监控数据库访问性能，Druid内置提供了一个功能强大的StatFilter插件，能够详细统计SQL的执行性能，这对线上分析数据库访问性能有帮助</li>
+  <li>替换DBCP和C3P0.Druid提供了一个高效、波恩那个强大、可扩展性好的数据库连接池。</li>
+  <li>SQL执行日志，Druid提供了不同的LogFilter，能够支持Common-Logging、Log4j和jdkLog，你可以按需求选择相应的LogFilter，监控你的应用数据库访问情况。</li>
+  <li>扩展JDBC，如果你要对JDBC层有编程需求，可以通过Druid提供的Filter-Chain机制，很方便编写JDBC扩展插件。</li>
+</ol>
+
+<h4 id="简单使用">简单使用</h4>
+
+<p>spring-mabatis.xml 中使用Druid连接池作为数据源</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- base dataSource --&gt;</span>
+    <span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">"dataSource"</span> <span class="na">class=</span><span class="s">"com.alibaba.druid.pool.DruidDataSource"</span> <span class="na">init-method=</span><span class="s">"init"</span> <span class="na">destroy-method=</span><span class="s">"close"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"url"</span> <span class="na">value=</span><span class="s">"${db.master.url}"</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"username"</span> <span class="na">value=</span><span class="s">"${db.master.user}"</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"password"</span> <span class="na">value=</span><span class="s">"${db.master.password}"</span> <span class="nt">/&gt;</span>
+        
+        <span class="c">&lt;!-- 配置监控统计拦截的filters --&gt;</span>
+        <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"filters"</span> <span class="na">value=</span><span class="s">"mergeStat,wall,log4j2"</span> <span class="nt">/&gt;</span>
+        
+        <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"initialSize"</span> <span class="na">value=</span><span class="s">"5"</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"maxActive"</span> <span class="na">value=</span><span class="s">"100"</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"minIdle"</span> <span class="na">value=</span><span class="s">"10"</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"maxWait"</span> <span class="na">value=</span><span class="s">"60000"</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"validationQuery"</span> <span class="na">value=</span><span class="s">"SELECT 'x'"</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"testOnBorrow"</span> <span class="na">value=</span><span class="s">"true"</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"testOnReturn"</span> <span class="na">value=</span><span class="s">"true"</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"testWhileIdle"</span> <span class="na">value=</span><span class="s">"true"</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"timeBetweenEvictionRunsMillis"</span> <span class="na">value=</span><span class="s">"60000"</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"minEvictableIdleTimeMillis"</span> <span class="na">value=</span><span class="s">"300000"</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"removeAbandoned"</span> <span class="na">value=</span><span class="s">"true"</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"removeAbandonedTimeout"</span> <span class="na">value=</span><span class="s">"1800"</span> <span class="nt">/&gt;</span>
+        <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"logAbandoned"</span> <span class="na">value=</span><span class="s">"true"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/bean&gt;</span>
+</code></pre></div></div>
+
+<p>在web.xml中配置Druid过滤器</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;filter&gt;</span>
+        <span class="nt">&lt;filter-name&gt;</span>DruidWebStatFilter<span class="nt">&lt;/filter-name&gt;</span>
+        <span class="nt">&lt;filter-class&gt;</span>com.alibaba.druid.support.http.WebStatFilter<span class="nt">&lt;/filter-class&gt;</span>
+        <span class="nt">&lt;init-param&gt;</span>
+            <span class="nt">&lt;param-name&gt;</span>exclusions<span class="nt">&lt;/param-name&gt;</span>
+            <span class="nt">&lt;param-value&gt;</span>/static/*,*.ico,/druid/*<span class="nt">&lt;/param-value&gt;</span>
+        <span class="nt">&lt;/init-param&gt;</span>
+        <span class="nt">&lt;init-param&gt;</span>
+            <span class="nt">&lt;param-name&gt;</span>sessionStatEnable<span class="nt">&lt;/param-name&gt;</span>
+            <span class="nt">&lt;param-value&gt;</span>false<span class="nt">&lt;/param-value&gt;</span>
+        <span class="nt">&lt;/init-param&gt;</span>
+    <span class="nt">&lt;/filter&gt;</span>
+    <span class="nt">&lt;filter-mapping&gt;</span>
+        <span class="nt">&lt;filter-name&gt;</span>DruidWebStatFilter<span class="nt">&lt;/filter-name&gt;</span>
+        <span class="nt">&lt;url-pattern&gt;</span>/*<span class="nt">&lt;/url-pattern&gt;</span>
+    <span class="nt">&lt;/filter-mapping&gt;</span>
+    <span class="c">&lt;!-- druid监控 --&gt;</span>
+    <span class="nt">&lt;servlet&gt;</span>
+        <span class="nt">&lt;servlet-name&gt;</span>DruidStatView<span class="nt">&lt;/servlet-name&gt;</span>
+        <span class="nt">&lt;servlet-class&gt;</span>com.alibaba.druid.support.http.StatViewServlet<span class="nt">&lt;/servlet-class&gt;</span>
+        <span class="nt">&lt;init-param&gt;</span>
+            <span class="nt">&lt;param-name&gt;</span>loginUsername<span class="nt">&lt;/param-name&gt;</span>
+            <span class="nt">&lt;param-value&gt;</span>druid<span class="nt">&lt;/param-value&gt;</span>
+        <span class="nt">&lt;/init-param&gt;</span>
+        <span class="nt">&lt;init-param&gt;</span>
+            <span class="nt">&lt;param-name&gt;</span>loginPassword<span class="nt">&lt;/param-name&gt;</span>
+            <span class="nt">&lt;param-value&gt;</span>druid<span class="nt">&lt;/param-value&gt;</span>
+        <span class="nt">&lt;/init-param&gt;</span>
+    <span class="nt">&lt;/servlet&gt;</span>
+    <span class="nt">&lt;servlet-mapping&gt;</span>
+        <span class="nt">&lt;servlet-name&gt;</span>DruidStatView<span class="nt">&lt;/servlet-name&gt;</span>
+        <span class="nt">&lt;url-pattern&gt;</span>/druid/*<span class="nt">&lt;/url-pattern&gt;</span>
+    <span class="nt">&lt;/servlet-mapping&gt;</span>
+</code></pre></div></div>
+
+<p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1fqj5aochgoj309k09kmwz.jpg" alt="" />
+<b><center>扫描关注：热爱生活的大叔</center>
+<b><center><font size="2">（<font size="2" color="#FF0000">转载本站文章请注明作者和出处</font> <font size="2" color="#0000FF">热爱生活的大叔-uniquezhangqi</font><font size="2">）</font></font></center></b></b></p>
+
+
+                <hr style="visibility: hidden;">
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2018/05/09/%E7%94%9F%E6%B4%BB-%E7%BE%8E%E8%82%A1%E5%BC%80%E6%88%B7%E4%B8%8E%E5%BF%85%E9%9C%80%E7%9F%A5%E6%99%93%E7%9A%84%E5%85%A5%E9%87%91/" data-toggle="tooltip" data-placement="top" title="美股开户与必需知晓的入金">
+                        Previous<br>
+                        <span>美股开户与必需知晓的入金</span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2018/05/20/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Linux%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" data-toggle="tooltip" data-placement="top" title="Linux环境搭建">
+                        Next<br>
+                        <span>Linux环境搭建</span>
+                        </a>
+                    </li>
+                    
+                </ul>
+
+
+                <!--Gitalk评论start  -->
+                
+                <!-- Gitalk end -->
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+            </div>  
+
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">CATALOG</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+        				
+                            
+                				<a href="/tags/#生活" title="生活" rel="18">
+                                    生活
+                                </a>
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#自我总结" title="自我总结" rel="31">
+                                    自我总结
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#编程之路" title="编程之路" rel="80">
+                                    编程之路
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#设计模式" title="设计模式" rel="4">
+                                    设计模式
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#杂谈" title="杂谈" rel="6">
+                                    杂谈
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#随笔" title="随笔" rel="6">
+                                    随笔
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Quartz" title="Quartz" rel="2">
+                                    Quartz
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#SpringDataJPA" title="SpringDataJPA" rel="2">
+                                    SpringDataJPA
+                                </a>
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#前端" title="前端" rel="5">
+                                    前端
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#咖啡" title="咖啡" rel="4">
+                                    咖啡
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#shiro" title="shiro" rel="5">
+                                    shiro
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#摄影" title="摄影" rel="3">
+                                    摄影
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#理财" title="理财" rel="5">
+                                    理财
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#jvm" title="jvm" rel="3">
+                                    jvm
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#MySql" title="MySql" rel="6">
+                                    MySql
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#java8" title="java8" rel="4">
+                                    java8
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#分布式" title="分布式" rel="3">
+                                    分布式
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#MongoDB" title="MongoDB" rel="2">
+                                    MongoDB
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+        			</div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+                    
+                        <li><a href="https://apple.com">Apple</a></li>
+                    
+                        <li><a href="https://www.google.com">google</a></li>
+                    
+                        <li><a href="http://www.cnblogs.com/zuoxiaolong">左潇龙</a></li>
+                    
+                        <li><a href="http://www.importnew.com/">ImportNew</a></li>
+                    
+                        <li><a href="https://www.csdn.net/">CSND</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "uniquezhangqi";
+    var disqus_identifier = "/2018/05/19/编程之路-复习常用技术框架 ";
+    var disqus_url = "http://localhost:4000/2018/05/19/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E5%A4%8D%E4%B9%A0%E5%B8%B8%E7%94%A8%E6%8A%80%E6%9C%AF%E6%A1%86%E6%9E%B6/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <!-- add jianshu add target = "_blank" to <a> by BY -->
+                    
+                    
+                    <li>
+                        <a href="https://twitter.com/Mr_javaian">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/伊恩">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="http://weibo.com/_____ZzZzZzq">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+
+                    
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/schooljavaian@gmail.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/uniquezhangqi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; MY Blog 2019
+                    <br>
+                    Theme on <a href="https://github.com/uniquezhangqi/uniquezhangqi.github.io.git">GitHub</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=uniquezhangqi&repo=uniquezhangqi.github.io&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+<!-- Service Worker -->
+
+<script type="text/javascript">
+    if(navigator.serviceWorker){
+        // For security reasons, a service worker can only control the pages that are in the same directory level or below it. That's why we put sw.js at ROOT level.
+        navigator.serviceWorker
+            .register('/sw.js')
+            .then((registration) => {console.log('Service Worker Registered. ', registration)})
+            .catch((error) => {console.log('ServiceWorker registration failed: ', error)})
+    }
+</script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/ 
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers   
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async('/js/jquery.tagcloud.js',function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-113450573-1';
+    var _gaDomain = 'uniquezhangqi.top';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = 'b50bf2b12b5338a1845e33832976fd68';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;    
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="/img/apple-touch-icon.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

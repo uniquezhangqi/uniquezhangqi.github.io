@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Always on the way of programming.">
+    <meta name="keywords"  content=" MY Blog, 伊恩的博客, Ian, 伊恩, java, Apple">
+    <meta name="theme-color" content="#000000">
+    
+    <title>DownloadBase64Png - 伊恩的博客 | MY Blog</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <!-- Safari Webpage Icon    by-BY -->
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:4000/2018/07/08/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-DownloadBase64Png/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">MY Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">About</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">Tags</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from 
+     * $toggle/$collapse will break global delegation.
+     * 
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.  
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/ian-bg-red.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-image: url('/img/ian-bg-red.jpg')
+    }
+
+    
+</style>
+<header class="intro-header" >
+    <div class="header-mask"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#编程之路" title="编程之路">编程之路</a>
+                        
+                        <a class="tag" href="/tags/#前端" title="前端">前端</a>
+                        
+                    </div>
+                    <h1>DownloadBase64Png</h1>
+                    
+                    
+                    <h2 class="subheading">😏</h2>
+                    
+                    <span class="meta">Posted by Ian on July 8, 2018</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+				<blockquote>
+  <p>本文首次发布于<a href="http://uniquezhangqi.top">My Blog</a>,作者<a href="http://uniquezhangqi.top/about/">@张琦(Ian)</a>,转载请保留原文链接。</p>
+</blockquote>
+
+<h1 id="二维码下载">二维码下载</h1>
+<h2 id="思路一">思路一：</h2>
+<p><img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-07-08-122505.png" alt="" /></p>
+
+<h2 id="思路二">思路二：</h2>
+<p><img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-07-08-%E4%BA%8C%E7%BB%B4%E7%A0%81%E6%80%9D%E8%B7%AF%E4%BA%8C.png" alt="" /></p>
+
+<p>当然是思路二比较好，不管从哪个方面讲。Z 直接上思路二的代码：</p>
+
+<h3 id="环境">环境</h3>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- 
+环境：easyui、springmvc、maven 
+需要的jar
+--&gt;</span>
+        <span class="c">&lt;!-- 生成二维码 --&gt;</span>
+        <span class="nt">&lt;dependency&gt;</span>
+            <span class="nt">&lt;groupId&gt;</span>com.google.zxing<span class="nt">&lt;/groupId&gt;</span>
+            <span class="nt">&lt;artifactId&gt;</span>core<span class="nt">&lt;/artifactId&gt;</span>
+            <span class="nt">&lt;version&gt;</span>3.1.0<span class="nt">&lt;/version&gt;</span>
+        <span class="nt">&lt;/dependency&gt;</span>
+        <span class="nt">&lt;dependency&gt;</span>
+            <span class="nt">&lt;groupId&gt;</span>commons-codec<span class="nt">&lt;/groupId&gt;</span>
+            <span class="nt">&lt;artifactId&gt;</span>commons-codec<span class="nt">&lt;/artifactId&gt;</span>
+            <span class="nt">&lt;version&gt;</span>1.8<span class="nt">&lt;/version&gt;</span>
+        <span class="nt">&lt;/dependency&gt;</span>
+
+        <span class="nt">&lt;dependency&gt;</span>
+            <span class="nt">&lt;groupId&gt;</span>com.google.zxing<span class="nt">&lt;/groupId&gt;</span>
+            <span class="nt">&lt;artifactId&gt;</span>javase<span class="nt">&lt;/artifactId&gt;</span>
+            <span class="nt">&lt;version&gt;</span>3.3.0<span class="nt">&lt;/version&gt;</span>
+        <span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div></div>
+
+<h3 id="前端代码">前端代码</h3>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="c1">//下载图片</span>
+    <span class="kd">function</span> <span class="nx">downloadPng</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">let</span> <span class="nx">imgData</span><span class="p">,</span>
+        <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
+            <span class="na">type</span><span class="p">:</span> <span class="s2">"POST"</span><span class="p">,</span>
+            <span class="na">url</span><span class="p">:</span> <span class="s2">"后台接口"</span><span class="p">,</span>
+            <span class="na">async</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+            <span class="na">data</span><span class="p">:</span> <span class="p">{</span><span class="na">id</span><span class="p">:</span> <span class="nx">id</span><span class="p">},</span>
+            <span class="na">success</span><span class="p">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">downloadUrl</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">imgData</span> <span class="o">=</span> <span class="s1">'data:image/png;base64,'</span> <span class="o">+</span> <span class="nx">downloadUrl</span><span class="p">;</span>
+            <span class="p">}</span>
+        <span class="p">});</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">downloadFile</span><span class="p">(</span><span class="s1">'二维码.png'</span><span class="p">,</span> <span class="nx">imgData</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="c1">//下载</span>
+    <span class="kd">function</span> <span class="nx">downloadFile</span><span class="p">(</span><span class="nx">fileName</span><span class="p">,</span> <span class="nx">content</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">let</span> <span class="nx">aLink</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">'a'</span><span class="p">);</span>
+        <span class="c1">//new Blob([content]);</span>
+        <span class="kd">let</span> <span class="nx">blob</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">base64ToBlob</span><span class="p">(</span><span class="nx">content</span><span class="p">);</span>
+
+        <span class="kd">let</span> <span class="nx">evt</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createEvent</span><span class="p">(</span><span class="s2">"HTMLEvents"</span><span class="p">);</span>
+        <span class="c1">//initEvent 不加后两个参数在FF下会报错  事件类型，是否冒泡，是否阻止浏览器的默认行为</span>
+        <span class="nx">evt</span><span class="p">.</span><span class="nx">initEvent</span><span class="p">(</span><span class="s2">"click"</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+        <span class="nx">aLink</span><span class="p">.</span><span class="nx">download</span> <span class="o">=</span> <span class="nx">fileName</span><span class="p">;</span>
+        <span class="nx">aLink</span><span class="p">.</span><span class="nx">href</span> <span class="o">=</span> <span class="nx">URL</span><span class="p">.</span><span class="nx">createObjectURL</span><span class="p">(</span><span class="nx">blob</span><span class="p">);</span>
+
+        <span class="c1">// aLink.dispatchEvent(evt);</span>
+        <span class="nx">aLink</span><span class="p">.</span><span class="nx">click</span><span class="p">()</span>
+    <span class="p">}</span>
+
+    <span class="c1">//base64转blob</span>
+    <span class="kd">function</span> <span class="nx">base64ToBlob</span><span class="p">(</span><span class="nx">code</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kd">let</span> <span class="nx">parts</span> <span class="o">=</span> <span class="nx">code</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">';base64,'</span><span class="p">);</span>
+        <span class="kd">let</span> <span class="nx">contentType</span> <span class="o">=</span> <span class="nx">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">split</span><span class="p">(</span><span class="s1">':'</span><span class="p">)[</span><span class="mi">1</span><span class="p">];</span>
+        <span class="kd">let</span> <span class="nx">raw</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">atob</span><span class="p">(</span><span class="nx">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
+        <span class="kd">let</span> <span class="nx">rawLength</span> <span class="o">=</span> <span class="nx">raw</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+
+        <span class="kd">let</span> <span class="nx">uInt8Array</span> <span class="o">=</span> <span class="k">new</span> <span class="nb">Uint8Array</span><span class="p">(</span><span class="nx">rawLength</span><span class="p">);</span>
+
+        <span class="k">for</span> <span class="p">(</span><span class="kd">let</span> <span class="nx">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;</span> <span class="nx">rawLength</span><span class="p">;</span> <span class="o">++</span><span class="nx">i</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">uInt8Array</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="o">=</span> <span class="nx">raw</span><span class="p">.</span><span class="nx">charCodeAt</span><span class="p">(</span><span class="nx">i</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nx">Blob</span><span class="p">([</span><span class="nx">uInt8Array</span><span class="p">],</span> <span class="p">{</span><span class="na">type</span><span class="p">:</span> <span class="nx">contentType</span><span class="p">});</span>
+    <span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="后台代码">后台代码</h3>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// controller 只需要把base64字符串响应给前端就ok，Z 这里直接给工具类</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ZXingCode</span> <span class="o">{</span>
+	<span class="cm">/**
+	 * 二维码宽度(默认)
+	 */</span>
+	<span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span>                         <span class="n">WIDTH</span>   <span class="o">=</span> <span class="mi">300</span><span class="o">;</span>
+	<span class="cm">/**
+	 * 二维码高度(默认)
+	 */</span>
+	<span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span>                         <span class="n">HEIGHT</span>  <span class="o">=</span> <span class="mi">300</span><span class="o">;</span>
+	<span class="cm">/**
+	 * 二维码文件格式
+	 */</span>
+	<span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span>                      <span class="n">FORMAT</span>  <span class="o">=</span> <span class="s">"png"</span><span class="o">;</span>
+	<span class="cm">/**
+	 * 二维码参数
+	 */</span>
+	<span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">EncodeHintType</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="n">hints</span>   <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">();</span>
+	<span class="cm">/**
+	 * 默认是黑色
+	 */</span>
+	<span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span>                         <span class="n">QRCOLOR</span> <span class="o">=</span> <span class="mh">0xFF000000</span><span class="o">;</span>
+	<span class="cm">/**
+	 * 背景颜色
+	 */</span>
+	<span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span>                         <span class="n">BGWHITE</span> <span class="o">=</span> <span class="mh">0xFFFFFFFF</span><span class="o">;</span>
+
+	<span class="kd">static</span> <span class="o">{</span>
+		<span class="c1">//字符编码</span>
+		<span class="n">hints</span><span class="o">.</span><span class="na">put</span><span class="o">(</span> <span class="n">EncodeHintType</span><span class="o">.</span><span class="na">CHARACTER_SET</span><span class="o">,</span> <span class="s">"utf-8"</span> <span class="o">);</span>
+		<span class="c1">//容错等级 H为最高</span>
+		<span class="n">hints</span><span class="o">.</span><span class="na">put</span><span class="o">(</span> <span class="n">EncodeHintType</span><span class="o">.</span><span class="na">ERROR_CORRECTION</span><span class="o">,</span> <span class="n">ErrorCorrectionLevel</span><span class="o">.</span><span class="na">H</span> <span class="o">);</span>
+		<span class="c1">//边距</span>
+		<span class="n">hints</span><span class="o">.</span><span class="na">put</span><span class="o">(</span> <span class="n">EncodeHintType</span><span class="o">.</span><span class="na">MARGIN</span><span class="o">,</span> <span class="mi">2</span> <span class="o">);</span>
+	<span class="o">}</span>
+
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">try</span> <span class="o">{</span>
+			<span class="n">String</span> <span class="n">a</span> <span class="o">=</span> <span class="n">getLogoQRCode</span><span class="o">(</span> <span class="s">"https://www.baidu.com/"</span><span class="o">,</span> <span class="s">"跳转到百度的二维码"</span> <span class="o">);</span>
+			<span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span> <span class="s">"------------------:"</span> <span class="o">+</span> <span class="n">a</span> <span class="o">);</span>
+		<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+			<span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+		<span class="o">}</span>
+	<span class="o">}</span>
+
+	<span class="cm">/**
+	 * 生成带logo的二维码图片
+	 *
+	 * @param qrUrl
+	 * @param productName
+	 * @return
+	 */</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="nf">getLogoQRCode</span><span class="o">(</span><span class="n">String</span> <span class="n">qrUrl</span><span class="o">,</span> <span class="n">String</span> <span class="n">productName</span><span class="o">)</span> <span class="o">{</span>
+		<span class="c1">//      String filePath = (javax.servlet.http.HttpServletRequest)request.getSession().getServletContext().getRealPath("/") + "resources/static/code/logo.png";</span>
+		<span class="c1">//      String filePath = "ClassPath:/resources/static/code/logo.png";  //这个路径有问题，到时候看直接弄绝对路径</span>
+		<span class="c1">//filePath是二维码logo的路径，但是实际中我们是放在项目的某个路径下面的，所以路径用上面的，把下面的注释就好</span>
+		<span class="n">String</span> <span class="n">filePath</span> <span class="o">=</span> <span class="s">"绝对路径"</span><span class="o">;</span>
+
+		<span class="n">String</span> <span class="n">content</span> <span class="o">=</span> <span class="n">qrUrl</span><span class="o">;</span>
+		<span class="k">try</span> <span class="o">{</span>
+			<span class="n">ZXingCode</span> <span class="n">zp</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ZXingCode</span><span class="o">();</span>
+			<span class="n">BufferedImage</span> <span class="n">bim</span> <span class="o">=</span> <span class="n">zp</span><span class="o">.</span><span class="na">getQR_CODEBufferedImage</span><span class="o">(</span> <span class="n">content</span><span class="o">,</span> <span class="n">BarcodeFormat</span><span class="o">.</span><span class="na">QR_CODE</span><span class="o">,</span> <span class="mi">400</span><span class="o">,</span> <span class="mi">400</span><span class="o">,</span> <span class="n">zp</span><span class="o">.</span><span class="na">getDecodeHintType</span><span class="o">()</span> <span class="o">);</span>
+			<span class="k">return</span> <span class="n">zp</span><span class="o">.</span><span class="na">addLogo_QRCode</span><span class="o">(</span> <span class="n">bim</span><span class="o">,</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span> <span class="n">filePath</span> <span class="o">),</span> <span class="k">new</span> <span class="n">LogoConfig</span><span class="o">(),</span> <span class="n">productName</span> <span class="o">);</span>
+		<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+			<span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+		<span class="o">}</span>
+		<span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+	<span class="o">}</span>
+
+	<span class="cm">/**
+	 * 将二维码图片输出到一个流中
+	 *
+	 * @param content 二维码内容
+	 * @param stream  输出流
+	 * @param width   宽
+	 * @param height  高
+	 */</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">writeToStream</span><span class="o">(</span><span class="n">String</span> <span class="n">content</span><span class="o">,</span> <span class="n">OutputStream</span> <span class="n">stream</span><span class="o">,</span> <span class="kt">int</span> <span class="n">width</span><span class="o">,</span> <span class="kt">int</span> <span class="n">height</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">WriterException</span><span class="o">,</span> <span class="n">IOException</span> <span class="o">{</span>
+		<span class="n">BitMatrix</span> <span class="n">bitMatrix</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MultiFormatWriter</span><span class="o">().</span><span class="na">encode</span><span class="o">(</span> <span class="n">content</span><span class="o">,</span> <span class="n">BarcodeFormat</span><span class="o">.</span><span class="na">QR_CODE</span><span class="o">,</span> <span class="n">width</span><span class="o">,</span> <span class="n">height</span><span class="o">,</span> <span class="n">hints</span> <span class="o">);</span>
+		<span class="n">MatrixToImageWriter</span><span class="o">.</span><span class="na">writeToStream</span><span class="o">(</span> <span class="n">bitMatrix</span><span class="o">,</span> <span class="n">FORMAT</span><span class="o">,</span> <span class="n">stream</span> <span class="o">);</span>
+	<span class="o">}</span>
+
+	<span class="cm">/**
+	 * 给二维码图片添加Logo
+	 *
+	 * @param bim
+	 * @param logoPic
+	 * @param logoConfig
+	 * @param productName
+	 * @return
+	 */</span>
+	<span class="kd">public</span> <span class="n">String</span> <span class="nf">addLogo_QRCode</span><span class="o">(</span><span class="n">BufferedImage</span> <span class="n">bim</span><span class="o">,</span> <span class="n">File</span> <span class="n">logoPic</span><span class="o">,</span> <span class="n">LogoConfig</span> <span class="n">logoConfig</span><span class="o">,</span> <span class="n">String</span> <span class="n">productName</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">try</span> <span class="o">{</span>
+			<span class="cm">/**
+			 * 读取二维码图片，并构建绘图对象
+			 */</span>
+			<span class="n">BufferedImage</span> <span class="n">image</span> <span class="o">=</span> <span class="n">bim</span><span class="o">;</span>
+			<span class="n">Graphics2D</span> <span class="n">g</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="na">createGraphics</span><span class="o">();</span>
+
+			<span class="cm">/**
+			 * 读取Logo图片
+			 */</span>
+			<span class="n">BufferedImage</span> <span class="n">logo</span> <span class="o">=</span> <span class="n">ImageIO</span><span class="o">.</span><span class="na">read</span><span class="o">(</span> <span class="n">logoPic</span> <span class="o">);</span>
+			<span class="cm">/**
+			 * 设置logo的大小,本人设置为二维码图片的20%,因为过大会盖掉二维码
+			 */</span>
+			<span class="kt">int</span> <span class="n">widthLogo</span> <span class="o">=</span> <span class="n">logo</span><span class="o">.</span><span class="na">getWidth</span><span class="o">(</span> <span class="kc">null</span> <span class="o">)</span> <span class="o">&gt;</span> <span class="n">image</span><span class="o">.</span><span class="na">getWidth</span><span class="o">()</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">/</span> <span class="mi">10</span> <span class="o">?</span> <span class="o">(</span><span class="n">image</span><span class="o">.</span><span class="na">getWidth</span><span class="o">()</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">/</span> <span class="mi">10</span><span class="o">)</span> <span class="o">:</span> <span class="n">logo</span><span class="o">.</span><span class="na">getWidth</span><span class="o">(</span> <span class="kc">null</span> <span class="o">),</span> <span class="n">heightLogo</span> <span class="o">=</span>
+					<span class="n">logo</span><span class="o">.</span><span class="na">getHeight</span><span class="o">(</span> <span class="kc">null</span> <span class="o">)</span> <span class="o">&gt;</span> <span class="n">image</span><span class="o">.</span><span class="na">getHeight</span><span class="o">()</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">/</span> <span class="mi">10</span> <span class="o">?</span> <span class="o">(</span><span class="n">image</span><span class="o">.</span><span class="na">getHeight</span><span class="o">()</span> <span class="o">*</span> <span class="mi">3</span> <span class="o">/</span> <span class="mi">10</span><span class="o">)</span> <span class="o">:</span> <span class="n">logo</span><span class="o">.</span><span class="na">getWidth</span><span class="o">(</span> <span class="kc">null</span> <span class="o">);</span>
+
+			<span class="cm">/**
+			 * logo放在中心
+			 */</span>
+			<span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="o">(</span><span class="n">image</span><span class="o">.</span><span class="na">getWidth</span><span class="o">()</span> <span class="o">-</span> <span class="n">widthLogo</span><span class="o">)</span> <span class="o">/</span> <span class="mi">2</span><span class="o">;</span>
+			<span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="o">(</span><span class="n">image</span><span class="o">.</span><span class="na">getHeight</span><span class="o">()</span> <span class="o">-</span> <span class="n">heightLogo</span><span class="o">)</span> <span class="o">/</span> <span class="mi">2</span><span class="o">;</span>
+			<span class="cm">/**
+			 * logo放在右下角
+			 *  int x = (image.getWidth() - widthLogo);
+			 *  int y = (image.getHeight() - heightLogo);
+			 */</span>
+
+			<span class="c1">//开始绘制图片</span>
+			<span class="n">g</span><span class="o">.</span><span class="na">drawImage</span><span class="o">(</span> <span class="n">logo</span><span class="o">,</span> <span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">,</span> <span class="n">widthLogo</span><span class="o">,</span> <span class="n">heightLogo</span><span class="o">,</span> <span class="kc">null</span> <span class="o">);</span>
+			<span class="c1">//            g.drawRoundRect(x, y, widthLogo, heightLogo, 15, 15);</span>
+			<span class="c1">//            g.setStroke(new BasicStroke(logoConfig.getBorder()));</span>
+			<span class="c1">//            g.setColor(logoConfig.getBorderColor());</span>
+			<span class="c1">//            g.drawRect(x, y, widthLogo, heightLogo);</span>
+			<span class="n">g</span><span class="o">.</span><span class="na">dispose</span><span class="o">();</span>
+
+			<span class="c1">//把商品名称添加上去，商品名称不要太长哦，这里最多支持两行。太长就会自动截取啦</span>
+			<span class="k">if</span> <span class="o">(</span><span class="n">productName</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">productName</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span> <span class="s">""</span> <span class="o">))</span> <span class="o">{</span>
+				<span class="c1">//新的图片，把带logo的二维码下面加上文字</span>
+				<span class="n">BufferedImage</span> <span class="n">outImage</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedImage</span><span class="o">(</span> <span class="mi">400</span><span class="o">,</span> <span class="mi">445</span><span class="o">,</span> <span class="n">BufferedImage</span><span class="o">.</span><span class="na">TYPE_4BYTE_ABGR</span> <span class="o">);</span>
+				<span class="n">Graphics2D</span> <span class="n">outg</span> <span class="o">=</span> <span class="n">outImage</span><span class="o">.</span><span class="na">createGraphics</span><span class="o">();</span>
+				<span class="c1">//画二维码到新的面板</span>
+				<span class="n">outg</span><span class="o">.</span><span class="na">drawImage</span><span class="o">(</span> <span class="n">image</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="n">image</span><span class="o">.</span><span class="na">getWidth</span><span class="o">(),</span> <span class="n">image</span><span class="o">.</span><span class="na">getHeight</span><span class="o">(),</span> <span class="kc">null</span> <span class="o">);</span>
+				<span class="c1">//画文字到新的面板</span>
+				<span class="n">outg</span><span class="o">.</span><span class="na">setColor</span><span class="o">(</span> <span class="n">Color</span><span class="o">.</span><span class="na">BLACK</span> <span class="o">);</span>
+				<span class="c1">//字体、字型、字号</span>
+				<span class="n">outg</span><span class="o">.</span><span class="na">setFont</span><span class="o">(</span> <span class="k">new</span> <span class="n">Font</span><span class="o">(</span> <span class="s">"宋体"</span><span class="o">,</span> <span class="n">Font</span><span class="o">.</span><span class="na">BOLD</span><span class="o">,</span> <span class="mi">30</span> <span class="o">)</span> <span class="o">);</span>
+				<span class="kt">int</span> <span class="n">strWidth</span> <span class="o">=</span> <span class="n">outg</span><span class="o">.</span><span class="na">getFontMetrics</span><span class="o">().</span><span class="na">stringWidth</span><span class="o">(</span> <span class="n">productName</span> <span class="o">);</span>
+				<span class="k">if</span> <span class="o">(</span><span class="n">strWidth</span> <span class="o">&gt;</span> <span class="mi">399</span><span class="o">)</span> <span class="o">{</span>
+					<span class="c1">//                  //长度过长就截取前面部分</span>
+					<span class="c1">//                  outg.drawString(productName, 0, image.getHeight() + (outImage.getHeight() - image.getHeight())/2 + 5 ); //画文字</span>
+					<span class="c1">//长度过长就换行</span>
+					<span class="n">String</span> <span class="n">productName1</span> <span class="o">=</span> <span class="n">productName</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span> <span class="mi">0</span><span class="o">,</span> <span class="n">productName</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">);</span>
+					<span class="n">String</span> <span class="n">productName2</span> <span class="o">=</span> <span class="n">productName</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span> <span class="n">productName</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">/</span> <span class="mi">2</span><span class="o">,</span> <span class="n">productName</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">);</span>
+					<span class="kt">int</span> <span class="n">strWidth1</span> <span class="o">=</span> <span class="n">outg</span><span class="o">.</span><span class="na">getFontMetrics</span><span class="o">().</span><span class="na">stringWidth</span><span class="o">(</span> <span class="n">productName1</span> <span class="o">);</span>
+					<span class="kt">int</span> <span class="n">strWidth2</span> <span class="o">=</span> <span class="n">outg</span><span class="o">.</span><span class="na">getFontMetrics</span><span class="o">().</span><span class="na">stringWidth</span><span class="o">(</span> <span class="n">productName2</span> <span class="o">);</span>
+					<span class="n">outg</span><span class="o">.</span><span class="na">drawString</span><span class="o">(</span> <span class="n">productName1</span><span class="o">,</span> <span class="mi">200</span> <span class="o">-</span> <span class="n">strWidth1</span> <span class="o">/</span> <span class="mi">2</span><span class="o">,</span> <span class="n">image</span><span class="o">.</span><span class="na">getHeight</span><span class="o">()</span> <span class="o">+</span> <span class="o">(</span><span class="n">outImage</span><span class="o">.</span><span class="na">getHeight</span><span class="o">()</span> <span class="o">-</span> <span class="n">image</span><span class="o">.</span><span class="na">getHeight</span><span class="o">())</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">12</span> <span class="o">);</span>
+					<span class="n">BufferedImage</span> <span class="n">outImage2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedImage</span><span class="o">(</span> <span class="mi">400</span><span class="o">,</span> <span class="mi">485</span><span class="o">,</span> <span class="n">BufferedImage</span><span class="o">.</span><span class="na">TYPE_4BYTE_ABGR</span> <span class="o">);</span>
+					<span class="n">Graphics2D</span> <span class="n">outg2</span> <span class="o">=</span> <span class="n">outImage2</span><span class="o">.</span><span class="na">createGraphics</span><span class="o">();</span>
+					<span class="n">outg2</span><span class="o">.</span><span class="na">drawImage</span><span class="o">(</span> <span class="n">outImage</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="n">outImage</span><span class="o">.</span><span class="na">getWidth</span><span class="o">(),</span> <span class="n">outImage</span><span class="o">.</span><span class="na">getHeight</span><span class="o">(),</span> <span class="kc">null</span> <span class="o">);</span>
+					<span class="n">outg2</span><span class="o">.</span><span class="na">setColor</span><span class="o">(</span> <span class="n">Color</span><span class="o">.</span><span class="na">BLACK</span> <span class="o">);</span>
+					<span class="c1">//字体、字型、字号</span>
+					<span class="n">outg2</span><span class="o">.</span><span class="na">setFont</span><span class="o">(</span> <span class="k">new</span> <span class="n">Font</span><span class="o">(</span> <span class="s">"宋体"</span><span class="o">,</span> <span class="n">Font</span><span class="o">.</span><span class="na">BOLD</span><span class="o">,</span> <span class="mi">30</span> <span class="o">)</span> <span class="o">);</span>
+					<span class="n">outg2</span><span class="o">.</span><span class="na">drawString</span><span class="o">(</span> <span class="n">productName2</span><span class="o">,</span> <span class="mi">200</span> <span class="o">-</span> <span class="n">strWidth2</span> <span class="o">/</span> <span class="mi">2</span><span class="o">,</span>
+							<span class="n">outImage</span><span class="o">.</span><span class="na">getHeight</span><span class="o">()</span> <span class="o">+</span> <span class="o">(</span><span class="n">outImage2</span><span class="o">.</span><span class="na">getHeight</span><span class="o">()</span> <span class="o">-</span> <span class="n">outImage</span><span class="o">.</span><span class="na">getHeight</span><span class="o">())</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">5</span> <span class="o">);</span>
+					<span class="n">outg2</span><span class="o">.</span><span class="na">dispose</span><span class="o">();</span>
+					<span class="n">outImage2</span><span class="o">.</span><span class="na">flush</span><span class="o">();</span>
+					<span class="n">outImage</span> <span class="o">=</span> <span class="n">outImage2</span><span class="o">;</span>
+				<span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+					<span class="c1">//画文字</span>
+					<span class="n">outg</span><span class="o">.</span><span class="na">drawString</span><span class="o">(</span> <span class="n">productName</span><span class="o">,</span> <span class="mi">200</span> <span class="o">-</span> <span class="n">strWidth</span> <span class="o">/</span> <span class="mi">2</span><span class="o">,</span> <span class="n">image</span><span class="o">.</span><span class="na">getHeight</span><span class="o">()</span> <span class="o">+</span> <span class="o">(</span><span class="n">outImage</span><span class="o">.</span><span class="na">getHeight</span><span class="o">()</span> <span class="o">-</span> <span class="n">image</span><span class="o">.</span><span class="na">getHeight</span><span class="o">())</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">12</span> <span class="o">);</span>
+				<span class="o">}</span>
+				<span class="n">outg</span><span class="o">.</span><span class="na">dispose</span><span class="o">();</span>
+				<span class="n">outImage</span><span class="o">.</span><span class="na">flush</span><span class="o">();</span>
+				<span class="n">image</span> <span class="o">=</span> <span class="n">outImage</span><span class="o">;</span>
+			<span class="o">}</span>
+			<span class="n">logo</span><span class="o">.</span><span class="na">flush</span><span class="o">();</span>
+			<span class="n">image</span><span class="o">.</span><span class="na">flush</span><span class="o">();</span>
+			<span class="n">ByteArrayOutputStream</span> <span class="n">baos</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ByteArrayOutputStream</span><span class="o">();</span>
+			<span class="n">baos</span><span class="o">.</span><span class="na">flush</span><span class="o">();</span>
+			<span class="n">ImageIO</span><span class="o">.</span><span class="na">write</span><span class="o">(</span> <span class="n">image</span><span class="o">,</span> <span class="s">"png"</span><span class="o">,</span> <span class="n">baos</span> <span class="o">);</span>
+
+            <span class="cm">/*
+            二维码生成的路径
+             */</span>
+			<span class="n">ImageIO</span><span class="o">.</span><span class="na">write</span><span class="o">(</span> <span class="n">image</span><span class="o">,</span> <span class="s">"png"</span><span class="o">,</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span>
+					<span class="s">"绝对路径"</span> <span class="o">+</span> <span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">()</span> <span class="o">+</span> <span class="s">".png"</span> <span class="o">)</span> <span class="o">);</span>
+
+			<span class="n">BASE64Encoder</span> <span class="n">base64Encoder</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BASE64Encoder</span><span class="o">();</span>
+			<span class="n">String</span> <span class="n">imageBase64QRCode</span> <span class="o">=</span> <span class="n">base64Encoder</span><span class="o">.</span><span class="na">encode</span><span class="o">(</span> <span class="n">baos</span><span class="o">.</span><span class="na">toByteArray</span><span class="o">()</span> <span class="o">);</span>
+
+			<span class="n">baos</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+			<span class="k">return</span> <span class="n">imageBase64QRCode</span><span class="o">;</span>
+		<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+			<span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+		<span class="o">}</span>
+		<span class="k">return</span> <span class="s">""</span><span class="o">;</span>
+	<span class="o">}</span>
+
+	<span class="cm">/**
+	 * 构建初始化二维码
+	 *
+	 * @param bm
+	 * @return
+	 */</span>
+	<span class="kd">public</span> <span class="n">BufferedImage</span> <span class="nf">fileToBufferedImage</span><span class="o">(</span><span class="n">BitMatrix</span> <span class="n">bm</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">BufferedImage</span> <span class="n">image</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="k">try</span> <span class="o">{</span>
+			<span class="kt">int</span> <span class="n">w</span> <span class="o">=</span> <span class="n">bm</span><span class="o">.</span><span class="na">getWidth</span><span class="o">(),</span> <span class="n">h</span> <span class="o">=</span> <span class="n">bm</span><span class="o">.</span><span class="na">getHeight</span><span class="o">();</span>
+			<span class="n">image</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedImage</span><span class="o">(</span> <span class="n">w</span><span class="o">,</span> <span class="n">h</span><span class="o">,</span> <span class="n">BufferedImage</span><span class="o">.</span><span class="na">TYPE_INT_RGB</span> <span class="o">);</span>
+
+			<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">w</span><span class="o">;</span> <span class="n">x</span><span class="o">++)</span> <span class="o">{</span>
+				<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="n">h</span><span class="o">;</span> <span class="n">y</span><span class="o">++)</span> <span class="o">{</span>
+					<span class="n">image</span><span class="o">.</span><span class="na">setRGB</span><span class="o">(</span> <span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">,</span> <span class="n">bm</span><span class="o">.</span><span class="na">get</span><span class="o">(</span> <span class="n">x</span><span class="o">,</span> <span class="n">y</span> <span class="o">)</span> <span class="o">?</span> <span class="mh">0xFF000000</span> <span class="o">:</span> <span class="mh">0xFFCCDDEE</span> <span class="o">);</span>
+				<span class="o">}</span>
+			<span class="o">}</span>
+
+		<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+			<span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+		<span class="o">}</span>
+		<span class="k">return</span> <span class="n">image</span><span class="o">;</span>
+	<span class="o">}</span>
+
+	<span class="cm">/**
+	 * 生成二维码bufferedImage图片
+	 *
+	 * @param content       编码内容
+	 * @param barcodeFormat 编码类型
+	 * @param width         图片宽度
+	 * @param height        图片高度
+	 * @param hints         设置参数
+	 * @return
+	 */</span>
+	<span class="kd">public</span> <span class="n">BufferedImage</span> <span class="nf">getQR_CODEBufferedImage</span><span class="o">(</span><span class="n">String</span> <span class="n">content</span><span class="o">,</span> <span class="n">BarcodeFormat</span> <span class="n">barcodeFormat</span><span class="o">,</span> <span class="kt">int</span> <span class="n">width</span><span class="o">,</span> <span class="kt">int</span> <span class="n">height</span><span class="o">,</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">EncodeHintType</span><span class="o">,</span> <span class="o">?&gt;</span> <span class="n">hints</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">MultiFormatWriter</span> <span class="n">multiFormatWriter</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="n">BitMatrix</span> <span class="n">bm</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="n">BufferedImage</span> <span class="n">image</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="k">try</span> <span class="o">{</span>
+			<span class="n">multiFormatWriter</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MultiFormatWriter</span><span class="o">();</span>
+			<span class="c1">// 参数顺序分别为：编码内容，编码类型，生成图片宽度，生成图片高度，设置参数</span>
+			<span class="n">bm</span> <span class="o">=</span> <span class="n">multiFormatWriter</span><span class="o">.</span><span class="na">encode</span><span class="o">(</span> <span class="n">content</span><span class="o">,</span> <span class="n">barcodeFormat</span><span class="o">,</span> <span class="n">width</span><span class="o">,</span> <span class="n">height</span><span class="o">,</span> <span class="n">hints</span> <span class="o">);</span>
+			<span class="kt">int</span> <span class="n">w</span> <span class="o">=</span> <span class="n">bm</span><span class="o">.</span><span class="na">getWidth</span><span class="o">();</span>
+			<span class="kt">int</span> <span class="n">h</span> <span class="o">=</span> <span class="n">bm</span><span class="o">.</span><span class="na">getHeight</span><span class="o">();</span>
+			<span class="n">image</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedImage</span><span class="o">(</span> <span class="n">w</span><span class="o">,</span> <span class="n">h</span><span class="o">,</span> <span class="n">BufferedImage</span><span class="o">.</span><span class="na">TYPE_INT_RGB</span> <span class="o">);</span>
+
+			<span class="c1">// 开始利用二维码数据创建Bitmap图片，分别设为黑（0xFFFFFFFF）白（0xFF000000）两色</span>
+			<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">w</span><span class="o">;</span> <span class="n">x</span><span class="o">++)</span> <span class="o">{</span>
+				<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="n">h</span><span class="o">;</span> <span class="n">y</span><span class="o">++)</span> <span class="o">{</span>
+					<span class="n">image</span><span class="o">.</span><span class="na">setRGB</span><span class="o">(</span> <span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">,</span> <span class="n">bm</span><span class="o">.</span><span class="na">get</span><span class="o">(</span> <span class="n">x</span><span class="o">,</span> <span class="n">y</span> <span class="o">)</span> <span class="o">?</span> <span class="n">QRCOLOR</span> <span class="o">:</span> <span class="n">BGWHITE</span> <span class="o">);</span>
+				<span class="o">}</span>
+			<span class="o">}</span>
+		<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">WriterException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+			<span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+		<span class="o">}</span>
+		<span class="k">return</span> <span class="n">image</span><span class="o">;</span>
+	<span class="o">}</span>
+
+	<span class="cm">/**
+	 * 设置二维码的格式参数
+	 *
+	 * @return
+	 */</span>
+	<span class="kd">public</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">EncodeHintType</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="nf">getDecodeHintType</span><span class="o">()</span> <span class="o">{</span>
+		<span class="c1">// 用于设置QR二维码参数</span>
+		<span class="n">Map</span><span class="o">&lt;</span><span class="n">EncodeHintType</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="n">hints</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">EncodeHintType</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;(</span> <span class="mi">16</span> <span class="o">);</span>
+		<span class="c1">// 设置QR二维码的纠错级别（H为最高级别）具体级别信息</span>
+		<span class="n">hints</span><span class="o">.</span><span class="na">put</span><span class="o">(</span> <span class="n">EncodeHintType</span><span class="o">.</span><span class="na">ERROR_CORRECTION</span><span class="o">,</span> <span class="n">ErrorCorrectionLevel</span><span class="o">.</span><span class="na">H</span> <span class="o">);</span>
+		<span class="c1">// 设置编码方式</span>
+		<span class="n">hints</span><span class="o">.</span><span class="na">put</span><span class="o">(</span> <span class="n">EncodeHintType</span><span class="o">.</span><span class="na">CHARACTER_SET</span><span class="o">,</span> <span class="s">"utf-8"</span> <span class="o">);</span>
+		<span class="n">hints</span><span class="o">.</span><span class="na">put</span><span class="o">(</span> <span class="n">EncodeHintType</span><span class="o">.</span><span class="na">MARGIN</span><span class="o">,</span> <span class="mi">0</span> <span class="o">);</span>
+		<span class="n">hints</span><span class="o">.</span><span class="na">put</span><span class="o">(</span> <span class="n">EncodeHintType</span><span class="o">.</span><span class="na">MAX_SIZE</span><span class="o">,</span> <span class="mi">350</span> <span class="o">);</span>
+		<span class="n">hints</span><span class="o">.</span><span class="na">put</span><span class="o">(</span> <span class="n">EncodeHintType</span><span class="o">.</span><span class="na">MIN_SIZE</span><span class="o">,</span> <span class="mi">100</span> <span class="o">);</span>
+
+		<span class="k">return</span> <span class="n">hints</span><span class="o">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">LogoConfig</span> <span class="o">{</span>
+	<span class="c1">// logo默认边框颜色</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Color</span> <span class="n">DEFAULT_BORDERCOLOR</span> <span class="o">=</span> <span class="n">Color</span><span class="o">.</span><span class="na">WHITE</span><span class="o">;</span>
+	<span class="c1">// logo默认边框宽度</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span>   <span class="n">DEFAULT_BORDER</span>      <span class="o">=</span> <span class="mi">2</span><span class="o">;</span>
+	<span class="c1">// logo大小默认为照片的1/5</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span>   <span class="n">DEFAULT_LOGOPART</span>    <span class="o">=</span> <span class="mi">5</span><span class="o">;</span>
+
+	<span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span>   <span class="n">border</span> <span class="o">=</span> <span class="n">DEFAULT_BORDER</span><span class="o">;</span>
+	<span class="kd">private</span> <span class="kd">final</span> <span class="n">Color</span> <span class="n">borderColor</span><span class="o">;</span>
+	<span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span>   <span class="n">logoPart</span><span class="o">;</span>
+
+	<span class="cm">/**
+	 * Creates a default config with on color  and off color
+	 * , generating normal black-on-white barcodes.
+	 */</span>
+	<span class="kd">public</span> <span class="nf">LogoConfig</span><span class="o">()</span> <span class="o">{</span>
+		<span class="k">this</span><span class="o">(</span> <span class="n">DEFAULT_BORDERCOLOR</span><span class="o">,</span> <span class="n">DEFAULT_LOGOPART</span> <span class="o">);</span>
+	<span class="o">}</span>
+
+	<span class="kd">public</span> <span class="nf">LogoConfig</span><span class="o">(</span><span class="n">Color</span> <span class="n">borderColor</span><span class="o">,</span> <span class="kt">int</span> <span class="n">logoPart</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">borderColor</span> <span class="o">=</span> <span class="n">borderColor</span><span class="o">;</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">logoPart</span> <span class="o">=</span> <span class="n">logoPart</span><span class="o">;</span>
+	<span class="o">}</span>
+
+	<span class="kd">public</span> <span class="n">Color</span> <span class="nf">getBorderColor</span><span class="o">()</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="n">borderColor</span><span class="o">;</span>
+	<span class="o">}</span>
+
+	<span class="kd">public</span> <span class="kt">int</span> <span class="nf">getBorder</span><span class="o">()</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="n">border</span><span class="o">;</span>
+	<span class="o">}</span>
+
+	<span class="kd">public</span> <span class="kt">int</span> <span class="nf">getLogoPart</span><span class="o">()</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="n">logoPart</span><span class="o">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<h3 id="结果">结果：</h3>
+<p><img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-07-08-%E4%BA%8C%E7%BB%B4%E7%A0%81.png" alt="" /></p>
+
+<h1 id="总结">总结：</h1>
+<p>自己用到的时候方便查找，也希望对你有所帮助。</p>
+
+<p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1fqj5aochgoj309k09kmwz.jpg" alt="" />
+<b><center>扫描关注：热爱生活的大叔</center>
+<b><center><font size="2">（<font size="2" color="#FF0000">转载本站文章请注明作者和出处</font> <font size="2" color="#0000FF">热爱生活的大叔-uniquezhangqi</font><font size="2">）</font></font></center></b></b></p>
+
+
+                <hr style="visibility: hidden;">
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2018/07/03/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-HttpClient%E4%B9%8BGet/" data-toggle="tooltip" data-placement="top" title="HttpClient之Get">
+                        Previous<br>
+                        <span>HttpClient之Get</span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2018/07/10/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Java8%E4%B9%8B%E5%89%8D%E7%89%88%E6%9C%AC%E7%9A%84%E7%89%B9%E6%80%A7/" data-toggle="tooltip" data-placement="top" title="Java8之前版本的特性">
+                        Next<br>
+                        <span>Java8之前版本的特性</span>
+                        </a>
+                    </li>
+                    
+                </ul>
+
+
+                <!--Gitalk评论start  -->
+                
+                <!-- Gitalk end -->
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+            </div>  
+
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">CATALOG</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+        				
+                            
+                				<a href="/tags/#生活" title="生活" rel="18">
+                                    生活
+                                </a>
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#自我总结" title="自我总结" rel="31">
+                                    自我总结
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#编程之路" title="编程之路" rel="80">
+                                    编程之路
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#设计模式" title="设计模式" rel="4">
+                                    设计模式
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#杂谈" title="杂谈" rel="6">
+                                    杂谈
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#随笔" title="随笔" rel="6">
+                                    随笔
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Quartz" title="Quartz" rel="2">
+                                    Quartz
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#SpringDataJPA" title="SpringDataJPA" rel="2">
+                                    SpringDataJPA
+                                </a>
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#前端" title="前端" rel="5">
+                                    前端
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#咖啡" title="咖啡" rel="4">
+                                    咖啡
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#shiro" title="shiro" rel="5">
+                                    shiro
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#摄影" title="摄影" rel="3">
+                                    摄影
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#理财" title="理财" rel="5">
+                                    理财
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#jvm" title="jvm" rel="3">
+                                    jvm
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#MySql" title="MySql" rel="6">
+                                    MySql
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#java8" title="java8" rel="4">
+                                    java8
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#分布式" title="分布式" rel="3">
+                                    分布式
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#MongoDB" title="MongoDB" rel="2">
+                                    MongoDB
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+        			</div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+                    
+                        <li><a href="https://apple.com">Apple</a></li>
+                    
+                        <li><a href="https://www.google.com">google</a></li>
+                    
+                        <li><a href="http://www.cnblogs.com/zuoxiaolong">左潇龙</a></li>
+                    
+                        <li><a href="http://www.importnew.com/">ImportNew</a></li>
+                    
+                        <li><a href="https://www.csdn.net/">CSND</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "uniquezhangqi";
+    var disqus_identifier = "/2018/07/08/编程之路-DownloadBase64Png";
+    var disqus_url = "http://localhost:4000/2018/07/08/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-DownloadBase64Png/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <!-- add jianshu add target = "_blank" to <a> by BY -->
+                    
+                    
+                    <li>
+                        <a href="https://twitter.com/Mr_javaian">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/伊恩">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="http://weibo.com/_____ZzZzZzq">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+
+                    
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/schooljavaian@gmail.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/uniquezhangqi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; MY Blog 2019
+                    <br>
+                    Theme on <a href="https://github.com/uniquezhangqi/uniquezhangqi.github.io.git">GitHub</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=uniquezhangqi&repo=uniquezhangqi.github.io&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+<!-- Service Worker -->
+
+<script type="text/javascript">
+    if(navigator.serviceWorker){
+        // For security reasons, a service worker can only control the pages that are in the same directory level or below it. That's why we put sw.js at ROOT level.
+        navigator.serviceWorker
+            .register('/sw.js')
+            .then((registration) => {console.log('Service Worker Registered. ', registration)})
+            .catch((error) => {console.log('ServiceWorker registration failed: ', error)})
+    }
+</script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/ 
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers   
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async('/js/jquery.tagcloud.js',function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-113450573-1';
+    var _gaDomain = 'uniquezhangqi.top';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = 'b50bf2b12b5338a1845e33832976fd68';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;    
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="/img/apple-touch-icon.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

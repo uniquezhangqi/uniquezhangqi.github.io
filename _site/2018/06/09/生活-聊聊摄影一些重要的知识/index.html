@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Always on the way of programming.">
+    <meta name="keywords"  content=" MY Blog, 伊恩的博客, Ian, 伊恩, java, Apple">
+    <meta name="theme-color" content="#000000">
+    
+    <title>聊聊摄影一些重要的知识 - 伊恩的博客 | MY Blog</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <!-- Safari Webpage Icon    by-BY -->
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:4000/2018/06/09/%E7%94%9F%E6%B4%BB-%E8%81%8A%E8%81%8A%E6%91%84%E5%BD%B1%E4%B8%80%E4%BA%9B%E9%87%8D%E8%A6%81%E7%9A%84%E7%9F%A5%E8%AF%86/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">MY Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">About</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">Tags</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from 
+     * $toggle/$collapse will break global delegation.
+     * 
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.  
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/ian-bg-red.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-image: url('/img/ian-bg-red.jpg')
+    }
+
+    
+</style>
+<header class="intro-header" >
+    <div class="header-mask"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#生活" title="生活">生活</a>
+                        
+                        <a class="tag" href="/tags/#摄影" title="摄影">摄影</a>
+                        
+                    </div>
+                    <h1>聊聊摄影一些重要的知识</h1>
+                    
+                    
+                    <h2 class="subheading">转载：toutiao 作者：Shylock想</h2>
+                    
+                    <span class="meta">Posted by Ian on June 9, 2018</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+				<blockquote>
+  <p>来源：青芒杂志  转载：toutiao 作者：Shylock想 <a href="https://mp.weixin.qq.com/s?__biz=MzA3MTg3NDAzNQ==&amp;mid=2650493220&amp;idx=7&amp;sn=dbf06a9b1eca92611ea9b540ad62ffff&amp;chksm=872915b8b05e9cae69c7e59918dc6b45af74d726d99ceaa8bfb57faa71b6b4c77c348464c1f3#rd">蜂鸟摄影</a></p>
+</blockquote>
+
+<h1 id="引言">引言</h1>
+<p>有留言说Z 会好多东西😅 其实最主要的原因是 – 大家都在忙着陪朋友、睡觉一睡睡一上午、忙着打游戏的时候，Z 就在研究这些东西，当然 Z 以前也是和大家一样，陪女朋友啊、一睡睡到下午、打游戏打到转钟啊，都是过来人了😏回到主题，时间久了之后，然后慢慢会了这些东西。Z <a href="http://uniquezhangqi.top/2018/04/20/%E7%94%9F%E6%B4%BB-%E4%B8%80%E4%BA%9B%E4%B9%8B%E5%89%8D%E6%8B%8D%E6%91%84%E7%9A%84%E7%85%A7%E7%89%87/">之前拍摄的照片</a> 水平就这样了😅 这个是16、17年上旬拍的。</p>
+
+<h2 id="构图">构图</h2>
+<p>这篇直接基础篇 – 构图，摄影的构图和绘画的构图个人认为都差不多，只是说法也就是专业术语不一样，但是内容都遵循 <code class="highlighter-rouge">近大远小</code>、<code class="highlighter-rouge">近实远虚</code>、<code class="highlighter-rouge">需要有主体物</code>、<code class="highlighter-rouge">不能喧宾夺主</code>、<code class="highlighter-rouge">有画龙点睛之笔(也就是亮点)</code> 、<code class="highlighter-rouge">一点透视</code>、<code class="highlighter-rouge">二点透视</code> 等等等。  不多说，直接上照片加分析。</p>
+
+<h3 id="利用线条构图">利用线条构图</h3>
+<p>利用线条基本上是最常见的构图方法了，垂直线能强调出被摄体的高度，水平线则会强调出它的广度。此外，在观看任何一幅照片时，我们常会自动地构成一根中轴线，即直接通过画面中心的水平线和垂直线。</p>
+
+<h4 id="水平线构图">水平线构图</h4>
+<p>在使用这种构图方法时，拍摄者通过将水平线安排在画面中的不同的位置，可以给人带来不同的视觉感受。
+<img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-06-17-WechatIMG55.jpeg" alt="" /></p>
+
+<p>居中水平线，如果是将水平线居中放置，能够给人以平衡、稳定之感。</p>
+
+<p><img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-06-17-561529197695_.pic-1.jpg" alt="" /></p>
+
+<p>下移水平线，如果是将水平线下移，能够强化天空的高远；</p>
+
+<p><img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-06-17-571529197695_.pic.jpg" alt="" /></p>
+
+<p>上移水平线，而如果是将水平线上移，则可以展现出大地或湖泊海洋的广阔。</p>
+
+<p><img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-06-17-581529197698_.pic.jpg" alt="" /></p>
+
+<p>多条水平线，多次重复可以表示强调。</p>
+
+<p><img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-06-17-591529197699_.pic-1.jpg" alt="" /></p>
+
+<h3 id="垂直线构图">垂直线构图</h3>
+<p>垂直线构图就是利用画面中垂直于上下画框的直线线条元素构建画面的构图方法。垂直线构图一般具有高耸、挺拔、庄严、有力等特点。在平时生活中经常能见到的树木、柱子、栏杆等，都是可以利用的垂直线构图元素。而在拍摄人像时，选择垂直线条作为背景，则能够对人物的身体形态起到很强的修饰作用
+<img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-06-17-601529197699_.pic.jpg" alt="" /></p>
+
+<p>单条垂直线，单条斜线能充分显示景物的高大和深度。</p>
+
+<p><img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-06-17-611529197700_.pic.jpg" alt="" /></p>
+
+<p>多条垂直线，而多条斜线就可以表现万木争荣的参天大树、险峻的山石、飞泻的瀑布、摩天大楼，以及竖直线形组成的其他画面。有一种肃穆庄严感。</p>
+
+<p><img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-06-17-621529197701_.pic.jpg" alt="" /></p>
+
+<h3 id="斜线构图">斜线构图</h3>
+<p>斜线构图常表现运动、流动、倾斜、动荡、失衡、紧张、危险、一泻千里等场面。</p>
+
+<p><img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-06-17-631529197702_.pic.jpg" alt="" /></p>
+
+<p>单条斜线，斜线构图除了能表现运动、倾斜、动荡、失衡之外，还能通过画面里的斜线指出特定的物体，起到一个固定导向的作用。</p>
+
+<p><img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-06-17-641529197702_.pic.jpg" alt="" /></p>
+
+<p>对角线，斜线倾斜到一定程度就变成了对角线，使画面延伸性达到最大，反而会变得不再失衡，这大概就是我们常说的物极必反吧。</p>
+
+<p><img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-06-17-651529197702_.pic.jpg" alt="" /></p>
+
+<p>交叉线，就是两条不重合的斜线，能充分利用画面空间，并把视线引向交叉中心，也可引向画面以外，具有活泼、轻松、舒展、含蓄的特点。</p>
+
+<p><img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-06-17-661529197703_.pic.jpg" alt="" /></p>
+
+<p>十字线，是一种特殊的交叉线，就有交叉线的所有特征，同时更端庄一些。</p>
+
+<p><img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-06-17-671529197704_.pic.jpg" alt="" /></p>
+
+<h3 id="s线构图">S线构图</h3>
+<p>画面上的景物呈S形曲线的构图形式，具有延长、变化的特点，使人看上去有韵产生优美、雅致、协调的感觉。常用于河流、溪水、曲径、小路等。</p>
+
+<p><img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-06-17-681529197704_.pic.jpg" alt="" /></p>
+
+<p><img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-06-17-691529197705_.pic.jpg" alt="" /></p>
+
+<p><img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-06-17-701529197706_.pic.jpg" alt="" /></p>
+
+<h3 id="几何图形构图">几何图形构图</h3>
+<p>几何形状也就只是闭合的线条。格鲁伊特认为：“画面中突出的线条像照明和透视一样，是重要的构图成分。有时，只要有一二根线条的走向有所变化，整个照片构图所表达的意图就变了。画面中的线条可以相连或分开。一条直线显得静止或死板，而折线或曲线就给人一种活泼和富有生气的印象。当几条线条会聚的时候，就形成了角度，或者方形、长方形、三角形或多角形。线条不必总是在被摄体上直接显现出来。相反，有时往往会因照片中含有把几个物体联系在一起的想象中的线条，反而更富有感染力。</p>
+
+<h4 id="三角形构图">三角形构图</h4>
+<p>三角形构图也称金字塔式构图，具有安定、均衡但不失灵活的特点，同时它从画面的视觉效果上，还可以带给观众一种无形而强大的内在重量印象。,拍人像四平八稳，拍建筑有一种耸入云霄的感觉。
+<img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-06-17-711529197707_.pic.jpg" alt="" /></p>
+
+<p>高三角形，能给人一种向上、向前的动感。</p>
+
+<p><img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-06-17-721529197707_.pic.jpg" alt="" /></p>
+
+<p>低三角形，稳如泰山，给人以肃穆、安定之感。</p>
+
+<p><img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-06-17-731529197709_.pic.jpg" alt="" /></p>
+
+<p>多个三角，使画面更加丰富多变，极大的增加了画面的趣味性。</p>
+
+<p><img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-06-17-741529197710_.pic.jpg" alt="" /></p>
+
+<h3 id="矩形构图">矩形构图</h3>
+<p>善于发现生活中的矩形，中规中矩四平八稳，会有一种人工化的和谐感，有的时候我们将画面裁剪成正方形会具有同样的效果。
+<img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-06-17-751529197711_.pic.jpg" alt="" /></p>
+
+<h3 id="圆形构图">圆形构图</h3>
+<p>圆形和隆起的曲线都可以象征着大海般流畅的运动，象征着优雅，成长和和谐。
+<img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-06-17-761529197712_.pic-1.jpg" alt="" /></p>
+
+<p>常规圆形，给人以团结一致的感觉，没有松散感，但这种构图模式，活力不足，缺乏冲击力，缺少生气。</p>
+
+<p><img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-06-17-771529197712_.pic.jpg" alt="" /></p>
+
+<p><img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-06-17-781529197713_.pic.jpg" alt="" /></p>
+
+<p>半圆结构，通常被我们运用于拍摄恬静舒缓的风光作品中，可以带来优美、柔和的感觉，因为用半圆圈起来画面所以还可以起到引导观众视线的作用。</p>
+
+<p><img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-06-17-791529197713_.pic.jpg" alt="" /></p>
+
+<p>椭圆形结构，椭圆形构图容易形成强烈的整体感，并能产生旋转、运动、收缩等视觉效果。常用于表现不需要特别强调主体，而着重表现场面或者渲染气氛的画面内容。</p>
+
+<p><img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-06-17-801529197714_.pic.jpg" alt="" /></p>
+
+<p>辐射构图，同样是圆形，却因为不是工整的边缘，改成了辐射状，极大提高了冲击力。辐射式构图是指以主体为核心，景物向四周扩散辐射的构图方法。这种构图方式可使人的注意力集中到被摄主体，尔后又有开阔、舒展、扩散的作用。</p>
+
+<p>辐射式构图常用于需要突出主体而现场又比较复杂的场合，也用于使人物或景物在较复杂的情况下产生特殊效果。
+<img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-06-17-811529197714_.pic.jpg" alt="" /></p>
+
+<h3 id="l形构图构图">L形构图构图</h3>
+<p>L型构图能让画面有张力，使画面有视力延伸。L形如同半个围框，可以是正L形，也可以是倒L形。因为L形构图占据画面的两边和一角，使中间透空，视野开阔，使主体突出，主题明确，使画面活泼多变。
+<img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-06-17-821529197721_.pic.jpg" alt="" /></p>
+
+<p><img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-06-17-831529197721_.pic.jpg" alt="" /></p>
+
+<h3 id="框景构图构图">框景构图构图</h3>
+<p>又称框架式构图，是指利用画面中景物的框架结构来包裹主体的构图方法。框景构图具有很强的视觉引导效果，利用这一点可以将所要重点表现的景物突出呈现在画面之中。</p>
+
+<p><img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-06-17-841529197723_.pic.jpg" alt="" /></p>
+
+<p>规则形状的框架，在使用框景构图时，拍摄者可以采用门、窗等具有明显框架结构的景物作为前景，然后将被摄主体放置于前景所构成的框架内。</p>
+
+<p><img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-06-17-851529197724_.pic.jpg" alt="" /></p>
+
+<p>不规则形状的框架，采用不同形状的前景框架，使所拍摄出来的照片具有一种别样的形式美。</p>
+
+<p><img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-06-17-861529197729_.pic.jpg" alt="" /></p>
+
+<h3 id="利用画面平衡构图">利用画面平衡构图</h3>
+<p>如果一张照片是有重量的，那画面中四个角某一个地方太过杂乱无章就会显得失衡，通常物体越大，离着镜头越近，越靠下显得越重。我们可以将物体放中间来大大画面平衡的目的，也可以在画面的其他地方加入其他的物体来是照片达成类似天平一样的动态平衡。</p>
+
+<h4 id="重要构图">重要构图</h4>
+<p>中央构图往往将被人主体放在画面的最中央，这样能加突出主体。中央构图往往用在特写被摄对象时，可以将观者的视线引向画面的中心。这种构图常用在表现人像、花卉、建筑局部特写的拍摄中。缺点就是图片会有些僵硬，乏味。
+<img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-06-17-871529197733_.pic.jpg" alt="" /></p>
+
+<h4 id="对称式构图">对称式构图</h4>
+<p>对称式构图是一种利用景物的对称关系构建画面的构图方法。采用对称式构图拍摄的照片，往往具有平衡、稳定的视觉效果。而在使用对称式构图时，拍摄者既可以拍摄那些本身即具有对称结构的景物，还可以借助于玻璃、水面等物体的反光、倒影来实现对称效果。
+<img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-06-17-881529197734_.pic.jpg" alt="" /></p>
+
+<p><img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-06-17-891529197735_.pic.jpg" alt="" /></p>
+
+<p><img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-06-17-901529197736_.pic.jpg" alt="" /></p>
+
+<h4 id="前后呼应构图">前后呼应构图</h4>
+<p>利用主题与背景的呼应能更好的突出主题，可以将照片拍的更有趣味性。
+<img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-06-17-911529197736_.pic.jpg" alt="" /></p>
+
+<h3 id="留白构图">留白构图</h3>
+<p>顾名思义，就是大面积留白的构图方式，在日系小清新中最为常见，当然这么做的重点就是预留出来的空间你想交待什么？漫无目的的预留只会让画面变得杂乱无章。
+<img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-06-17-921529197737_.pic.jpg" alt="" /></p>
+
+<h3 id="其它构图方法">其它构图方法</h3>
+<h4 id="散点构图">散点构图</h4>
+<p>通常就是重复构图，通过相似物体的不断重复，来突出重点。也可以是在重复的过程中有一个物体格外醒目与众不同。
+<img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-06-17-931529197737_.pic.jpg" alt="" /></p>
+
+<p><img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-06-17-941529197738_.pic.jpg" alt="" /></p>
+
+<h4 id="引导构图">引导构图</h4>
+<p><img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-06-17-951529197739_.pic.jpg" alt="" /></p>
+
+<p><img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-06-17-961529197740_.pic.jpg" alt="" /></p>
+
+<h3 id="结语">结语</h3>
+<p>构图是最重要的，也是最基础的。只要构图构好了，拍出来的照片差也查不到哪里去。</p>
+
+<p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1fqj5aochgoj309k09kmwz.jpg" alt="" />
+<b><center>扫描关注：热爱生活的大叔</center>
+<b><center><font size="2">（<font size="2" color="#FF0000">转载本站文章请注明作者和出处</font> <font size="2" color="#0000FF">热爱生活的大叔-uniquezhangqi</font><font size="2">）</font></font></center></b></b></p>
+
+
+                <hr style="visibility: hidden;">
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2018/06/09/%E7%94%9F%E6%B4%BB-%E6%89%8B%E5%86%B2%E5%92%96%E5%95%A1-%E9%9B%AA%E5%86%B0-%E6%98%9F%E5%86%B0%E4%B9%90/" data-toggle="tooltip" data-placement="top" title="手冲咖啡-雪冰、星冰乐">
+                        Previous<br>
+                        <span>手冲咖啡-雪冰、星冰乐</span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2018/06/17/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E8%87%AA%E6%88%91%E6%80%BB%E7%BB%93Java%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B%E5%9F%BA%E7%A1%80%E7%AF%87-%E4%B8%80/" data-toggle="tooltip" data-placement="top" title="自我总结Java并发编程基础篇（一）">
+                        Next<br>
+                        <span>自我总结Java并发编程基础篇（一）</span>
+                        </a>
+                    </li>
+                    
+                </ul>
+
+
+                <!--Gitalk评论start  -->
+                
+                <!-- Gitalk end -->
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+            </div>  
+
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">CATALOG</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+        				
+                            
+                				<a href="/tags/#生活" title="生活" rel="18">
+                                    生活
+                                </a>
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#自我总结" title="自我总结" rel="31">
+                                    自我总结
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#编程之路" title="编程之路" rel="80">
+                                    编程之路
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#设计模式" title="设计模式" rel="4">
+                                    设计模式
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#杂谈" title="杂谈" rel="6">
+                                    杂谈
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#随笔" title="随笔" rel="6">
+                                    随笔
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Quartz" title="Quartz" rel="2">
+                                    Quartz
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#SpringDataJPA" title="SpringDataJPA" rel="2">
+                                    SpringDataJPA
+                                </a>
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#前端" title="前端" rel="5">
+                                    前端
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#咖啡" title="咖啡" rel="4">
+                                    咖啡
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#shiro" title="shiro" rel="5">
+                                    shiro
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#摄影" title="摄影" rel="3">
+                                    摄影
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#理财" title="理财" rel="5">
+                                    理财
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#jvm" title="jvm" rel="3">
+                                    jvm
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#MySql" title="MySql" rel="6">
+                                    MySql
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#java8" title="java8" rel="4">
+                                    java8
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#分布式" title="分布式" rel="3">
+                                    分布式
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#MongoDB" title="MongoDB" rel="2">
+                                    MongoDB
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+        			</div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+                    
+                        <li><a href="https://apple.com">Apple</a></li>
+                    
+                        <li><a href="https://www.google.com">google</a></li>
+                    
+                        <li><a href="http://www.cnblogs.com/zuoxiaolong">左潇龙</a></li>
+                    
+                        <li><a href="http://www.importnew.com/">ImportNew</a></li>
+                    
+                        <li><a href="https://www.csdn.net/">CSND</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "uniquezhangqi";
+    var disqus_identifier = "/2018/06/09/生活-聊聊摄影一些重要的知识";
+    var disqus_url = "http://localhost:4000/2018/06/09/%E7%94%9F%E6%B4%BB-%E8%81%8A%E8%81%8A%E6%91%84%E5%BD%B1%E4%B8%80%E4%BA%9B%E9%87%8D%E8%A6%81%E7%9A%84%E7%9F%A5%E8%AF%86/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <!-- add jianshu add target = "_blank" to <a> by BY -->
+                    
+                    
+                    <li>
+                        <a href="https://twitter.com/Mr_javaian">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/伊恩">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="http://weibo.com/_____ZzZzZzq">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+
+                    
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/schooljavaian@gmail.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/uniquezhangqi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; MY Blog 2019
+                    <br>
+                    Theme on <a href="https://github.com/uniquezhangqi/uniquezhangqi.github.io.git">GitHub</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=uniquezhangqi&repo=uniquezhangqi.github.io&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+<!-- Service Worker -->
+
+<script type="text/javascript">
+    if(navigator.serviceWorker){
+        // For security reasons, a service worker can only control the pages that are in the same directory level or below it. That's why we put sw.js at ROOT level.
+        navigator.serviceWorker
+            .register('/sw.js')
+            .then((registration) => {console.log('Service Worker Registered. ', registration)})
+            .catch((error) => {console.log('ServiceWorker registration failed: ', error)})
+    }
+</script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/ 
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers   
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async('/js/jquery.tagcloud.js',function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-113450573-1';
+    var _gaDomain = 'uniquezhangqi.top';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = 'b50bf2b12b5338a1845e33832976fd68';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;    
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="/img/apple-touch-icon.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

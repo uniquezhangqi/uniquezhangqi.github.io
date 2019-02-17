@@ -1,0 +1,1352 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Always on the way of programming.">
+    <meta name="keywords"  content=" MY Blog, 伊恩的博客, Ian, 伊恩, java, Apple">
+    <meta name="theme-color" content="#000000">
+    
+    <title>Map封装 (一个键多个值) - 伊恩的博客 | MY Blog</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <!-- Safari Webpage Icon    by-BY -->
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:4000/2018/04/15/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Map%E5%B0%81%E8%A3%85-(%E4%B8%80%E4%B8%AA%E9%94%AE%E5%A4%9A%E4%B8%AA%E5%80%BC)/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">MY Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">About</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">Tags</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from 
+     * $toggle/$collapse will break global delegation.
+     * 
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.  
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/post-bg-re-vs-ng2.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-image: url('/img/post-bg-re-vs-ng2.jpg')
+    }
+
+    
+</style>
+<header class="intro-header" >
+    <div class="header-mask"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#编程之路" title="编程之路">编程之路</a>
+                        
+                    </div>
+                    <h1>Map封装 (一个键多个值)</h1>
+                    
+                    
+                    <h2 class="subheading">转载</h2>
+                    
+                    <span class="meta">Posted by Ian on April 15, 2018</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+				<blockquote>
+  <p>转载：<a href="http://android.jobbole.com/83470/">http://android.jobbole.com/83470/</a></p>
+</blockquote>
+
+<p>在日常的开发中经常用到键值对，也就是Map啦，我们知道Map是一个接口，它的特点是一个Key对应一个Value，也就是一个键对应一个值，但是往往我们需要一个Key对应多个Value，这种时候系统的API就无法满足我们的需要了，因此今天介绍一个我封装的一个Key对应多个Value，既一个键对应多个值的MultiValueMap。
+第二个，我们的MultiValueMap要想什么Key-Value都可以放，就要用到泛型，泛型不好的同学也不用担心，只要你用过Map、HashMap我保准你看得懂。</p>
+
+<p>MultiValueMap接口的定义</p>
+
+<p>用过Map的人都知道，Map是一个接口（interface），所以我们这里也把MultiValueMap定义成一个接口。那么需要那些方法呢，我们来列个表：</p>
+
+<p>添加一个Key对应一个Value的：void add(K, V);
+添加一个Key对应多个Value的：void add(K, List);
+设置一个Key对应一个Value的：void set(K, V);
+设置一个Key对应多个Value的：void set(K, List);
+移除一个Key和它对应的Value：List remove(K);
+清除所有Value的：void clear();
+拿到所有Key的集合：Set keySet();
+拿到所有的值：List values();
+拿到一个Key对应的某个值：V getValue(K, index);
+拿到一个Key对应的所有Value：List getValues(K);
+拿到MultiValueMap的大小：int size();
+判断是否为空MultiValueMap：boolean isEmpty();
+判断是否包含某个Key：boolean containKey(K);
+下面我们根据分析先把MultiValueMap接口定义出来，其实这个封装是我的开源项目NoHttp中提出来的，有兴趣的看官光顾下NoHttp，废话不多说，上代码：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Java</span>
+
+<span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Map</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Set</span><span class="o">;</span>
+
+<span class="cm">/**
+ * &lt;p&gt;Can save multiple the value of the map.&lt;/p&gt;
+ * Created in Jan 10, 2016 5:00:07 PM.
+ *
+ * @author Yan Zhenjie;
+ */</span>
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">MultiValueMap</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">V</span><span class="o">&gt;</span> <span class="o">{</span>
+
+    <span class="cm">/**
+     * 添加Key-Value。
+     *
+     * @param key   key.
+     * @param value value.
+     */</span>
+    <span class="kt">void</span> <span class="nf">add</span><span class="o">(</span><span class="n">K</span> <span class="n">key</span><span class="o">,</span> <span class="n">V</span> <span class="n">value</span><span class="o">);</span>
+
+    <span class="cm">/**
+     * 添加Key-List&lt;Value&gt;。
+     *
+     * @param key    key.
+     * @param values values.
+     */</span>
+    <span class="kt">void</span> <span class="nf">add</span><span class="o">(</span><span class="n">K</span> <span class="n">key</span><span class="o">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">V</span><span class="o">&gt;</span> <span class="n">values</span><span class="o">);</span>
+
+    <span class="cm">/**
+     * 设置一个Key-Value，如果这个Key存在就被替换，不存在则被添加。
+     *
+     * @param key   key.
+     * @param value values.
+     */</span>
+    <span class="kt">void</span> <span class="nf">set</span><span class="o">(</span><span class="n">K</span> <span class="n">key</span><span class="o">,</span> <span class="n">V</span> <span class="n">value</span><span class="o">);</span>
+
+    <span class="cm">/**
+     * 设置Key-List&lt;Value&gt;，如果这个Key存在就被替换，不存在则被添加。
+     * @param key    key.
+     * @param values values.
+     * &lt;a href="http://www.jobbole.com/members/heydee@qq.com"&gt;@see&lt;/a&gt; #set(Object, Object)
+     */</span>
+    <span class="kt">void</span> <span class="nf">set</span><span class="o">(</span><span class="n">K</span> <span class="n">key</span><span class="o">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">V</span><span class="o">&gt;</span> <span class="n">values</span><span class="o">);</span>
+
+    <span class="cm">/**
+     * 替换所有的Key-List&lt;Value&gt;。
+     *
+     * @param values values.
+     */</span>
+    <span class="kt">void</span> <span class="nf">set</span><span class="o">(</span><span class="n">Map</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">V</span><span class="o">&gt;&gt;</span> <span class="n">values</span><span class="o">);</span>
+
+    <span class="cm">/**
+     * 移除某一个Key，对应的所有值也将被移除。
+     *
+     * @param key key.
+     * @return value.
+     */</span>
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">V</span><span class="o">&gt;</span> <span class="nf">remove</span><span class="o">(</span><span class="n">K</span> <span class="n">key</span><span class="o">);</span>
+
+    <span class="cm">/**
+     * 移除所有的值。
+     * Remove all key-value.
+     */</span>
+    <span class="kt">void</span> <span class="nf">clear</span><span class="o">();</span>
+
+    <span class="cm">/**
+     * 拿到Key的集合。
+     * @return Set.
+     */</span>
+    <span class="n">Set</span><span class="o">&lt;</span><span class="n">K</span><span class="o">&gt;</span> <span class="nf">keySet</span><span class="o">();</span>
+
+    <span class="cm">/**
+     * 拿到所有的值的集合。
+     *
+     * @return List.
+     */</span>
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">V</span><span class="o">&gt;</span> <span class="nf">values</span><span class="o">();</span>
+
+    <span class="cm">/**
+     * 拿到某一个Key下的某一个值。
+     *
+     * @param key   key.
+     * @param index index value.
+     * @return The value.
+     */</span>
+    <span class="n">V</span> <span class="nf">getValue</span><span class="o">(</span><span class="n">K</span> <span class="n">key</span><span class="o">,</span> <span class="kt">int</span> <span class="n">index</span><span class="o">);</span>
+
+    <span class="cm">/**
+     * 拿到某一个Key的所有值。
+     *
+     * @param key key.
+     * @return values.
+     */</span>
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">V</span><span class="o">&gt;</span> <span class="nf">getValues</span><span class="o">(</span><span class="n">K</span> <span class="n">key</span><span class="o">);</span>
+
+    <span class="cm">/**
+     * 拿到MultiValueMap的大小.
+     *
+     * @return size.
+     */</span>
+    <span class="kt">int</span> <span class="nf">size</span><span class="o">();</span>
+
+    <span class="cm">/**
+     * 判断MultiValueMap是否为null.
+     *
+     * @return True: empty, false: not empty.
+     */</span>
+    <span class="kt">boolean</span> <span class="nf">isEmpty</span><span class="o">();</span>
+
+    <span class="cm">/**
+     * 判断MultiValueMap是否包含某个Key.
+     *
+     * @param key key.
+     * @return True: contain, false: none.
+     */</span>
+    <span class="kt">boolean</span> <span class="nf">containsKey</span><span class="o">(</span><span class="n">K</span> <span class="n">key</span><span class="o">);</span>
+
+<span class="o">}</span>
+
+<span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Map</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Set</span><span class="o">;</span>
+ 
+<span class="cm">/**
+ * &lt;p&gt;Can save multiple the value of the map.&lt;/p&gt;
+ * Created in Jan 10, 2016 5:00:07 PM.
+ *
+ * @author Yan Zhenjie;
+ */</span>
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">MultiValueMap</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">V</span><span class="o">&gt;</span> <span class="o">{</span>
+ 
+    <span class="cm">/**
+     * 添加Key-Value。
+     *
+     * @param key   key.
+     * @param value value.
+     */</span>
+    <span class="kt">void</span> <span class="nf">add</span><span class="o">(</span><span class="n">K</span> <span class="n">key</span><span class="o">,</span> <span class="n">V</span> <span class="n">value</span><span class="o">);</span>
+ 
+    <span class="cm">/**
+     * 添加Key-List&lt;Value&gt;。
+     *
+     * @param key    key.
+     * @param values values.
+     */</span>
+    <span class="kt">void</span> <span class="nf">add</span><span class="o">(</span><span class="n">K</span> <span class="n">key</span><span class="o">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">V</span><span class="o">&gt;</span> <span class="n">values</span><span class="o">);</span>
+ 
+    <span class="cm">/**
+     * 设置一个Key-Value，如果这个Key存在就被替换，不存在则被添加。
+     *
+     * @param key   key.
+     * @param value values.
+     */</span>
+    <span class="kt">void</span> <span class="nf">set</span><span class="o">(</span><span class="n">K</span> <span class="n">key</span><span class="o">,</span> <span class="n">V</span> <span class="n">value</span><span class="o">);</span>
+ 
+    <span class="cm">/**
+     * 设置Key-List&lt;Value&gt;，如果这个Key存在就被替换，不存在则被添加。
+     * @param key    key.
+     * @param values values.
+     * &lt;a href="http://www.jobbole.com/members/heydee@qq.com"&gt;@see&lt;/a&gt; #set(Object, Object)
+     */</span>
+    <span class="kt">void</span> <span class="nf">set</span><span class="o">(</span><span class="n">K</span> <span class="n">key</span><span class="o">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">V</span><span class="o">&gt;</span> <span class="n">values</span><span class="o">);</span>
+ 
+    <span class="cm">/**
+     * 替换所有的Key-List&lt;Value&gt;。
+     *
+     * @param values values.
+     */</span>
+    <span class="kt">void</span> <span class="nf">set</span><span class="o">(</span><span class="n">Map</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">V</span><span class="o">&gt;&gt;</span> <span class="n">values</span><span class="o">);</span>
+ 
+    <span class="cm">/**
+     * 移除某一个Key，对应的所有值也将被移除。
+     *
+     * @param key key.
+     * @return value.
+     */</span>
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">V</span><span class="o">&gt;</span> <span class="nf">remove</span><span class="o">(</span><span class="n">K</span> <span class="n">key</span><span class="o">);</span>
+ 
+    <span class="cm">/**
+     * 移除所有的值。
+     * Remove all key-value.
+     */</span>
+    <span class="kt">void</span> <span class="nf">clear</span><span class="o">();</span>
+ 
+    <span class="cm">/**
+     * 拿到Key的集合。
+     * @return Set.
+     */</span>
+    <span class="n">Set</span><span class="o">&lt;</span><span class="n">K</span><span class="o">&gt;</span> <span class="nf">keySet</span><span class="o">();</span>
+ 
+    <span class="cm">/**
+     * 拿到所有的值的集合。
+     *
+     * @return List.
+     */</span>
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">V</span><span class="o">&gt;</span> <span class="nf">values</span><span class="o">();</span>
+ 
+    <span class="cm">/**
+     * 拿到某一个Key下的某一个值。
+     *
+     * @param key   key.
+     * @param index index value.
+     * @return The value.
+     */</span>
+    <span class="n">V</span> <span class="nf">getValue</span><span class="o">(</span><span class="n">K</span> <span class="n">key</span><span class="o">,</span> <span class="kt">int</span> <span class="n">index</span><span class="o">);</span>
+ 
+    <span class="cm">/**
+     * 拿到某一个Key的所有值。
+     *
+     * @param key key.
+     * @return values.
+     */</span>
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">V</span><span class="o">&gt;</span> <span class="nf">getValues</span><span class="o">(</span><span class="n">K</span> <span class="n">key</span><span class="o">);</span>
+ 
+    <span class="cm">/**
+     * 拿到MultiValueMap的大小.
+     *
+     * @return size.
+     */</span>
+    <span class="kt">int</span> <span class="nf">size</span><span class="o">();</span>
+ 
+    <span class="cm">/**
+     * 判断MultiValueMap是否为null.
+     *
+     * @return True: empty, false: not empty.
+     */</span>
+    <span class="kt">boolean</span> <span class="nf">isEmpty</span><span class="o">();</span>
+ 
+    <span class="cm">/**
+     * 判断MultiValueMap是否包含某个Key.
+     *
+     * @param key key.
+     * @return True: contain, false: none.
+     */</span>
+    <span class="kt">boolean</span> <span class="nf">containsKey</span><span class="o">(</span><span class="n">K</span> <span class="n">key</span><span class="o">);</span>
+ 
+<span class="o">}</span>
+<span class="err">是不是有些小激动呢，接口终于撸完了。是不是就可以用了呢，答案当然是不能，我们知道</span><span class="n">Map</span><span class="err">使用的时候假如是用</span><span class="n">HashMap</span><span class="err">是这样实例化的：</span><span class="n">Map</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">V</span><span class="o">&gt;</span> <span class="n">map</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;();</span><span class="err">，那么我们的</span><span class="n">MultiValueMap</span><span class="err">是不是也要提供一个像</span><span class="n">HashMap</span><span class="err">一个样实现类呢？</span>
+
+<span class="n">MultiValueMap</span><span class="err">接口的实现类</span><span class="n">LinkedMultiValueMap</span>
+
+<span class="err">实现</span><span class="n">MultiValueMap</span><span class="err">接口要</span><span class="kd">implements</span> <span class="n">MultiValueMap</span><span class="o">...</span>
+<span class="err">既然是可以容纳任何类型的</span><span class="n">MultiValueMap</span><span class="err">，实现类</span><span class="n">LinkedMultiValueMap</span><span class="err">也要用泛型分析到里我们先把类的雏形写出来：</span>
+<span class="n">Java</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">LinkedMultiValueMap</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">V</span><span class="o">&gt;</span> <span class="kd">implements</span> <span class="n">MultiValueMap</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">V</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="o">...</span>
+<span class="o">}</span>
+<span class="mi">1</span>
+<span class="mi">2</span>
+<span class="mi">3</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">LinkedMultiValueMap</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">V</span><span class="o">&gt;</span> <span class="kd">implements</span> <span class="n">MultiValueMap</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">V</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="o">...</span>
+<span class="o">}</span>
+<span class="err">看到这里有经验的小伙伴就会发现这尼玛和</span><span class="n">Map</span><span class="err">、</span><span class="n">HashMap</span><span class="err">一个原理啊，这就对了，当我们看到</span><span class="n">LinkedMultiValueMap</span><span class="err">的时候就应该知道我们会用到</span><span class="n">LinkedHashMap</span><span class="err">。</span>
+<span class="err">这里把存放数据的原理分析一下，一个</span><span class="n">Key</span><span class="err">对应多个</span><span class="n">Value</span><span class="err">，我第一个想到的样子是：</span><span class="n">Map</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Value</span><span class="o">&gt;&gt;</span><span class="err">，综上所述我们的数据源就出来了：</span>
+
+<span class="n">Java</span>
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">LinkedMultiValueMap</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">V</span><span class="o">&gt;</span> <span class="kd">implements</span> <span class="n">MultiValueMap</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">V</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="kd">protected</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">V</span><span class="o">&gt;&gt;</span> <span class="n">mSource</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LinkedHashMap</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">V</span><span class="o">&gt;&gt;();</span>
+    <span class="o">...</span>
+<span class="o">}</span>
+<span class="mi">1</span>
+<span class="mi">2</span>
+<span class="mi">3</span>
+<span class="mi">4</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">LinkedMultiValueMap</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">V</span><span class="o">&gt;</span> <span class="kd">implements</span> <span class="n">MultiValueMap</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">V</span><span class="o">&gt;</span> <span class="o">{</span>
+    <span class="kd">protected</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">V</span><span class="o">&gt;&gt;</span> <span class="n">mSource</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LinkedHashMap</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">V</span><span class="o">&gt;&gt;();</span>
+    <span class="o">...</span>
+<span class="o">}</span>
+<span class="err">接下来我们就该实现</span><span class="n">MultiValueMap</span><span class="err">接口所有的方法啦，嗯没啥好说的了，上代码，不懂的地方有注释：</span>
+
+<span class="n">Java</span>
+
+<span class="kn">import</span> <span class="nn">java.util.ArrayList</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.LinkedHashMap</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Map</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Set</span><span class="o">;</span>
+
+<span class="cm">/**
+ * Created in Jan 10, 2016 5:03:17 PM.
+ *
+ * @author Yan Zhenjie;
+ */</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">LinkedMultiValueMap</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">V</span><span class="o">&gt;</span> <span class="kd">implements</span> <span class="n">MultiValueMap</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">V</span><span class="o">&gt;</span> <span class="o">{</span>
+
+    <span class="kd">protected</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">V</span><span class="o">&gt;&gt;</span> <span class="n">mSource</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LinkedHashMap</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">V</span><span class="o">&gt;&gt;();</span>
+
+    <span class="kd">public</span> <span class="nf">LinkedMultiValueMap</span><span class="o">()</span> <span class="o">{</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">add</span><span class="o">(</span><span class="n">K</span> <span class="n">key</span><span class="o">,</span> <span class="n">V</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">key</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="c1">// 如果有这个Key就继续添加Value，没有就创建一个List并添加Value</span>
+            <span class="k">if</span> <span class="o">(!</span><span class="n">mSource</span><span class="o">.</span><span class="na">containsKey</span><span class="o">(</span><span class="n">key</span><span class="o">))</span>
+                <span class="n">mSource</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">key</span><span class="o">,</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">V</span><span class="o">&gt;(</span><span class="mi">2</span><span class="o">));</span>
+            <span class="n">mSource</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">key</span><span class="o">).</span><span class="na">add</span><span class="o">(</span><span class="n">value</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">add</span><span class="o">(</span><span class="n">K</span> <span class="n">key</span><span class="o">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">V</span><span class="o">&gt;</span> <span class="n">values</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// 便利添加进来的List的Value，调用上面的add(K, V)方法添加</span>
+        <span class="k">for</span> <span class="o">(</span><span class="n">V</span> <span class="n">value</span> <span class="o">:</span> <span class="n">values</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">add</span><span class="o">(</span><span class="n">key</span><span class="o">,</span> <span class="n">value</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">set</span><span class="o">(</span><span class="n">K</span> <span class="n">key</span><span class="o">,</span> <span class="n">V</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// 移除这个Key，添加新的Key-Value</span>
+        <span class="n">mSource</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="n">key</span><span class="o">);</span>
+        <span class="n">add</span><span class="o">(</span><span class="n">key</span><span class="o">,</span> <span class="n">value</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">set</span><span class="o">(</span><span class="n">K</span> <span class="n">key</span><span class="o">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">V</span><span class="o">&gt;</span> <span class="n">values</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// 移除Key，添加List&lt;V&gt;</span>
+        <span class="n">mSource</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="n">key</span><span class="o">);</span>
+        <span class="n">add</span><span class="o">(</span><span class="n">key</span><span class="o">,</span> <span class="n">values</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">set</span><span class="o">(</span><span class="n">Map</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">V</span><span class="o">&gt;&gt;</span> <span class="n">map</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// 移除所有值，便利Map里的所有值添加进来</span>
+        <span class="n">mSource</span><span class="o">.</span><span class="na">clear</span><span class="o">();</span>
+        <span class="n">mSource</span><span class="o">.</span><span class="na">putAll</span><span class="o">(</span><span class="n">map</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">V</span><span class="o">&gt;</span> <span class="nf">remove</span><span class="o">(</span><span class="n">K</span> <span class="n">key</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">mSource</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="n">key</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">clear</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">mSource</span><span class="o">.</span><span class="na">clear</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">Set</span><span class="o">&lt;</span><span class="n">K</span><span class="o">&gt;</span> <span class="nf">keySet</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">mSource</span><span class="o">.</span><span class="na">keySet</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">V</span><span class="o">&gt;</span> <span class="nf">values</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">// 创建一个临时List保存所有的Value</span>
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">V</span><span class="o">&gt;</span> <span class="n">allValues</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">V</span><span class="o">&gt;();</span>
+
+        <span class="c1">// 便利所有的Key的Value添加到临时List</span>
+        <span class="n">Set</span><span class="o">&lt;</span><span class="n">K</span><span class="o">&gt;</span> <span class="n">keySet</span> <span class="o">=</span> <span class="n">mSource</span><span class="o">.</span><span class="na">keySet</span><span class="o">();</span>
+        <span class="k">for</span> <span class="o">(</span><span class="n">K</span> <span class="n">key</span> <span class="o">:</span> <span class="n">keySet</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">allValues</span><span class="o">.</span><span class="na">addAll</span><span class="o">(</span><span class="n">mSource</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">key</span><span class="o">));</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">allValues</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">V</span><span class="o">&gt;</span> <span class="nf">getValues</span><span class="o">(</span><span class="n">K</span> <span class="n">key</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">mSource</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">key</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">V</span> <span class="nf">getValue</span><span class="o">(</span><span class="n">K</span> <span class="n">key</span><span class="o">,</span> <span class="kt">int</span> <span class="n">index</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">V</span><span class="o">&gt;</span> <span class="n">values</span> <span class="o">=</span> <span class="n">mSource</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">key</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">values</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">index</span> <span class="o">&lt;</span> <span class="n">values</span><span class="o">.</span><span class="na">size</span><span class="o">())</span>
+            <span class="k">return</span> <span class="n">values</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">index</span><span class="o">);</span>
+        <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">size</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">mSource</span><span class="o">.</span><span class="na">size</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isEmpty</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">mSource</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">containsKey</span><span class="o">(</span><span class="n">K</span> <span class="n">key</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">mSource</span><span class="o">.</span><span class="na">containsKey</span><span class="o">(</span><span class="n">key</span><span class="o">);</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+
+<span class="kn">import</span> <span class="nn">java.util.ArrayList</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.LinkedHashMap</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Map</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Set</span><span class="o">;</span>
+ 
+<span class="cm">/**
+ * Created in Jan 10, 2016 5:03:17 PM.
+ *
+ * @author Yan Zhenjie;
+ */</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">LinkedMultiValueMap</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">V</span><span class="o">&gt;</span> <span class="kd">implements</span> <span class="n">MultiValueMap</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">V</span><span class="o">&gt;</span> <span class="o">{</span>
+ 
+    <span class="kd">protected</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">V</span><span class="o">&gt;&gt;</span> <span class="n">mSource</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LinkedHashMap</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">V</span><span class="o">&gt;&gt;();</span>
+ 
+    <span class="kd">public</span> <span class="nf">LinkedMultiValueMap</span><span class="o">()</span> <span class="o">{</span>
+    <span class="o">}</span>
+ 
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">add</span><span class="o">(</span><span class="n">K</span> <span class="n">key</span><span class="o">,</span> <span class="n">V</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">key</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="c1">// 如果有这个Key就继续添加Value，没有就创建一个List并添加Value</span>
+            <span class="k">if</span> <span class="o">(!</span><span class="n">mSource</span><span class="o">.</span><span class="na">containsKey</span><span class="o">(</span><span class="n">key</span><span class="o">))</span>
+                <span class="n">mSource</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="n">key</span><span class="o">,</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">V</span><span class="o">&gt;(</span><span class="mi">2</span><span class="o">));</span>
+            <span class="n">mSource</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">key</span><span class="o">).</span><span class="na">add</span><span class="o">(</span><span class="n">value</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+ 
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">add</span><span class="o">(</span><span class="n">K</span> <span class="n">key</span><span class="o">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">V</span><span class="o">&gt;</span> <span class="n">values</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// 便利添加进来的List的Value，调用上面的add(K, V)方法添加</span>
+        <span class="k">for</span> <span class="o">(</span><span class="n">V</span> <span class="n">value</span> <span class="o">:</span> <span class="n">values</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">add</span><span class="o">(</span><span class="n">key</span><span class="o">,</span> <span class="n">value</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+ 
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">set</span><span class="o">(</span><span class="n">K</span> <span class="n">key</span><span class="o">,</span> <span class="n">V</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// 移除这个Key，添加新的Key-Value</span>
+        <span class="n">mSource</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="n">key</span><span class="o">);</span>
+        <span class="n">add</span><span class="o">(</span><span class="n">key</span><span class="o">,</span> <span class="n">value</span><span class="o">);</span>
+    <span class="o">}</span>
+ 
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">set</span><span class="o">(</span><span class="n">K</span> <span class="n">key</span><span class="o">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">V</span><span class="o">&gt;</span> <span class="n">values</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// 移除Key，添加List&lt;V&gt;</span>
+        <span class="n">mSource</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="n">key</span><span class="o">);</span>
+        <span class="n">add</span><span class="o">(</span><span class="n">key</span><span class="o">,</span> <span class="n">values</span><span class="o">);</span>
+    <span class="o">}</span>
+ 
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">set</span><span class="o">(</span><span class="n">Map</span><span class="o">&lt;</span><span class="n">K</span><span class="o">,</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">V</span><span class="o">&gt;&gt;</span> <span class="n">map</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// 移除所有值，便利Map里的所有值添加进来</span>
+        <span class="n">mSource</span><span class="o">.</span><span class="na">clear</span><span class="o">();</span>
+        <span class="n">mSource</span><span class="o">.</span><span class="na">putAll</span><span class="o">(</span><span class="n">map</span><span class="o">);</span>
+    <span class="o">}</span>
+ 
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">V</span><span class="o">&gt;</span> <span class="nf">remove</span><span class="o">(</span><span class="n">K</span> <span class="n">key</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">mSource</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="n">key</span><span class="o">);</span>
+    <span class="o">}</span>
+ 
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">clear</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">mSource</span><span class="o">.</span><span class="na">clear</span><span class="o">();</span>
+    <span class="o">}</span>
+ 
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">Set</span><span class="o">&lt;</span><span class="n">K</span><span class="o">&gt;</span> <span class="nf">keySet</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">mSource</span><span class="o">.</span><span class="na">keySet</span><span class="o">();</span>
+    <span class="o">}</span>
+ 
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">V</span><span class="o">&gt;</span> <span class="nf">values</span><span class="o">()</span> <span class="o">{</span>
+        <span class="c1">// 创建一个临时List保存所有的Value</span>
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">V</span><span class="o">&gt;</span> <span class="n">allValues</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">V</span><span class="o">&gt;();</span>
+ 
+        <span class="c1">// 便利所有的Key的Value添加到临时List</span>
+        <span class="n">Set</span><span class="o">&lt;</span><span class="n">K</span><span class="o">&gt;</span> <span class="n">keySet</span> <span class="o">=</span> <span class="n">mSource</span><span class="o">.</span><span class="na">keySet</span><span class="o">();</span>
+        <span class="k">for</span> <span class="o">(</span><span class="n">K</span> <span class="n">key</span> <span class="o">:</span> <span class="n">keySet</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">allValues</span><span class="o">.</span><span class="na">addAll</span><span class="o">(</span><span class="n">mSource</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">key</span><span class="o">));</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">allValues</span><span class="o">;</span>
+    <span class="o">}</span>
+ 
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">V</span><span class="o">&gt;</span> <span class="nf">getValues</span><span class="o">(</span><span class="n">K</span> <span class="n">key</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">mSource</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">key</span><span class="o">);</span>
+    <span class="o">}</span>
+ 
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">V</span> <span class="nf">getValue</span><span class="o">(</span><span class="n">K</span> <span class="n">key</span><span class="o">,</span> <span class="kt">int</span> <span class="n">index</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">V</span><span class="o">&gt;</span> <span class="n">values</span> <span class="o">=</span> <span class="n">mSource</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">key</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">values</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">index</span> <span class="o">&lt;</span> <span class="n">values</span><span class="o">.</span><span class="na">size</span><span class="o">())</span>
+            <span class="k">return</span> <span class="n">values</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">index</span><span class="o">);</span>
+        <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="o">}</span>
+ 
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">size</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">mSource</span><span class="o">.</span><span class="na">size</span><span class="o">();</span>
+    <span class="o">}</span>
+ 
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isEmpty</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">mSource</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">();</span>
+    <span class="o">}</span>
+ 
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">containsKey</span><span class="o">(</span><span class="n">K</span> <span class="n">key</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">mSource</span><span class="o">.</span><span class="na">containsKey</span><span class="o">(</span><span class="n">key</span><span class="o">);</span>
+    <span class="o">}</span>
+ 
+<span class="o">}</span>
+<span class="err">到这里，实现类也就完了，高手们已经肯定会用了。</span>
+
+<span class="n">MultiValueMap</span><span class="err">接口和实现类</span><span class="n">LinkedMultiValueMap</span><span class="err">的用法</span>
+
+<span class="err">其实本来不想写用法的，但是我们还是要本着一个负责人的态度是吧。其实这个封装在开源框架</span><span class="n">NoHttp</span><span class="err">中用的很多，很成熟了，下面也再写点用法：</span>
+
+<span class="n">Java</span>
+
+<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">MultiValueMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">stringMultiValueMap</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LinkedMultiValueMap</span><span class="o">&lt;&gt;();</span>
+    <span class="c1">// 添加Key为name的</span>
+    <span class="n">stringMultiValueMap</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">"name"</span><span class="o">,</span> <span class="s">"yolanda"</span><span class="o">);</span>
+    <span class="n">stringMultiValueMap</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">"name"</span><span class="o">,</span> <span class="s">"yanzhenjie"</span><span class="o">);</span>
+    <span class="n">stringMultiValueMap</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">"name"</span><span class="o">,</span> <span class="s">"严振杰"</span><span class="o">);</span>
+    <span class="n">stringMultiValueMap</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">"name"</span><span class="o">,</span> <span class="s">"尤兰达"</span><span class="o">);</span>
+    <span class="c1">// 添加Key为domain的</span>
+    <span class="n">stringMultiValueMap</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">"domain"</span><span class="o">,</span> <span class="s">"http://www.yanzhenjie.com"</span><span class="o">);</span>
+    <span class="n">stringMultiValueMap</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">"domain"</span><span class="o">,</span> <span class="s">"http://www.nohttp.net"</span><span class="o">);</span>
+
+    <span class="c1">// 拿到某个key的某个值</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"name的第三个值："</span> <span class="o">+</span> <span class="n">stringMultiValueMap</span><span class="o">.</span><span class="na">getValue</span><span class="o">(</span><span class="s">"name"</span><span class="o">,</span> <span class="mi">3</span><span class="o">));</span>
+
+    <span class="c1">// 打印所有值</span>
+    <span class="n">Set</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">keySet</span> <span class="o">=</span> <span class="n">stringMultiValueMap</span><span class="o">.</span><span class="na">keySet</span><span class="o">();</span>
+    <span class="k">for</span> <span class="o">(</span><span class="n">String</span> <span class="n">key</span> <span class="o">:</span> <span class="n">keySet</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">values</span> <span class="o">=</span> <span class="n">stringMultiValueMap</span><span class="o">.</span><span class="na">getValues</span><span class="o">(</span><span class="n">key</span><span class="o">);</span>
+        <span class="k">for</span> <span class="o">(</span><span class="n">String</span> <span class="n">value</span> <span class="o">:</span> <span class="n">values</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">key</span> <span class="o">+</span> <span class="s">": "</span> <span class="o">+</span> <span class="n">value</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">MultiValueMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">stringMultiValueMap</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LinkedMultiValueMap</span><span class="o">&lt;&gt;();</span>
+    <span class="c1">// 添加Key为name的</span>
+    <span class="n">stringMultiValueMap</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">"name"</span><span class="o">,</span> <span class="s">"yolanda"</span><span class="o">);</span>
+    <span class="n">stringMultiValueMap</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">"name"</span><span class="o">,</span> <span class="s">"yanzhenjie"</span><span class="o">);</span>
+    <span class="n">stringMultiValueMap</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">"name"</span><span class="o">,</span> <span class="s">"严振杰"</span><span class="o">);</span>
+    <span class="n">stringMultiValueMap</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">"name"</span><span class="o">,</span> <span class="s">"尤兰达"</span><span class="o">);</span>
+    <span class="c1">// 添加Key为domain的</span>
+    <span class="n">stringMultiValueMap</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">"domain"</span><span class="o">,</span> <span class="s">"http://www.yanzhenjie.com"</span><span class="o">);</span>
+    <span class="n">stringMultiValueMap</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">"domain"</span><span class="o">,</span> <span class="s">"http://www.nohttp.net"</span><span class="o">);</span>
+ 
+    <span class="c1">// 拿到某个key的某个值</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"name的第三个值："</span> <span class="o">+</span> <span class="n">stringMultiValueMap</span><span class="o">.</span><span class="na">getValue</span><span class="o">(</span><span class="s">"name"</span><span class="o">,</span> <span class="mi">3</span><span class="o">));</span>
+ 
+    <span class="c1">// 打印所有值</span>
+    <span class="n">Set</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">keySet</span> <span class="o">=</span> <span class="n">stringMultiValueMap</span><span class="o">.</span><span class="na">keySet</span><span class="o">();</span>
+    <span class="k">for</span> <span class="o">(</span><span class="n">String</span> <span class="n">key</span> <span class="o">:</span> <span class="n">keySet</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">values</span> <span class="o">=</span> <span class="n">stringMultiValueMap</span><span class="o">.</span><span class="na">getValues</span><span class="o">(</span><span class="n">key</span><span class="o">);</span>
+        <span class="k">for</span> <span class="o">(</span><span class="n">String</span> <span class="n">value</span> <span class="o">:</span> <span class="n">values</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">key</span> <span class="o">+</span> <span class="s">": "</span> <span class="o">+</span> <span class="n">value</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+<span class="err">我们</span><span class="n">run</span><span class="err">一下看结果：</span>
+
+<span class="n">Java</span>
+
+<span class="n">name</span><span class="err">的第三个值：尤兰达</span>
+<span class="nl">name:</span> <span class="n">yolanda</span>
+<span class="nl">name:</span> <span class="n">yanzhenjie</span>
+<span class="nl">name:</span> <span class="err">严振杰</span>
+<span class="nl">name:</span> <span class="err">尤兰达</span>
+<span class="nl">domain:</span> <span class="nl">http:</span><span class="c1">//www.yanzhenjie.com</span>
+<span class="nl">domain:</span> <span class="nl">http:</span><span class="c1">//www.nohttp.net</span>
+
+<span class="n">name</span><span class="err">的第三个值：尤兰达</span>
+<span class="nl">name:</span> <span class="n">yolanda</span>
+<span class="nl">name:</span> <span class="n">yanzhenjie</span>
+<span class="nl">name:</span> <span class="err">严振杰</span>
+<span class="nl">name:</span> <span class="err">尤兰达</span>
+<span class="nl">domain:</span> <span class="nl">http:</span><span class="c1">//www.yanzhenjie.com</span>
+<span class="nl">domain:</span> <span class="nl">http:</span><span class="c1">//www.nohttp.net</span>
+</code></pre></div></div>
+
+<blockquote>
+  <p>转载：<a href="http://android.jobbole.com/83470/">http://android.jobbole.com/83470/</a></p>
+</blockquote>
+
+<p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1fqj5aochgoj309k09kmwz.jpg" alt="" />
+<b><center>扫描关注：热爱生活的大叔</center>
+<b><center><font size="2">（<font size="2" color="#FF0000">转载本站文章请注明作者和出处</font> <font size="2" color="#0000FF">热爱生活的大叔-uniquezhangqi</font><font size="2">）</font></font></center></b></b></p>
+
+
+                <hr style="visibility: hidden;">
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2018/04/15/%E7%94%9F%E6%B4%BB-%E8%81%8A%E8%81%8A%E6%88%91%E7%9A%84%E6%89%8B%E5%86%B2%E5%92%96%E5%95%A1%E5%99%A8%E5%85%B7/" data-toggle="tooltip" data-placement="top" title="聊聊我的手冲咖啡器具">
+                        Previous<br>
+                        <span>聊聊我的手冲咖啡器具</span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2018/04/15/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Maven%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/" data-toggle="tooltip" data-placement="top" title="Maven配置文件">
+                        Next<br>
+                        <span>Maven配置文件</span>
+                        </a>
+                    </li>
+                    
+                </ul>
+
+
+                <!--Gitalk评论start  -->
+                
+                <!-- Gitalk end -->
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+            </div>  
+
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">CATALOG</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+        				
+                            
+                				<a href="/tags/#生活" title="生活" rel="18">
+                                    生活
+                                </a>
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#自我总结" title="自我总结" rel="31">
+                                    自我总结
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#编程之路" title="编程之路" rel="80">
+                                    编程之路
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#设计模式" title="设计模式" rel="4">
+                                    设计模式
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#杂谈" title="杂谈" rel="6">
+                                    杂谈
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#随笔" title="随笔" rel="6">
+                                    随笔
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Quartz" title="Quartz" rel="2">
+                                    Quartz
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#SpringDataJPA" title="SpringDataJPA" rel="2">
+                                    SpringDataJPA
+                                </a>
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#前端" title="前端" rel="5">
+                                    前端
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#咖啡" title="咖啡" rel="4">
+                                    咖啡
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#shiro" title="shiro" rel="5">
+                                    shiro
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#摄影" title="摄影" rel="3">
+                                    摄影
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#理财" title="理财" rel="5">
+                                    理财
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#jvm" title="jvm" rel="3">
+                                    jvm
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#MySql" title="MySql" rel="6">
+                                    MySql
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#java8" title="java8" rel="4">
+                                    java8
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#分布式" title="分布式" rel="3">
+                                    分布式
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#MongoDB" title="MongoDB" rel="2">
+                                    MongoDB
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+        			</div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+                    
+                        <li><a href="https://apple.com">Apple</a></li>
+                    
+                        <li><a href="https://www.google.com">google</a></li>
+                    
+                        <li><a href="http://www.cnblogs.com/zuoxiaolong">左潇龙</a></li>
+                    
+                        <li><a href="http://www.importnew.com/">ImportNew</a></li>
+                    
+                        <li><a href="https://www.csdn.net/">CSND</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "uniquezhangqi";
+    var disqus_identifier = "/2018/04/15/编程之路-Map封装 (一个键多个值)";
+    var disqus_url = "http://localhost:4000/2018/04/15/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Map%E5%B0%81%E8%A3%85-(%E4%B8%80%E4%B8%AA%E9%94%AE%E5%A4%9A%E4%B8%AA%E5%80%BC)/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <!-- add jianshu add target = "_blank" to <a> by BY -->
+                    
+                    
+                    <li>
+                        <a href="https://twitter.com/Mr_javaian">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/伊恩">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="http://weibo.com/_____ZzZzZzq">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+
+                    
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/schooljavaian@gmail.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/uniquezhangqi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; MY Blog 2019
+                    <br>
+                    Theme on <a href="https://github.com/uniquezhangqi/uniquezhangqi.github.io.git">GitHub</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=uniquezhangqi&repo=uniquezhangqi.github.io&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+<!-- Service Worker -->
+
+<script type="text/javascript">
+    if(navigator.serviceWorker){
+        // For security reasons, a service worker can only control the pages that are in the same directory level or below it. That's why we put sw.js at ROOT level.
+        navigator.serviceWorker
+            .register('/sw.js')
+            .then((registration) => {console.log('Service Worker Registered. ', registration)})
+            .catch((error) => {console.log('ServiceWorker registration failed: ', error)})
+    }
+</script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/ 
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers   
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async('/js/jquery.tagcloud.js',function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-113450573-1';
+    var _gaDomain = 'uniquezhangqi.top';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = 'b50bf2b12b5338a1845e33832976fd68';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;    
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="/img/apple-touch-icon.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

@@ -1,0 +1,967 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Always on the way of programming.">
+    <meta name="keywords"  content=" MY Blog, 伊恩的博客, Ian, 伊恩, java, Apple">
+    <meta name="theme-color" content="#000000">
+    
+    <title>伊恩的博客 | MY Blog</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <!-- Safari Webpage Icon    by-BY -->
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:4000/page7/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">MY Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">About</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">Tags</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from 
+     * $toggle/$collapse will break global delegation.
+     * 
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.  
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+
+    <!-- Page Header -->
+<header class="intro-header" style="background-image: url('/img/post-bg-desk.jpg')">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 ">
+                <div class="site-heading">
+                    <h1>MY Blog</h1>
+                    <!--<hr class="small">-->
+                    <span class="subheading">路漫漫其修远兮，吾将上下而求索。</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Main Content -->
+<div class="container">
+	<div class="row">
+        
+
+<!-- USE SIDEBAR -->
+    <!-- PostList Container -->
+    		<div class="
+                col-lg-8 col-lg-offset-1
+                col-md-8 col-md-offset-1
+                col-sm-12
+                col-xs-12
+                postlist-container
+            ">
+    			
+<div class="post-preview">
+    <a href="/2018/04/21/%E7%94%9F%E6%B4%BB-%E7%A8%8B%E5%BA%8F%E5%91%98%E8%AF%A5%E7%94%A8%E5%93%AA%E7%A7%8D%E5%A7%BF%E5%8A%BF%E6%9D%A5%E7%90%86%E8%B4%A2/">
+        <h2 class="post-title">
+            程序员该用哪种姿势来理财
+        </h2>
+        
+        <h3 class="post-subtitle">
+            转载：纯洁的微笑
+        </h3>
+        
+        <div class="post-content-preview">
+            其实一直想写一篇文章名字都想好了，叫做“程序员该不该理财？”。后来想了想，该不该这个就不用想了，必须要理财！那么市面上那么多理财的方式对于我们屌丝的程序员该如何选择呢？
+
+其实我也是那种土的掉咋的那种类型，以前几乎没有想过神马理财的，一来呢毕业的时候工资全都不够花的还理个毛线，二来总是感觉理财好像都是有钱人搞的东西；后来偶然进入了互联网金融行业，呆了几年，慢慢也接触了很多理财方式，但也还是一...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Ian on April 21, 2018
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2018/04/20/%E7%94%9F%E6%B4%BB-%E4%BB%AA%E5%BC%8F%E4%B8%8E%E9%85%8D%E6%96%B9/">
+        <h2 class="post-title">
+            仪式与配方
+        </h2>
+        
+        <h3 class="post-subtitle">
+            🍮🍰☕️
+        </h3>
+        
+        <div class="post-content-preview">
+            
+  本文首次发布于My Blog,作者@张琦(Ian),转载请保留原文链接。
+
+
+仪式开始
+　　当然是把咖啡粉称量好，水烧好倒入手冲壶中（我的壶是不能直接烧的，但是有的手冲壶是可以放到电磁炉烧的，根据个人喜好）；水粉比一般是1:15 1克的粉15克的水；Z 今天下午冲的是10克的粉，150克的水，刚好一杯。
+　　
+　　
+　　
+咖啡滤纸　　
+　　倒水之前需要打湿咖啡滤纸并且水一定要是90度垂...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Ian on April 20, 2018
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2018/04/20/%E7%94%9F%E6%B4%BB-%E4%B8%80%E4%BA%9B%E4%B9%8B%E5%89%8D%E6%8B%8D%E6%91%84%E7%9A%84%E7%85%A7%E7%89%87/">
+        <h2 class="post-title">
+            一些之前拍摄的照片
+        </h2>
+        
+        <div class="post-content-preview">
+            
+  本文首次发布于My Blog,作者@张琦(Ian),转载请保留原文链接。
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+扫描关注：热爱生活的大叔
+（转载本站文章请注明作者和出处 热爱生活的大叔-uniquezhangqi）
+
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Ian on April 20, 2018
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2018/04/18/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-shrio%E6%9D%83%E9%99%90%E9%85%8D%E7%BD%AE/">
+        <h2 class="post-title">
+            shrio权限配置
+        </h2>
+        
+        <h3 class="post-subtitle">
+            🤠
+        </h3>
+        
+        <div class="post-content-preview">
+            配置
+其实shiro权限控制就是通过拦截器来进行判断用户权限的，因此shiro拦截器的配置跟springMVC的拦截器配置是类似的。
+
+第一步
+尽然是通过aop来使用shiro，那就需要在web.xml里添加一个shiro的拦截器。
+
+ps:这个shiro拦截器是如何加载的呢？ 因为这个项目shiro与spring整合了，所有运行项目的时候，spring监听器会去寻找并加载shiro拦截器
+...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Ian on April 18, 2018
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2018/04/18/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-shiro%E8%AE%BE%E7%BD%AE%E5%8A%A0%E5%AF%86%E7%AE%97%E6%B3%95%E6%BA%90%E7%A0%81%E8%A7%A3%E6%9E%90/">
+        <h2 class="post-title">
+            shiro设置加密算法源码解析
+        </h2>
+        
+        <div class="post-content-preview">
+            
+  本文首次发布于My Blog,作者@张琦(Ian),转载请保留原文链接。
+
+
+自定义Realm继承AuthorizingRealm父类。
+HashedCredentialsMatcher 实例化并设置加密算法。
+源码：
+
+   public AuthorizingRealm(CredentialsMatcher matcher) {
+        this((CacheManager...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Ian on April 18, 2018
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2018/04/17/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-shiro%E7%9A%84-favicon.ico%E9%97%AE%E9%A2%98/">
+        <h2 class="post-title">
+            shiro的/favicon.ico问题
+        </h2>
+        
+        <h3 class="post-subtitle">
+            ✍🏻
+        </h3>
+        
+        <div class="post-content-preview">
+            
+  本文首次发布于My Blog,作者@张琦(Ian),转载请保留原文链接。
+
+
+　　最近Z 在搭建项目框架用到遇到shiro的这个问题，还好公司大佬告知，不然蒙蔽了😷
+####登录成功之后跳转/favicon.ico问题。
+
+  spring-shrio.xml里面配置加上
+    
+      /favicon.ico = anon
+    
+  
+  
+    web.xml中配置中...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Ian on April 17, 2018
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2018/04/17/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-oracle%E6%95%B4%E5%90%88%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/">
+        <h2 class="post-title">
+            oracle整合遇到的问题
+        </h2>
+        
+        <div class="post-content-preview">
+            
+  本文首次发布于My Blog,作者@张琦(Ian),转载请保留原文链接。
+
+
+　　最近在搭建一个项目框架，用到了oracle，所以从中遇到些问题跟大家分享下，也方便自己以后复制粘贴✍🏿
+
+####在Maven仓库中添加Oracle数据库的JDBC驱动依赖
+
+  参考：https://blog.csdn.net/erlian1992/article/details/74279106
+
+
+...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Ian on April 17, 2018
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2018/04/15/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E8%B7%A8%E5%9F%9F%E9%97%AE%E9%A2%98/">
+        <h2 class="post-title">
+            跨域问题
+        </h2>
+        
+        <h3 class="post-subtitle">
+            😈
+        </h3>
+        
+        <div class="post-content-preview">
+            
+  本文首次发布于My Blog,作者@张琦(Ian),转载请保留原文链接。
+
+
+
+  可参考Controller上使用@CrossOrigin注解
+
+
+web.xml
+
+&lt;!-- 跨域拦截设置--&gt;
+    &lt;filter&gt;
+        &lt;filter-name&gt;CorsFilter&lt;/filter-name&gt;
+        &lt;...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Ian on April 15, 2018
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2018/04/15/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Maven%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6/">
+        <h2 class="post-title">
+            Maven配置文件
+        </h2>
+        
+        <h3 class="post-subtitle">
+            🤓
+        </h3>
+        
+        <div class="post-content-preview">
+            
+  本文首次发布于My Blog,作者@张琦(Ian),转载请保留原文链接。
+
+
+最近Z 在搭建一个新项目，是一个mysql、spring、Springmvc、SpringDataJpa的maven然后把之前知其然不知其所以然的全部都总结出来了，再这个pom.xml的后面，方便以后复制粘贴😁
+
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Ian on April 15, 2018
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2018/04/15/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Map%E5%B0%81%E8%A3%85-(%E4%B8%80%E4%B8%AA%E9%94%AE%E5%A4%9A%E4%B8%AA%E5%80%BC)/">
+        <h2 class="post-title">
+            Map封装 (一个键多个值)
+        </h2>
+        
+        <h3 class="post-subtitle">
+            转载
+        </h3>
+        
+        <div class="post-content-preview">
+            
+  转载：http://android.jobbole.com/83470/
+
+
+在日常的开发中经常用到键值对，也就是Map啦，我们知道Map是一个接口，它的特点是一个Key对应一个Value，也就是一个键对应一个值，但是往往我们需要一个Key对应多个Value，这种时候系统的API就无法满足我们的需要了，因此今天介绍一个我封装的一个Key对应多个Value，既一个键对应多个值的Multi...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Ian on April 15, 2018
+    </p>
+</div>
+<hr>
+
+
+<!-- Pager -->
+
+<ul class="pager">
+    
+    <li class="previous">
+        <a href="/page6">&larr; Newer Posts</a>
+    </li>
+    
+    
+    <li class="next">
+        <a href="/page8">Older Posts &rarr;</a>
+    </li>
+    
+</ul>
+
+
+    		</div>
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-3 col-lg-offset-0
+                col-md-3 col-md-offset-0
+                col-sm-12
+                col-xs-12
+                sidebar-container
+            ">
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+                        
+                            
+                                <a href="/tags/#生活" title="生活" rel="18">
+                                    生活
+                                </a>
+                            
+                        
+                            
+                        
+                            
+                                <a href="/tags/#自我总结" title="自我总结" rel="31">
+                                    自我总结
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#编程之路" title="编程之路" rel="80">
+                                    编程之路
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#设计模式" title="设计模式" rel="4">
+                                    设计模式
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#杂谈" title="杂谈" rel="6">
+                                    杂谈
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#随笔" title="随笔" rel="6">
+                                    随笔
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#Quartz" title="Quartz" rel="2">
+                                    Quartz
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#SpringDataJPA" title="SpringDataJPA" rel="2">
+                                    SpringDataJPA
+                                </a>
+                            
+                        
+                            
+                        
+                            
+                                <a href="/tags/#前端" title="前端" rel="5">
+                                    前端
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#咖啡" title="咖啡" rel="4">
+                                    咖啡
+                                </a>
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                                <a href="/tags/#shiro" title="shiro" rel="5">
+                                    shiro
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#摄影" title="摄影" rel="3">
+                                    摄影
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#理财" title="理财" rel="5">
+                                    理财
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#jvm" title="jvm" rel="3">
+                                    jvm
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#MySql" title="MySql" rel="6">
+                                    MySql
+                                </a>
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                                <a href="/tags/#java8" title="java8" rel="4">
+                                    java8
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#分布式" title="分布式" rel="3">
+                                    分布式
+                                </a>
+                            
+                        
+                            
+                                <a href="/tags/#MongoDB" title="MongoDB" rel="2">
+                                    MongoDB
+                                </a>
+                            
+                        
+                            
+                        
+                            
+                        
+                            
+                        
+                    </div>
+                </section>
+                
+
+                <!-- Short About -->
+                <section class="visible-md visible-lg">
+                    <hr><h5><a href="/about/">ABOUT ME</a></h5>
+                    <div class="short-about">
+                        
+                            <a href="/about">
+                                <img src="/img/avatar-by.jpg"/>
+                            </a>
+                        
+                        
+                            <p>Always on the way of programming.</p>
+                        
+                        <!-- SNS Link -->
+                        <ul class="list-inline">
+                            
+                            <!-- add jianshu add target = "_blank" to <a> by BY -->
+                            
+                            
+                            <li>
+                                <a href="https://twitter.com/Mr_javaian">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            
+                            
+                            <li>
+                                <a target="_blank" href="https://www.zhihu.com/people/伊恩">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa  fa-stack-1x fa-inverse">知</i>
+                                    </span>
+                                </a>
+                            </li>
+                            
+                            
+                            <li>
+                                <a target="_blank" href="http://weibo.com/_____ZzZzZzq">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            
+                            
+                            <li>
+                                <a target="_blank" href="https://www.facebook.com/schooljavaian@gmail.com">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            
+                            
+                            <li>
+                                <a target="_blank" href="https://github.com/uniquezhangqi">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            
+                            
+                        </ul>
+                        
+                            <p>✉️ schooljavaian@gmail.com</p>
+                        
+                    </div>
+                </section>
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+                    
+                        <li><a href="https://apple.com">Apple</a></li>
+                    
+                        <li><a href="https://www.google.com">google</a></li>
+                    
+                        <li><a href="http://www.cnblogs.com/zuoxiaolong">左潇龙</a></li>
+                    
+                        <li><a href="http://www.importnew.com/">ImportNew</a></li>
+                    
+                        <li><a href="https://www.csdn.net/">CSND</a></li>
+                    
+                </ul>
+                
+    		</div>
+        
+	</div>
+</div>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <!-- add jianshu add target = "_blank" to <a> by BY -->
+                    
+                    
+                    <li>
+                        <a href="https://twitter.com/Mr_javaian">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/伊恩">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="http://weibo.com/_____ZzZzZzq">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+
+                    
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/schooljavaian@gmail.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/uniquezhangqi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; MY Blog 2019
+                    <br>
+                    Theme on <a href="https://github.com/uniquezhangqi/uniquezhangqi.github.io.git">GitHub</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=uniquezhangqi&repo=uniquezhangqi.github.io&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+<!-- Service Worker -->
+
+<script type="text/javascript">
+    if(navigator.serviceWorker){
+        // For security reasons, a service worker can only control the pages that are in the same directory level or below it. That's why we put sw.js at ROOT level.
+        navigator.serviceWorker
+            .register('/sw.js')
+            .then((registration) => {console.log('Service Worker Registered. ', registration)})
+            .catch((error) => {console.log('ServiceWorker registration failed: ', error)})
+    }
+</script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/ 
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers   
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async('/js/jquery.tagcloud.js',function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-113450573-1';
+    var _gaDomain = 'uniquezhangqi.top';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = 'b50bf2b12b5338a1845e33832976fd68';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+<!-- Side Catalog -->
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="/img/apple-touch-icon.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

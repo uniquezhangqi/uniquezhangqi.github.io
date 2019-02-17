@@ -1,0 +1,1416 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Always on the way of programming.">
+    <meta name="keywords"  content=" MY Blog, 伊恩的博客, Ian, 伊恩, java, Apple">
+    <meta name="theme-color" content="#000000">
+    
+    <title>设计模式总结(二) - 伊恩的博客 | MY Blog</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <!-- Safari Webpage Icon    by-BY -->
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:4000/2018/03/02/%E8%87%AA%E6%88%91%E6%80%BB%E7%BB%93-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%93(%E4%BA%8C)/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">MY Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">About</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">Tags</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from 
+     * $toggle/$collapse will break global delegation.
+     * 
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.  
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/post-bg-hacker.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-image: url('/img/post-bg-hacker.jpg')
+    }
+
+    
+</style>
+<header class="intro-header" >
+    <div class="header-mask"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#自我总结" title="自我总结">自我总结</a>
+                        
+                        <a class="tag" href="/tags/#编程之路" title="编程之路">编程之路</a>
+                        
+                        <a class="tag" href="/tags/#设计模式" title="设计模式">设计模式</a>
+                        
+                    </div>
+                    <h1>设计模式总结(二)</h1>
+                    
+                    
+                    <h2 class="subheading">Always on the way of programming.</h2>
+                    
+                    <span class="meta">Posted by Ian on March 2, 2018</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+				<blockquote>
+  <p>本文首次发布于<a href="http://uniquezhangqi.top">My Blog</a>,作者<a href="http://uniquezhangqi.top/about/">@张琦(Ian)</a>,转载请保留原文链接。<br />
+<br />
+右侧可以看<code class="highlighter-rouge">目录</code>，点击直接跳转，Z 一共写了4篇(可以点击下面直接跳转然后看右侧目录)：<br /></p>
+  <ul>
+    <li><a href="http://uniquezhangqi.top/2018/02/04/自我总结-设计模式总结(一)">自我总结-设计模式总结(一)</a><br /></li>
+    <li><a href="http://uniquezhangqi.top/2018/03/05/编程之路-设计模式总结(三)/">自我总结-设计模式总结(三)</a><br /></li>
+    <li><a href="http://uniquezhangqi.top/2018/03/08/编程之路-设计模式总结(四)/">自我总结-设计模式总结(四)</a><br /></li>
+  </ul>
+</blockquote>
+
+<h2 id="装饰模式">装饰模式</h2>
+<blockquote>
+  <p><code class="highlighter-rouge">装饰模式：</code>动态地给一个对象添加一些额外的职责，就增加功能来说，装饰模式比生成子类更为灵活。</p>
+</blockquote>
+
+<p>先上代码：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//义一个对象接口，可以给这些对象动态地添加职责。</span>
+<span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">Component</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">void</span> <span class="nf">operation</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ConcreteComponent</span> <span class="kd">extends</span> <span class="n">Component</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">operation</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"具体对象的操作"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Decorator</span> <span class="kd">extends</span> <span class="n">Component</span> <span class="o">{</span>
+    <span class="kd">protected</span> <span class="n">Component</span> <span class="n">component</span><span class="o">;</span>
+
+    <span class="c1">//设置Component</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setComponent</span><span class="o">(</span><span class="n">Component</span> <span class="n">component</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">component</span> <span class="o">=</span> <span class="n">component</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="c1">//重写operation(),实际执行的是Component的operation()</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">operation</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="kc">null</span> <span class="o">!=</span> <span class="n">component</span><span class="o">){</span>
+            <span class="n">component</span><span class="o">.</span><span class="na">operation</span><span class="o">();</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ConcreteDecoratorA</span> <span class="kd">extends</span> <span class="n">Decorator</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">addedState</span><span class="o">;</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">operation</span><span class="o">(){</span>
+        <span class="c1">//首先运行原Component的operation()，再执行本类功能，如addedState，相当于对原Component进行了装饰</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">operation</span><span class="o">();</span>
+        <span class="n">addedState</span> <span class="o">=</span> <span class="s">"New State"</span><span class="o">;</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"具体装饰对象A的操作"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">ConcreteDecoratorB</span> <span class="kd">extends</span> <span class="n">Decorator</span><span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">operation</span><span class="o">(){</span>
+        <span class="c1">//首先运行原Component的operation()，再执行本类功能，如AddedBehavior，相当于对原Component进行了装饰</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">operation</span><span class="o">();</span>
+        <span class="n">AddedBehavior</span><span class="o">();</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"具体装饰对象B的操作"</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">AddedBehavior</span><span class="o">(){}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">main</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
+        <span class="n">ConcreteComponent</span> <span class="n">c</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ConcreteComponent</span><span class="o">();</span>
+        <span class="n">ConcreteDecoratorA</span> <span class="n">d1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ConcreteDecoratorA</span><span class="o">();</span>
+        <span class="n">ConcreteDecoratorB</span> <span class="n">d2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ConcreteDecoratorB</span><span class="o">();</span>
+
+        <span class="cm">/**
+         * 装饰的方法是：首先用ConcreteComponent实例化对象c，然后用ConcreteDecoratorA的实例化对象d1来包装c，
+         * 再用ConcreteDecoratorB的对象d2包装d1，最终执行d2的operation();
+         */</span>
+        <span class="n">d1</span><span class="o">.</span><span class="na">setComponent</span><span class="o">(</span><span class="n">c</span><span class="o">);</span>
+        <span class="n">d2</span><span class="o">.</span><span class="na">setComponent</span><span class="o">(</span><span class="n">d1</span><span class="o">);</span>
+        <span class="n">d2</span><span class="o">.</span><span class="na">operation</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<p>　　利用setComponent来对对象进行包装，这样每个装饰对象的实现就和如何使用这个对象分离开了，每个装饰对象只关心自己的功能，不需要关心如何被添加到对象链当中。<br /></p>
+
+<h4 id="总结">总结</h4>
+<p>　　总结：装饰模式是为已有功能动态地添加更多功能的一种方式。<br />
+　　优点：把类中的装饰功能从类中搬移去除，这样可以简化原有的类。<br />
+　　好处：有效的把类的核心职责和装饰功能区分开了，而且可以去除相关类中重复的装饰逻辑。<br />
+　　注意：装饰的顺序很重要。
+　　
+　　</p>
+<h2 id="代理模式">代理模式</h2>
+<blockquote>
+  <p><code class="highlighter-rouge">代理模式:</code> 为其他对象提供一种代理以控制对这个对象的访问。</p>
+</blockquote>
+
+<p>先上代码：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//定义RealSubject 和 Proxy的公共接口，这样就可以使用RealSubject的地方都可以使用Proxy</span>
+<span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">Subject</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">void</span> <span class="nf">request</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//定义Proxy所代表的真实实体</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">RealSubject</span> <span class="kd">extends</span> <span class="n">Subject</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">request</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"真实的请求"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//保存一个引用使得代理可以访问实体，并提供一个Subject的接口相同的接口，这样代理就可以用来替代实体。</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Proxy</span> <span class="kd">extends</span> <span class="n">Subject</span> <span class="o">{</span>
+    <span class="n">RealSubject</span> <span class="n">realSubject</span><span class="o">;</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">request</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="kc">null</span> <span class="o">==</span> <span class="n">realSubject</span><span class="o">){</span>
+            <span class="n">realSubject</span> <span class="o">=</span> <span class="k">new</span> <span class="n">RealSubject</span><span class="o">();</span>
+        <span class="o">}</span>
+        <span class="n">realSubject</span><span class="o">.</span><span class="na">request</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">main</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">Proxy</span> <span class="n">proxy</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Proxy</span><span class="o">();</span>
+        <span class="n">proxy</span><span class="o">.</span><span class="na">request</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<h4 id="应用场景">应用场景：</h4>
+<ol>
+  <li>远程代理：也就是为一个对象在不同的地址空间提供局部代表。这样可以隐藏一个对象存在于不同地址空间的事实。</li>
+  <li>虚拟代理：根据需要创建开销很大的对象。通过它来存放实例化需要很长时间的真实对象。</li>
+  <li>安全代理：用来控制真实对象访问时的权限。</li>
+  <li>智能指引：指当调用真实的对象时，代理处理另外一些事。</li>
+</ol>
+
+<p>　　说白了，代理就是真实对象的代表。</p>
+
+<h2 id="工厂方法模式">工厂方法模式</h2>
+<blockquote>
+  <p><code class="highlighter-rouge">工厂方法模式：</code>定义一个用于创建对象的接口，让子类决定实例化哪一个类。工厂方法使一个类的实例化延迟到其它子类。</p>
+</blockquote>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">LeiFeng</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">sweep</span><span class="o">(){</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"扫地"</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">wash</span><span class="o">(){</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"洗衣"</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">buyRice</span><span class="o">(){</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"买米"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//雷锋大学生</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Undergraduate</span> <span class="kd">extends</span> <span class="n">LeiFeng</span> <span class="o">{</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//志愿者</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Volunteer</span> <span class="kd">extends</span> <span class="n">LeiFeng</span> <span class="o">{</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//雷锋工厂</span>
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">IFactory</span> <span class="o">{</span>
+    <span class="n">LeiFeng</span> <span class="nf">CreateLeiFeng</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//学雷锋大学生工厂</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">UndergraduateFactory</span> <span class="kd">implements</span> <span class="n">IFactory</span> <span class="o">{</span>
+    <span class="c1">//返回雷锋大学生</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">LeiFeng</span> <span class="nf">CreateLeiFeng</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">Undergraduate</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="c1">//社区志愿者工厂</span>
+<span class="kd">class</span> <span class="nc">VolunteerFactory</span> <span class="kd">implements</span> <span class="n">IFactory</span> <span class="o">{</span>
+    <span class="c1">//返回志愿者</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">LeiFeng</span> <span class="nf">CreateLeiFeng</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">Volunteer</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">main</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">IFactory</span> <span class="n">factory</span> <span class="o">=</span> <span class="k">new</span> <span class="n">UndergraduateFactory</span><span class="o">();</span>  <span class="c1">//如果换成自愿者，只需要修改这里就可以了</span>
+        <span class="n">LeiFeng</span> <span class="n">student</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="na">CreateLeiFeng</span><span class="o">();</span>
+
+        <span class="n">student</span><span class="o">.</span><span class="na">buyRice</span><span class="o">();</span>
+        <span class="n">student</span><span class="o">.</span><span class="na">sweep</span><span class="o">();</span>
+        <span class="n">student</span><span class="o">.</span><span class="na">wash</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<p>　　我之前有说过<a href="http://uniquezhangqi.top/2018/02/04/自我总结-设计模式总结(一)">简单工厂</a>，这里我说说他们的区别：<a href="http://uniquezhangqi.top/2018/02/04/自我总结-设计模式总结(一)">简单工厂</a>模式最大的优点在于工厂类中包含了必要的逻辑判断，根据客户端的选择条件动态实例化相关的类，对于客户端来说，去除了与具体产品的依赖。<br />
+　　工厂方法模式实现时，客户端需要决定实例化哪一个工厂来实现运算类，选择判断的问题还是存在的，也就是说 工厂方法把简单工厂的内部逻辑判断移到了客户端代码来进行。你想要加功能，本来说修改工厂类，而现在只需要修改客户端。
+　　缺点：由于每加一个产品，就需要加一个产品工厂的类，增加了额外的开发量。<br />
+　　<strong>总结：</strong>工厂方法克服了简单工厂违背开放-封闭原则的缺点，又保持了封装对象创建过程的优点。</p>
+
+<h2 id="原型模式">原型模式</h2>
+<blockquote>
+  <p><code class="highlighter-rouge">原型模式：</code>用原型实例指定创建对象的种类，并且通过拷贝这些原型创建新的对象。</p>
+</blockquote>
+
+<p>举例(浅克隆)：<br /></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 工作经历类</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">WorkExperience</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">workDate</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">company</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getWorkDate</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">workDate</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getCompany</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">company</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setWorkDate</span><span class="o">(</span><span class="n">String</span> <span class="n">workDate</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">workDate</span> <span class="o">=</span> <span class="n">workDate</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setCompany</span><span class="o">(</span><span class="n">String</span> <span class="n">company</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">company</span> <span class="o">=</span> <span class="n">company</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//简历类</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Resume</span> <span class="kd">implements</span> <span class="n">Cloneable</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">sex</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">age</span><span class="o">;</span>
+
+    <span class="c1">//引用"工作经历"对象</span>
+    <span class="kd">private</span> <span class="n">WorkExperience</span> <span class="n">work</span><span class="o">;</span>
+
+    <span class="c1">//在"简历"实例化的同时实例化"工作经历"</span>
+    <span class="kd">public</span> <span class="nf">Resume</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+        <span class="n">work</span> <span class="o">=</span> <span class="k">new</span> <span class="n">WorkExperience</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="c1">//设置个人信息</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setPersonalInfo</span><span class="o">(</span><span class="n">String</span> <span class="n">sex</span><span class="o">,</span> <span class="n">String</span> <span class="n">age</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">sex</span> <span class="o">=</span> <span class="n">sex</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">age</span> <span class="o">=</span> <span class="n">age</span><span class="o">;</span>
+    <span class="o">}</span>
+
+
+    <span class="c1">//设置工作经历</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setWorkExperience</span><span class="o">(</span><span class="n">String</span> <span class="n">workDate</span><span class="o">,</span> <span class="n">String</span> <span class="n">company</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">work</span><span class="o">.</span><span class="na">setWorkDate</span><span class="o">(</span><span class="n">workDate</span><span class="o">);</span>
+        <span class="n">work</span><span class="o">.</span><span class="na">setCompany</span><span class="o">(</span><span class="n">company</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="c1">//显示</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">display</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"工作经历："</span> <span class="o">+</span> <span class="n">work</span><span class="o">.</span><span class="na">getWorkDate</span><span class="o">()</span> <span class="o">+</span> <span class="n">work</span><span class="o">.</span><span class="na">getCompany</span><span class="o">());</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">Object</span> <span class="nf">clone</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">CloneNotSupportedException</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="kd">super</span><span class="o">.</span><span class="na">clone</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">main</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">CloneNotSupportedException</span> <span class="o">{</span>
+        <span class="n">Resume</span> <span class="n">a</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Resume</span><span class="o">(</span><span class="s">"Ian"</span><span class="o">);</span>
+        <span class="n">a</span><span class="o">.</span><span class="na">setPersonalInfo</span><span class="o">(</span><span class="s">"男"</span><span class="o">,</span><span class="s">"26"</span><span class="o">);</span>
+        <span class="n">a</span><span class="o">.</span><span class="na">setWorkExperience</span><span class="o">(</span><span class="s">"时间年份"</span><span class="o">,</span><span class="s">"XX公司"</span><span class="o">);</span>
+
+        <span class="n">Resume</span> <span class="n">b</span> <span class="o">=</span> <span class="o">(</span><span class="n">Resume</span><span class="o">)</span><span class="n">a</span><span class="o">.</span><span class="na">clone</span><span class="o">();</span>
+        <span class="n">b</span><span class="o">.</span><span class="na">setWorkExperience</span><span class="o">(</span><span class="s">"时间年份"</span><span class="o">,</span><span class="s">"XX企业"</span><span class="o">);</span>
+
+        <span class="n">Resume</span> <span class="n">c</span> <span class="o">=</span> <span class="o">(</span><span class="n">Resume</span><span class="o">)</span><span class="n">a</span><span class="o">.</span><span class="na">clone</span><span class="o">();</span>
+        <span class="n">c</span><span class="o">.</span><span class="na">setPersonalInfo</span><span class="o">(</span><span class="s">"男"</span><span class="o">,</span><span class="s">"27"</span><span class="o">);</span>
+        <span class="n">c</span><span class="o">.</span><span class="na">setWorkExperience</span><span class="o">(</span><span class="s">"时间年份"</span><span class="o">,</span><span class="s">"ZZ企业"</span><span class="o">);</span>
+
+        <span class="n">a</span><span class="o">.</span><span class="na">display</span><span class="o">();</span>
+        <span class="n">b</span><span class="o">.</span><span class="na">display</span><span class="o">();</span>
+        <span class="n">c</span><span class="o">.</span><span class="na">display</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>举例(深克隆)：<br /></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//深克隆(深复制)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Resume</span> <span class="kd">implements</span> <span class="n">Cloneable</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">sex</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">age</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">WorkExperience</span> <span class="n">work</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Resume</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+        <span class="n">work</span> <span class="o">=</span> <span class="k">new</span> <span class="n">WorkExperience</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="kd">private</span> <span class="nf">Resume</span><span class="o">(</span><span class="n">WorkExperience</span> <span class="n">work</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">CloneNotSupportedException</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">work</span> <span class="o">=</span> <span class="o">(</span><span class="n">WorkExperience</span><span class="o">)</span><span class="n">work</span><span class="o">.</span><span class="na">clone</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="c1">//设置个人信息</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setPersonalInfo</span><span class="o">(</span><span class="n">String</span> <span class="n">sex</span><span class="o">,</span> <span class="n">String</span> <span class="n">age</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">sex</span> <span class="o">=</span> <span class="n">sex</span><span class="o">;</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">age</span> <span class="o">=</span> <span class="n">age</span><span class="o">;</span>
+    <span class="o">}</span>
+
+
+    <span class="c1">//设置工作经历</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setWorkExperience</span><span class="o">(</span><span class="n">String</span> <span class="n">workDate</span><span class="o">,</span> <span class="n">String</span> <span class="n">company</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">work</span><span class="o">.</span><span class="na">setWorkDate</span><span class="o">(</span><span class="n">workDate</span><span class="o">);</span>
+        <span class="n">work</span><span class="o">.</span><span class="na">setCompany</span><span class="o">(</span><span class="n">company</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="c1">//显示</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">display</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"工作经历："</span> <span class="o">+</span> <span class="n">work</span><span class="o">.</span><span class="na">getWorkDate</span><span class="o">()</span> <span class="o">+</span> <span class="n">work</span><span class="o">.</span><span class="na">getCompany</span><span class="o">());</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">Object</span> <span class="nf">clone</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">CloneNotSupportedException</span> <span class="o">{</span>
+        <span class="n">Resume</span> <span class="n">obj</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Resume</span><span class="o">(</span><span class="k">this</span><span class="o">.</span><span class="na">work</span><span class="o">);</span>
+        <span class="n">obj</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">name</span><span class="o">;</span>
+        <span class="n">obj</span><span class="o">.</span><span class="na">age</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">age</span><span class="o">;</span>
+        <span class="n">obj</span><span class="o">.</span><span class="na">sex</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">sex</span><span class="o">;</span>
+        <span class="k">return</span> <span class="n">obj</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 工作经历类</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">WorkExperience</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">workDate</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="n">String</span> <span class="n">company</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getWorkDate</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">workDate</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getCompany</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">company</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setWorkDate</span><span class="o">(</span><span class="n">String</span> <span class="n">workDate</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">workDate</span> <span class="o">=</span> <span class="n">workDate</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setCompany</span><span class="o">(</span><span class="n">String</span> <span class="n">company</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">company</span> <span class="o">=</span> <span class="n">company</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="n">Object</span> <span class="nf">clone</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">CloneNotSupportedException</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="kd">super</span><span class="o">.</span><span class="na">clone</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<h4 id="总结-1">总结：</h4>
+<p>　　<strong>浅克隆(浅复制)：</strong>java必须让该类实现java.lang.Cloneable接口；重写（override）Object类的clone()方法；在派生类的clone()方法中调用super.clone();<br />
+　　<strong>深克隆(深复制)：</strong>除了对象本身被复制外，对象所有包含的所有成员变量也将复制。</p>
+
+<h2 id="模版方法模式">模版方法模式</h2>
+<blockquote>
+  <p><code class="highlighter-rouge">模版方法模式：</code>定义一个操作中的算法的骨架，而将一些步骤延迟到子类中。模版方法使得子类可以不改变一个算法的结构即可重定义该算法的某些特定步骤。</p>
+</blockquote>
+
+<p>例子：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//抽象模版</span>
+<span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">AbstractClass</span> <span class="o">{</span>
+    <span class="c1">//一些抽象行为，放到子类去实现</span>
+    <span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">void</span> <span class="nf">primitiveOperation1</span><span class="o">();</span>
+
+    <span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">void</span> <span class="nf">primitiveOperation2</span><span class="o">();</span>
+
+    <span class="c1">//模版方法，给出了逻辑的骨架，而逻辑的组成是一些相应的抽象操作，它们都推迟到子类实现</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">templateMethod</span><span class="o">(){</span>
+        <span class="n">primitiveOperation1</span><span class="o">();</span>
+        <span class="n">primitiveOperation2</span><span class="o">();</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">""</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ConcreteClassA</span> <span class="kd">extends</span> <span class="n">AbstractClass</span> <span class="o">{</span>
+
+    <span class="c1">// A 和 B 的行为不一样</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">primitiveOperation1</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"具体类A方法1的实现"</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">primitiveOperation2</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"具体A方法2的实现"</span><span class="o">);</span>
+
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">ConcreteClassB</span> <span class="kd">extends</span> <span class="n">AbstractClass</span> <span class="o">{</span>
+    <span class="c1">// 与ConcreteClassA 不同的方法实现</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">primitiveOperation1</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"具体B方法2的实现"</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">primitiveOperation2</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"具体B方法2的实现"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">main</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
+        <span class="n">AbstractClass</span> <span class="n">c</span><span class="o">;</span>
+
+        <span class="n">c</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ConcreteClassA</span><span class="o">();</span>
+        <span class="n">c</span><span class="o">.</span><span class="na">templateMethod</span><span class="o">();</span>
+
+        <span class="n">c</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ConcreteClassB</span><span class="o">();</span>
+        <span class="n">c</span><span class="o">.</span><span class="na">templateMethod</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<h4 id="应用场景-1">应用场景:</h4>
+<p>　　当我们要完成在某一细节层次一致的一个过程或一个系列步骤，但其个别步骤在更详细的层次上的实现可能不同时，我们就可以考虑用模版方法模式来处理。<br /></p>
+<h4 id="优点">优点:</h4>
+<p>　　模版方法模式是通过把不变行为搬移到超类，去除了子类中的重复代码来体现它的优势。</p>
+<h4 id="总结-2">总结:</h4>
+<p>　　当不变的和可变的行为在方法的子类实现中混合在一起的时候，不变的行为就会在子类中重复出现。我们通过模版方法模式把这些行为搬移到单一的地方，这样就帮助子类摆脱重复的不变行为的纠缠。</p>
+
+<h2 id="迪米特法则">迪米特法则</h2>
+<blockquote>
+  <p><code class="highlighter-rouge">迪米特法则：</code>如果两个类不必彼此直接通信，那么这两个类就不应当发生直接的相互作用。如果其中一个类需要调用另一个类的某一个方法的话，可以通过第三者转发这个调用。</p>
+</blockquote>
+
+<p>　　迪米特法则其根本思想，是强调了类之间的松耦合。类之间的耦合越弱，越有利于复用，一个处在弱耦合的类被修改，不会对有关系的类造成波及。
+　　</p>
+<h2 id="外观模式">外观模式</h2>
+<blockquote>
+  <p><code class="highlighter-rouge">外观模式：</code>为子系统中的一组接口提供一个一致的界面，此模式定义了一个高层接口，这个接口使得这一子系统更加容易使用。</p>
+</blockquote>
+
+<p>先上代码：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SubSystemOne</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">methodOne</span><span class="o">(){</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"子系统方法一"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">SubSystemTwo</span><span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">methodTwo</span><span class="o">(){</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"子系统方法二"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">SubSystemThreee</span><span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">methodThree</span><span class="o">(){</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"子系统方法三"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">SubSystemFour</span><span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">methodFour</span><span class="o">(){</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"子系统方法四"</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//外观类，它需要了解所有的子类系统的方法或树形，进行组合，以备外界调用。</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Facade</span> <span class="o">{</span>
+    <span class="n">SubSystemOne</span> <span class="n">one</span><span class="o">;</span>
+    <span class="n">SubSystemTwo</span> <span class="n">two</span><span class="o">;</span>
+    <span class="n">SubSystemThreee</span> <span class="n">threee</span><span class="o">;</span>
+    <span class="n">SubSystemFour</span> <span class="n">four</span><span class="o">;</span>
+
+    <span class="kd">public</span> <span class="nf">Facade</span><span class="o">(){</span>
+        <span class="n">one</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SubSystemOne</span><span class="o">();</span>
+        <span class="n">two</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SubSystemTwo</span><span class="o">();</span>
+        <span class="n">threee</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SubSystemThreee</span><span class="o">();</span>
+        <span class="n">four</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SubSystemFour</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">methodA</span><span class="o">(){</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"方法组A()-----"</span><span class="o">);</span>
+        <span class="n">one</span><span class="o">.</span><span class="na">methodOne</span><span class="o">();</span>
+        <span class="n">two</span><span class="o">.</span><span class="na">methodTwo</span><span class="o">();</span>
+        <span class="n">threee</span><span class="o">.</span><span class="na">methodThree</span><span class="o">();</span>
+        <span class="n">four</span><span class="o">.</span><span class="na">methodFour</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">methodB</span><span class="o">(){</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"方法组B()-----"</span><span class="o">);</span>
+        <span class="n">two</span><span class="o">.</span><span class="na">methodTwo</span><span class="o">();</span>
+        <span class="n">threee</span><span class="o">.</span><span class="na">methodThree</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 由于Facade的作用，客户端可以根本不知三个子系统类的存在。</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">main</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
+        <span class="n">Facade</span> <span class="n">facade</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Facade</span><span class="o">();</span>
+        <span class="n">facade</span><span class="o">.</span><span class="na">methodA</span><span class="o">();</span>
+        <span class="n">facade</span><span class="o">.</span><span class="na">methodB</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<h4 id="总结-3">总结:</h4>
+<p>　　外观模式完美的体现了<a href="http://uniquezhangqi.top/2018/02/04/自我总结-设计模式总结(一)">依赖倒转原则</a>和迪米特法则的思想(右侧有目录)。<br /></p>
+<h4 id="应用场景-2">应用场景：</h4>
+<p>　　首先，在设计初期阶段，应该要有意识的将不同的两个层分离(<em>比如我们经常使用的三层架构</em>)。其次，在开发阶段，子系统往往因为不断的重构演化而变得越来越复杂，增加外观Facade可以提供一个简单的接口，减少它们之间的依赖。第三，在维护一个遗留的大型系统时，可能这个系统已经非常难以维护和扩展了，此时用外观模式Facade也是非常适合的。你可以为新系统开发一个外观Facade类，来提供设计粗糙或高度复杂的遗留代码的比较清晰的简单的接口，让新系统与Facade对象交互，Facade与遗留代码交互所有复杂的工作。</p>
+
+<h2 id="建造者模式">建造者模式</h2>
+<blockquote>
+  <p><code class="highlighter-rouge">建造者模式：</code>将一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同的表示。</p>
+</blockquote>
+
+<p>继续先上代码：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 产品类</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Product</span> <span class="o">{</span>
+    <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">parts</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+
+    <span class="c1">//添加产品部件</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">addes</span><span class="o">(</span><span class="n">String</span> <span class="n">part</span><span class="o">){</span>
+        <span class="n">parts</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">part</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">show</span><span class="o">(){</span>
+        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"产品创建 ----"</span><span class="o">);</span>
+        <span class="c1">//列举所有的产品部件</span>
+        <span class="k">for</span> <span class="o">(</span><span class="n">String</span> <span class="n">part</span> <span class="o">:</span> <span class="n">parts</span><span class="o">){</span>
+            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">part</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//抽象建造者类，确定产品由两个部件PartA 和 PartB 组成，并声明一个得到产品建造后结果的方法getReult </span>
+<span class="kd">public</span> <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">Builder</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">void</span> <span class="nf">buildPartA</span><span class="o">();</span>
+
+    <span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">void</span> <span class="nf">buildPartB</span><span class="o">();</span>
+
+    <span class="kd">public</span> <span class="kd">abstract</span> <span class="n">Product</span> <span class="nf">getResult</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ConcreteBuilder1</span> <span class="kd">extends</span> <span class="n">Builder</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">Product</span> <span class="n">product</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Product</span><span class="o">();</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">buildPartA</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">product</span><span class="o">.</span><span class="na">addes</span><span class="o">(</span><span class="s">"部件a"</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">buildPartB</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">product</span><span class="o">.</span><span class="na">addes</span><span class="o">(</span><span class="s">"部件b"</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">Product</span> <span class="nf">getResult</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">product</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">ConcreteBuilder1</span> <span class="kd">extends</span> <span class="n">Builder</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="n">Product</span> <span class="n">product</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Product</span><span class="o">();</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">buildPartA</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">product</span><span class="o">.</span><span class="na">addes</span><span class="o">(</span><span class="s">"部件a"</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">buildPartB</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">product</span><span class="o">.</span><span class="na">addes</span><span class="o">(</span><span class="s">"部件b"</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="n">Product</span> <span class="nf">getResult</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">product</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 指挥者</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Director</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">construct</span><span class="o">(</span><span class="n">Builder</span> <span class="n">builder</span><span class="o">){</span>
+        <span class="c1">//用来指挥建造过程</span>
+        <span class="n">builder</span><span class="o">.</span><span class="na">buildPartA</span><span class="o">();</span>
+        <span class="n">builder</span><span class="o">.</span><span class="na">buildPartB</span><span class="o">();</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 客户端代码</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">main</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
+        <span class="n">Director</span> <span class="n">director</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Director</span><span class="o">();</span>
+        <span class="n">Builder</span> <span class="n">b1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ConcreteBuilder1</span><span class="o">();</span>
+        <span class="n">Builder</span> <span class="n">b2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ConcreteBuilder2</span><span class="o">();</span>
+
+        <span class="c1">//指挥者用ConcreteBuilder1的方法来建造产品</span>
+        <span class="n">director</span><span class="o">.</span><span class="na">construct</span><span class="o">(</span><span class="n">b1</span><span class="o">);</span>
+        <span class="n">Product</span> <span class="n">p1</span> <span class="o">=</span> <span class="n">b1</span><span class="o">.</span><span class="na">getResult</span><span class="o">();</span>
+        <span class="n">p1</span><span class="o">.</span><span class="na">show</span><span class="o">();</span>
+
+        <span class="n">Product</span> <span class="n">p2</span> <span class="o">=</span> <span class="n">b2</span><span class="o">.</span><span class="na">getResult</span><span class="o">();</span>
+        <span class="n">p2</span><span class="o">.</span><span class="na">show</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+<h4 id="应用场景-3">应用场景:</h4>
+<p>　　1.如果你需要将一个复杂对象的构建与它的表示分离，使得同样的构建过程可以创建不同的表示的意图时，我们就可以考虑使用建造者模式。<br />
+　　2.它主要是用于创建一些复杂的对象，这些对象内部构建间的构造顺序通常是稳定的，但对象内部的构建通常面临着复杂的变化。<br />
+　　3.建造者模式是当创建复杂对象的算法应该独立于该对象的组成部分以及它们的装配方式时适用的模式。<br /></p>
+<h4 id="总结-4">总结:</h4>
+<p>　　建造者模式中有一个很重要的类，指挥类(Director)上述代码注释有写，用它来控制建造过程，也用它来隔离用户与建造过程的关联。
+　　</p>
+<blockquote>
+  <p>右侧可以看<code class="highlighter-rouge">目录</code>，点击直接跳转，Z 一共写了4篇(可以点击下面直接跳转然后看右侧目录)：<br /></p>
+  <ul>
+    <li><a href="http://uniquezhangqi.top/2018/02/04/自我总结-设计模式总结(一)">自我总结-设计模式总结(一)</a><br /></li>
+    <li><a href="http://uniquezhangqi.top/2018/03/05/编程之路-设计模式总结(三)/">自我总结-设计模式总结(三)</a><br /></li>
+    <li><a href="http://uniquezhangqi.top/2018/03/08/编程之路-设计模式总结(四)/">自我总结-设计模式总结(四)</a><br /></li>
+  </ul>
+</blockquote>
+
+<hr />
+<p>每个人吸收知识的时候，都要有抽取精华，去除糟粕的能力。Z所说的，可能有些是对的，有些是错的，有些是适合你的，有些是不太适合你的，你要自己能够判断。</p>
+
+<p>其实你在生活和工作当中也是一样的，你身边的人形形色色，有的人你喜欢，有的人你很讨厌。但其实你喜欢的人也有缺点，你讨厌的人也有优点。你要学会从你讨厌的人身上学会他的优点，千万不要一棒子打死，这只会让你失去很多学习成长的机会。</p>
+
+<p>希望本文可以帮助到作为程序猿或即将成为程序猿的你。</p>
+
+<p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1fqj5aochgoj309k09kmwz.jpg" alt="" />
+<b><center>扫描关注：热爱生活的大叔</center>
+<b><center><font size="2">（<font size="2" color="#FF0000">转载本站文章请注明作者和出处</font> <font size="2" color="#0000FF">热爱生活的大叔-uniquezhangqi</font><font size="2">）</font></font></center></b></b></p>
+
+
+
+                <hr style="visibility: hidden;">
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2018/02/05/%E9%9A%8F%E7%AC%94-%E7%A8%8B%E5%BA%8F%E7%8C%BF%E7%9A%84%E9%AA%84%E5%82%B2,%E4%BB%A5%E5%8F%8A%E9%AA%84%E5%82%B2%E8%83%8C%E5%90%8E%E7%9C%9F%E5%AE%9E%E7%9A%84%E5%8E%9F%E5%9B%A0/" data-toggle="tooltip" data-placement="top" title="程序猿的骄傲,以及骄傲背后真实的原因">
+                        Previous<br>
+                        <span>程序猿的骄傲,以及骄傲背后真实的原因</span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2018/03/02/%E9%9A%8F%E7%AC%94-%E5%A6%82%E4%BD%95%E6%AD%A3%E7%A1%AE%E7%9A%84%E8%B5%B6%E9%A3%9E%E6%9C%BA/" data-toggle="tooltip" data-placement="top" title="如何正确的赶飞机">
+                        Next<br>
+                        <span>如何正确的赶飞机</span>
+                        </a>
+                    </li>
+                    
+                </ul>
+
+
+                <!--Gitalk评论start  -->
+                
+                <!-- Gitalk end -->
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+            </div>  
+
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">CATALOG</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+        				
+                            
+                				<a href="/tags/#生活" title="生活" rel="18">
+                                    生活
+                                </a>
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#自我总结" title="自我总结" rel="31">
+                                    自我总结
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#编程之路" title="编程之路" rel="80">
+                                    编程之路
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#设计模式" title="设计模式" rel="4">
+                                    设计模式
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#杂谈" title="杂谈" rel="6">
+                                    杂谈
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#随笔" title="随笔" rel="6">
+                                    随笔
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Quartz" title="Quartz" rel="2">
+                                    Quartz
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#SpringDataJPA" title="SpringDataJPA" rel="2">
+                                    SpringDataJPA
+                                </a>
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#前端" title="前端" rel="5">
+                                    前端
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#咖啡" title="咖啡" rel="4">
+                                    咖啡
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#shiro" title="shiro" rel="5">
+                                    shiro
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#摄影" title="摄影" rel="3">
+                                    摄影
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#理财" title="理财" rel="5">
+                                    理财
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#jvm" title="jvm" rel="3">
+                                    jvm
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#MySql" title="MySql" rel="6">
+                                    MySql
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#java8" title="java8" rel="4">
+                                    java8
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#分布式" title="分布式" rel="3">
+                                    分布式
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#MongoDB" title="MongoDB" rel="2">
+                                    MongoDB
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+        			</div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+                    
+                        <li><a href="https://apple.com">Apple</a></li>
+                    
+                        <li><a href="https://www.google.com">google</a></li>
+                    
+                        <li><a href="http://www.cnblogs.com/zuoxiaolong">左潇龙</a></li>
+                    
+                        <li><a href="http://www.importnew.com/">ImportNew</a></li>
+                    
+                        <li><a href="https://www.csdn.net/">CSND</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "uniquezhangqi";
+    var disqus_identifier = "/2018/03/02/自我总结-设计模式总结(二)";
+    var disqus_url = "http://localhost:4000/2018/03/02/%E8%87%AA%E6%88%91%E6%80%BB%E7%BB%93-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%93(%E4%BA%8C)/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <!-- add jianshu add target = "_blank" to <a> by BY -->
+                    
+                    
+                    <li>
+                        <a href="https://twitter.com/Mr_javaian">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/伊恩">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="http://weibo.com/_____ZzZzZzq">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+
+                    
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/schooljavaian@gmail.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/uniquezhangqi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; MY Blog 2019
+                    <br>
+                    Theme on <a href="https://github.com/uniquezhangqi/uniquezhangqi.github.io.git">GitHub</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=uniquezhangqi&repo=uniquezhangqi.github.io&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+<!-- Service Worker -->
+
+<script type="text/javascript">
+    if(navigator.serviceWorker){
+        // For security reasons, a service worker can only control the pages that are in the same directory level or below it. That's why we put sw.js at ROOT level.
+        navigator.serviceWorker
+            .register('/sw.js')
+            .then((registration) => {console.log('Service Worker Registered. ', registration)})
+            .catch((error) => {console.log('ServiceWorker registration failed: ', error)})
+    }
+</script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/ 
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers   
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async('/js/jquery.tagcloud.js',function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-113450573-1';
+    var _gaDomain = 'uniquezhangqi.top';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = 'b50bf2b12b5338a1845e33832976fd68';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;    
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="/img/apple-touch-icon.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

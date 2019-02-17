@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Always on the way of programming.">
+    <meta name="keywords"  content=" MY Blog, 伊恩的博客, Ian, 伊恩, java, Apple">
+    <meta name="theme-color" content="#000000">
+    
+    <title>Quartz遇到的问题 - 伊恩的博客 | MY Blog</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <!-- Safari Webpage Icon    by-BY -->
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:4000/2018/03/28/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Quartz%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">MY Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">About</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">Tags</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from 
+     * $toggle/$collapse will break global delegation.
+     * 
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.  
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/post-bg-re-vs-ng2.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-image: url('/img/post-bg-re-vs-ng2.jpg')
+    }
+
+    
+</style>
+<header class="intro-header" >
+    <div class="header-mask"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#编程之路" title="编程之路">编程之路</a>
+                        
+                        <a class="tag" href="/tags/#自我总结" title="自我总结">自我总结</a>
+                        
+                        <a class="tag" href="/tags/#Quartz" title="Quartz">Quartz</a>
+                        
+                    </div>
+                    <h1>Quartz遇到的问题</h1>
+                    
+                    
+                    <h2 class="subheading">🤔</h2>
+                    
+                    <span class="meta">Posted by Ian on March 28, 2018</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+				<blockquote>
+  <p>本文首次发布于<a href="http://uniquezhangqi.top">My Blog</a>,作者<a href="http://uniquezhangqi.top/about/">@张琦(Ian)</a>,转载请保留原文链接。</p>
+</blockquote>
+
+<h4 id="有状态和无状态">有状态和无状态</h4>
+<p>　　使用有状态（StatefulJob）还是无状态的任务（Job）
+在 Quartz 中，基本来说，任务分为有状态和无状态两种。实现 Job 接口的任务缺省为无状态的。Quartz 中还有另外一个接口 StatefulJob。实现 StatefulJob 接口的任务为有状态的。</p>
+
+<blockquote>
+  <p>无状态任务：一般指可以并发的任务，即任务之间是独立的，不会互相干扰。有状态反之。</p>
+</blockquote>
+
+<h4 id="通过quartz获得状态为启动的所有job">通过Quartz获得状态为启动的所有job</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="cm">/*
+Create a GroupMatcher that matches job groups starting with the given string.
+ */</span>
+<span class="n">GroupMatcher</span><span class="o">&lt;</span><span class="n">JobKey</span><span class="o">&gt;</span> <span class="n">matcher</span> <span class="o">=</span> <span class="n">GroupMatcher</span><span class="o">.</span><span class="na">anyJobGroup</span><span class="o">();</span>
+        
+<span class="cm">/*
+Get the keys of all the JobDetails in the matching groups.
+ */</span>
+<span class="n">Set</span><span class="o">&lt;</span><span class="n">JobKey</span><span class="o">&gt;</span> <span class="n">jobKeys</span> <span class="o">=</span> <span class="n">sched</span><span class="o">.</span><span class="na">getJobKeys</span><span class="o">(</span><span class="n">matcher</span><span class="o">);</span>
+</code></pre></div></div>
+<p>　　通过jobKeys可以获取job的名称，和一系列的东西。不知道怎么获得，可以看<a href="http://uniquezhangqi.top/2018/03/16/编程之路-quartz定时任务/">quartz定时任务</a>了解下，再根据下面的api文档基本就没问题了。</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">这两个是放</span><span class="n">job</span><span class="err">类上的注解。</span>
+<span class="nd">@DisallowConcurrentExecution</span> <span class="c1">//意思是：禁止并发执行多个相同定义的JobDetail，就是我们想要的。</span>
+<span class="nd">@PersistJobDataAfterExecution</span> <span class="c1">//意思是：放在JobDetail 里的JobDataMap是共享的，也就是相同任务之间执行时可以传输信息</span>
+</code></pre></div></div>
+
+<h4 id="工具类">工具类：</h4>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">java.sql.Timestamp</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.ArrayList</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.List</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">java.util.Set</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">javax.annotation.PostConstruct</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">org.quartz.CronScheduleBuilder</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.quartz.CronTrigger</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.quartz.JobBuilder</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.quartz.JobDetail</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.quartz.JobExecutionContext</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.quartz.JobKey</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.quartz.Scheduler</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.quartz.SchedulerException</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.quartz.Trigger</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.quartz.TriggerBuilder</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.quartz.TriggerKey</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.quartz.impl.matchers.GroupMatcher</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.slf4j.Logger</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.slf4j.LoggerFactory</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.beans.factory.annotation.Autowired</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.scheduling.quartz.SchedulerFactoryBean</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">org.springframework.stereotype.Service</span><span class="o">;</span>
+
+<span class="kn">import</span> <span class="nn">cn.net.yto.o2iMonitor.quartz.QuartzJobFactory</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">cn.net.yto.o2iMonitor.quartz.QuartzJobFactoryDisallowConcurrentExecution</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">cn.net.yto.o2iMonitor.quartz.ScheduleJob</span><span class="o">;</span>
+<span class="kn">import</span> <span class="nn">cn.net.yto.o2iMonitor.quartz.mapper.JobConfigMapper</span><span class="o">;</span>
+
+
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">JobConfigService</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Logger</span> <span class="n">LOGGER</span> <span class="o">=</span> <span class="n">LoggerFactory</span><span class="o">.</span><span class="na">getLogger</span><span class="o">(</span><span class="n">JobConfigService</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="kd">private</span> <span class="n">SchedulerFactoryBean</span> <span class="n">schedulerFactoryBean</span><span class="o">;</span>
+
+    <span class="nd">@Autowired</span>
+    <span class="kd">private</span> <span class="n">JobConfigMapper</span> <span class="n">scheduleJobMapper</span><span class="o">;</span>
+
+    <span class="cm">/**
+     * 从数据库中取 区别于getAllJob
+     * 
+     * @return
+     */</span>
+    <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">ScheduleJob</span><span class="o">&gt;</span> <span class="nf">getAllTask</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">scheduleJobMapper</span><span class="o">.</span><span class="na">getAll</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="cm">/**
+     * 添加到数据库中 区别于addJob
+     */</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">addTask</span><span class="o">(</span><span class="n">ScheduleJob</span> <span class="n">job</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">job</span><span class="o">.</span><span class="na">setCreateTime</span><span class="o">(</span><span class="k">new</span> <span class="n">Timestamp</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">()));</span>
+        <span class="n">scheduleJobMapper</span><span class="o">.</span><span class="na">insertSelective</span><span class="o">(</span><span class="n">job</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="cm">/**
+     * 从数据库中查询job
+     */</span>
+    <span class="kd">public</span> <span class="n">ScheduleJob</span> <span class="nf">getTaskById</span><span class="o">(</span><span class="n">Long</span> <span class="n">jobId</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">scheduleJobMapper</span><span class="o">.</span><span class="na">selectByPrimaryKey</span><span class="o">(</span><span class="n">jobId</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="cm">/**
+     * 更改任务状态
+     * 
+     * @throws SchedulerException
+     */</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">changeStatus</span><span class="o">(</span><span class="n">Long</span> <span class="n">jobId</span><span class="o">,</span> <span class="n">String</span> <span class="n">cmd</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">SchedulerException</span> <span class="o">{</span>
+        <span class="n">ScheduleJob</span> <span class="n">job</span> <span class="o">=</span> <span class="n">getTaskById</span><span class="o">(</span><span class="n">jobId</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">job</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">if</span> <span class="o">(</span><span class="s">"stop"</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">cmd</span><span class="o">))</span> <span class="o">{</span>
+            <span class="n">deleteJob</span><span class="o">(</span><span class="n">job</span><span class="o">);</span>
+            <span class="n">job</span><span class="o">.</span><span class="na">setStatus</span><span class="o">(</span><span class="n">ScheduleJob</span><span class="o">.</span><span class="na">STATUS_NOT_RUNNING</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="s">"start"</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">cmd</span><span class="o">))</span> <span class="o">{</span>
+            <span class="n">job</span><span class="o">.</span><span class="na">setStatus</span><span class="o">(</span><span class="n">ScheduleJob</span><span class="o">.</span><span class="na">STATUS_RUNNING</span><span class="o">);</span>
+            <span class="n">addJob</span><span class="o">(</span><span class="n">job</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="n">scheduleJobMapper</span><span class="o">.</span><span class="na">updateByPrimaryKeySelective</span><span class="o">(</span><span class="n">job</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="cm">/**
+     * 更改任务 cron表达式
+     * 
+     * @throws SchedulerException
+     */</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">updateCron</span><span class="o">(</span><span class="n">Long</span> <span class="n">jobId</span><span class="o">,</span> <span class="n">String</span> <span class="n">cron</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">SchedulerException</span> <span class="o">{</span>
+        <span class="n">ScheduleJob</span> <span class="n">job</span> <span class="o">=</span> <span class="n">getTaskById</span><span class="o">(</span><span class="n">jobId</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">job</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="n">job</span><span class="o">.</span><span class="na">setCron</span><span class="o">(</span><span class="n">cron</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">ScheduleJob</span><span class="o">.</span><span class="na">STATUS_RUNNING</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">job</span><span class="o">.</span><span class="na">getStatus</span><span class="o">()))</span> <span class="o">{</span>
+            <span class="n">updateJobCron</span><span class="o">(</span><span class="n">job</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="n">scheduleJobMapper</span><span class="o">.</span><span class="na">updateByPrimaryKeySelective</span><span class="o">(</span><span class="n">job</span><span class="o">);</span>
+
+    <span class="o">}</span>
+
+    <span class="cm">/**
+     * 添加任务
+     * 
+     * @param scheduleJob
+     * @throws SchedulerException
+     */</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">addJob</span><span class="o">(</span><span class="n">ScheduleJob</span> <span class="n">job</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">SchedulerException</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">job</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="o">!</span><span class="n">ScheduleJob</span><span class="o">.</span><span class="na">STATUS_RUNNING</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">job</span><span class="o">.</span><span class="na">getStatus</span><span class="o">()))</span> <span class="o">{</span>
+            <span class="k">return</span><span class="o">;</span>
+        <span class="o">}</span>
+
+        <span class="n">Scheduler</span> <span class="n">scheduler</span> <span class="o">=</span> <span class="n">schedulerFactoryBean</span><span class="o">.</span><span class="na">getScheduler</span><span class="o">();</span>
+        <span class="n">LOGGER</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="n">scheduler</span>
+                <span class="o">+</span> <span class="s">".......................................................................................add"</span><span class="o">);</span>
+        <span class="n">TriggerKey</span> <span class="n">triggerKey</span> <span class="o">=</span> <span class="n">TriggerKey</span><span class="o">.</span><span class="na">triggerKey</span><span class="o">(</span><span class="n">job</span><span class="o">.</span><span class="na">getName</span><span class="o">(),</span> <span class="n">job</span><span class="o">.</span><span class="na">getGroup</span><span class="o">());</span>
+
+        <span class="n">CronTrigger</span> <span class="n">trigger</span> <span class="o">=</span> <span class="o">(</span><span class="n">CronTrigger</span><span class="o">)</span> <span class="n">scheduler</span><span class="o">.</span><span class="na">getTrigger</span><span class="o">(</span><span class="n">triggerKey</span><span class="o">);</span>
+
+        <span class="c1">// 不存在，创建一个</span>
+        <span class="k">if</span> <span class="o">(</span><span class="kc">null</span> <span class="o">==</span> <span class="n">trigger</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">Class</span> <span class="n">clazz</span> <span class="o">=</span> <span class="n">ScheduleJob</span><span class="o">.</span><span class="na">CONCURRENT_IS</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">job</span><span class="o">.</span><span class="na">getIsConcurrent</span><span class="o">())</span> <span class="o">?</span> <span class="n">QuartzJobFactory</span><span class="o">.</span><span class="na">class</span>
+                    <span class="o">:</span> <span class="n">QuartzJobFactoryDisallowConcurrentExecution</span><span class="o">.</span><span class="na">class</span><span class="o">;</span>
+            <span class="n">JobDetail</span> <span class="n">jobDetail</span> <span class="o">=</span> <span class="n">JobBuilder</span><span class="o">.</span><span class="na">newJob</span><span class="o">(</span><span class="n">clazz</span><span class="o">).</span><span class="na">withIdentity</span><span class="o">(</span><span class="n">job</span><span class="o">.</span><span class="na">getName</span><span class="o">(),</span> <span class="n">job</span><span class="o">.</span><span class="na">getGroup</span><span class="o">()).</span><span class="na">build</span><span class="o">();</span>
+            <span class="n">jobDetail</span><span class="o">.</span><span class="na">getJobDataMap</span><span class="o">().</span><span class="na">put</span><span class="o">(</span><span class="s">"scheduleJob"</span><span class="o">,</span> <span class="n">job</span><span class="o">);</span>
+            <span class="n">CronScheduleBuilder</span> <span class="n">scheduleBuilder</span> <span class="o">=</span> <span class="n">CronScheduleBuilder</span><span class="o">.</span><span class="na">cronSchedule</span><span class="o">(</span><span class="n">job</span><span class="o">.</span><span class="na">getCron</span><span class="o">());</span>
+            <span class="n">trigger</span> <span class="o">=</span> <span class="n">TriggerBuilder</span><span class="o">.</span><span class="na">newTrigger</span><span class="o">().</span><span class="na">withIdentity</span><span class="o">(</span><span class="n">job</span><span class="o">.</span><span class="na">getName</span><span class="o">(),</span> <span class="n">job</span><span class="o">.</span><span class="na">getGroup</span><span class="o">())</span>
+                    <span class="o">.</span><span class="na">withSchedule</span><span class="o">(</span><span class="n">scheduleBuilder</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
+
+            <span class="n">scheduler</span><span class="o">.</span><span class="na">scheduleJob</span><span class="o">(</span><span class="n">jobDetail</span><span class="o">,</span> <span class="n">trigger</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+            <span class="c1">// Trigger已存在，那么更新相应的定时设置</span>
+            <span class="n">CronScheduleBuilder</span> <span class="n">scheduleBuilder</span> <span class="o">=</span> <span class="n">CronScheduleBuilder</span><span class="o">.</span><span class="na">cronSchedule</span><span class="o">(</span><span class="n">job</span><span class="o">.</span><span class="na">getCron</span><span class="o">());</span>
+            <span class="c1">// 按新的cronExpression表达式重新构建trigger</span>
+            <span class="n">trigger</span> <span class="o">=</span> <span class="n">trigger</span><span class="o">.</span><span class="na">getTriggerBuilder</span><span class="o">().</span><span class="na">withIdentity</span><span class="o">(</span><span class="n">triggerKey</span><span class="o">).</span><span class="na">withSchedule</span><span class="o">(</span><span class="n">scheduleBuilder</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
+            <span class="c1">// 按新的trigger重新设置job执行</span>
+            <span class="n">scheduler</span><span class="o">.</span><span class="na">rescheduleJob</span><span class="o">(</span><span class="n">triggerKey</span><span class="o">,</span> <span class="n">trigger</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="nd">@PostConstruct</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">init</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+        <span class="n">Scheduler</span> <span class="n">scheduler</span> <span class="o">=</span> <span class="n">schedulerFactoryBean</span><span class="o">.</span><span class="na">getScheduler</span><span class="o">();</span>
+        <span class="c1">// 这里获取任务信息数据</span>
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">ScheduleJob</span><span class="o">&gt;</span> <span class="n">jobList</span> <span class="o">=</span> <span class="n">scheduleJobMapper</span><span class="o">.</span><span class="na">getAll</span><span class="o">();</span>
+        <span class="k">for</span> <span class="o">(</span><span class="n">ScheduleJob</span> <span class="n">job</span> <span class="o">:</span> <span class="n">jobList</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">addJob</span><span class="o">(</span><span class="n">job</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+
+    <span class="cm">/**
+     * 获取所有计划中的任务列表
+     * 
+     * @return
+     * @throws SchedulerException
+     */</span>
+    <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">ScheduleJob</span><span class="o">&gt;</span> <span class="nf">getAllJob</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">SchedulerException</span> <span class="o">{</span>
+        <span class="n">Scheduler</span> <span class="n">scheduler</span> <span class="o">=</span> <span class="n">schedulerFactoryBean</span><span class="o">.</span><span class="na">getScheduler</span><span class="o">();</span>
+        <span class="n">GroupMatcher</span><span class="o">&lt;</span><span class="n">JobKey</span><span class="o">&gt;</span> <span class="n">matcher</span> <span class="o">=</span> <span class="n">GroupMatcher</span><span class="o">.</span><span class="na">anyJobGroup</span><span class="o">();</span>
+        <span class="n">Set</span><span class="o">&lt;</span><span class="n">JobKey</span><span class="o">&gt;</span> <span class="n">jobKeys</span> <span class="o">=</span> <span class="n">scheduler</span><span class="o">.</span><span class="na">getJobKeys</span><span class="o">(</span><span class="n">matcher</span><span class="o">);</span>
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">ScheduleJob</span><span class="o">&gt;</span> <span class="n">jobList</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">ScheduleJob</span><span class="o">&gt;();</span>
+        <span class="k">for</span> <span class="o">(</span><span class="n">JobKey</span> <span class="n">jobKey</span> <span class="o">:</span> <span class="n">jobKeys</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">List</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="n">Trigger</span><span class="o">&gt;</span> <span class="n">triggers</span> <span class="o">=</span> <span class="n">scheduler</span><span class="o">.</span><span class="na">getTriggersOfJob</span><span class="o">(</span><span class="n">jobKey</span><span class="o">);</span>
+            <span class="k">for</span> <span class="o">(</span><span class="n">Trigger</span> <span class="n">trigger</span> <span class="o">:</span> <span class="n">triggers</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">ScheduleJob</span> <span class="n">job</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ScheduleJob</span><span class="o">();</span>
+                <span class="n">job</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="n">jobKey</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
+                <span class="n">job</span><span class="o">.</span><span class="na">setGroup</span><span class="o">(</span><span class="n">jobKey</span><span class="o">.</span><span class="na">getGroup</span><span class="o">());</span>
+                <span class="n">job</span><span class="o">.</span><span class="na">setDescription</span><span class="o">(</span><span class="s">"触发器:"</span> <span class="o">+</span> <span class="n">trigger</span><span class="o">.</span><span class="na">getKey</span><span class="o">());</span>
+                <span class="n">Trigger</span><span class="o">.</span><span class="na">TriggerState</span> <span class="n">triggerState</span> <span class="o">=</span> <span class="n">scheduler</span><span class="o">.</span><span class="na">getTriggerState</span><span class="o">(</span><span class="n">trigger</span><span class="o">.</span><span class="na">getKey</span><span class="o">());</span>
+                <span class="n">job</span><span class="o">.</span><span class="na">setStatus</span><span class="o">(</span><span class="n">triggerState</span><span class="o">.</span><span class="na">name</span><span class="o">());</span>
+                <span class="k">if</span> <span class="o">(</span><span class="n">trigger</span> <span class="k">instanceof</span> <span class="n">CronTrigger</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="n">CronTrigger</span> <span class="n">cronTrigger</span> <span class="o">=</span> <span class="o">(</span><span class="n">CronTrigger</span><span class="o">)</span> <span class="n">trigger</span><span class="o">;</span>
+                    <span class="n">String</span> <span class="n">cronExpression</span> <span class="o">=</span> <span class="n">cronTrigger</span><span class="o">.</span><span class="na">getCronExpression</span><span class="o">();</span>
+                    <span class="n">job</span><span class="o">.</span><span class="na">setCron</span><span class="o">(</span><span class="n">cronExpression</span><span class="o">);</span>
+                <span class="o">}</span>
+                <span class="n">jobList</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">job</span><span class="o">);</span>
+            <span class="o">}</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">jobList</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="cm">/**
+     * 所有正在运行的job
+     * 
+     * @return
+     * @throws SchedulerException
+     */</span>
+    <span class="kd">public</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">ScheduleJob</span><span class="o">&gt;</span> <span class="nf">getRunningJob</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">SchedulerException</span> <span class="o">{</span>
+        <span class="n">Scheduler</span> <span class="n">scheduler</span> <span class="o">=</span> <span class="n">schedulerFactoryBean</span><span class="o">.</span><span class="na">getScheduler</span><span class="o">();</span>
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">JobExecutionContext</span><span class="o">&gt;</span> <span class="n">executingJobs</span> <span class="o">=</span> <span class="n">scheduler</span><span class="o">.</span><span class="na">getCurrentlyExecutingJobs</span><span class="o">();</span>
+        <span class="n">List</span><span class="o">&lt;</span><span class="n">ScheduleJob</span><span class="o">&gt;</span> <span class="n">jobList</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">ScheduleJob</span><span class="o">&gt;(</span><span class="n">executingJobs</span><span class="o">.</span><span class="na">size</span><span class="o">());</span>
+        <span class="k">for</span> <span class="o">(</span><span class="n">JobExecutionContext</span> <span class="n">executingJob</span> <span class="o">:</span> <span class="n">executingJobs</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">ScheduleJob</span> <span class="n">job</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ScheduleJob</span><span class="o">();</span>
+            <span class="n">JobDetail</span> <span class="n">jobDetail</span> <span class="o">=</span> <span class="n">executingJob</span><span class="o">.</span><span class="na">getJobDetail</span><span class="o">();</span>
+            <span class="n">JobKey</span> <span class="n">jobKey</span> <span class="o">=</span> <span class="n">jobDetail</span><span class="o">.</span><span class="na">getKey</span><span class="o">();</span>
+            <span class="n">Trigger</span> <span class="n">trigger</span> <span class="o">=</span> <span class="n">executingJob</span><span class="o">.</span><span class="na">getTrigger</span><span class="o">();</span>
+            <span class="n">job</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="n">jobKey</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
+            <span class="n">job</span><span class="o">.</span><span class="na">setGroup</span><span class="o">(</span><span class="n">jobKey</span><span class="o">.</span><span class="na">getGroup</span><span class="o">());</span>
+            <span class="n">job</span><span class="o">.</span><span class="na">setDescription</span><span class="o">(</span><span class="s">"触发器:"</span> <span class="o">+</span> <span class="n">trigger</span><span class="o">.</span><span class="na">getKey</span><span class="o">());</span>
+            <span class="n">Trigger</span><span class="o">.</span><span class="na">TriggerState</span> <span class="n">triggerState</span> <span class="o">=</span> <span class="n">scheduler</span><span class="o">.</span><span class="na">getTriggerState</span><span class="o">(</span><span class="n">trigger</span><span class="o">.</span><span class="na">getKey</span><span class="o">());</span>
+            <span class="n">job</span><span class="o">.</span><span class="na">setStatus</span><span class="o">(</span><span class="n">triggerState</span><span class="o">.</span><span class="na">name</span><span class="o">());</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">trigger</span> <span class="k">instanceof</span> <span class="n">CronTrigger</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">CronTrigger</span> <span class="n">cronTrigger</span> <span class="o">=</span> <span class="o">(</span><span class="n">CronTrigger</span><span class="o">)</span> <span class="n">trigger</span><span class="o">;</span>
+                <span class="n">String</span> <span class="n">cronExpression</span> <span class="o">=</span> <span class="n">cronTrigger</span><span class="o">.</span><span class="na">getCronExpression</span><span class="o">();</span>
+                <span class="n">job</span><span class="o">.</span><span class="na">setCron</span><span class="o">(</span><span class="n">cronExpression</span><span class="o">);</span>
+            <span class="o">}</span>
+            <span class="n">jobList</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">job</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">jobList</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="cm">/**
+     * 暂停一个job
+     * 
+     * @param scheduleJob
+     * @throws SchedulerException
+     */</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">pauseJob</span><span class="o">(</span><span class="n">ScheduleJob</span> <span class="n">scheduleJob</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">SchedulerException</span> <span class="o">{</span>
+        <span class="n">Scheduler</span> <span class="n">scheduler</span> <span class="o">=</span> <span class="n">schedulerFactoryBean</span><span class="o">.</span><span class="na">getScheduler</span><span class="o">();</span>
+        <span class="n">JobKey</span> <span class="n">jobKey</span> <span class="o">=</span> <span class="n">JobKey</span><span class="o">.</span><span class="na">jobKey</span><span class="o">(</span><span class="n">scheduleJob</span><span class="o">.</span><span class="na">getName</span><span class="o">(),</span> <span class="n">scheduleJob</span><span class="o">.</span><span class="na">getGroup</span><span class="o">());</span>
+        <span class="n">scheduler</span><span class="o">.</span><span class="na">pauseJob</span><span class="o">(</span><span class="n">jobKey</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="cm">/**
+     * 恢复一个job
+     * 
+     * @param scheduleJob
+     * @throws SchedulerException
+     */</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">resumeJob</span><span class="o">(</span><span class="n">ScheduleJob</span> <span class="n">scheduleJob</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">SchedulerException</span> <span class="o">{</span>
+        <span class="n">Scheduler</span> <span class="n">scheduler</span> <span class="o">=</span> <span class="n">schedulerFactoryBean</span><span class="o">.</span><span class="na">getScheduler</span><span class="o">();</span>
+        <span class="n">JobKey</span> <span class="n">jobKey</span> <span class="o">=</span> <span class="n">JobKey</span><span class="o">.</span><span class="na">jobKey</span><span class="o">(</span><span class="n">scheduleJob</span><span class="o">.</span><span class="na">getName</span><span class="o">(),</span> <span class="n">scheduleJob</span><span class="o">.</span><span class="na">getGroup</span><span class="o">());</span>
+        <span class="n">scheduler</span><span class="o">.</span><span class="na">resumeJob</span><span class="o">(</span><span class="n">jobKey</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="cm">/**
+     * 删除一个job
+     * 
+     * @param scheduleJob
+     * @throws SchedulerException
+     */</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">deleteJob</span><span class="o">(</span><span class="n">ScheduleJob</span> <span class="n">scheduleJob</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">SchedulerException</span> <span class="o">{</span>
+        <span class="n">Scheduler</span> <span class="n">scheduler</span> <span class="o">=</span> <span class="n">schedulerFactoryBean</span><span class="o">.</span><span class="na">getScheduler</span><span class="o">();</span>
+        <span class="n">JobKey</span> <span class="n">jobKey</span> <span class="o">=</span> <span class="n">JobKey</span><span class="o">.</span><span class="na">jobKey</span><span class="o">(</span><span class="n">scheduleJob</span><span class="o">.</span><span class="na">getName</span><span class="o">(),</span> <span class="n">scheduleJob</span><span class="o">.</span><span class="na">getGroup</span><span class="o">());</span>
+        <span class="n">scheduler</span><span class="o">.</span><span class="na">deleteJob</span><span class="o">(</span><span class="n">jobKey</span><span class="o">);</span>
+
+    <span class="o">}</span>
+
+    <span class="cm">/**
+     * 立即执行job
+     * 
+     * @param scheduleJob
+     * @throws SchedulerException
+     */</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">runAJobNow</span><span class="o">(</span><span class="n">ScheduleJob</span> <span class="n">scheduleJob</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">SchedulerException</span> <span class="o">{</span>
+        <span class="n">Scheduler</span> <span class="n">scheduler</span> <span class="o">=</span> <span class="n">schedulerFactoryBean</span><span class="o">.</span><span class="na">getScheduler</span><span class="o">();</span>
+        <span class="n">JobKey</span> <span class="n">jobKey</span> <span class="o">=</span> <span class="n">JobKey</span><span class="o">.</span><span class="na">jobKey</span><span class="o">(</span><span class="n">scheduleJob</span><span class="o">.</span><span class="na">getName</span><span class="o">(),</span> <span class="n">scheduleJob</span><span class="o">.</span><span class="na">getGroup</span><span class="o">());</span>
+        <span class="n">scheduler</span><span class="o">.</span><span class="na">triggerJob</span><span class="o">(</span><span class="n">jobKey</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="cm">/**
+     * 更新job时间表达式
+     * 
+     * @param scheduleJob
+     * @throws SchedulerException
+     */</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">updateJobCron</span><span class="o">(</span><span class="n">ScheduleJob</span> <span class="n">scheduleJob</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">SchedulerException</span> <span class="o">{</span>
+        <span class="n">Scheduler</span> <span class="n">scheduler</span> <span class="o">=</span> <span class="n">schedulerFactoryBean</span><span class="o">.</span><span class="na">getScheduler</span><span class="o">();</span>
+
+        <span class="n">TriggerKey</span> <span class="n">triggerKey</span> <span class="o">=</span> <span class="n">TriggerKey</span><span class="o">.</span><span class="na">triggerKey</span><span class="o">(</span><span class="n">scheduleJob</span><span class="o">.</span><span class="na">getName</span><span class="o">(),</span> <span class="n">scheduleJob</span><span class="o">.</span><span class="na">getGroup</span><span class="o">());</span>
+
+        <span class="n">CronTrigger</span> <span class="n">trigger</span> <span class="o">=</span> <span class="o">(</span><span class="n">CronTrigger</span><span class="o">)</span> <span class="n">scheduler</span><span class="o">.</span><span class="na">getTrigger</span><span class="o">(</span><span class="n">triggerKey</span><span class="o">);</span>
+
+        <span class="n">CronScheduleBuilder</span> <span class="n">scheduleBuilder</span> <span class="o">=</span> <span class="n">CronScheduleBuilder</span><span class="o">.</span><span class="na">cronSchedule</span><span class="o">(</span><span class="n">scheduleJob</span><span class="o">.</span><span class="na">getCron</span><span class="o">());</span>
+
+        <span class="n">trigger</span> <span class="o">=</span> <span class="n">trigger</span><span class="o">.</span><span class="na">getTriggerBuilder</span><span class="o">().</span><span class="na">withIdentity</span><span class="o">(</span><span class="n">triggerKey</span><span class="o">).</span><span class="na">withSchedule</span><span class="o">(</span><span class="n">scheduleBuilder</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
+
+        <span class="n">scheduler</span><span class="o">.</span><span class="na">rescheduleJob</span><span class="o">(</span><span class="n">triggerKey</span><span class="o">,</span> <span class="n">trigger</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">CronScheduleBuilder</span> <span class="n">scheduleBuilder</span> <span class="o">=</span> <span class="n">CronScheduleBuilder</span><span class="o">.</span><span class="na">cronSchedule</span><span class="o">(</span><span class="s">"xxxxx"</span><span class="o">);</span>
+    <span class="o">}</span>
+
+<span class="o">}</span>
+
+</code></pre></div></div>
+
+<blockquote>
+  <p>Quartz 版本为 Quartz 2.2.3：<a href="http://d2zwv9pap9ylyd.cloudfront.net/quartz-2.2.3-distribution.tar.gz">http://d2zwv9pap9ylyd.cloudfront.net/quartz-2.2.3-distribution.tar.gz</a></p>
+</blockquote>
+
+<p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1fqj5aochgoj309k09kmwz.jpg" alt="" />
+<b><center>扫描关注：热爱生活的大叔</center>
+<b><center><font size="2">（<font size="2" color="#FF0000">转载本站文章请注明作者和出处</font> <font size="2" color="#0000FF">热爱生活的大叔-uniquezhangqi</font><font size="2">）</font></font></center></b></b></p>
+
+
+
+                <hr style="visibility: hidden;">
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2018/03/28/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-List%E5%8E%BB%E9%87%8D/" data-toggle="tooltip" data-placement="top" title="List去重">
+                        Previous<br>
+                        <span>List去重</span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2018/04/07/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Element+Vue.js-%E9%80%89%E6%8B%A9%E5%99%A8%E5%B8%B8%E7%94%A8%E5%B1%9E%E6%80%A7/" data-toggle="tooltip" data-placement="top" title="Element+Vue.js 选择器常用属性">
+                        Next<br>
+                        <span>Element+Vue.js 选择器常用属性</span>
+                        </a>
+                    </li>
+                    
+                </ul>
+
+
+                <!--Gitalk评论start  -->
+                
+                <!-- Gitalk end -->
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+            </div>  
+
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">CATALOG</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+        				
+                            
+                				<a href="/tags/#生活" title="生活" rel="18">
+                                    生活
+                                </a>
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#自我总结" title="自我总结" rel="31">
+                                    自我总结
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#编程之路" title="编程之路" rel="80">
+                                    编程之路
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#设计模式" title="设计模式" rel="4">
+                                    设计模式
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#杂谈" title="杂谈" rel="6">
+                                    杂谈
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#随笔" title="随笔" rel="6">
+                                    随笔
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Quartz" title="Quartz" rel="2">
+                                    Quartz
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#SpringDataJPA" title="SpringDataJPA" rel="2">
+                                    SpringDataJPA
+                                </a>
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#前端" title="前端" rel="5">
+                                    前端
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#咖啡" title="咖啡" rel="4">
+                                    咖啡
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#shiro" title="shiro" rel="5">
+                                    shiro
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#摄影" title="摄影" rel="3">
+                                    摄影
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#理财" title="理财" rel="5">
+                                    理财
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#jvm" title="jvm" rel="3">
+                                    jvm
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#MySql" title="MySql" rel="6">
+                                    MySql
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#java8" title="java8" rel="4">
+                                    java8
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#分布式" title="分布式" rel="3">
+                                    分布式
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#MongoDB" title="MongoDB" rel="2">
+                                    MongoDB
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+        			</div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+                    
+                        <li><a href="https://apple.com">Apple</a></li>
+                    
+                        <li><a href="https://www.google.com">google</a></li>
+                    
+                        <li><a href="http://www.cnblogs.com/zuoxiaolong">左潇龙</a></li>
+                    
+                        <li><a href="http://www.importnew.com/">ImportNew</a></li>
+                    
+                        <li><a href="https://www.csdn.net/">CSND</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "uniquezhangqi";
+    var disqus_identifier = "/2018/03/28/编程之路-Quartz遇到的问题";
+    var disqus_url = "http://localhost:4000/2018/03/28/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Quartz%E9%81%87%E5%88%B0%E7%9A%84%E9%97%AE%E9%A2%98/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <!-- add jianshu add target = "_blank" to <a> by BY -->
+                    
+                    
+                    <li>
+                        <a href="https://twitter.com/Mr_javaian">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/伊恩">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="http://weibo.com/_____ZzZzZzq">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+
+                    
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/schooljavaian@gmail.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/uniquezhangqi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; MY Blog 2019
+                    <br>
+                    Theme on <a href="https://github.com/uniquezhangqi/uniquezhangqi.github.io.git">GitHub</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=uniquezhangqi&repo=uniquezhangqi.github.io&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+<!-- Service Worker -->
+
+<script type="text/javascript">
+    if(navigator.serviceWorker){
+        // For security reasons, a service worker can only control the pages that are in the same directory level or below it. That's why we put sw.js at ROOT level.
+        navigator.serviceWorker
+            .register('/sw.js')
+            .then((registration) => {console.log('Service Worker Registered. ', registration)})
+            .catch((error) => {console.log('ServiceWorker registration failed: ', error)})
+    }
+</script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/ 
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers   
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async('/js/jquery.tagcloud.js',function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-113450573-1';
+    var _gaDomain = 'uniquezhangqi.top';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = 'b50bf2b12b5338a1845e33832976fd68';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;    
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="/img/apple-touch-icon.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

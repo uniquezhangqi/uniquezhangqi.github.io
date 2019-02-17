@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Always on the way of programming.">
+    <meta name="keywords"  content=" MY Blog, 伊恩的博客, Ian, 伊恩, java, Apple">
+    <meta name="theme-color" content="#000000">
+    
+    <title>美股开户与必需知晓的入金 - 伊恩的博客 | MY Blog</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <!-- Safari Webpage Icon    by-BY -->
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:4000/2018/05/09/%E7%94%9F%E6%B4%BB-%E7%BE%8E%E8%82%A1%E5%BC%80%E6%88%B7%E4%B8%8E%E5%BF%85%E9%9C%80%E7%9F%A5%E6%99%93%E7%9A%84%E5%85%A5%E9%87%91/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">MY Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">About</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">Tags</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from 
+     * $toggle/$collapse will break global delegation.
+     * 
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.  
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/ian-bg-red.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-image: url('/img/ian-bg-red.jpg')
+    }
+
+    
+</style>
+<header class="intro-header" >
+    <div class="header-mask"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#生活" title="生活">生活</a>
+                        
+                        <a class="tag" href="/tags/#理财" title="理财">理财</a>
+                        
+                    </div>
+                    <h1>美股开户与必需知晓的入金</h1>
+                    
+                    
+                    <h2 class="subheading">转载：地铁仔</h2>
+                    
+                    <span class="meta">Posted by Ian on May 9, 2018</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+				<blockquote>
+  <p>转载：地铁仔 - <a href="https://post.smzdm.com/p/689722/?promotion=WEBHPPBBNL05">https://post.smzdm.com/p/689722/?promotion=WEBHPPBBNL05</a></p>
+</blockquote>
+
+<h3 id="开篇前要说说">开篇前要说说——</h3>
+<p>还只知道海淘买商品？你OUT了，IT男教你买美股！<a href="https://post.smzdm.com/p/26870/">https://post.smzdm.com/p/26870/</a></p>
+
+<p>之前已经有值友介绍了有关如何买美股，想深入了解的小伙伴可以跳转过去看看。但由于年代有点远（2014年完成），时效性out了，故此，楼猪我特意更新了一下。而本文引用前文的内容，会加以标注。</p>
+
+<h4 id="我是一位良民投资美股会不会被警察叔叔带回去派出所呢">我是一位良民，投资美股会不会被警察叔叔带回去派出所呢？</h4>
+
+<blockquote>
+  <p>　　中国目前不允许个人投资者直接投资境外资本市场，只能通过购买QDII(合格境内机构投资者)基金的方式进行投资。个人投资者只能借由专业投资机构曲线投资美股。</p>
+
+  <p>　　但是在内地买卖美股并不违规违法。美国金融监管机构是允许美国本土券商发展海外客户的，但规定必须对开户人身份及资金来源进行核实，以防止洗钱行为；按照美国的法律，网上扫描签名也被法律认可，这也就为美国本土网络券商发展中国客户提供了便利。</p>
+</blockquote>
+
+<p>说白了，参与美股的缘由，很简单，就是因为大A股市场实在有点惨不忍睹，美股那边还有很多我们熟悉的股票，例如英特尔、AMD、NVIDIA、谷歌、百度、京东、阿里巴巴等等等等。</p>
+
+<h3 id="一美股开户与必须知晓的入金提金那些事">一、美股开户与必须知晓的入金&amp;提金那些事</h3>
+
+<h3 id="二美股相关规则浅谈">二、美股相关规则浅谈</h3>
+<p>为什么要将提金与入金放在前面？很简单，假如你汇款出去的钱没得收回来，即使你在美股赚了N倍，可回不来国内，有用吗？故此，提前做好准备，很有必要。</p>
+<blockquote>
+  <p>《个人外汇管理办法》中规定“境内个人对外直接投资符合有关规定的，经外汇局核准可以购汇或以自有外汇汇出，并应当办理境内投资外汇登记”。不过，目前国家外汇管理局、商务部等有关部门，均只受理公司对外直接投资的核准，并不办理个人的对外直接投资手续。在实际情况中，还没有个人按照《个人外汇管理办法》规定在外汇管理局成功办理个人境外投资外汇登记的案例。 需要注意的是，在这个过程中，要遵守国家的外汇管理制度。在到银行购买外汇这个环节中，每个人每年限购5万美元。将人民币现金换成外汇以后，就可以把外汇转到海外银行账户上了。——以上引自百度知道</p>
+</blockquote>
+
+<p>事实上，个人要想直接获得外汇收益并不容易，至少没有大家想象的那么简单。好了，闲话休提，来点干货吧。</p>
+
+<h4 id="1go注册一个美股账户就是这样">1、GO，注册一个美股账户就是这样</h4>
+<p>注册一个美股账户有两种方法，其一就是自行登录美股证券的官网自行注册，其二就是通过国内的一些代理商，例如京东金融（现在已经没有了）、同花顺这些第三方进行美股账户注册。这里以盈透证券为例子，给各位说说如何在美股开户。
+<img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-05-09-3.jpg" alt="" /></p>
+
+<p>盈透证券官网可自行百度，反正官网样式大致就是上图所示。直接点击“开设账户”，然后选择“投资者或个人”。</p>
+
+<p><img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-05-09-5.jpg" alt="" /></p>
+
+<p>这里有两种账户可以开设，一个是“个人、联名和退休账户”，另一个是信托。反正我们是个人，直接填写个人就OK了。</p>
+
+<p><img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-05-09-6.jpg" alt="" /></p>
+
+<p>开户流程与我们在网上注册ID差不多，只是有些步骤不能太随意。这里填写邮箱地址，用户名和密码。邮箱地址建议是常用的邮箱地址，因为盈透证券会发验证邮件到你的邮箱。</p>
+
+<p><img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-05-09-7.jpg" alt="" /></p>
+
+<p>在注册过程，盈透会发一封激活邮件到你的邮箱，故此，你的邮箱一定要能用。</p>
+
+<p><img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-05-09-8.jpg" alt="" /></p>
+
+<p>填写你的基础货币，我们肯定选择CNH了。为什么是离岸人民币呢？这里涉及到一个汇率问题。我们人民币汇率分成了离岸和在岸。离岸就是境外的，在岸指的是境内，人民币与美元汇率也分成离岸汇率和在岸汇率。简单可以理解成，我们在国内兑换用的是在岸，出了国用的就是离岸。</p>
+
+<p><img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-05-09-9.jpg" alt="" /></p>
+
+<p>填写你的个人资料。要认真填，要是太随意，你的申请可能会被证券公司否决。直接填中文就OK，不需要英文或拼音。</p>
+
+<p><img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-05-09-10.jpg" alt="" /></p>
+
+<p>如果不懂如何填写，官网有帮助指引。</p>
+
+<p><img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-05-09-120918.jpg" alt="" /></p>
+
+<p>注册账户还要注意规管信息。假如你是上市公司董事或者是持有10%股东，都不可以注册。亲属与证券公司或者上市有点瓜葛，都不可以。说白了，就是不给那些可以操控或影响股价的人进入证券市场。至于资产收入，收入太低不允许。</p>
+
+<p><img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-05-09-11.jpg" alt="" /></p>
+
+<p>在美扣税表格。有交易自然就要扣税。如实填写你的资料吧。一般个人（指的是公司代扣）都是没有扣税号码的。</p>
+
+<p><img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-05-09-12.jpg" alt="" /></p>
+
+<p>当所有步骤完成后，就可以激活账户。这里要注意，不是说注资了才可以激活账户，你不需要注资，同样可以激活账户。你不需要注资，同样可以激活账户。你不需要注资，同样可以激活账户。重要事情说三遍。要是你不想注资，直接点“跳过”。</p>
+
+<p><img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-05-09-13.jpg" alt="" /></p>
+
+<p>完成后，账户进入提交审核状态。如果你在规定时间内没有注资，你的美股账户就会自动注销。系统提示如提前注资可以获得优先，实际上，盈透的审核速度也比较快，一天左右就审批完成。</p>
+
+<p><img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-05-09-14.jpg" alt="" /></p>
+
+<p>如果需要专业的服务，可以订阅盈透提供的数据订阅包。但是要给钱，如果免费版够你用，直接用免费版就OK。</p>
+
+<p><img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-05-09-15.jpg" alt="" /></p>
+
+<p><img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-05-09-16.jpg" alt="" /></p>
+
+<p>ok，过了一两天，盈透就会将审批结果反馈至你的邮箱。至此，美股开户OK。美股开户比国内开户的优势是，开户过程不需要视频认证，也不需要你上传资料，基本上直接网上操作就OK了。</p>
+
+<h3 id="三入金就是这么easy">三、入金，就是这么easy</h3>
+<p>入金，指的是将资金存入你的美股账户，而提金，即是将美股中的资金，提取出来，转回来国内，又称之为出金。目前国内入金渠道有很多，例如大家都熟知的支付宝，也是可以入金的。这里介绍两种比较主流的入金方式。</p>
+
+<h4 id="1标准的流程银行购汇后转账">1、标准的流程——银行购汇后转账</h4>
+<p>银行购汇流程其实很简单，就是直接通过网上银行购买就OK了。这里以建行购汇给各位做个简单的介绍。
+   <img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-05-09-17.jpg" alt="" /></p>
+
+<p>登录个人网上银行，在“结售汇”一栏找到“人民币购汇”</p>
+
+<p><img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-05-09-18.jpg" alt="" /></p>
+
+<p>接着就是温馨提示，<strong>注意，个人一年可以结汇和购汇额度是5万美金~~~~</strong></p>
+
+<p><img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-05-09-19.jpg" alt="" /></p>
+
+<p>然后就是填写个人购汇申请书。这里必须指明的是——<strong>国内暂时没有开展个人直接境外投资、证券投资、购买人寿保险。</strong>说白了，你不能在国内直接炒美股、买外国人寿保险诸如此类。如果你真的想，只能自己跑去国外买或者是去香港买了。此外，国家对于洗钱、逃税之类是严抓的。我也咨询过我的一位在银行负责外汇业务的朋友，据他介绍，国家对于外汇的管制，特别是大额资金管制都比较严格，小额，例如一两千美金从国外汇入国内，限制虽然有，但相对大额来说，不算非常严格。</p>
+
+<p>汇率价格是即时汇率，早上买跟下午买价格都不一样，差价不大情况下，随便买吧。</p>
+
+<p><img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-05-09-20.jpg" alt="" /></p>
+
+<p>购汇成功，这时就可以汇款。选择“转账汇款”——“外汇汇款”</p>
+
+<p><img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-05-09-121715.jpg" alt="" /></p>
+
+<p>然后填写个人汇款单。记住咯，要写英文，想起以前英语老师教过的国内地址填写方法了吗？记住没关系，将你的地址用度娘搜，度娘会很贴心地将你的地址翻译成英文。</p>
+
+<p><img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-05-09-22.jpg" alt="" /></p>
+
+<p>填写收款人的信息，这里可以直接找证券公司要，基本上联系他们的客服或者上官网都有的。</p>
+
+<p><img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-05-09-23.jpg" alt="" /></p>
+
+<p>填写其他信息。填写完成后，直接点击“下一步”，按照操作步骤来，就可以完成入金了。收费方面，不同银行收费不同。</p>
+
+<h4 id="2支付宝的隐藏技能国际汇款">2、支付宝的隐藏技能——国际汇款</h4>
+<p>实际上支付宝的国际汇款与银行购汇后转账是一致的，但支付宝操作便利且用户基数大，故此不少人都喜欢用支付宝进行国际汇款。</p>
+
+<p><img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-05-09-24.jpg" alt="" /></p>
+
+<p>打开APP，点击“更多”</p>
+
+<p><img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-05-09-25.jpg" alt="" /></p>
+
+<p>然后选择“上银汇款”</p>
+
+<p><img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-05-09-26.jpg" alt="" /></p>
+
+<p>上银汇款实际上就是通过上海银行进行国际汇款操作。</p>
+
+<p><img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-05-09-27.jpg" alt="" /></p>
+
+<p>费用不算太贵，境内转出收50元/笔，但汇入你的美股账户时，会收中转费，费用根据美股开户银行决定。</p>
+
+<p><img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-05-09-28.jpg" alt="" /></p>
+
+<p>这里也是填写汇款信息，记得是收款人信息，直接找证券公司要，基本上联系他们的客服或者上官网都有的。</p>
+
+<p><img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-05-09-29.jpg" alt="" /></p>
+
+<p>填写汇款人资料，也就是你的资料。</p>
+
+<p><img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-05-09-30.jpg" alt="" /></p>
+
+<p>所有信息填写完，直接汇款吧。</p>
+
+<h3 id="四出去容易回来难说说我所知道提金渠道">四、出去容易回来难，说说我所知道提金渠道</h3>
+<p>资金出去了，即使在外面混得风生水起，可还是在外面呀，怎么才可以回得来呢？</p>
+
+<h5 id="1找外国友人帮你忙">1、找外国友人帮你忙</h5>
+<p>外国友人，那绝对就是外国友人，例如你的外国亲戚、朋友、同学，只要是身居国外的友人，而且你又比较信任的，那就可以了。怎么做？直接将外国友人的银行卡，开户银行信息等所有资料，提交给证券公司，让证券公司将钱汇入外国友人账户，再通过外国友人的微信或者支付宝，直接从国外转给你。微信和支付宝是不可以外币之间转账喔…记得按照人民币兑XXX国家汇率兑换好就可以。</p>
+
+<h5 id="2外国银行在国内开设的银行">2、外国银行在国内开设的银行</h5>
+<p>假如你没有外国友人，那只能通过其他办法。你可以借助外资银行，例如很多人都熟悉的汇丰、花旗银行。但有个前提——<strong>你需要在境外开设银行账户。</strong></p>
+
+<p><img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-05-09-31.jpg" alt="" /></p>
+
+<p>当你在境外开设了汇丰账户，同时在国内开设账户，就可以通过汇丰的转账服务，直接将你在国外的资金转回国内。至于费用，卓越理财客户免费，其他客户需要收费。卓越理财客户有什么要求？存款大于等于50W人民币即可。投资收益最高的不是买房而可能是京东阿里的股票！美股开户入金提金都帮你总结好了！</p>
+
+<h5 id="3取道香港去香港开设个人账户">3、取道香港，去香港开设个人账户</h5>
+<p>去香港开设个人银行账户是一个很妥的选择。毕竟这种开设账户不违法，如何开设？可以参考这两篇值友的文章。</p>
+<blockquote>
+  <p>香港银行如何开户经验谈:<a href="https://post.smzdm.com/p/588526/">https://post.smzdm.com/p/588526/</a></p>
+
+  <p>关于在香港开户、申请信用卡及投资经验分享（一）<a href="https://post.smzdm.com/p/23560/">https://post.smzdm.com/p/23560/</a></p>
+</blockquote>
+
+<p>但我相信多数人都不愿意打开看，我这里截取部分重要的信息给大家看看。</p>
+<blockquote>
+  <p>开户需要什么？<br />
+内地身份证， 港澳通行证，如果是护照入境的，则需要提供护照，三个月以内的有效地址证明（特别说明，户口本，房产证或者内地身份证都可以做为地址证明，前提是这些证件上的地址就是居住地址，或者可以该地址可以收到信件，如果用信用卡做住址证明，需要是由内地中银发出的信用卡才可以）</p>
+</blockquote>
+
+<blockquote>
+  <p>一般开户时需要存入资金，大概是10000港币，账户里保持平均1万港币的存款，就可以豁免每月60港币的管理费，开户时间：办理时间一般在30分钟，不算前面排队等候时间，香港银行效率普遍不高，所以要有耐心才可以。<br />
+开户时，客户经理会问你理由，所以需要你阐述清楚你开户的目的，购买银行产品，例如基金等；  缴交香港保险保单费用如果有在香港买保险的，可以带上保单或者收据出示给客户经理，开户会变的容易些，这是小技巧。开户的时候，可能会询问的问题有：是否携带工作证明。你可以带上名片，公司证明等出示给客户经理，其实香港银行没有想象中的那么难，只是在审查中比较严，防止洗黑钱！</p>
+</blockquote>
+
+<h5 id="4直接通过证券公司将资金汇入国内成功几率不高">4、直接通过证券公司将资金汇入国内（成功几率不高）</h5>
+<p>由于国内不允许个人直接投资境外，故此国内的银行对于境外汇入，特别是证券公司、投资公司的汇入，大多数都会被否。那是不是等于说，此路不通？未必。</p>
+
+<p><img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-05-09-32.jpg" alt="" /></p>
+
+<p>　　这是我的提款收据，在“Additional Information”一栏，写明这笔资金是用于教育用途的。国内工作人员审核时，就有可能pass，让这笔资金汇入（很遗憾，我的失败了，后来问建行，建行那边工作人员告知，因为无法向我取得联系，这笔汇款直接退回去）。</p>
+
+<p>　　提金时，你必须知道银行的swift代码。这个swift代码哪里查？直接打电话给银行，问问客服就可获知。</p>
+
+<blockquote>
+  <p>转载：地铁仔 - <a href="https://post.smzdm.com/p/689722/?promotion=WEBHPPBBNL05">https://post.smzdm.com/p/689722/?promotion=WEBHPPBBNL05</a></p>
+</blockquote>
+
+<p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1fqj5aochgoj309k09kmwz.jpg" alt="" />
+<b><center>扫描关注：热爱生活的大叔</center>
+<b><center><font size="2">（<font size="2" color="#FF0000">转载本站文章请注明作者和出处</font> <font size="2" color="#0000FF">热爱生活的大叔-uniquezhangqi</font><font size="2">）</font></font></center></b></b></p>
+
+
+                <hr style="visibility: hidden;">
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2018/05/07/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-mysql%E5%A4%9A%E8%A1%A8%E6%8F%92%E5%85%A5/" data-toggle="tooltip" data-placement="top" title="mysql多表插入">
+                        Previous<br>
+                        <span>mysql多表插入</span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2018/05/19/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E5%A4%8D%E4%B9%A0%E5%B8%B8%E7%94%A8%E6%8A%80%E6%9C%AF%E6%A1%86%E6%9E%B6/" data-toggle="tooltip" data-placement="top" title="复习常用技术框架">
+                        Next<br>
+                        <span>复习常用技术框架</span>
+                        </a>
+                    </li>
+                    
+                </ul>
+
+
+                <!--Gitalk评论start  -->
+                
+                <!-- Gitalk end -->
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+            </div>  
+
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">CATALOG</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+        				
+                            
+                				<a href="/tags/#生活" title="生活" rel="18">
+                                    生活
+                                </a>
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#自我总结" title="自我总结" rel="31">
+                                    自我总结
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#编程之路" title="编程之路" rel="80">
+                                    编程之路
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#设计模式" title="设计模式" rel="4">
+                                    设计模式
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#杂谈" title="杂谈" rel="6">
+                                    杂谈
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#随笔" title="随笔" rel="6">
+                                    随笔
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Quartz" title="Quartz" rel="2">
+                                    Quartz
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#SpringDataJPA" title="SpringDataJPA" rel="2">
+                                    SpringDataJPA
+                                </a>
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#前端" title="前端" rel="5">
+                                    前端
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#咖啡" title="咖啡" rel="4">
+                                    咖啡
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#shiro" title="shiro" rel="5">
+                                    shiro
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#摄影" title="摄影" rel="3">
+                                    摄影
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#理财" title="理财" rel="5">
+                                    理财
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#jvm" title="jvm" rel="3">
+                                    jvm
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#MySql" title="MySql" rel="6">
+                                    MySql
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#java8" title="java8" rel="4">
+                                    java8
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#分布式" title="分布式" rel="3">
+                                    分布式
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#MongoDB" title="MongoDB" rel="2">
+                                    MongoDB
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+        			</div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+                    
+                        <li><a href="https://apple.com">Apple</a></li>
+                    
+                        <li><a href="https://www.google.com">google</a></li>
+                    
+                        <li><a href="http://www.cnblogs.com/zuoxiaolong">左潇龙</a></li>
+                    
+                        <li><a href="http://www.importnew.com/">ImportNew</a></li>
+                    
+                        <li><a href="https://www.csdn.net/">CSND</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "uniquezhangqi";
+    var disqus_identifier = "/2018/05/09/生活-美股开户与必需知晓的入金";
+    var disqus_url = "http://localhost:4000/2018/05/09/%E7%94%9F%E6%B4%BB-%E7%BE%8E%E8%82%A1%E5%BC%80%E6%88%B7%E4%B8%8E%E5%BF%85%E9%9C%80%E7%9F%A5%E6%99%93%E7%9A%84%E5%85%A5%E9%87%91/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <!-- add jianshu add target = "_blank" to <a> by BY -->
+                    
+                    
+                    <li>
+                        <a href="https://twitter.com/Mr_javaian">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/伊恩">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="http://weibo.com/_____ZzZzZzq">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+
+                    
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/schooljavaian@gmail.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/uniquezhangqi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; MY Blog 2019
+                    <br>
+                    Theme on <a href="https://github.com/uniquezhangqi/uniquezhangqi.github.io.git">GitHub</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=uniquezhangqi&repo=uniquezhangqi.github.io&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+<!-- Service Worker -->
+
+<script type="text/javascript">
+    if(navigator.serviceWorker){
+        // For security reasons, a service worker can only control the pages that are in the same directory level or below it. That's why we put sw.js at ROOT level.
+        navigator.serviceWorker
+            .register('/sw.js')
+            .then((registration) => {console.log('Service Worker Registered. ', registration)})
+            .catch((error) => {console.log('ServiceWorker registration failed: ', error)})
+    }
+</script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/ 
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers   
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async('/js/jquery.tagcloud.js',function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-113450573-1';
+    var _gaDomain = 'uniquezhangqi.top';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = 'b50bf2b12b5338a1845e33832976fd68';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;    
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="/img/apple-touch-icon.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>
