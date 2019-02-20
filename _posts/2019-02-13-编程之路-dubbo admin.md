@@ -25,7 +25,7 @@ tags:                              		#标签
 
 4. 用maven 打成jar 然后用java -jar xxx.jar 启动，网页输入`http://localhost:端口号`成功结果截图：
 
-![](http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2019-02-17-dubbo-admin%E5%8F%AF%E8%A7%86%E5%8C%96UI.png)
+![](http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2019-02-20-new--dubbo-admin-UI.png)
 
 dubbo-admin 和 需要监控的项目是各自独立的，dubbo-admin相当于一个插件之类。
 
