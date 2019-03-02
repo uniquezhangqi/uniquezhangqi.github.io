@@ -19,8 +19,8 @@ tags:                              		#标签
 
 ## 安装ES
 
-使用HomeBrew包管理器 安装 brew install elasticsearch.
-官方文档：https://www.elastic.co/guide/cn/elasticsearch/guide/current/index.html
+- 使用HomeBrew包管理器 安装 brew install elasticsearch.
+- 官方文档：https://www.elastic.co/guide/cn/elasticsearch/guide/current/index.html
 
 ### 启动：
 
