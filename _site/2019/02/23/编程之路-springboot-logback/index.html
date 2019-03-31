@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Always on the way of programming.">
+    <meta name="keywords"  content=" MY Blog, 伊恩的博客, Ian, 伊恩, java, Apple">
+    <meta name="theme-color" content="#000000">
+    
+    <title>springboot logback - 伊恩的博客 | MY Blog</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <!-- Safari Webpage Icon    by-BY -->
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:4000/2019/02/23/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-springboot-logback/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">MY Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">About</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">Tags</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from 
+     * $toggle/$collapse will break global delegation.
+     * 
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.  
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/ian-bg-red.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-image: url('/img/ian-bg-red.jpg')
+    }
+
+    
+</style>
+<header class="intro-header" >
+    <div class="header-mask"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#编程之路" title="编程之路">编程之路</a>
+                        
+                        <a class="tag" href="/tags/#自我总结" title="自我总结">自我总结</a>
+                        
+                    </div>
+                    <h1>springboot logback</h1>
+                    
+                    
+                    <h2 class="subheading"></h2>
+                    
+                    <span class="meta">Posted by Ian on February 23, 2019</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+				<h2 id="源码部分分析">源码部分分析：</h2>
+<h3 id="springboot启动的时候会默认加载">springboot启动的时候会默认加载：</h3>
+<p>springboot-logback1 new ContextInitializer(defaultLoggerContext).autoConfig();
+ch.qos.logback.classic.util.ContextInitializer.findURLOfDefaultConfigurationFile(boolean)在类路径下查找logback.groovy ，logback.xml ，logback-test.xml查找这三个文件，若能找到这三个文件，则通过这三个配置文件生成Configurator，否则生成默认的ch.qos.logback.classic.BasicConfigurator。</p>
+
+<p>如下截图：
+<img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2019-02-23-springboot-logback1.png" alt="" /></p>
+
+<p><img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2019-02-23-springboot-logback2.png" alt="" /></p>
+
+<h3 id="文件存放位置">文件存放位置：</h3>
+<p><img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2019-02-23-springboot-logback4-1.png" alt="" /></p>
+
+<p>结果：
+<img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2019-02-23-springbootlogback3.png" alt="" /></p>
+
+<h3 id="logbackxml-内容">logback.xml 内容：</h3>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="UTF-8" ?&gt;</span> 
+<span class="c">&lt;!--    
+    说明：
+    1、日志级别及文件  
+        日志记录采用分级记录，级别与日志文件名相对应，不同级别的日志信息记录到不同的日志文件中  
+        例如：error级别记录到log_error_xxx.log或log_error.log（该文件为当前记录的日志文件），而log_error_xxx.log为归档日志，  
+        日志文件按日期记录，同一天内，若日志文件大小等于或大于2M，则按0、1、2...顺序分别命名  
+        例如log-level-2013-12-21.0.log  
+        其它级别的日志也是如此。  
+    2、文件路径  
+        若开发、测试用，在Eclipse中运行项目，则到Eclipse的安装路径查找logs文件夹，以相对路径../logs/子系统名称。  
+        若部署到Tomcat下，则在Tomcat下的logs文件中  
+    3、Appender  
+        FILEERROR对应error级别，文件名以log-error-xxx.log形式命名  
+        FILEWARN对应warn级别，文件名以log-warn-xxx.log形式命名  
+        FILEINFO对应info级别，文件名以log-info-xxx.log形式命名  
+        FILEDEBUG对应debug级别，文件名以log-debug-xxx.log形式命名  
+        stdout将日志信息输出到控制上，为方便开发测试使用  
+    &lt;  ERROR &gt;WARN &gt; INFO &gt; DEBUG, 级别越高，信息输出越少。  &gt;
+ 
+  --&gt;</span> 
+<span class="c">&lt;!--  自动应用变更 
+  --&gt;</span> 
+   <span class="nt">&lt;configuration</span> <span class="na">scan=</span><span class="s">"true"</span> <span class="na">scanPeriod=</span><span class="s">"30 seconds"</span><span class="nt">&gt;</span>
+<span class="c">&lt;!--  在Eclipse中运行，请到Eclipse的安装目录中找log文件，Tomcat下，请到Tomcat目录下找  最后一个文件名为项目名称
+    &lt;property name="LOG_PATH" value="/home/workspace/bstInformation/src/logs/easyloan-busi-web" /&gt;
+  --&gt;</span> 
+  <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">"LOG_PATH"</span> <span class="na">value=</span><span class="s">"logs"</span> <span class="nt">/&gt;</span> 
+<span class="c">&lt;!--  日志记录器，日期滚动记录 
+  --&gt;</span> 
+<span class="nt">&lt;appender</span> <span class="na">name=</span><span class="s">"FILEERROR"</span> <span class="na">class=</span><span class="s">"ch.qos.logback.core.rolling.RollingFileAppender"</span><span class="nt">&gt;</span>
+<span class="c">&lt;!--  正在记录的日志文件的路径及文件名 
+  --&gt;</span> 
+  <span class="nt">&lt;file&gt;</span>${LOG_PATH}/log_error.log<span class="nt">&lt;/file&gt;</span> 
+<span class="c">&lt;!--  日志记录器的滚动策略，按日期，按大小记录 
+  --&gt;</span> 
+ <span class="nt">&lt;rollingPolicy</span> <span class="na">class=</span><span class="s">"ch.qos.logback.core.rolling.TimeBasedRollingPolicy"</span><span class="nt">&gt;</span>
+ <span class="c">&lt;!--  归档的日志文件的路径，例如今天是2013-12-21日志，当前写的日志文件路径为file节点指定，可以将此文件与file指定文件路径设置为不同路径，从而将当前日志文件或归档日志文件置不同的目录。  
+            而2013-12-21的日志文件在由fileNamePattern指定。%d{yyyy-MM-dd}指定日期格式，%i指定索引 
+  --&gt;</span> 
+  <span class="nt">&lt;fileNamePattern&gt;</span>${LOG_PATH}/%d{yyyy-MM-dd}/log-error-%d{yyyy-MM-dd}.%i.log<span class="nt">&lt;/fileNamePattern&gt;</span> 
+ <span class="c">&lt;!--  除按日志记录之外，还配置了日志文件不能超过2M，若超过2M，日志文件会以索引0开始，  
+            命名日志文件，例如log-error-2013-12-21.0.log 
+  --&gt;</span> 
+ <span class="nt">&lt;timeBasedFileNamingAndTriggeringPolicy</span> <span class="na">class=</span><span class="s">"ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;maxFileSize&gt;</span>5MB<span class="nt">&lt;/maxFileSize&gt;</span> 
+  <span class="nt">&lt;/timeBasedFileNamingAndTriggeringPolicy&gt;</span>
+  <span class="nt">&lt;/rollingPolicy&gt;</span>
+ <span class="c">&lt;!--  追加方式记录日志 
+  --&gt;</span> 
+  <span class="nt">&lt;append&gt;</span>true<span class="nt">&lt;/append&gt;</span> 
+ <span class="c">&lt;!--  日志文件的格式 
+  --&gt;</span> 
+ <span class="nt">&lt;encoder</span> <span class="na">class=</span><span class="s">"ch.qos.logback.classic.encoder.PatternLayoutEncoder"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;pattern&gt;</span>%-5p [%d] %C:%L - %m %n<span class="nt">&lt;/pattern&gt;</span> 
+  <span class="nt">&lt;charset&gt;</span>utf-8<span class="nt">&lt;/charset&gt;</span> 
+  <span class="nt">&lt;/encoder&gt;</span>
+ <span class="c">&lt;!--  此日志文件只记录error级别的 
+  --&gt;</span> 
+ <span class="nt">&lt;filter</span> <span class="na">class=</span><span class="s">"ch.qos.logback.classic.filter.LevelFilter"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;level&gt;</span>error<span class="nt">&lt;/level&gt;</span> 
+  <span class="nt">&lt;onMatch&gt;</span>ACCEPT<span class="nt">&lt;/onMatch&gt;</span> 
+  <span class="nt">&lt;onMismatch&gt;</span>DENY<span class="nt">&lt;/onMismatch&gt;</span> 
+  <span class="nt">&lt;/filter&gt;</span>
+  <span class="nt">&lt;/appender&gt;</span>
+ <span class="nt">&lt;appender</span> <span class="na">name=</span><span class="s">"FILEWARN"</span> <span class="na">class=</span><span class="s">"ch.qos.logback.core.rolling.RollingFileAppender"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;file&gt;</span>${LOG_PATH}/log_warn.log<span class="nt">&lt;/file&gt;</span> 
+ <span class="nt">&lt;rollingPolicy</span> <span class="na">class=</span><span class="s">"ch.qos.logback.core.rolling.TimeBasedRollingPolicy"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;fileNamePattern&gt;</span>${LOG_PATH}/%d{yyyy-MM-dd}/log-warn-%d{yyyy-MM-dd}.%i.log<span class="nt">&lt;/fileNamePattern&gt;</span> 
+ <span class="nt">&lt;timeBasedFileNamingAndTriggeringPolicy</span> <span class="na">class=</span><span class="s">"ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;maxFileSize&gt;</span>5MB<span class="nt">&lt;/maxFileSize&gt;</span> 
+  <span class="nt">&lt;/timeBasedFileNamingAndTriggeringPolicy&gt;</span>
+  <span class="nt">&lt;/rollingPolicy&gt;</span>
+  <span class="nt">&lt;append&gt;</span>true<span class="nt">&lt;/append&gt;</span> 
+ <span class="nt">&lt;encoder</span> <span class="na">class=</span><span class="s">"ch.qos.logback.classic.encoder.PatternLayoutEncoder"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;pattern&gt;</span>%-5p [%d] %C:%L - %m %n<span class="nt">&lt;/pattern&gt;</span> 
+  <span class="nt">&lt;charset&gt;</span>utf-8<span class="nt">&lt;/charset&gt;</span> 
+  <span class="nt">&lt;/encoder&gt;</span>
+ <span class="c">&lt;!--  此日志文件只记录warn级别，不记录大于warn级别的日志 
+  --&gt;</span> 
+ <span class="nt">&lt;filter</span> <span class="na">class=</span><span class="s">"ch.qos.logback.classic.filter.LevelFilter"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;level&gt;</span>WARN<span class="nt">&lt;/level&gt;</span> 
+  <span class="nt">&lt;onMatch&gt;</span>ACCEPT<span class="nt">&lt;/onMatch&gt;</span> 
+  <span class="nt">&lt;onMismatch&gt;</span>DENY<span class="nt">&lt;/onMismatch&gt;</span> 
+  <span class="nt">&lt;/filter&gt;</span>
+  <span class="nt">&lt;/appender&gt;</span>
+ <span class="nt">&lt;appender</span> <span class="na">name=</span><span class="s">"FILEINFO"</span> <span class="na">class=</span><span class="s">"ch.qos.logback.core.rolling.RollingFileAppender"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;file&gt;</span>${LOG_PATH}/log_info.log<span class="nt">&lt;/file&gt;</span> 
+ <span class="nt">&lt;rollingPolicy</span> <span class="na">class=</span><span class="s">"ch.qos.logback.core.rolling.TimeBasedRollingPolicy"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;fileNamePattern&gt;</span>${LOG_PATH}/%d{yyyy-MM-dd}/log-info-%d{yyyy-MM-dd}.%i.log<span class="nt">&lt;/fileNamePattern&gt;</span> 
+ <span class="nt">&lt;timeBasedFileNamingAndTriggeringPolicy</span> <span class="na">class=</span><span class="s">"ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;maxFileSize&gt;</span>5MB<span class="nt">&lt;/maxFileSize&gt;</span> 
+  <span class="nt">&lt;/timeBasedFileNamingAndTriggeringPolicy&gt;</span>
+  <span class="nt">&lt;/rollingPolicy&gt;</span>
+  <span class="nt">&lt;append&gt;</span>true<span class="nt">&lt;/append&gt;</span> 
+ <span class="nt">&lt;encoder</span> <span class="na">class=</span><span class="s">"ch.qos.logback.classic.encoder.PatternLayoutEncoder"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;pattern&gt;</span>%-5p [%d] %C:%L - %m %n<span class="nt">&lt;/pattern&gt;</span> 
+  <span class="nt">&lt;charset&gt;</span>utf-8<span class="nt">&lt;/charset&gt;</span> 
+  <span class="nt">&lt;/encoder&gt;</span>
+ <span class="c">&lt;!--  此日志文件只记录info级别，不记录大于info级别的日志 
+  --&gt;</span> 
+ <span class="nt">&lt;filter</span> <span class="na">class=</span><span class="s">"ch.qos.logback.classic.filter.LevelFilter"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;level&gt;</span>INFO<span class="nt">&lt;/level&gt;</span> 
+  <span class="nt">&lt;onMatch&gt;</span>ACCEPT<span class="nt">&lt;/onMatch&gt;</span> 
+  <span class="nt">&lt;onMismatch&gt;</span>DENY<span class="nt">&lt;/onMismatch&gt;</span> 
+  <span class="nt">&lt;/filter&gt;</span>
+  <span class="nt">&lt;/appender&gt;</span>
+ <span class="nt">&lt;appender</span> <span class="na">name=</span><span class="s">"FILEDEBUG"</span> <span class="na">class=</span><span class="s">"ch.qos.logback.core.rolling.RollingFileAppender"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;file&gt;</span>${LOG_PATH}/log_debug.log<span class="nt">&lt;/file&gt;</span> 
+ <span class="nt">&lt;rollingPolicy</span> <span class="na">class=</span><span class="s">"ch.qos.logback.core.rolling.TimeBasedRollingPolicy"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;fileNamePattern&gt;</span>${LOG_PATH}/%d{yyyy-MM-dd}/log-debug-%d{yyyy-MM-dd}.%i.log<span class="nt">&lt;/fileNamePattern&gt;</span> 
+ <span class="nt">&lt;timeBasedFileNamingAndTriggeringPolicy</span> <span class="na">class=</span><span class="s">"ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;maxFileSize&gt;</span>5MB<span class="nt">&lt;/maxFileSize&gt;</span> 
+  <span class="nt">&lt;/timeBasedFileNamingAndTriggeringPolicy&gt;</span>
+  <span class="nt">&lt;/rollingPolicy&gt;</span>
+  <span class="nt">&lt;append&gt;</span>true<span class="nt">&lt;/append&gt;</span> 
+ <span class="nt">&lt;encoder</span> <span class="na">class=</span><span class="s">"ch.qos.logback.classic.encoder.PatternLayoutEncoder"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;pattern&gt;</span>%-5p [%d] %C:%L - %m %n<span class="nt">&lt;/pattern&gt;</span> 
+  <span class="nt">&lt;charset&gt;</span>utf-8<span class="nt">&lt;/charset&gt;</span> 
+  <span class="nt">&lt;/encoder&gt;</span>
+ <span class="c">&lt;!--  此日志文件只记录debug级别，不记录大于debug级别的日志 
+  --&gt;</span> 
+ <span class="nt">&lt;filter</span> <span class="na">class=</span><span class="s">"ch.qos.logback.classic.filter.LevelFilter"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;level&gt;</span>DEBUG<span class="nt">&lt;/level&gt;</span> 
+  <span class="nt">&lt;onMatch&gt;</span>ACCEPT<span class="nt">&lt;/onMatch&gt;</span> 
+  <span class="nt">&lt;onMismatch&gt;</span>DENY<span class="nt">&lt;/onMismatch&gt;</span> 
+  <span class="nt">&lt;/filter&gt;</span>
+  <span class="nt">&lt;/appender&gt;</span>
+ <span class="nt">&lt;appender</span> <span class="na">name=</span><span class="s">"stdout"</span> <span class="na">class=</span><span class="s">"ch.qos.logback.core.ConsoleAppender"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;Target&gt;</span>System.out<span class="nt">&lt;/Target&gt;</span> 
+ <span class="nt">&lt;encoder&gt;</span>
+  <span class="nt">&lt;pattern&gt;</span>%-5p [%d] %C:%L - %m %n<span class="nt">&lt;/pattern&gt;</span> 
+  <span class="nt">&lt;charset&gt;</span>utf-8<span class="nt">&lt;/charset&gt;</span> 
+  <span class="nt">&lt;/encoder&gt;</span>
+ <span class="c">&lt;!--  此日志appender是为开发使用，只配置最底级别，控制台输出的日志级别是大于或等于此级别的日志信息
+  --&gt;</span> 
+ <span class="nt">&lt;filter</span> <span class="na">class=</span><span class="s">"ch.qos.logback.classic.filter.ThresholdFilter"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;level&gt;</span>DEBUG<span class="nt">&lt;/level&gt;</span> 
+  <span class="nt">&lt;/filter&gt;</span>
+  <span class="nt">&lt;/appender&gt;</span>
+ <span class="c">&lt;!--  生产环境，将此级别配置为适合的级别，以免日志文件太多或影响程序性能 
+  --&gt;</span> 
+ <span class="nt">&lt;root</span> <span class="na">level=</span><span class="s">"INFO"</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;appender-ref</span> <span class="na">ref=</span><span class="s">"FILEDEBUG"</span> <span class="nt">/&gt;</span> 
+  <span class="nt">&lt;appender-ref</span> <span class="na">ref=</span><span class="s">"FILEINFO"</span> <span class="nt">/&gt;</span> 
+  <span class="nt">&lt;appender-ref</span> <span class="na">ref=</span><span class="s">"FILEWARN"</span> <span class="nt">/&gt;</span> 
+  <span class="nt">&lt;appender-ref</span> <span class="na">ref=</span><span class="s">"FILEERROR"</span> <span class="nt">/&gt;</span> 
+ <span class="c">&lt;!--  生产环境将请stdout去掉 
+  --&gt;</span> 
+  <span class="nt">&lt;appender-ref</span> <span class="na">ref=</span><span class="s">"stdout"</span> <span class="nt">/&gt;</span> 
+  <span class="nt">&lt;/root&gt;</span>
+  <span class="nt">&lt;/configuration&gt;</span>
+
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">文章中若有不足之处，还望指出。坚持是一种精神，分享是一种快乐！</code></p>
+
+
+                <hr style="visibility: hidden;">
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2019/02/23/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-AOP%E5%AE%9E%E7%8E%B0%E6%97%A5%E5%BF%97/" data-toggle="tooltip" data-placement="top" title="AOP实现日志">
+                        Previous<br>
+                        <span>AOP实现日志</span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2019/02/23/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-springboot%E6%8B%A6%E6%88%AA%E5%BC%82%E5%B8%B8%E5%B9%B6%E7%BB%9F%E4%B8%80%E5%A4%84%E7%90%86/" data-toggle="tooltip" data-placement="top" title="springboot拦截异常并统一处理">
+                        Next<br>
+                        <span>springboot拦截异常并统一处理</span>
+                        </a>
+                    </li>
+                    
+                </ul>
+
+
+                <!--Gitalk评论start  -->
+                
+                <!-- Gitalk end -->
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+            </div>  
+
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">CATALOG</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+        				
+                            
+                				<a href="/tags/#生活" title="生活" rel="21">
+                                    生活
+                                </a>
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#自我总结" title="自我总结" rel="34">
+                                    自我总结
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#编程之路" title="编程之路" rel="88">
+                                    编程之路
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#设计模式" title="设计模式" rel="4">
+                                    设计模式
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#杂谈" title="杂谈" rel="6">
+                                    杂谈
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#随笔" title="随笔" rel="6">
+                                    随笔
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Quartz" title="Quartz" rel="2">
+                                    Quartz
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#SpringDataJPA" title="SpringDataJPA" rel="2">
+                                    SpringDataJPA
+                                </a>
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#前端" title="前端" rel="5">
+                                    前端
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#咖啡" title="咖啡" rel="4">
+                                    咖啡
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#shiro" title="shiro" rel="5">
+                                    shiro
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#摄影" title="摄影" rel="3">
+                                    摄影
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#理财" title="理财" rel="6">
+                                    理财
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#jvm" title="jvm" rel="3">
+                                    jvm
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#MySql" title="MySql" rel="6">
+                                    MySql
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#java8" title="java8" rel="4">
+                                    java8
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#分布式" title="分布式" rel="3">
+                                    分布式
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#MongoDB" title="MongoDB" rel="2">
+                                    MongoDB
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+        			</div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+                    
+                        <li><a href="https://apple.com">Apple</a></li>
+                    
+                        <li><a href="https://www.google.com">google</a></li>
+                    
+                        <li><a href="http://www.cnblogs.com/zuoxiaolong">左潇龙</a></li>
+                    
+                        <li><a href="http://www.importnew.com/">ImportNew</a></li>
+                    
+                        <li><a href="https://www.csdn.net/">CSND</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "uniquezhangqi";
+    var disqus_identifier = "/2019/02/23/编程之路-springboot logback";
+    var disqus_url = "http://localhost:4000/2019/02/23/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-springboot-logback/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <!-- add jianshu add target = "_blank" to <a> by BY -->
+                    
+                    
+                    <li>
+                        <a href="https://twitter.com/Mr_javaian">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/伊恩">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="http://weibo.com/_____ZzZzZzq">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+
+                    
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/schooljavaian@gmail.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/uniquezhangqi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; MY Blog 2019
+                    <br>
+                    Theme on <a href="https://github.com/uniquezhangqi/uniquezhangqi.github.io.git">GitHub</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=uniquezhangqi&repo=uniquezhangqi.github.io&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+<!-- Service Worker -->
+
+<script type="text/javascript">
+    if(navigator.serviceWorker){
+        // For security reasons, a service worker can only control the pages that are in the same directory level or below it. That's why we put sw.js at ROOT level.
+        navigator.serviceWorker
+            .register('/sw.js')
+            .then((registration) => {console.log('Service Worker Registered. ', registration)})
+            .catch((error) => {console.log('ServiceWorker registration failed: ', error)})
+    }
+</script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/ 
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers   
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async('/js/jquery.tagcloud.js',function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-113450573-1';
+    var _gaDomain = 'uniquezhangqi.top';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = 'b50bf2b12b5338a1845e33832976fd68';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;    
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="/img/apple-touch-icon.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

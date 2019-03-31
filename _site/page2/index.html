@@ -183,159 +183,156 @@
             ">
     			
 <div class="post-preview">
-    <a href="/2018/10/27/%E8%87%AA%E6%88%91%E6%80%BB%E7%BB%93-Spring-MVC-Controller%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E6%80%A7%E9%97%AE%E9%A2%98/">
+    <a href="/2019/02/17/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E7%AE%A1%E7%90%86bean%E4%BA%8C%E7%A7%8D%E6%96%B9%E5%BC%8F/">
         <h2 class="post-title">
-            Spring MVC Controller线程安全性问题
-        </h2>
-        
-        <div class="post-content-preview">
-            spring生成对象默认是单例（也就是一个对象）的。通过scope属性为prototype可以更改为多例。
-
-由于只有一个Controller的实例，当多个线程同时调用它的时候，它的成员变量就不是线程安全的。
-
-当然在大多数情况下，我们根本不需要Controller考虑线程安全的问题，除非在类中声明了成员变量。因此Spring MVC的Contrller在编码时，尽量避免使用实例变量。如果一...
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Ian on October 27, 2018
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2018/10/27/shiro-shiro(%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86%E6%A1%86%E6%9E%B6)/">
-        <h2 class="post-title">
-            shiro各个组件及概念
+            动态代理管理bean二种方式
         </h2>
         
         <div class="post-content-preview">
             
-  参考Apache Shiro官方API ：http://shiro.apache.org/architecture.html
+  转载 何锦彬：http://www.cnblogs.com/springsource/archive/2012/08/30/2664050.html
 
 
-shiro
-Apache Shiro是一个强大且易用的Java安全框架,执行身份验证、授权、密码学和会话管理。使用Shiro的易于理解的API,您可以快速、轻松地获得任何应用程序,从最小的移动应用程序到最大的网络和企业应用程序。
+JAVA 代理实现
+代理的实现分动态代理和静态代理，静态代理的实现是对已经生成了的JAVA类进行封装。
 
-Shiro架构有三个主要的...
+动态代理则是在运行时生成了相关代理累，在JAVA中生成动态代理一般有两种方式。
+
+JDK自带实现方法
+JDK实现代理生成，是用类...
         </div>
     </a>
     <p class="post-meta">
-        Posted by Ian on October 27, 2018
+        Posted by Ian on February 17, 2019
     </p>
 </div>
 <hr>
 
 <div class="post-preview">
-    <a href="/2018/10/27/session-%E5%A4%9A%E5%8F%B0%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%85%B1%E4%BA%ABsession%E9%97%AE%E9%A2%98/">
+    <a href="/2019/02/17/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-zipkin%E5%88%86%E5%B8%83%E5%BC%8F%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/">
         <h2 class="post-title">
-            多台服务器共享session问题
-        </h2>
-        
-        <div class="post-content-preview">
-            多台服务器共享session为问题
-当使用多台服务器架设成集群之后，我们通过负载均衡的方式，同一个用户（或者ip）访问时被分配到不同的服务器上，假设在A服务器登录，如果在B服务器拿不到用户的登录信息session。这时访问到B服务器时就出现未登录情况。
-
-通过redis共享session
-　　redis与memcache一样，都是将数据放在内存中。区别的是redis会周期性的把更新的数据写入...
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Ian on October 27, 2018
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2018/10/27/Tomcat-Tomcat%E6%94%AF%E6%8C%81%E7%9A%84%E5%9B%9B%E7%A7%8D%E7%BA%BF%E7%A8%8B%E6%A8%A1%E5%9E%8B/">
-        <h2 class="post-title">
-            Tomcat支持的四种线程模型
+            zipkin分布式链路追踪
         </h2>
         
         <div class="post-content-preview">
             
-  
-    
-      名称
-      描述
-    
-  
-  
-    
-      BIO
-      阻塞式IO，采用传统的java IO进行操作，该模式下每个请求都会创建一个线程，适用于并发量小的场景
-    
-    
-      NIO
-      同步非阻塞，比传统BIO能更好的支持大并发，tomcat 8.0 后默认采用该模式
-    
-    
-      APR...
+  转载 dubbo集成zipkin：https://blog.csdn.net/wenj91/article/details/80926698
+
+
+介绍
+
+Zipkin是一款开源的分布式实时数据追踪系统（Distributed Tracking System），基于 Google Dapper的论文设计而来，由 Twitter 公司开发贡献。其主要功能是聚集来自各个异构系统的实时监控数据...
         </div>
     </a>
     <p class="post-meta">
-        Posted by Ian on October 27, 2018
+        Posted by Ian on February 17, 2019
     </p>
 </div>
 <hr>
 
 <div class="post-preview">
-    <a href="/2018/10/27/MongoDB-MongoDB%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%BB%8B%E7%BB%8D/">
+    <a href="/2019/02/17/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-java8-Lambda%E6%8E%92%E5%BA%8F/">
         <h2 class="post-title">
-            MongoDB的数据类型介绍
+            java8--Lambda排序
         </h2>
         
         <div class="post-content-preview">
             
-  MongoDB官网：https://docs.mongodb.com/manual/reference/bson-types/
+  转载 Java8 - 使用 Comparator.comparing 进行排序 ：https://my.oschina.net/xinxingegeya/blog/2046405
 
 
-MongoDB文档存储是使用BSON类型，BSON（BSON short for Bin­ary JSON, is a bin­ary-en­coded seri­al­iz­a­tion of JSON-like doc­u­ments）是二进制序列化的...
+使用外部比较器Comparator进行排序
+当我们需要对集合的元素进行排序的时候，可以使用java.util.Comparator 创建一个比较器来进行排序。Comparator接口同样也是一个函数式接口...
         </div>
     </a>
     <p class="post-meta">
-        Posted by Ian on October 27, 2018
+        Posted by Ian on February 17, 2019
     </p>
 </div>
 <hr>
 
 <div class="post-preview">
-    <a href="/2018/10/12/%E7%94%9F%E6%B4%BB-Workflow-%E6%8D%B7%E5%BE%84/">
+    <a href="/2019/02/17/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-dubbo-admin/">
         <h2 class="post-title">
-            Workflow（捷径，效率神器）
+            dubbo admin
         </h2>
-        
-        <h3 class="post-subtitle">
-            手机和iPad神器，没有之一
-        </h3>
         
         <div class="post-content-preview">
             
-  本文首次发布于My Blog,作者@张琦(Ian),转载请保留原文链接。
-
-
-手机和iPad神器，没有之一
+  参考 安装dubbo admin– https://blog.csdn.net/javahighness/article/details/81230136
 
 
 
+  git clone https://github.com/apache/incubator-dubbo-ops
+  配置路径：
 
-重要提示：用自带Safari浏览器打开本页面（右上角扩展菜单栏选择Safari打开）后，点击捷径链接即可快速保存到捷径库。
 
 
-  删除最近一张图片(删除图片之前会有个分享，不需要可以删掉，不影响)
 
-https://www.icloud.com/shortcuts/4f...
+
+  修改配置 ：
+
+
+
+
+
+  用maven 打成jar 然后用java -jar ...
         </div>
     </a>
     <p class="post-meta">
-        Posted by Ian on October 12, 2018
+        Posted by Ian on February 17, 2019
     </p>
 </div>
 <hr>
 
 <div class="post-preview">
-    <a href="/2018/09/09/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Java8%E6%96%B0%E7%89%B9%E6%80%A7%E5%AE%9E%E6%88%98/">
+    <a href="/2019/02/17/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-String.format%E8%AF%A6%E8%A7%A3/">
         <h2 class="post-title">
-            Java8新特性实战
+            String.format详解
+        </h2>
+        
+        <div class="post-content-preview">
+            
+  转载 ^_^肥仔John –Java魔法堂：String.format详解： https://www.cnblogs.com/fsjohnhuang/p/4094777.html#a7
+
+
+前言
+String.format 作为文本处理工具，为我们提供强大而丰富的字符串格式化功能，为了不止步于简单调用 String.format(“Hello %s”, “John”);
+
+重载方法
+
+...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Ian on February 17, 2019
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2019/02/17/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-PostConstruct%E6%B3%A8%E8%A7%A3/">
+        <h2 class="post-title">
+            PostConstruct注解
+        </h2>
+        
+        <div class="post-content-preview">
+            最近在公司项目中碰到了@PostConstruct这个注解，不解其意，查阅了下，总结如下：
+
+  从Java EE5规范开始，Servlet中增加了两个影响Servlet生命周期的注解，@PostConstruct和@PreDestroy，这两个注解被用来修饰一个非静态的void（）方法。
+  写法有如下两种方式：@PostConstructpublic void someMethod(){...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Ian on February 17, 2019
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2019/02/05/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%8B%A6%E6%88%AA%E5%99%A8%E5%A4%84%E7%90%86%E8%B7%A8%E5%9F%9F%E9%AA%8C%E8%AF%81token/">
+        <h2 class="post-title">
+            微服务拦截器处理跨域验证token
         </h2>
         
         <div class="post-content-preview">
@@ -343,48 +340,21 @@ https://www.icloud.com/shortcuts/4f...
   本文首次发布于My Blog,作者@张琦(Ian),转载请保留原文链接。
 
 
-引言
-之前有自我总结Java8新特性 和 Java8之前版本的特性两篇 Java8相关的文章，Z公司里面用Java8 的新特性也用的多，越是深入这个越发现这个Lambda越强大，下面直接上例子，理论就不说了。
-
-传递代码：一个例子
-假设你有一个Apple类，它有一个getColor方法，还有一个变量inven...
+import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.alibaba.fastjson.serializer.ValueFilter;
+import com.alibaba.fastjson.support.config.Fa...
         </div>
     </a>
     <p class="post-meta">
-        Posted by Ian on September 9, 2018
+        Posted by Ian on February 5, 2019
     </p>
 </div>
 <hr>
 
 <div class="post-preview">
-    <a href="/2018/09/09/%E7%90%86%E8%B4%A2-%E7%90%86%E8%B4%A2%E5%B0%8F%E7%99%BD%E8%AE%A4%E8%AF%86%E5%9F%BA%E9%87%91/">
+    <a href="/2019/02/05/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-mysql%E8%87%AA%E6%88%91%E6%80%BB%E7%BB%93%E4%B8%80/">
         <h2 class="post-title">
-            理财小白认识基金
-        </h2>
-        
-        <div class="post-content-preview">
-            
-  转载：七点半理财 - https://post.smzdm.com/p/673671/
-
-
-引言
-投资基金，年收益从4%—25%不等。当然，如果行情好，你又选择得当，买到一只年利率50%的基金有可能的~
-
-好的，接来下跟大家讲讲：基金是什么，为什么能帮我们赚钱；基金有哪些种类，它们分别有什么收益、风险；你属于哪种投资人，适合哪种类型的基金；怎么选购基金。
-
-基金是什么，为什么能帮我们赚...
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Ian on September 9, 2018
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2018/08/18/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-MongoDB%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/">
-        <h2 class="post-title">
-            MongoDB常用操作
+            mysql自我总结一
         </h2>
         
         <div class="post-content-preview">
@@ -392,27 +362,33 @@ https://www.icloud.com/shortcuts/4f...
   本文首次发布于My Blog,作者@张琦(Ian),转载请保留原文链接。
 
 
-引言
-最近在用MongoDB 所以总结，方便以后查看，也希望能帮助你。
 
-import org.springframework.data.mongodb.core.MongoTemplate;
 
-@Autowired
-    MongoTemplate mongoTemplate;
+ZEROFILL 补零
 
-    @Overrid...
+零填充会自动使用无符号位
+
+零填充指的是位数固定，如果数值长度不足字段类型的长度，则使用0来填充
+
+
+
+
+
+
+  IFNULL（P1，P2）如果如果P1不为空，则返回值为P1；P1为NULL，则返回为P2；P2有点类似替补球员；
+  注意，IFNULL只是针对局部字段的替换；如果...
         </div>
     </a>
     <p class="post-meta">
-        Posted by Ian on August 18, 2018
+        Posted by Ian on February 5, 2019
     </p>
 </div>
 <hr>
 
 <div class="post-preview">
-    <a href="/2018/08/13/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-UUID/">
+    <a href="/2019/02/04/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E5%87%A0%E7%A7%8D%E8%AF%BB%E5%8F%96%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E7%9A%84%E6%96%B9%E6%B3%95/">
         <h2 class="post-title">
-            UUID
+            几种读取配置文件的方法
         </h2>
         
         <div class="post-content-preview">
@@ -420,16 +396,50 @@ import org.springframework.data.mongodb.core.MongoTemplate;
   本文首次发布于My Blog,作者@张琦(Ian),转载请保留原文链接。
 
 
-import java.util.UUID;
-
-public class UuidTool {
-    public static String get4UUID() {
-        UUID id = UUID.randomUUID();
-        String[] idd = id.toStri...
+/**
+ * web层全局常量配置帮助类
+ */
+public class GlobalSetting {
+	private static final String FILE_NAME = "/global.properties";
+	private GlobalSetting(){}
+	private st...
         </div>
     </a>
     <p class="post-meta">
-        Posted by Ian on August 13, 2018
+        Posted by Ian on February 4, 2019
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2018/11/04/%E4%BD%BF%E7%94%A8ConfigFilter%E5%9C%A8Spring-Boot%E9%85%8D%E7%BD%AE%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AF%86%E7%A0%81%E5%8A%A0%E8%A7%A3%E5%AF%86/">
+        <h2 class="post-title">
+            使用ConfigFilter在Spring Boot配置数据库密码加解密
+        </h2>
+        
+        <div class="post-content-preview">
+            
+  本文首次发布于My Blog,作者@张琦(Ian),转载请保留原文链接。
+
+
+使用ConfigFilter
+
+ConfigFilter的作用包括：
+
+
+  从配置文件中读取配置
+  从远程http文件中读取配置
+  为数据库密码提供加密功能
+
+
+1 配置ConfigFilter
+
+1.1 配置文件从本地文件系统中读取
+ &lt;bean id="dataSource" class="c...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Ian on November 4, 2018
     </p>
 </div>
 <hr>
@@ -468,7 +478,7 @@ public class UuidTool {
                     <div class="tags">
                         
                             
-                                <a href="/tags/#生活" title="生活" rel="18">
+                                <a href="/tags/#生活" title="生活" rel="21">
                                     生活
                                 </a>
                             
@@ -476,13 +486,13 @@ public class UuidTool {
                             
                         
                             
-                                <a href="/tags/#自我总结" title="自我总结" rel="31">
+                                <a href="/tags/#自我总结" title="自我总结" rel="34">
                                     自我总结
                                 </a>
                             
                         
                             
-                                <a href="/tags/#编程之路" title="编程之路" rel="80">
+                                <a href="/tags/#编程之路" title="编程之路" rel="88">
                                     编程之路
                                 </a>
                             
@@ -548,7 +558,7 @@ public class UuidTool {
                             
                         
                             
-                                <a href="/tags/#理财" title="理财" rel="5">
+                                <a href="/tags/#理财" title="理财" rel="6">
                                     理财
                                 </a>
                             

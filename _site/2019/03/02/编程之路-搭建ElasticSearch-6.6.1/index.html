@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Always on the way of programming.">
+    <meta name="keywords"  content=" MY Blog, 伊恩的博客, Ian, 伊恩, java, Apple">
+    <meta name="theme-color" content="#000000">
+    
+    <title>搭建ElasticSearch 6.6.1 - 伊恩的博客 | MY Blog</title>
+
+    <!-- Web App Manifest -->
+    <link rel="manifest" href="/pwa/manifest.json">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="/img/favicon.ico">
+
+    <!-- Safari Webpage Icon    by-BY -->
+    <link rel="apple-touch-icon" href="/img/apple-touch-icon.png">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="http://localhost:4000/2019/03/02/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E6%90%AD%E5%BB%BAElasticSearch-6.6.1/">
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/hux-blog.min.css">
+
+    <!-- Pygments Github CSS -->
+    <link rel="stylesheet" href="/css/syntax.css">
+
+    <!-- Custom Fonts -->
+    <!-- <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"> -->
+    <!-- Hux change font-awesome CDN to qiniu -->
+    <link href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- Hux Delete, sad but pending in China
+    <link href='http://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/
+    css'>
+    -->
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+
+<!-- hack iOS CSS :active style -->
+<body ontouchstart="">
+
+    <!-- Navigation -->
+<nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header page-scroll">
+            <button type="button" class="navbar-toggle">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">MY Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div id="huxblog_navbar">
+            <div class="navbar-collapse">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/">Home</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/about/">About</a>
+                    </li>
+                    
+                    <li>
+                        <a href="/tags/">Tags</a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+<script>
+    // Drop Bootstarp low-performance Navbar
+    // Use customize navbar with high-quality material design animation
+    // in high-perf jank-free CSS3 implementation
+    var $body   = document.body;
+    var $toggle = document.querySelector('.navbar-toggle');
+    var $navbar = document.querySelector('#huxblog_navbar');
+    var $collapse = document.querySelector('.navbar-collapse');
+
+    var __HuxNav__ = {
+        close: function(){
+            $navbar.className = " ";
+            // wait until animation end.
+            setTimeout(function(){
+                // prevent frequently toggle
+                if($navbar.className.indexOf('in') < 0) {
+                    $collapse.style.height = "0px"
+                }
+            },400)
+        },
+        open: function(){
+            $collapse.style.height = "auto"
+            $navbar.className += " in";
+        }
+    }
+
+    // Bind Event
+    $toggle.addEventListener('click', function(e){
+        if ($navbar.className.indexOf('in') > 0) {
+            __HuxNav__.close()
+        }else{
+            __HuxNav__.open()
+        }
+    })
+
+    /**
+     * Since Fastclick is used to delegate 'touchstart' globally
+     * to hack 300ms delay in iOS by performing a fake 'click',
+     * Using 'e.stopPropagation' to stop 'touchstart' event from 
+     * $toggle/$collapse will break global delegation.
+     * 
+     * Instead, we use a 'e.target' filter to prevent handler
+     * added to document close HuxNav.  
+     *
+     * Also, we use 'click' instead of 'touchstart' as compromise
+     */
+    document.addEventListener('click', function(e){
+        if(e.target == $toggle) return;
+        if(e.target.className == 'icon-bar') return;
+        __HuxNav__.close();
+    })
+</script>
+
+
+    <!-- Image to hack wechat -->
+<!-- <img src="/img/icon_wechat.png" width="0" height="0"> -->
+<!-- <img src="/img/ian-bg-red.jpg" width="0" height="0"> -->
+
+<!-- Post Header -->
+<style type="text/css">
+    header.intro-header{
+        position: relative;
+        background-image: url('/img/ian-bg-red.jpg')
+    }
+
+    
+</style>
+<header class="intro-header" >
+    <div class="header-mask"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <div class="post-heading">
+                    <div class="tags">
+                        
+                        <a class="tag" href="/tags/#编程之路" title="编程之路">编程之路</a>
+                        
+                        <a class="tag" href="/tags/#自我总结" title="自我总结">自我总结</a>
+                        
+                    </div>
+                    <h1>搭建ElasticSearch 6.6.1</h1>
+                    
+                    
+                    <h2 class="subheading"></h2>
+                    
+                    <span class="meta">Posted by Ian on March 2, 2019</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+    <!-- Post Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                post-container">
+
+				<blockquote>
+  <p>本文首次发布于<a href="http://uniquezhangqi.top">My Blog</a>,作者<a href="http://uniquezhangqi.top/about/">@张琦(Ian)</a>,转载请保留原文链接。</p>
+</blockquote>
+
+<h2 id="引言">引言</h2>
+<p>虚拟机、服务器 系统请参考最下面的参考链接，下面安装只适用Mac book。</p>
+
+<h2 id="安装es">安装ES</h2>
+
+<ul>
+  <li>使用HomeBrew包管理器 安装 brew install elasticsearch.</li>
+  <li>官方文档：https://www.elastic.co/guide/cn/elasticsearch/guide/current/index.html</li>
+</ul>
+
+<h3 id="启动">启动：</h3>
+
+<ul>
+  <li>到安装根目录下 sh ./bin/elasticsearch</li>
+  <li>或者 到bin目录下  直接 elasticsearch</li>
+</ul>
+
+<p><img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2019-03-02-es%20start.png" alt="" /></p>
+
+<h3 id="踩坑">踩坑</h3>
+<p>如果用root账号启动，是会报错的，网上搜索得知这个是ES的一个坑 ~</p>
+
+<p>Mac 不能使用 groupadd 、useradd 创建普通用户 和 群组，需使用：
+<img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2019-03-02-%E5%88%9B%E5%BB%BA%E8%B4%A6%E5%8F%B7.png" alt="" />
+<img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2019-03-02-%E6%99%AE%E9%80%9A%E8%B4%A6%E5%8F%B7.png" alt="" /></p>
+
+<h4 id="切换用户">切换用户：</h4>
+<p>su - 用户名</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>例如： su - es
+</code></pre></div></div>
+
+<h3 id="踩坑-1">踩坑</h3>
+<p>用root跟普通账号给指定目录权限：
+<code class="highlighter-rouge">sudo chown -R es:staff elasticsearch</code></p>
+
+<p>chown -R 普通用户名(这里不是全名称): 群组 elasticsearch</p>
+
+<p>只要是elasticsearch 的目录都需要给权限。</p>
+
+<h3 id="修改配置">修改配置</h3>
+<p>head插件与ElasticSearch是两个独立的进程，解决它们之间的访问跨域问题，需要在elasticsearch.yml 最末端加入：</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http.cors.enabled: true
+http.cors.allow-origin: "*"
+</code></pre></div></div>
+
+<p><a href="https://asciinema.org/a/HgcuLjyNwMquu6Sx5opAQ8FIJ"><img src="https://asciinema.org/a/HgcuLjyNwMquu6Sx5opAQ8FIJ.svg" alt="asciicast" /></a></p>
+
+<h3 id="踩坑-2">踩坑</h3>
+<p><img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2019-03-02-%E6%9B%BF%E6%8D%A2%E6%96%87%E4%BB%B6%E5%90%8D-1.png" alt="" /></p>
+
+<p>截图里面的2个配置文件都需要跟自己的default配置文件相互修改对应的名字，不然会报错。
+它这里是优先使用没有.default的配置文件。</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>例子： 
+1. A   A.default     A 改为 A.其它   A.default 改为 A
+2. B   B.default	 B 改为 B.其它   B.default 改为 B
+</code></pre></div></div>
+
+<h3 id="可能会使用">可能会使用</h3>
+<p>查看：
+ps -ef|grep elasticsearch</p>
+
+<p>关闭：
+kill -9 29617</p>
+
+<h2 id="安装head插件">安装head插件</h2>
+
+<p>GitHub：elasticsearch-head – <a href="https://github.com/mobz/elasticsearch-head">https://github.com/mobz/elasticsearch-head</a>下载下来。</p>
+
+<h3 id="需要安装node">需要安装node：</h3>
+
+<ul>
+  <li>brew install node</li>
+  <li>node -v</li>
+  <li>到 elasticsearch-head 根目录下第一次 npm install 再 npm run start ；
+elasticsearch-head 没更新的话，第二次直接 npm run start 就好；
+<img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2019-03-02-es-head%20start.png" alt="" /></li>
+</ul>
+
+<h2 id="成功结果截图">成功结果截图</h2>
+<p><img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2019-03-02-html%20view.png" alt="" /></p>
+
+<blockquote>
+  <p>参考1：https://juejin.im/post/59cb1cbf6fb9a00a3f24fc32#heading-10</p>
+
+  <p>参考2：https://www.cnblogs.com/liuxiaoming123/p/8081883.html</p>
+
+  <p>参考3：https://segmentfault.com/a/1190000015676868</p>
+</blockquote>
+
+<p>文章中若有不足之处，还望指出。坚持是一种精神，分享是一种快乐！</p>
+
+
+
+                <hr style="visibility: hidden;">
+
+                <ul class="pager">
+                    
+                    <li class="previous">
+                        <a href="/2019/02/23/%E7%94%9F%E6%B4%BB-%E5%AE%9A%E6%8A%95%E5%9F%BA%E9%87%91/" data-toggle="tooltip" data-placement="top" title="定投基金">
+                        Previous<br>
+                        <span>定投基金</span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li class="next">
+                        <a href="/2019/03/03/%E7%94%9F%E6%B4%BB-%E6%9C%80%E5%BC%BA%E5%A4%A7%E8%84%91-%E8%89%B2%E5%9D%97%E8%BF%B7%E8%B8%AA-%E8%96%9B%E8%BF%9C%E7%A8%8B%E8%A7%A3%E9%A2%98%E8%A7%A3%E6%9E%90/" data-toggle="tooltip" data-placement="top" title="最强大脑《色块迷踪》-- 薛远程解题解析">
+                        Next<br>
+                        <span>最强大脑《色块迷踪》-- 薛远程解题解析</span>
+                        </a>
+                    </li>
+                    
+                </ul>
+
+
+                <!--Gitalk评论start  -->
+                
+                <!-- Gitalk end -->
+
+                
+                <!-- disqus 评论框 start -->
+                <div class="comment">
+                    <div id="disqus_thread" class="disqus-thread"></div>
+                </div>
+                <!-- disqus 评论框 end -->
+                
+
+            </div>  
+
+    <!-- Side Catalog Container -->
+        
+            <div class="
+                col-lg-2 col-lg-offset-0
+                visible-lg-block
+                sidebar-container
+                catalog-container">
+                <div class="side-catalog">
+                    <hr class="hidden-sm hidden-xs">
+                    <h5>
+                        <a class="catalog-toggle" href="#">CATALOG</a>
+                    </h5>
+                    <ul class="catalog-body"></ul>
+                </div>
+            </div>
+        
+
+    <!-- Sidebar Container -->
+            <div class="
+                col-lg-8 col-lg-offset-2
+                col-md-10 col-md-offset-1
+                sidebar-container">
+
+                <!-- Featured Tags -->
+                
+                <section>
+                    <hr class="hidden-sm hidden-xs">
+                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <div class="tags">
+        				
+                            
+                				<a href="/tags/#生活" title="生活" rel="21">
+                                    生活
+                                </a>
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#自我总结" title="自我总结" rel="34">
+                                    自我总结
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#编程之路" title="编程之路" rel="88">
+                                    编程之路
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#设计模式" title="设计模式" rel="4">
+                                    设计模式
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#杂谈" title="杂谈" rel="6">
+                                    杂谈
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#随笔" title="随笔" rel="6">
+                                    随笔
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#Quartz" title="Quartz" rel="2">
+                                    Quartz
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#SpringDataJPA" title="SpringDataJPA" rel="2">
+                                    SpringDataJPA
+                                </a>
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#前端" title="前端" rel="5">
+                                    前端
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#咖啡" title="咖啡" rel="4">
+                                    咖啡
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#shiro" title="shiro" rel="5">
+                                    shiro
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#摄影" title="摄影" rel="3">
+                                    摄影
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#理财" title="理财" rel="6">
+                                    理财
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#jvm" title="jvm" rel="3">
+                                    jvm
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#MySql" title="MySql" rel="6">
+                                    MySql
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+                				<a href="/tags/#java8" title="java8" rel="4">
+                                    java8
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#分布式" title="分布式" rel="3">
+                                    分布式
+                                </a>
+                            
+        				
+                            
+                				<a href="/tags/#MongoDB" title="MongoDB" rel="2">
+                                    MongoDB
+                                </a>
+                            
+        				
+                            
+        				
+                            
+        				
+                            
+        				
+        			</div>
+                </section>
+                
+
+                <!-- Friends Blog -->
+                
+                <hr>
+                <h5>FRIENDS</h5>
+                <ul class="list-inline">
+                    
+                        <li><a href="https://apple.com">Apple</a></li>
+                    
+                        <li><a href="https://www.google.com">google</a></li>
+                    
+                        <li><a href="http://www.cnblogs.com/zuoxiaolong">左潇龙</a></li>
+                    
+                        <li><a href="http://www.importnew.com/">ImportNew</a></li>
+                    
+                        <li><a href="https://www.csdn.net/">CSND</a></li>
+                    
+                </ul>
+                
+            </div>
+        </div>
+    </div>
+</article>
+
+
+
+<!-- disqus 公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = "uniquezhangqi";
+    var disqus_identifier = "/2019/03/02/编程之路-搭建ElasticSearch 6.6.1";
+    var disqus_url = "http://localhost:4000/2019/03/02/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E6%90%AD%E5%BB%BAElasticSearch-6.6.1/";
+
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<!-- disqus 公共JS代码 end -->
+
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+<!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
+        anchors.options = {
+          visible: 'always',
+          placement: 'right',
+          icon: '#'
+        };
+        anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
+    })
+</script>
+<style>
+    /* place left on bigger screen */
+    @media all and (min-width: 800px) {
+        .anchorjs-link{
+            position: absolute;
+            left: -0.75em;
+            font-size: 1.1em;
+            margin-top : -0.1em;
+        }
+    }
+</style>
+
+
+    <!-- Footer -->
+<footer>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <ul class="list-inline text-center">
+                    
+                    <!-- add jianshu add target = "_blank" to <a> by BY -->
+                    
+                    
+                    <li>
+                        <a href="https://twitter.com/Mr_javaian">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+                    <!-- add Weibo, Zhihu by Hux, add target = "_blank" to <a> by Hux -->
+                    
+                    <li>
+                        <a target="_blank" href="https://www.zhihu.com/people/伊恩">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa  fa-stack-1x fa-inverse">知</i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="http://weibo.com/_____ZzZzZzq">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-weibo fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+
+
+                    
+                    <li>
+                        <a target="_blank" href="https://www.facebook.com/schooljavaian@gmail.com">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                    <li>
+                        <a target="_blank" href="https://github.com/uniquezhangqi">
+                            <span class="fa-stack fa-lg">
+                                <i class="fa fa-circle fa-stack-2x"></i>
+                                <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                            </span>
+                        </a>
+                    </li>
+                    
+                    
+                </ul>
+                <p class="copyright text-muted">
+                    Copyright &copy; MY Blog 2019
+                    <br>
+                    Theme on <a href="https://github.com/uniquezhangqi/uniquezhangqi.github.io.git">GitHub</a> |
+                    <iframe
+                        style="margin-left: 2px; margin-bottom:-5px;"
+                        frameborder="0" scrolling="0" width="100px" height="20px"
+                        src="https://ghbtns.com/github-btn.html?user=uniquezhangqi&repo=uniquezhangqi.github.io&type=star&count=true" >
+                    </iframe>
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- jQuery -->
+<script src="/js/jquery.min.js "></script>
+
+<!-- Bootstrap Core JavaScript -->
+<script src="/js/bootstrap.min.js "></script>
+
+<!-- Custom Theme JavaScript -->
+<script src="/js/hux-blog.min.js "></script>
+
+<!-- Service Worker -->
+
+<script type="text/javascript">
+    if(navigator.serviceWorker){
+        // For security reasons, a service worker can only control the pages that are in the same directory level or below it. That's why we put sw.js at ROOT level.
+        navigator.serviceWorker
+            .register('/sw.js')
+            .then((registration) => {console.log('Service Worker Registered. ', registration)})
+            .catch((error) => {console.log('ServiceWorker registration failed: ', error)})
+    }
+</script>
+
+
+
+<!-- async load function -->
+<script>
+    function async(u, c) {
+      var d = document, t = 'script',
+          o = d.createElement(t),
+          s = d.getElementsByTagName(t)[0];
+      o.src = u;
+      if (c) { o.addEventListener('load', function (e) { c(null, e); }, false); }
+      s.parentNode.insertBefore(o, s);
+    }
+</script>
+
+<!-- 
+     Because of the native support for backtick-style fenced code blocks 
+     right within the Markdown is landed in Github Pages, 
+     From V1.6, There is no need for Highlight.js, 
+     so Huxblog drops it officially.
+
+     - https://github.com/blog/2100-github-pages-now-faster-and-simpler-with-jekyll-3-0  
+     - https://help.github.com/articles/creating-and-highlighting-code-blocks/ 
+     - https://github.com/jneen/rouge/wiki/list-of-supported-languages-and-lexers   
+-->
+<!--
+    <script>
+        async("http://cdn.bootcss.com/highlight.js/8.6/highlight.min.js", function(){
+            hljs.initHighlightingOnLoad();
+        })
+    </script>
+    <link href="http://cdn.bootcss.com/highlight.js/8.6/styles/github.min.css" rel="stylesheet">
+-->
+
+
+<!-- jquery.tagcloud.js -->
+<script>
+    // only load tagcloud.js in tag.html
+    if($('#tag_cloud').length !== 0){
+        async('/js/jquery.tagcloud.js',function(){
+            $.fn.tagcloud.defaults = {
+                //size: {start: 1, end: 1, unit: 'em'},
+                color: {start: '#bbbbee', end: '#0085a1'},
+            };
+            $('#tag_cloud a').tagcloud();
+        })
+    }
+</script>
+
+<!--fastClick.js -->
+<script>
+    async("//cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js", function(){
+        var $nav = document.querySelector("nav");
+        if($nav) FastClick.attach($nav);
+    })
+</script>
+
+
+<!-- Google Analytics -->
+
+<script>
+    // dynamic User by Hux
+    var _gaId = 'UA-113450573-1';
+    var _gaDomain = 'uniquezhangqi.top';
+
+    // Originial
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', _gaId, _gaDomain);
+    ga('send', 'pageview');
+</script>
+
+
+
+<!-- Baidu Tongji -->
+
+<script>
+    // dynamic User by Hux
+    var _baId = 'b50bf2b12b5338a1845e33832976fd68';
+
+    // Originial
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?" + _baId;
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+</script>
+
+
+
+
+<!-- Side Catalog -->
+
+<script type="text/javascript">
+    function generateCatalog (selector) {
+        var P = $('div.post-container'),a,n,t,l,i,c;
+        a = P.find('h1,h2,h3,h4,h5,h6');
+        a.each(function () {
+            n = $(this).prop('tagName').toLowerCase();
+            i = "#"+$(this).prop('id');
+            t = $(this).text();
+            c = $('<a href="'+i+'" rel="nofollow">'+t+'</a>');
+            l = $('<li class="'+n+'_nav"></li>').append(c);
+            $(selector).append(l);
+        });
+        return true;    
+    }
+
+    generateCatalog(".catalog-body");
+
+    // toggle side catalog
+    $(".catalog-toggle").click((function(e){
+        e.preventDefault();
+        $('.side-catalog').toggleClass("fold")
+    }))
+
+    /*
+     * Doc: https://github.com/davist11/jQuery-One-Page-Nav
+     * Fork by Hux to support padding
+     */
+    async("/js/jquery.nav.js", function () {
+        $('.catalog-body').onePageNav({
+            currentClass: "active",
+            changeHash: !1,
+            easing: "swing",
+            filter: "",
+            scrollSpeed: 700,
+            scrollOffset: 0,
+            scrollThreshold: .2,
+            begin: null,
+            end: null,
+            scrollChange: null,
+            padding: 80
+        });
+    });
+</script>
+
+
+
+
+
+<!-- Image to hack wechat -->
+<img src="/img/apple-touch-icon.png" width="0" height="0" />
+<!-- Migrate from head to bottom, no longer block render and still work -->
+
+</body>
+
+</html>

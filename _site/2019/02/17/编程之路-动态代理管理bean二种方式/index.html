@@ -556,8 +556,20 @@ public class TestBeans {
 <span class="k">do</span> <span class="n">something</span> <span class="n">in</span> <span class="n">after</span>
 </code></pre></div></div>
 <h3 id="结论">结论</h3>
-<p>Spring AOP中，当拦截对象实现了接口时，生成方式是用JDK的Proxy类。当没有实现任何接口时用的是GCLIB开源项目生成的拦截类的子类.</p>
-
+<ul>
+  <li>
+    <p>在spring框架中，动态代理的策略是如果被拦截的方法，是接口中定义的方法，以jdk动态代理生成代理对象，实现通知；否则，使用cglib进行生成子类代理实例，实现通知；事实上，无论是否在接口中定义的方法，均可使用cglib生成动态代理对象，完成拦截和通知，是更通用的方式，但由于jdk动态代理的性能更佳，因此spring框架中优先选择jdk动态代理技术。</p>
+  </li>
+  <li>
+    <p>spring实现aop，动态代理技术的两种实现是jdk动态代理、cglib代理，根据被通知的方法是否为接口方法，来选择使用哪种代理生成策略</p>
+  </li>
+  <li>
+    <p>jdk动态代理，原理是实现接口的实例，拦截定义于接口中的目标方法，性能更优，是spring生成代理的优先选择</p>
+  </li>
+  <li>
+    <p>cglib代理，原理是使用cglib库中的字节码动态生成技术，生成被代理类的子类实例，可以拦截代理类中的任一public方法的调用，无论目标方法是否定义于接口中，更通用，但性能相对jdk代理差一些；</p>
+  </li>
+</ul>
 
 
                 <hr style="visibility: hidden;">
@@ -571,6 +583,13 @@ public class TestBeans {
                         </a>
                     </li>
                     
+                    
+                    <li class="next">
+                        <a href="/2019/02/23/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-AOP%E5%AE%9E%E7%8E%B0%E6%97%A5%E5%BF%97/" data-toggle="tooltip" data-placement="top" title="AOP实现日志">
+                        Next<br>
+                        <span>AOP实现日志</span>
+                        </a>
+                    </li>
                     
                 </ul>
 
@@ -620,7 +639,7 @@ public class TestBeans {
                     <div class="tags">
         				
                             
-                				<a href="/tags/#生活" title="生活" rel="18">
+                				<a href="/tags/#生活" title="生活" rel="21">
                                     生活
                                 </a>
                             
@@ -628,13 +647,13 @@ public class TestBeans {
                             
         				
                             
-                				<a href="/tags/#自我总结" title="自我总结" rel="31">
+                				<a href="/tags/#自我总结" title="自我总结" rel="34">
                                     自我总结
                                 </a>
                             
         				
                             
-                				<a href="/tags/#编程之路" title="编程之路" rel="80">
+                				<a href="/tags/#编程之路" title="编程之路" rel="88">
                                     编程之路
                                 </a>
                             
@@ -700,7 +719,7 @@ public class TestBeans {
                             
         				
                             
-                				<a href="/tags/#理财" title="理财" rel="5">
+                				<a href="/tags/#理财" title="理财" rel="6">
                                     理财
                                 </a>
                             
