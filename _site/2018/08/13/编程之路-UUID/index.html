@@ -206,9 +206,9 @@
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">java.util.UUID</span><span class="o">;</span>
 
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">UuidTool</span> <span class="o">{</span>
-    <span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="nf">get4UUID</span><span class="o">()</span> <span class="o">{</span>
-        <span class="n">UUID</span> <span class="n">id</span> <span class="o">=</span> <span class="n">UUID</span><span class="o">.</span><span class="na">randomUUID</span><span class="o">();</span>
-        <span class="n">String</span><span class="o">[]</span> <span class="n">idd</span> <span class="o">=</span> <span class="n">id</span><span class="o">.</span><span class="na">toString</span><span class="o">().</span><span class="na">split</span><span class="o">(</span><span class="s">"-"</span><span class="o">);</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="nc">String</span> <span class="nf">get4UUID</span><span class="o">()</span> <span class="o">{</span>
+        <span class="no">UUID</span> <span class="n">id</span> <span class="o">=</span> <span class="no">UUID</span><span class="o">.</span><span class="na">randomUUID</span><span class="o">();</span>
+        <span class="nc">String</span><span class="o">[]</span> <span class="n">idd</span> <span class="o">=</span> <span class="n">id</span><span class="o">.</span><span class="na">toString</span><span class="o">().</span><span class="na">split</span><span class="o">(</span><span class="s">"-"</span><span class="o">);</span>
         <span class="k">return</span> <span class="n">idd</span><span class="o">[</span><span class="mi">1</span><span class="o">];</span>
     <span class="o">}</span>
 
@@ -217,9 +217,9 @@
      *
      * @return UUID
      */</span>
-    <span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="nf">get8UUID</span><span class="o">()</span> <span class="o">{</span>
-        <span class="n">UUID</span> <span class="n">id</span> <span class="o">=</span> <span class="n">UUID</span><span class="o">.</span><span class="na">randomUUID</span><span class="o">();</span>
-        <span class="n">String</span><span class="o">[]</span> <span class="n">idd</span> <span class="o">=</span> <span class="n">id</span><span class="o">.</span><span class="na">toString</span><span class="o">().</span><span class="na">split</span><span class="o">(</span><span class="s">"-"</span><span class="o">);</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="nc">String</span> <span class="nf">get8UUID</span><span class="o">()</span> <span class="o">{</span>
+        <span class="no">UUID</span> <span class="n">id</span> <span class="o">=</span> <span class="no">UUID</span><span class="o">.</span><span class="na">randomUUID</span><span class="o">();</span>
+        <span class="nc">String</span><span class="o">[]</span> <span class="n">idd</span> <span class="o">=</span> <span class="n">id</span><span class="o">.</span><span class="na">toString</span><span class="o">().</span><span class="na">split</span><span class="o">(</span><span class="s">"-"</span><span class="o">);</span>
         <span class="k">return</span> <span class="n">idd</span><span class="o">[</span><span class="mi">0</span><span class="o">];</span>
     <span class="o">}</span>
 
@@ -228,9 +228,9 @@
      *
      * @return UUID
      */</span>
-    <span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="nf">get12UUID</span><span class="o">()</span> <span class="o">{</span>
-        <span class="n">UUID</span> <span class="n">id</span> <span class="o">=</span> <span class="n">UUID</span><span class="o">.</span><span class="na">randomUUID</span><span class="o">();</span>
-        <span class="n">String</span><span class="o">[]</span> <span class="n">idd</span> <span class="o">=</span> <span class="n">id</span><span class="o">.</span><span class="na">toString</span><span class="o">().</span><span class="na">split</span><span class="o">(</span><span class="s">"-"</span><span class="o">);</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="nc">String</span> <span class="nf">get12UUID</span><span class="o">()</span> <span class="o">{</span>
+        <span class="no">UUID</span> <span class="n">id</span> <span class="o">=</span> <span class="no">UUID</span><span class="o">.</span><span class="na">randomUUID</span><span class="o">();</span>
+        <span class="nc">String</span><span class="o">[]</span> <span class="n">idd</span> <span class="o">=</span> <span class="n">id</span><span class="o">.</span><span class="na">toString</span><span class="o">().</span><span class="na">split</span><span class="o">(</span><span class="s">"-"</span><span class="o">);</span>
         <span class="k">return</span> <span class="n">idd</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span> <span class="o">+</span> <span class="n">idd</span><span class="o">[</span><span class="mi">1</span><span class="o">];</span>
     <span class="o">}</span>
 
@@ -239,10 +239,10 @@
      *
      * @return UUID
      */</span>
-    <span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="nf">get16UUID</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="nc">String</span> <span class="nf">get16UUID</span><span class="o">()</span> <span class="o">{</span>
 
-        <span class="n">UUID</span> <span class="n">id</span> <span class="o">=</span> <span class="n">UUID</span><span class="o">.</span><span class="na">randomUUID</span><span class="o">();</span>
-        <span class="n">String</span><span class="o">[]</span> <span class="n">idd</span> <span class="o">=</span> <span class="n">id</span><span class="o">.</span><span class="na">toString</span><span class="o">().</span><span class="na">split</span><span class="o">(</span><span class="s">"-"</span><span class="o">);</span>
+        <span class="no">UUID</span> <span class="n">id</span> <span class="o">=</span> <span class="no">UUID</span><span class="o">.</span><span class="na">randomUUID</span><span class="o">();</span>
+        <span class="nc">String</span><span class="o">[]</span> <span class="n">idd</span> <span class="o">=</span> <span class="n">id</span><span class="o">.</span><span class="na">toString</span><span class="o">().</span><span class="na">split</span><span class="o">(</span><span class="s">"-"</span><span class="o">);</span>
         <span class="k">return</span> <span class="n">idd</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span> <span class="o">+</span> <span class="n">idd</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span> <span class="o">+</span> <span class="n">idd</span><span class="o">[</span><span class="mi">2</span><span class="o">];</span>
     <span class="o">}</span>
 
@@ -251,10 +251,10 @@
      *
      * @return UUID
      */</span>
-    <span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="nf">get20UUID</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="nc">String</span> <span class="nf">get20UUID</span><span class="o">()</span> <span class="o">{</span>
 
-        <span class="n">UUID</span> <span class="n">id</span> <span class="o">=</span> <span class="n">UUID</span><span class="o">.</span><span class="na">randomUUID</span><span class="o">();</span>
-        <span class="n">String</span><span class="o">[]</span> <span class="n">idd</span> <span class="o">=</span> <span class="n">id</span><span class="o">.</span><span class="na">toString</span><span class="o">().</span><span class="na">split</span><span class="o">(</span><span class="s">"-"</span><span class="o">);</span>
+        <span class="no">UUID</span> <span class="n">id</span> <span class="o">=</span> <span class="no">UUID</span><span class="o">.</span><span class="na">randomUUID</span><span class="o">();</span>
+        <span class="nc">String</span><span class="o">[]</span> <span class="n">idd</span> <span class="o">=</span> <span class="n">id</span><span class="o">.</span><span class="na">toString</span><span class="o">().</span><span class="na">split</span><span class="o">(</span><span class="s">"-"</span><span class="o">);</span>
         <span class="k">return</span> <span class="n">idd</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span> <span class="o">+</span> <span class="n">idd</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span> <span class="o">+</span> <span class="n">idd</span><span class="o">[</span><span class="mi">2</span><span class="o">]</span> <span class="o">+</span> <span class="n">idd</span><span class="o">[</span><span class="mi">3</span><span class="o">];</span>
     <span class="o">}</span>
 
@@ -263,9 +263,9 @@
      *
      * @return UUID
      */</span>
-    <span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="nf">get24UUID</span><span class="o">()</span> <span class="o">{</span>
-        <span class="n">UUID</span> <span class="n">id</span> <span class="o">=</span> <span class="n">UUID</span><span class="o">.</span><span class="na">randomUUID</span><span class="o">();</span>
-        <span class="n">String</span><span class="o">[]</span> <span class="n">idd</span> <span class="o">=</span> <span class="n">id</span><span class="o">.</span><span class="na">toString</span><span class="o">().</span><span class="na">split</span><span class="o">(</span><span class="s">"-"</span><span class="o">);</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="nc">String</span> <span class="nf">get24UUID</span><span class="o">()</span> <span class="o">{</span>
+        <span class="no">UUID</span> <span class="n">id</span> <span class="o">=</span> <span class="no">UUID</span><span class="o">.</span><span class="na">randomUUID</span><span class="o">();</span>
+        <span class="nc">String</span><span class="o">[]</span> <span class="n">idd</span> <span class="o">=</span> <span class="n">id</span><span class="o">.</span><span class="na">toString</span><span class="o">().</span><span class="na">split</span><span class="o">(</span><span class="s">"-"</span><span class="o">);</span>
         <span class="k">return</span> <span class="n">idd</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span> <span class="o">+</span> <span class="n">idd</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span> <span class="o">+</span> <span class="n">idd</span><span class="o">[</span><span class="mi">4</span><span class="o">];</span>
     <span class="o">}</span>
 
@@ -274,11 +274,59 @@
      *
      * @return UUID
      */</span>
-    <span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="nf">get32UUID</span><span class="o">()</span> <span class="o">{</span>
-        <span class="n">UUID</span> <span class="n">id</span> <span class="o">=</span> <span class="n">UUID</span><span class="o">.</span><span class="na">randomUUID</span><span class="o">();</span>
-        <span class="n">String</span><span class="o">[]</span> <span class="n">idd</span> <span class="o">=</span> <span class="n">id</span><span class="o">.</span><span class="na">toString</span><span class="o">().</span><span class="na">split</span><span class="o">(</span><span class="s">"-"</span><span class="o">);</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="nc">String</span> <span class="nf">get32UUID</span><span class="o">()</span> <span class="o">{</span>
+        <span class="no">UUID</span> <span class="n">id</span> <span class="o">=</span> <span class="no">UUID</span><span class="o">.</span><span class="na">randomUUID</span><span class="o">();</span>
+        <span class="nc">String</span><span class="o">[]</span> <span class="n">idd</span> <span class="o">=</span> <span class="n">id</span><span class="o">.</span><span class="na">toString</span><span class="o">().</span><span class="na">split</span><span class="o">(</span><span class="s">"-"</span><span class="o">);</span>
         <span class="k">return</span> <span class="n">idd</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span> <span class="o">+</span> <span class="n">idd</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span> <span class="o">+</span> <span class="n">idd</span><span class="o">[</span><span class="mi">2</span><span class="o">]</span> <span class="o">+</span> <span class="n">idd</span><span class="o">[</span><span class="mi">3</span><span class="o">]</span> <span class="o">+</span> <span class="n">idd</span><span class="o">[</span><span class="mi">4</span><span class="o">];</span>
     <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
+ * UUID生成类
+ *
+ */</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">GeneratorUUIDUtil</span> <span class="o">{</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="nc">String</span> <span class="nf">generatorUUID</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">String</span> <span class="n">uuid</span> <span class="o">=</span> <span class="no">UUID</span><span class="o">.</span><span class="na">randomUUID</span><span class="o">().</span><span class="na">toString</span><span class="o">().</span><span class="na">trim</span><span class="o">().</span><span class="na">replaceAll</span><span class="o">(</span><span class="s">"-"</span><span class="o">,</span> <span class="s">""</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">uuid</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="nc">String</span> <span class="nf">generatorUUID</span><span class="o">(</span><span class="kt">int</span> <span class="n">len</span><span class="o">){</span>
+    	<span class="nc">String</span> <span class="n">uuid</span><span class="o">=</span><span class="n">generatorUUID</span><span class="o">();</span>
+    	<span class="n">uuid</span><span class="o">=</span><span class="n">uuid</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="n">len</span><span class="o">);</span>
+    	<span class="k">return</span> <span class="n">uuid</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="nc">String</span> <span class="nf">MD5</span><span class="o">(</span><span class="nc">String</span> <span class="n">key</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">NoSuchAlgorithmException</span> <span class="o">{</span>
+        <span class="kt">char</span> <span class="n">hexDigits</span><span class="o">[]</span> <span class="o">=</span> <span class="o">{</span>
+                <span class="sc">'0'</span><span class="o">,</span> <span class="sc">'1'</span><span class="o">,</span> <span class="sc">'2'</span><span class="o">,</span> <span class="sc">'3'</span><span class="o">,</span> <span class="sc">'4'</span><span class="o">,</span> <span class="sc">'5'</span><span class="o">,</span> <span class="sc">'6'</span><span class="o">,</span> <span class="sc">'7'</span><span class="o">,</span> <span class="sc">'8'</span><span class="o">,</span> <span class="sc">'9'</span><span class="o">,</span> <span class="sc">'A'</span><span class="o">,</span> <span class="sc">'B'</span><span class="o">,</span> <span class="sc">'C'</span><span class="o">,</span> <span class="sc">'D'</span><span class="o">,</span> <span class="sc">'E'</span><span class="o">,</span> <span class="sc">'F'</span>
+        <span class="o">};</span>
+        
+            <span class="kt">byte</span><span class="o">[]</span> <span class="n">btInput</span> <span class="o">=</span> <span class="n">key</span><span class="o">.</span><span class="na">getBytes</span><span class="o">();</span>
+            <span class="c1">// 获得MD5摘要算法的 MessageDigest 对象</span>
+            <span class="nc">MessageDigest</span> <span class="n">mdInst</span> <span class="o">=</span> <span class="nc">MessageDigest</span><span class="o">.</span><span class="na">getInstance</span><span class="o">(</span><span class="s">"MD5"</span><span class="o">);</span>
+            <span class="c1">// 使用指定的字节更新摘要</span>
+            <span class="n">mdInst</span><span class="o">.</span><span class="na">update</span><span class="o">(</span><span class="n">btInput</span><span class="o">);</span>
+            <span class="c1">// 获得密文</span>
+            <span class="kt">byte</span><span class="o">[]</span> <span class="n">md</span> <span class="o">=</span> <span class="n">mdInst</span><span class="o">.</span><span class="na">digest</span><span class="o">();</span>
+            <span class="c1">// 把密文转换成十六进制的字符串形式</span>
+            <span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">md</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
+            <span class="kt">char</span> <span class="n">str</span><span class="o">[]</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">char</span><span class="o">[</span><span class="n">j</span> <span class="o">*</span> <span class="mi">2</span><span class="o">];</span>
+            <span class="kt">int</span> <span class="n">k</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
+            <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">j</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+                <span class="kt">byte</span> <span class="n">byte0</span> <span class="o">=</span> <span class="n">md</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+                <span class="n">str</span><span class="o">[</span><span class="n">k</span><span class="o">++]</span> <span class="o">=</span> <span class="n">hexDigits</span><span class="o">[</span><span class="n">byte0</span> <span class="o">&gt;&gt;&gt;</span> <span class="mi">4</span> <span class="o">&amp;</span> <span class="mh">0xf</span><span class="o">];</span>
+                <span class="n">str</span><span class="o">[</span><span class="n">k</span><span class="o">++]</span> <span class="o">=</span> <span class="n">hexDigits</span><span class="o">[</span><span class="n">byte0</span> <span class="o">&amp;</span> <span class="mh">0xf</span><span class="o">];</span>
+            <span class="o">}</span>
+            <span class="k">return</span> <span class="k">new</span> <span class="nf">String</span><span class="o">(</span><span class="n">str</span><span class="o">);</span>
+    <span class="o">}</span>
+    
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span> <span class="n">args</span><span class="o">[]){</span>
+    	<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">generatorUUID</span><span class="o">());</span>
+    <span class="o">}</span>
+
 <span class="o">}</span>
 </code></pre></div></div>
 
@@ -362,13 +410,13 @@
                             
         				
                             
-                				<a href="/tags/#自我总结" title="自我总结" rel="34">
+                				<a href="/tags/#自我总结" title="自我总结" rel="36">
                                     自我总结
                                 </a>
                             
         				
                             
-                				<a href="/tags/#编程之路" title="编程之路" rel="88">
+                				<a href="/tags/#编程之路" title="编程之路" rel="92">
                                     编程之路
                                 </a>
                             
@@ -479,6 +527,8 @@
                 				<a href="/tags/#MongoDB" title="MongoDB" rel="2">
                                     MongoDB
                                 </a>
+                            
+        				
                             
         				
                             
@@ -635,7 +685,7 @@
                     
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; MY Blog 2019
+                    Copyright &copy; MY Blog 2020
                     <br>
                     Theme on <a href="https://github.com/uniquezhangqi/uniquezhangqi.github.io.git">GitHub</a> |
                     <iframe

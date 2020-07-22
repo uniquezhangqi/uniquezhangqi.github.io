@@ -209,11 +209,11 @@
 HashedCredentialsMatcher 实例化并设置加密算法。</p>
 <h4 id="源码">源码：</h4>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   <span class="kd">public</span> <span class="nf">AuthorizingRealm</span><span class="o">(</span><span class="n">CredentialsMatcher</span> <span class="n">matcher</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">this</span><span class="o">((</span><span class="n">CacheManager</span><span class="o">)</span><span class="kc">null</span><span class="o">,</span> <span class="n">matcher</span><span class="o">);</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   <span class="kd">public</span> <span class="nf">AuthorizingRealm</span><span class="o">(</span><span class="nc">CredentialsMatcher</span> <span class="n">matcher</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">((</span><span class="nc">CacheManager</span><span class="o">)</span><span class="kc">null</span><span class="o">,</span> <span class="n">matcher</span><span class="o">);</span>
     <span class="o">}</span>
 
-<span class="err">设置迭代次数：</span>
+<span class="n">设置迭代次数</span><span class="err">：</span>
    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setHashIterations</span><span class="o">(</span><span class="kt">int</span> <span class="n">hashIterations</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">if</span> <span class="o">(</span><span class="n">hashIterations</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="o">)</span> <span class="o">{</span>
             <span class="k">this</span><span class="o">.</span><span class="na">hashIterations</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
@@ -227,21 +227,21 @@ HashedCredentialsMatcher 实例化并设置加密算法。</p>
 
 <h4 id="源码-1">源码：</h4>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setCredentialsMatcher</span><span class="o">(</span><span class="n">CredentialsMatcher</span> <span class="n">credentialsMatcher</span><span class="o">)</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setCredentialsMatcher</span><span class="o">(</span><span class="nc">CredentialsMatcher</span> <span class="n">credentialsMatcher</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">credentialsMatcher</span> <span class="o">=</span> <span class="n">credentialsMatcher</span><span class="o">;</span>
     <span class="o">}</span>
 
     <span class="kd">public</span> <span class="kd">interface</span> <span class="nc">CredentialsMatcher</span> <span class="o">{</span>
-        <span class="kt">boolean</span> <span class="nf">doCredentialsMatch</span><span class="o">(</span><span class="n">AuthenticationToken</span> <span class="n">var1</span><span class="o">,</span> <span class="n">AuthenticationInfo</span> <span class="n">var2</span><span class="o">);</span>
+        <span class="kt">boolean</span> <span class="nf">doCredentialsMatch</span><span class="o">(</span><span class="nc">AuthenticationToken</span> <span class="n">var1</span><span class="o">,</span> <span class="nc">AuthenticationInfo</span> <span class="n">var2</span><span class="o">);</span>
     <span class="o">}</span>
-    <span class="n">HashedCredentialsMatcher</span><span class="err">实现</span><span class="n">CredentialsMatcher</span><span class="err">接口</span>
+    <span class="nc">HashedCredentialsMatcher实现CredentialsMatcher接口</span>
 </code></pre></div></div>
 
 <h4 id="源码-2">源码：</h4>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">doCredentialsMatch</span><span class="o">(</span><span class="n">AuthenticationToken</span> <span class="n">token</span><span class="o">,</span> <span class="n">AuthenticationInfo</span> <span class="n">info</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">Object</span> <span class="n">tokenHashedCredentials</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">hashProvidedCredentials</span><span class="o">(</span><span class="n">token</span><span class="o">,</span> <span class="n">info</span><span class="o">);</span>
-        <span class="n">Object</span> <span class="n">accountCredentials</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">getCredentials</span><span class="o">(</span><span class="n">info</span><span class="o">);</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">doCredentialsMatch</span><span class="o">(</span><span class="nc">AuthenticationToken</span> <span class="n">token</span><span class="o">,</span> <span class="nc">AuthenticationInfo</span> <span class="n">info</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">Object</span> <span class="n">tokenHashedCredentials</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">hashProvidedCredentials</span><span class="o">(</span><span class="n">token</span><span class="o">,</span> <span class="n">info</span><span class="o">);</span>
+        <span class="nc">Object</span> <span class="n">accountCredentials</span> <span class="o">=</span> <span class="k">this</span><span class="o">.</span><span class="na">getCredentials</span><span class="o">(</span><span class="n">info</span><span class="o">);</span>
         <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">tokenHashedCredentials</span><span class="o">,</span> <span class="n">accountCredentials</span><span class="o">);</span>
     <span class="o">}</span>
 </code></pre></div></div>
@@ -326,13 +326,13 @@ HashedCredentialsMatcher 实例化并设置加密算法。</p>
                             
         				
                             
-                				<a href="/tags/#自我总结" title="自我总结" rel="34">
+                				<a href="/tags/#自我总结" title="自我总结" rel="36">
                                     自我总结
                                 </a>
                             
         				
                             
-                				<a href="/tags/#编程之路" title="编程之路" rel="88">
+                				<a href="/tags/#编程之路" title="编程之路" rel="92">
                                     编程之路
                                 </a>
                             
@@ -443,6 +443,8 @@ HashedCredentialsMatcher 实例化并设置加密算法。</p>
                 				<a href="/tags/#MongoDB" title="MongoDB" rel="2">
                                     MongoDB
                                 </a>
+                            
+        				
                             
         				
                             
@@ -599,7 +601,7 @@ HashedCredentialsMatcher 实例化并设置加密算法。</p>
                     
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; MY Blog 2019
+                    Copyright &copy; MY Blog 2020
                     <br>
                     Theme on <a href="https://github.com/uniquezhangqi/uniquezhangqi.github.io.git">GitHub</a> |
                     <iframe

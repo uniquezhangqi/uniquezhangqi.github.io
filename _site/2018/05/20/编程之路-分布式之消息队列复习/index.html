@@ -295,7 +295,7 @@
 
 <p><strong>回答</strong>:首先，咱先上ActiveMQ的社区，看看该MQ的更新频率:</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Apache ActiveMQ 5.15.3 Release
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Apache ActiveMQ 5.15.3 Release
 Christopher L. Shannon posted on Feb 12, 2018
 Apache ActiveMQ 5.15.2 Released
 Christopher L. Shannon posted on Oct 23, 2017
@@ -309,7 +309,7 @@ Christopher L. Shannon posted on Jul 06, 2017
 
 <p>接下来，我们再去RabbitMQ的社区去看一下,RabbitMQ的更新频率</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>RabbitMQ 3.7.3 release  30 January 2018
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>RabbitMQ 3.7.3 release  30 January 2018
 RabbitMQ 3.6.15 release  17 January 2018
 RabbitMQ 3.7.2 release23 December 2017
 RabbitMQ 3.7.1 release21 December 2017
@@ -379,14 +379,14 @@ RabbitMQ 3.7.1 release21 December 2017
 
 <p>然而缺点就是吞吐量下降了。因此，按照博主的经验，生产上用confirm模式的居多。一旦channel进入confirm模式，所有在该信道上面发布的消息都将会被指派一个唯一的ID(从1开始)，一旦消息被投递到所有匹配的队列之后，rabbitMQ就会发送一个Ack给生产者(包含消息的唯一ID)，这就使得生产者知道消息已经正确到达目的队列了.如果rabiitMQ没能处理该消息，则会发送一个Nack消息给你，你可以进行重试操作。处理Ack和Nack的代码如下所示（说好不上代码的，偷偷上了）:</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">channel</span><span class="o">.</span><span class="na">addConfirmListener</span><span class="o">(</span><span class="k">new</span> <span class="n">ConfirmListener</span><span class="o">()</span> <span class="o">{</span>  
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">channel</span><span class="o">.</span><span class="na">addConfirmListener</span><span class="o">(</span><span class="k">new</span> <span class="nc">ConfirmListener</span><span class="o">()</span> <span class="o">{</span>  
                 <span class="nd">@Override</span>  
-                <span class="kd">public</span> <span class="kt">void</span> <span class="nf">handleNack</span><span class="o">(</span><span class="kt">long</span> <span class="n">deliveryTag</span><span class="o">,</span> <span class="kt">boolean</span> <span class="n">multiple</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>  
-                    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"nack: deliveryTag = "</span><span class="o">+</span><span class="n">deliveryTag</span><span class="o">+</span><span class="s">" multiple: "</span><span class="o">+</span><span class="n">multiple</span><span class="o">);</span>  
+                <span class="kd">public</span> <span class="kt">void</span> <span class="nf">handleNack</span><span class="o">(</span><span class="kt">long</span> <span class="n">deliveryTag</span><span class="o">,</span> <span class="kt">boolean</span> <span class="n">multiple</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">IOException</span> <span class="o">{</span>  
+                    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"nack: deliveryTag = "</span><span class="o">+</span><span class="n">deliveryTag</span><span class="o">+</span><span class="s">" multiple: "</span><span class="o">+</span><span class="n">multiple</span><span class="o">);</span>  
                 <span class="o">}</span>  
                 <span class="nd">@Override</span>  
-                <span class="kd">public</span> <span class="kt">void</span> <span class="nf">handleAck</span><span class="o">(</span><span class="kt">long</span> <span class="n">deliveryTag</span><span class="o">,</span> <span class="kt">boolean</span> <span class="n">multiple</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span> <span class="o">{</span>  
-                    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"ack: deliveryTag = "</span><span class="o">+</span><span class="n">deliveryTag</span><span class="o">+</span><span class="s">" multiple: "</span><span class="o">+</span><span class="n">multiple</span><span class="o">);</span>  
+                <span class="kd">public</span> <span class="kt">void</span> <span class="nf">handleAck</span><span class="o">(</span><span class="kt">long</span> <span class="n">deliveryTag</span><span class="o">,</span> <span class="kt">boolean</span> <span class="n">multiple</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">IOException</span> <span class="o">{</span>  
+                    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"ack: deliveryTag = "</span><span class="o">+</span><span class="n">deliveryTag</span><span class="o">+</span><span class="s">" multiple: "</span><span class="o">+</span><span class="n">multiple</span><span class="o">);</span>  
                 <span class="o">}</span>  
             <span class="o">});</span> 
 </code></pre></div></div>
@@ -543,13 +543,13 @@ RabbitMQ 3.7.1 release21 December 2017
                             
         				
                             
-                				<a href="/tags/#自我总结" title="自我总结" rel="34">
+                				<a href="/tags/#自我总结" title="自我总结" rel="36">
                                     自我总结
                                 </a>
                             
         				
                             
-                				<a href="/tags/#编程之路" title="编程之路" rel="88">
+                				<a href="/tags/#编程之路" title="编程之路" rel="92">
                                     编程之路
                                 </a>
                             
@@ -660,6 +660,8 @@ RabbitMQ 3.7.1 release21 December 2017
                 				<a href="/tags/#MongoDB" title="MongoDB" rel="2">
                                     MongoDB
                                 </a>
+                            
+        				
                             
         				
                             
@@ -816,7 +818,7 @@ RabbitMQ 3.7.1 release21 December 2017
                     
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; MY Blog 2019
+                    Copyright &copy; MY Blog 2020
                     <br>
                     Theme on <a href="https://github.com/uniquezhangqi/uniquezhangqi.github.io.git">GitHub</a> |
                     <iframe

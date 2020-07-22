@@ -235,7 +235,7 @@
 <p>对象objA和objB都有字段instance，赋值令objA.instance = objB 及 objB.instance = objA，除此之外，这两个对象再无任何引用，实际上这两个对戏那个寂静部坑再被访问，但是它们因为相互引用着对象，导致它们的引用计数都不为0，于是引用计数算法无法通知GC收集器回收它们。</p>
 
 <h4 id="可达性分析算法">可达性分析算法</h4>
-<p>这个算法的基本思路就是通过一系列的称为“GC Roots”的对象作为起始点，从这些节点开始向下搜索，搜索所走过的路径称为<code class="highlighter-rouge">引用链</code>,当一个对象到GC Roots没有任何引用链相连时，则证明此对象是不可用的。</p>
+<p>这个算法的基本思路就是通过一系列的称为“GC Roots”的对象作为起始点，从这些节点开始向下搜索，搜索所走过的路径称为<code class="language-plaintext highlighter-rouge">引用链</code>,当一个对象到GC Roots没有任何引用链相连时，则证明此对象是不可用的。</p>
 
 <h5 id="什么是gc-roots">什么是GC Roots</h5>
 <p>可作为GC Roots的对象包括下面几种：</p>
@@ -258,9 +258,9 @@
 </ol>
 
 <h3 id="生存还是死亡">生存还是死亡</h3>
-<p>即使在可达性分析算法中不可达对象，也并非是“非死不可”的，这时候它们暂时处于“缓行”阶段，要真正宣告一个对象死亡，至少要经历两次标记过程：如果对象在进行可达性分析后发现没有与GC Roots相连接的引用链，那它将会被第一次标记并且进行一次筛选，筛选的条件是此对象是否有必要执行finalize()方法。当对象没有覆盖finalize()方法，或者finalize()方法已经被虚拟机调用过，虚拟机将这两种情况都视为“<code class="highlighter-rouge">没有必要执行</code>”。</p>
+<p>即使在可达性分析算法中不可达对象，也并非是“非死不可”的，这时候它们暂时处于“缓行”阶段，要真正宣告一个对象死亡，至少要经历两次标记过程：如果对象在进行可达性分析后发现没有与GC Roots相连接的引用链，那它将会被第一次标记并且进行一次筛选，筛选的条件是此对象是否有必要执行finalize()方法。当对象没有覆盖finalize()方法，或者finalize()方法已经被虚拟机调用过，虚拟机将这两种情况都视为“<code class="language-plaintext highlighter-rouge">没有必要执行</code>”。</p>
 
-<p>如果这个对象被判定为有必要执行finalize()方法，那么这个对象将会放置在一个叫做F-Queue的队列中，并在稍后由虚拟机自动建立的、低优先级的Finalizer线程去执行它。这里所谓的“<code class="highlighter-rouge">执行</code>”是指虚拟机会触发这个方法，但并不承诺会等待它运行结束，这样做的原因是，如果一个对象在finalize()方法中执行缓慢，或者发生了死循环，将很可能导致F-Queue队列中其它对象永久处于等待，甚至导致整个内存回收系统崩溃。finalize()方法是对象逃脱死亡命运的最后一次机会，稍后GC将堆F-Queue中的对象进行第二次小规模的标记，如果对象要在finalize()中成功拯救自己–只要重新与引用的链上的任何一个对象建立关联即可，譬如把自己（this关键字）赋值给某个类变量或者对象的成员变量上，拿在第二次标记时它将被移除出“即将回收”的集合；如果对象这时候还没有逃脱，那基本上它就真的被回收了。</p>
+<p>如果这个对象被判定为有必要执行finalize()方法，那么这个对象将会放置在一个叫做F-Queue的队列中，并在稍后由虚拟机自动建立的、低优先级的Finalizer线程去执行它。这里所谓的“<code class="language-plaintext highlighter-rouge">执行</code>”是指虚拟机会触发这个方法，但并不承诺会等待它运行结束，这样做的原因是，如果一个对象在finalize()方法中执行缓慢，或者发生了死循环，将很可能导致F-Queue队列中其它对象永久处于等待，甚至导致整个内存回收系统崩溃。finalize()方法是对象逃脱死亡命运的最后一次机会，稍后GC将堆F-Queue中的对象进行第二次小规模的标记，如果对象要在finalize()中成功拯救自己–只要重新与引用的链上的任何一个对象建立关联即可，譬如把自己（this关键字）赋值给某个类变量或者对象的成员变量上，拿在第二次标记时它将被移除出“即将回收”的集合；如果对象这时候还没有逃脱，那基本上它就真的被回收了。</p>
 
 <h4 id="一次对象自我拯救的演示">一次对象自我拯救的演示</h4>
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
@@ -268,46 +268,46 @@
 * 2. 这种自救机会只有一次，因为一个对象的finalize()方法最多只会被系统自动调用一次
 */</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">FinalizeEscapeGC</span><span class="o">{</span>
-	<span class="kd">public</span> <span class="kd">static</span> <span class="n">FinalizeEescapeGC</span> <span class="n">SAVE_HOOK</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="nc">FinalizeEescapeGC</span> <span class="no">SAVE_HOOK</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
 	
 	<span class="n">pulbic</span> <span class="kt">void</span> <span class="nf">isAlive</span><span class="o">(){</span>
-		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"yes, i am still alive:)"</span><span class="o">);</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"yes, i am still alive:)"</span><span class="o">);</span>
 	<span class="o">}</span>
 	
 	<span class="nd">@Override</span>
-	<span class="kd">protected</span> <span class="n">oid</span> <span class="nf">finalize</span><span class="o">()</span><span class="kd">throws</span> <span class="n">Thowable</span><span class="o">{</span>
+	<span class="kd">protected</span> <span class="n">oid</span> <span class="nf">finalize</span><span class="o">()</span><span class="kd">throws</span> <span class="nc">Thowable</span><span class="o">{</span>
 		<span class="kd">super</span><span class="o">.</span><span class="na">finalize</span><span class="o">();</span>
-		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"finalize method executed!"</span><span class="o">);</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"finalize method executed!"</span><span class="o">);</span>
 	<span class="o">}</span>
 	
-	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
-		<span class="n">SAVE_HOOK</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FinalizeEscapeGC</span><span class="o">();</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
+		<span class="no">SAVE_HOOK</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">FinalizeEscapeGC</span><span class="o">();</span>
 		
 		<span class="c1">//对象第一次成功拯救自己</span>
-		<span class="n">SAVE_HOOK</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
-		<span class="n">System</span><span class="o">.</span><span class="na">gc</span><span class="o">();</span>
+		<span class="no">SAVE_HOOK</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">gc</span><span class="o">();</span>
 		<span class="c1">//因为finalize方法优先级很低，所有暂停0.5秒以等待它</span>
-		<span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">500</span><span class="o">);</span>
-		<span class="k">if</span><span class="o">(</span><span class="n">SAVE_HOOK</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">){</span>
-			<span class="n">SAVE_HOOK</span><span class="o">.</span><span class="na">isAlive</span><span class="o">();</span>
+		<span class="nc">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">500</span><span class="o">);</span>
+		<span class="k">if</span><span class="o">(</span><span class="no">SAVE_HOOK</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">){</span>
+			<span class="no">SAVE_HOOK</span><span class="o">.</span><span class="na">isAlive</span><span class="o">();</span>
 		<span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
-			<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"no, i am dead :("</span><span class="o">);</span>
+			<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"no, i am dead :("</span><span class="o">);</span>
 		<span class="o">}</span>
 		
 		<span class="c1">//下面这段代码与上面的完全相同，但是这次自救失败</span>
-		<span class="n">SAVE_HOOK</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
-		<span class="n">System</span><span class="o">.</span><span class="na">gc</span><span class="o">();</span>
+		<span class="no">SAVE_HOOK</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">gc</span><span class="o">();</span>
 		<span class="c1">//因为finalize方法优先级很低，所有暂停0.5秒以等待它</span>
-		<span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">500</span><span class="o">);</span>
-		<span class="k">if</span><span class="o">(</span><span class="n">SAVE_HOOK</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">){</span>
-			<span class="n">SAVE_HOOK</span><span class="o">.</span><span class="na">isAlive</span><span class="o">();</span>
+		<span class="nc">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">500</span><span class="o">);</span>
+		<span class="k">if</span><span class="o">(</span><span class="no">SAVE_HOOK</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">){</span>
+			<span class="no">SAVE_HOOK</span><span class="o">.</span><span class="na">isAlive</span><span class="o">();</span>
 		<span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
-			<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"no, i am dead :("</span><span class="o">);</span>
+			<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"no, i am dead :("</span><span class="o">);</span>
 		<span class="o">}</span>
 	<span class="o">}</span>
 <span class="o">}</span>
 
-<span class="err">运行结果：</span>
+<span class="n">运行结果</span><span class="err">：</span>
 <span class="n">finalize</span> <span class="n">mehtod</span> <span class="n">executed</span><span class="o">!</span>
 <span class="n">yes</span><span class="o">,</span><span class="n">i</span> <span class="n">am</span> <span class="n">still</span> <span class="n">alive</span> <span class="o">:)</span>
 <span class="n">no</span><span class="o">,</span><span class="n">i</span> <span class="n">am</span> <span class="n">dead</span> <span class="o">:(</span>
@@ -487,13 +487,13 @@
                             
         				
                             
-                				<a href="/tags/#自我总结" title="自我总结" rel="34">
+                				<a href="/tags/#自我总结" title="自我总结" rel="36">
                                     自我总结
                                 </a>
                             
         				
                             
-                				<a href="/tags/#编程之路" title="编程之路" rel="88">
+                				<a href="/tags/#编程之路" title="编程之路" rel="92">
                                     编程之路
                                 </a>
                             
@@ -604,6 +604,8 @@
                 				<a href="/tags/#MongoDB" title="MongoDB" rel="2">
                                     MongoDB
                                 </a>
+                            
+        				
                             
         				
                             
@@ -760,7 +762,7 @@
                     
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; MY Blog 2019
+                    Copyright &copy; MY Blog 2020
                     <br>
                     Theme on <a href="https://github.com/uniquezhangqi/uniquezhangqi.github.io.git">GitHub</a> |
                     <iframe

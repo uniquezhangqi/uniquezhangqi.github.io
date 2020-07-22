@@ -223,14 +223,14 @@
 </ol>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//编码</span>
-<span class="n">String</span> <span class="n">asb64</span> <span class="o">=</span> <span class="n">Base64</span><span class="o">.</span><span class="na">getEncoder</span><span class="o">().</span><span class="na">encodeToString</span><span class="o">(</span><span class="s">"some string"</span><span class="o">.</span><span class="na">getBytes</span><span class="o">(</span><span class="s">"utf-8"</span><span class="o">));</span>
+<span class="nc">String</span> <span class="n">asb64</span> <span class="o">=</span> <span class="nc">Base64</span><span class="o">.</span><span class="na">getEncoder</span><span class="o">().</span><span class="na">encodeToString</span><span class="o">(</span><span class="s">"some string"</span><span class="o">.</span><span class="na">getBytes</span><span class="o">(</span><span class="s">"utf-8"</span><span class="o">));</span>
 
 <span class="c1">//输出c29tZSBzdHJpbmc=</span>
-<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">asB64</span><span class="o">);</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">asB64</span><span class="o">);</span>
 
 <span class="c1">//解码</span>
-<span class="kt">byte</span><span class="o">[]</span> <span class="n">asBytes</span> <span class="o">=</span> <span class="n">Base64</span><span class="o">.</span><span class="na">getDecoder</span><span class="o">().</span><span class="na">decode</span><span class="o">(</span><span class="s">"c29tZSBzdHJpbmc="</span><span class="o">);</span>
-<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="k">new</span> <span class="n">String</span><span class="o">(</span><span class="n">asBytes</span><span class="o">,</span><span class="s">"utf-8"</span><span class="o">));</span>
+<span class="kt">byte</span><span class="o">[]</span> <span class="n">asBytes</span> <span class="o">=</span> <span class="nc">Base64</span><span class="o">.</span><span class="na">getDecoder</span><span class="o">().</span><span class="na">decode</span><span class="o">(</span><span class="s">"c29tZSBzdHJpbmc="</span><span class="o">);</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="k">new</span> <span class="nc">String</span><span class="o">(</span><span class="n">asBytes</span><span class="o">,</span><span class="s">"utf-8"</span><span class="o">));</span>
 <span class="cm">/*
 输出为：some string
 */</span>
@@ -239,48 +239,48 @@
   <li>URL编码：使用下划线替换URL里面的反斜线“/”</li>
 </ol>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">String</span> <span class="n">urlEncoded</span> <span class="o">=</span> <span class="n">Base64</span><span class="o">.</span><span class="na">getUrlEncoder</span><span class="o">().</span><span class="na">encodeToString</span><span class="o">(</span><span class="s">"subjects?abcd"</span><span class="o">.</span><span class="na">getBytes</span><span class="o">(</span><span class="s">"utf-8"</span><span class="o">));</span>
-<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Using URL Alphabet:"</span><span class="o">+</span><span class="n">urlEncoded</span><span class="o">);</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">String</span> <span class="n">urlEncoded</span> <span class="o">=</span> <span class="nc">Base64</span><span class="o">.</span><span class="na">getUrlEncoder</span><span class="o">().</span><span class="na">encodeToString</span><span class="o">(</span><span class="s">"subjects?abcd"</span><span class="o">.</span><span class="na">getBytes</span><span class="o">(</span><span class="s">"utf-8"</span><span class="o">));</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Using URL Alphabet:"</span><span class="o">+</span><span class="n">urlEncoded</span><span class="o">);</span>
 <span class="c1">//输出为：</span>
-<span class="n">Using</span> <span class="n">URL</span> <span class="nl">Alphabet:</span> <span class="n">c3ViamVjdHM_YWJjZA</span><span class="o">==</span>
+<span class="nc">Using</span> <span class="no">URL</span> <span class="nl">Alphabet:</span> <span class="n">c3ViamVjdHM_YWJjZA</span><span class="o">==</span>
 </code></pre></div></div>
 <ol>
   <li>MIME编码：使用基本的字母数字产生BASE64输出，而且对MIME格式友好：每一行输出不超过76个字符，而且每行以“\r\n”符结束。</li>
 </ol>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">StringBuilder</span> <span class="n">sb</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">();</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">StringBuilder</span> <span class="n">sb</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">StringBuilder</span><span class="o">();</span>
 <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">t</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">t</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="o">;</span> <span class="o">++</span><span class="n">t</span><span class="o">){</span>
-    <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">UUID</span><span class="o">.</span><span class="na">randomUUID</span><span class="o">().</span><span class="na">toString</span><span class="o">());</span>
+    <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="no">UUID</span><span class="o">.</span><span class="na">randomUUID</span><span class="o">().</span><span class="na">toString</span><span class="o">());</span>
 <span class="o">}</span>
 <span class="kt">byte</span><span class="o">[]</span> <span class="n">toEncode</span> <span class="o">=</span> <span class="n">sb</span><span class="o">.</span><span class="na">toString</span><span class="o">().</span><span class="na">getBytes</span><span class="o">(</span><span class="s">"utf-8"</span><span class="o">);</span>
-<span class="n">String</span> <span class="n">mimeEncoded</span> <span class="o">=</span> <span class="n">Base64</span><span class="o">.</span><span class="na">getMimeEncoder</span><span class="o">().</span><span class="na">encodeToString</span><span class="o">(</span><span class="n">toEncode</span><span class="o">);</span>
-<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">mimeEncoded</span><span class="o">);</span>
+<span class="nc">String</span> <span class="n">mimeEncoded</span> <span class="o">=</span> <span class="nc">Base64</span><span class="o">.</span><span class="na">getMimeEncoder</span><span class="o">().</span><span class="na">encodeToString</span><span class="o">(</span><span class="n">toEncode</span><span class="o">);</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">mimeEncoded</span><span class="o">);</span>
 </code></pre></div></div>
 
 <h3 id="java8性特性base64加解密demo">Java8性特性Base64+加解密Demo</h3>
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">byte</span><span class="o">[]</span> <span class="nf">decode</span><span class="o">(</span><span class="n">String</span> <span class="n">_key</span><span class="o">,</span> <span class="kt">byte</span><span class="o">[]</span> <span class="n">data</span><span class="o">)</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">byte</span><span class="o">[]</span> <span class="nf">decode</span><span class="o">(</span><span class="nc">String</span> <span class="n">_key</span><span class="o">,</span> <span class="kt">byte</span><span class="o">[]</span> <span class="n">data</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">try</span> <span class="o">{</span>
             <span class="kt">byte</span><span class="o">[]</span> <span class="n">key</span> <span class="o">=</span> <span class="n">_key</span><span class="o">.</span><span class="na">getBytes</span><span class="o">(</span><span class="s">"utf-8"</span><span class="o">);</span>
-            <span class="n">DESedeKeySpec</span> <span class="n">spec</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DESedeKeySpec</span><span class="o">(</span><span class="n">key</span><span class="o">);</span>
-            <span class="n">SecretKeyFactory</span> <span class="n">keyFactory</span> <span class="o">=</span> <span class="n">SecretKeyFactory</span><span class="o">.</span><span class="na">getInstance</span><span class="o">(</span><span class="s">"desede"</span><span class="o">);</span>
-            <span class="n">Key</span> <span class="n">desKey</span> <span class="o">=</span> <span class="n">keyFactory</span><span class="o">.</span><span class="na">generateSecret</span><span class="o">(</span><span class="n">spec</span><span class="o">);</span>
-            <span class="n">Cipher</span> <span class="n">cipher</span> <span class="o">=</span> <span class="n">Cipher</span><span class="o">.</span><span class="na">getInstance</span><span class="o">(</span><span class="s">"desede/ECB/PKCS5Padding"</span><span class="o">);</span>
+            <span class="nc">DESedeKeySpec</span> <span class="n">spec</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">DESedeKeySpec</span><span class="o">(</span><span class="n">key</span><span class="o">);</span>
+            <span class="nc">SecretKeyFactory</span> <span class="n">keyFactory</span> <span class="o">=</span> <span class="nc">SecretKeyFactory</span><span class="o">.</span><span class="na">getInstance</span><span class="o">(</span><span class="s">"desede"</span><span class="o">);</span>
+            <span class="nc">Key</span> <span class="n">desKey</span> <span class="o">=</span> <span class="n">keyFactory</span><span class="o">.</span><span class="na">generateSecret</span><span class="o">(</span><span class="n">spec</span><span class="o">);</span>
+            <span class="nc">Cipher</span> <span class="n">cipher</span> <span class="o">=</span> <span class="nc">Cipher</span><span class="o">.</span><span class="na">getInstance</span><span class="o">(</span><span class="s">"desede/ECB/PKCS5Padding"</span><span class="o">);</span>
             <span class="n">cipher</span><span class="o">.</span><span class="na">init</span><span class="o">(</span><span class="mi">2</span><span class="o">,</span> <span class="n">desKey</span><span class="o">);</span>
             <span class="k">return</span> <span class="n">cipher</span><span class="o">.</span><span class="na">doFinal</span><span class="o">(</span><span class="n">data</span><span class="o">);</span>
-        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">var7</span><span class="o">)</span> <span class="o">{</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">var7</span><span class="o">)</span> <span class="o">{</span>
             <span class="n">var7</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
             <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
         <span class="o">}</span>
     <span class="o">}</span>
 
-<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">UnsupportedEncodingException</span> <span class="o">{</span>
-        <span class="n">String</span> <span class="n">key</span> <span class="o">=</span> <span class="n">MD5</span><span class="o">.</span><span class="na">MD5</span><span class="o">(</span><span class="s">"123456xksquare"</span><span class="o">);</span>
-        <span class="n">String</span> <span class="n">str</span> <span class="o">=</span> <span class="s">"{111,222}"</span><span class="o">;</span>
-        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">key</span><span class="o">);</span>
-        <span class="n">String</span> <span class="n">str1</span> <span class="o">=</span> <span class="n">Base64</span><span class="o">.</span><span class="na">getEncoder</span><span class="o">().</span><span class="na">encodeToString</span><span class="o">(</span><span class="n">encode</span><span class="o">(</span><span class="n">key</span><span class="o">,</span> <span class="n">str</span><span class="o">));</span>
-        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"加密结果"</span> <span class="o">+</span> <span class="n">str1</span><span class="o">);</span>
-        <span class="n">String</span> <span class="n">out</span> <span class="o">=</span> <span class="k">new</span> <span class="n">String</span><span class="o">(</span><span class="n">decode</span><span class="o">(</span><span class="n">key</span><span class="o">,</span> <span class="n">Base64</span><span class="o">.</span><span class="na">getDecoder</span><span class="o">().</span><span class="na">decode</span><span class="o">(</span><span class="n">str1</span><span class="o">.</span><span class="na">getBytes</span><span class="o">(</span><span class="s">"utf-8"</span><span class="o">))),</span> <span class="s">"utf-8"</span><span class="o">);</span>
-        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"解密参数:"</span> <span class="o">+</span> <span class="n">out</span><span class="o">);</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">UnsupportedEncodingException</span> <span class="o">{</span>
+        <span class="nc">String</span> <span class="n">key</span> <span class="o">=</span> <span class="no">MD5</span><span class="o">.</span><span class="na">MD5</span><span class="o">(</span><span class="s">"123456xksquare"</span><span class="o">);</span>
+        <span class="nc">String</span> <span class="n">str</span> <span class="o">=</span> <span class="s">"{111,222}"</span><span class="o">;</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">key</span><span class="o">);</span>
+        <span class="nc">String</span> <span class="n">str1</span> <span class="o">=</span> <span class="nc">Base64</span><span class="o">.</span><span class="na">getEncoder</span><span class="o">().</span><span class="na">encodeToString</span><span class="o">(</span><span class="n">encode</span><span class="o">(</span><span class="n">key</span><span class="o">,</span> <span class="n">str</span><span class="o">));</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"加密结果"</span> <span class="o">+</span> <span class="n">str1</span><span class="o">);</span>
+        <span class="nc">String</span> <span class="n">out</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">String</span><span class="o">(</span><span class="n">decode</span><span class="o">(</span><span class="n">key</span><span class="o">,</span> <span class="nc">Base64</span><span class="o">.</span><span class="na">getDecoder</span><span class="o">().</span><span class="na">decode</span><span class="o">(</span><span class="n">str1</span><span class="o">.</span><span class="na">getBytes</span><span class="o">(</span><span class="s">"utf-8"</span><span class="o">))),</span> <span class="s">"utf-8"</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"解密参数:"</span> <span class="o">+</span> <span class="n">out</span><span class="o">);</span>
     <span class="o">}</span>
 </code></pre></div></div>
 
@@ -288,24 +288,24 @@
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Des3Utils</span> <span class="o">{</span>
 
 
-    <span class="kd">protected</span> <span class="kd">final</span> <span class="kd">static</span> <span class="n">Log</span> <span class="n">logger</span> <span class="o">=</span> <span class="n">LogFactory</span><span class="o">.</span><span class="na">getLog</span><span class="o">(</span><span class="n">Des3Utils</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="kd">protected</span> <span class="kd">final</span> <span class="kd">static</span> <span class="nc">Log</span> <span class="n">logger</span> <span class="o">=</span> <span class="nc">LogFactory</span><span class="o">.</span><span class="na">getLog</span><span class="o">(</span><span class="nc">Des3Utils</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
 
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span>  <span class="n">key</span> <span class="o">=</span> <span class="s">"1234567890qwertyuiopasdf"</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="nc">String</span>  <span class="n">key</span> <span class="o">=</span> <span class="s">"1234567890qwertyuiopasdf"</span><span class="o">;</span>
 
-    <span class="kd">public</span> <span class="kd">static</span> <span class="n">Key</span> <span class="n">convertSecretKey</span> <span class="o">=</span><span class="kc">null</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="nc">Key</span> <span class="n">convertSecretKey</span> <span class="o">=</span><span class="kc">null</span><span class="o">;</span>
 
     <span class="kd">static</span> <span class="o">{</span>
         <span class="k">try</span> <span class="o">{</span>
             <span class="kt">byte</span><span class="o">[]</span> <span class="n">bytesKey</span> <span class="o">=</span> <span class="n">build3DesKey</span><span class="o">(</span><span class="n">key</span><span class="o">);</span>
-            <span class="n">KeyGenerator</span> <span class="n">keyGenerator</span> <span class="o">=</span> <span class="n">KeyGenerator</span><span class="o">.</span><span class="na">getInstance</span><span class="o">(</span><span class="s">"DESede"</span><span class="o">);</span>
+            <span class="nc">KeyGenerator</span> <span class="n">keyGenerator</span> <span class="o">=</span> <span class="nc">KeyGenerator</span><span class="o">.</span><span class="na">getInstance</span><span class="o">(</span><span class="s">"DESede"</span><span class="o">);</span>
 
             <span class="n">keyGenerator</span><span class="o">.</span><span class="na">init</span><span class="o">(</span><span class="mi">112</span><span class="o">);</span>
             <span class="c1">// KEY转换</span>
-            <span class="n">DESedeKeySpec</span> <span class="n">desKeySpec</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DESedeKeySpec</span><span class="o">(</span><span class="n">bytesKey</span><span class="o">);</span>
-            <span class="n">SecretKeyFactory</span> <span class="n">factory</span> <span class="o">=</span> <span class="n">SecretKeyFactory</span><span class="o">.</span><span class="na">getInstance</span><span class="o">(</span><span class="s">"DESede"</span><span class="o">);</span>
+            <span class="nc">DESedeKeySpec</span> <span class="n">desKeySpec</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">DESedeKeySpec</span><span class="o">(</span><span class="n">bytesKey</span><span class="o">);</span>
+            <span class="nc">SecretKeyFactory</span> <span class="n">factory</span> <span class="o">=</span> <span class="nc">SecretKeyFactory</span><span class="o">.</span><span class="na">getInstance</span><span class="o">(</span><span class="s">"DESede"</span><span class="o">);</span>
            <span class="n">convertSecretKey</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="na">generateSecret</span><span class="o">(</span><span class="n">desKeySpec</span><span class="o">);</span>
 
-        <span class="o">}</span><span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">){</span>
+        <span class="o">}</span><span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">){</span>
             <span class="n">logger</span><span class="o">.</span><span class="na">error</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
         <span class="o">}</span>
 
@@ -317,16 +317,16 @@
      * @param content
      * @return
      */</span>
-    <span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="nf">encrypt</span><span class="o">(</span><span class="n">String</span> <span class="n">content</span><span class="o">){</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="nc">String</span> <span class="nf">encrypt</span><span class="o">(</span><span class="nc">String</span> <span class="n">content</span><span class="o">){</span>
 
         <span class="k">try</span> <span class="o">{</span>
 
             <span class="c1">// 加密</span>
-            <span class="n">Cipher</span> <span class="n">cipher</span> <span class="o">=</span> <span class="n">Cipher</span><span class="o">.</span><span class="na">getInstance</span><span class="o">(</span><span class="s">"DESede/ECB/PKCS5Padding"</span><span class="o">);</span>
-            <span class="n">cipher</span><span class="o">.</span><span class="na">init</span><span class="o">(</span><span class="n">Cipher</span><span class="o">.</span><span class="na">ENCRYPT_MODE</span><span class="o">,</span> <span class="n">convertSecretKey</span><span class="o">);</span>
+            <span class="nc">Cipher</span> <span class="n">cipher</span> <span class="o">=</span> <span class="nc">Cipher</span><span class="o">.</span><span class="na">getInstance</span><span class="o">(</span><span class="s">"DESede/ECB/PKCS5Padding"</span><span class="o">);</span>
+            <span class="n">cipher</span><span class="o">.</span><span class="na">init</span><span class="o">(</span><span class="nc">Cipher</span><span class="o">.</span><span class="na">ENCRYPT_MODE</span><span class="o">,</span> <span class="n">convertSecretKey</span><span class="o">);</span>
             <span class="kt">byte</span><span class="o">[]</span> <span class="n">result</span> <span class="o">=</span> <span class="n">cipher</span><span class="o">.</span><span class="na">doFinal</span><span class="o">(</span><span class="n">content</span><span class="o">.</span><span class="na">getBytes</span><span class="o">());</span>
             <span class="k">return</span> <span class="nf">encode</span><span class="o">(</span><span class="n">result</span><span class="o">);</span>
-        <span class="o">}</span><span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">){</span>
+        <span class="o">}</span><span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">){</span>
             <span class="n">logger</span><span class="o">.</span><span class="na">error</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
         <span class="o">}</span>
 
@@ -341,16 +341,16 @@
      * @param content
      * @return
      */</span>
-    <span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="nf">decrypt</span><span class="o">(</span><span class="n">String</span> <span class="n">content</span><span class="o">){</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="nc">String</span> <span class="nf">decrypt</span><span class="o">(</span><span class="nc">String</span> <span class="n">content</span><span class="o">){</span>
 
         <span class="kt">byte</span><span class="o">[]</span> <span class="n">result</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
         <span class="k">try</span> <span class="o">{</span>
-            <span class="n">Cipher</span> <span class="n">cipher</span> <span class="o">=</span> <span class="n">Cipher</span><span class="o">.</span><span class="na">getInstance</span><span class="o">(</span><span class="s">"DESede/ECB/PKCS5Padding"</span><span class="o">);</span>
+            <span class="nc">Cipher</span> <span class="n">cipher</span> <span class="o">=</span> <span class="nc">Cipher</span><span class="o">.</span><span class="na">getInstance</span><span class="o">(</span><span class="s">"DESede/ECB/PKCS5Padding"</span><span class="o">);</span>
             <span class="c1">// 解密</span>
-            <span class="n">cipher</span><span class="o">.</span><span class="na">init</span><span class="o">(</span><span class="n">Cipher</span><span class="o">.</span><span class="na">DECRYPT_MODE</span><span class="o">,</span> <span class="n">convertSecretKey</span><span class="o">);</span>
+            <span class="n">cipher</span><span class="o">.</span><span class="na">init</span><span class="o">(</span><span class="nc">Cipher</span><span class="o">.</span><span class="na">DECRYPT_MODE</span><span class="o">,</span> <span class="n">convertSecretKey</span><span class="o">);</span>
             <span class="n">result</span> <span class="o">=</span> <span class="n">cipher</span><span class="o">.</span><span class="na">doFinal</span><span class="o">(</span><span class="n">decode</span><span class="o">(</span><span class="n">content</span><span class="o">));</span>
             <span class="k">return</span> <span class="k">new</span> <span class="nf">String</span><span class="o">(</span><span class="n">result</span><span class="o">);</span>
-        <span class="o">}</span><span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">){</span>
+        <span class="o">}</span><span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">){</span>
             <span class="n">logger</span><span class="o">.</span><span class="na">error</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
         <span class="o">}</span>
 
@@ -363,7 +363,7 @@
      * @param bstr
      * @return
      */</span>
-    <span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="nf">encode</span><span class="o">(</span><span class="kt">byte</span><span class="o">[]</span> <span class="n">bstr</span><span class="o">){</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="nc">String</span> <span class="nf">encode</span><span class="o">(</span><span class="kt">byte</span><span class="o">[]</span> <span class="n">bstr</span><span class="o">){</span>
         <span class="k">return</span> <span class="k">new</span> <span class="n">sun</span><span class="o">.</span><span class="na">misc</span><span class="o">.</span><span class="na">BASE64Encoder</span><span class="o">().</span><span class="na">encode</span><span class="o">(</span><span class="n">bstr</span><span class="o">);</span>
     <span class="o">}</span>
 
@@ -373,19 +373,19 @@
      * @param str
      * @return string
      */</span>
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">byte</span><span class="o">[]</span> <span class="nf">decode</span><span class="o">(</span><span class="n">String</span> <span class="n">str</span><span class="o">){</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">byte</span><span class="o">[]</span> <span class="nf">decode</span><span class="o">(</span><span class="nc">String</span> <span class="n">str</span><span class="o">){</span>
         <span class="kt">byte</span><span class="o">[]</span> <span class="n">bt</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
         <span class="k">try</span> <span class="o">{</span>
             <span class="n">sun</span><span class="o">.</span><span class="na">misc</span><span class="o">.</span><span class="na">BASE64Decoder</span> <span class="n">decoder</span> <span class="o">=</span> <span class="k">new</span> <span class="n">sun</span><span class="o">.</span><span class="na">misc</span><span class="o">.</span><span class="na">BASE64Decoder</span><span class="o">();</span>
             <span class="n">bt</span> <span class="o">=</span> <span class="n">decoder</span><span class="o">.</span><span class="na">decodeBuffer</span><span class="o">(</span> <span class="n">str</span> <span class="o">);</span>
-        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
             <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
         <span class="o">}</span>
         <span class="k">return</span> <span class="n">bt</span><span class="o">;</span>
     <span class="o">}</span>
 
 
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">byte</span><span class="o">[]</span> <span class="nf">build3DesKey</span><span class="o">(</span><span class="n">String</span> <span class="n">keyStr</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">UnsupportedEncodingException</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">byte</span><span class="o">[]</span> <span class="nf">build3DesKey</span><span class="o">(</span><span class="nc">String</span> <span class="n">keyStr</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">UnsupportedEncodingException</span> <span class="o">{</span>
         <span class="kt">byte</span><span class="o">[]</span> <span class="n">key</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="o">[</span><span class="mi">24</span><span class="o">];</span>    <span class="c1">//声明一个24位的字节数组，默认里面都是0</span>
         <span class="kt">byte</span><span class="o">[]</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">keyStr</span><span class="o">.</span><span class="na">getBytes</span><span class="o">(</span><span class="s">"UTF-8"</span><span class="o">);</span>    <span class="c1">//将字符串转成字节数组</span>
         <span class="cm">/*
@@ -394,19 +394,19 @@
          */</span>
         <span class="k">if</span><span class="o">(</span><span class="n">key</span><span class="o">.</span><span class="na">length</span> <span class="o">&gt;</span> <span class="n">temp</span><span class="o">.</span><span class="na">length</span><span class="o">){</span>
             <span class="c1">//如果temp不够24位，则拷贝temp数组整个长度的内容到key数组中</span>
-            <span class="n">System</span><span class="o">.</span><span class="na">arraycopy</span><span class="o">(</span><span class="n">temp</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="n">key</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="n">temp</span><span class="o">.</span><span class="na">length</span><span class="o">);</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">arraycopy</span><span class="o">(</span><span class="n">temp</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="n">key</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="n">temp</span><span class="o">.</span><span class="na">length</span><span class="o">);</span>
         <span class="o">}</span><span class="k">else</span><span class="o">{</span>
             <span class="c1">//如果temp大于24位，则拷贝temp数组24个长度的内容到key数组中</span>
-            <span class="n">System</span><span class="o">.</span><span class="na">arraycopy</span><span class="o">(</span><span class="n">temp</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="n">key</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="n">key</span><span class="o">.</span><span class="na">length</span><span class="o">);</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">arraycopy</span><span class="o">(</span><span class="n">temp</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="n">key</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="n">key</span><span class="o">.</span><span class="na">length</span><span class="o">);</span>
         <span class="o">}</span>
         <span class="k">return</span> <span class="n">key</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span><span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">Exception</span><span class="o">{</span>
 
         <span class="c1">//String b = decrypt(URLDecoder.decode("%2BtZILuHyeRoLXkX7qnW1rrCRWfm7IOjV", "utf-8"));</span>
-        <span class="n">String</span>  <span class="n">e</span> <span class="o">=</span> <span class="n">URLEncoder</span><span class="o">.</span><span class="na">encode</span><span class="o">(</span><span class="s">"dIGjPfvHm6E="</span><span class="o">,</span> <span class="s">"utf-8"</span><span class="o">);</span>
-        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
+        <span class="nc">String</span>  <span class="n">e</span> <span class="o">=</span> <span class="nc">URLEncoder</span><span class="o">.</span><span class="na">encode</span><span class="o">(</span><span class="s">"dIGjPfvHm6E="</span><span class="o">,</span> <span class="s">"utf-8"</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">e</span><span class="o">);</span>
 
     <span class="o">}</span>
 <span class="o">}</span>
@@ -493,13 +493,13 @@
                             
         				
                             
-                				<a href="/tags/#自我总结" title="自我总结" rel="34">
+                				<a href="/tags/#自我总结" title="自我总结" rel="36">
                                     自我总结
                                 </a>
                             
         				
                             
-                				<a href="/tags/#编程之路" title="编程之路" rel="88">
+                				<a href="/tags/#编程之路" title="编程之路" rel="92">
                                     编程之路
                                 </a>
                             
@@ -610,6 +610,8 @@
                 				<a href="/tags/#MongoDB" title="MongoDB" rel="2">
                                     MongoDB
                                 </a>
+                            
+        				
                             
         				
                             
@@ -766,7 +768,7 @@
                     
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; MY Blog 2019
+                    Copyright &copy; MY Blog 2020
                     <br>
                     Theme on <a href="https://github.com/uniquezhangqi/uniquezhangqi.github.io.git">GitHub</a> |
                     <iframe

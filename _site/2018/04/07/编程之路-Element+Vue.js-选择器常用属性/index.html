@@ -207,44 +207,44 @@
 
 <h4 id="elementvuejs-选择器常用属性">Element+Vue.js 选择器常用属性</h4>
 
-<p>1.v-model的值为当前被选中的el-option的 <code class="highlighter-rouge">value</code> 属性值</p>
+<p>1.v-model的值为当前被选中的el-option的 <code class="language-plaintext highlighter-rouge">value</code> 属性值</p>
 
-<p>2.在el-option中，设定<code class="highlighter-rouge">disabled</code>值为 true，即可禁用该选项</p>
+<p>2.在el-option中，设定<code class="language-plaintext highlighter-rouge">disabled</code>值为 true，即可禁用该选项</p>
 
-<p>3.为el-select设置<code class="highlighter-rouge">disabled</code>属性，则整个选择器不可用</p>
+<p>3.为el-select设置<code class="language-plaintext highlighter-rouge">disabled</code>属性，则整个选择器不可用</p>
 
-<p>4.为el-select设置<code class="highlighter-rouge">clearable</code>属性，则可将选择器清空。需要注意的是，clearable属性仅适用于单选。</p>
+<p>4.为el-select设置<code class="language-plaintext highlighter-rouge">clearable</code>属性，则可将选择器清空。需要注意的是，clearable属性仅适用于单选。</p>
 
-<p>5.默认情况下，<code class="highlighter-rouge">Select</code> 会找出所有<code class="highlighter-rouge">label</code>属性包含输入值的选项</p>
+<p>5.默认情况下，<code class="language-plaintext highlighter-rouge">Select</code> 会找出所有<code class="language-plaintext highlighter-rouge">label</code>属性包含输入值的选项</p>
 
-<p>6.如果el-option是通过<code class="highlighter-rouge">v-for</code>指令渲染出来的，此时需要为el-option添加<code class="highlighter-rouge">key</code>属性，且其值需具有唯一性，比如此例中的<code class="highlighter-rouge">item.value</code></p>
+<p>6.如果el-option是通过<code class="language-plaintext highlighter-rouge">v-for</code>指令渲染出来的，此时需要为el-option添加<code class="language-plaintext highlighter-rouge">key</code>属性，且其值需具有唯一性，比如此例中的<code class="language-plaintext highlighter-rouge">item.value</code></p>
 
 <p>7.如果 Select 的绑定值为对象类型，请务必指定 value-key 作为它的唯一性标识。</p>
 
-<p>8.<code class="highlighter-rouge">label</code>	选项的标签，若不设置则默认与 value 相同	string/number</p>
+<p>8.<code class="language-plaintext highlighter-rouge">label</code>	选项的标签，若不设置则默认与 value 相同	string/number</p>
 
-<p>9.<code class="highlighter-rouge">change</code>	选中值发生变化时触发	目前的选中值      使用是<code class="highlighter-rouge">@change</code></p>
+<p>9.<code class="language-plaintext highlighter-rouge">change</code>	选中值发生变化时触发	目前的选中值      使用是<code class="language-plaintext highlighter-rouge">@change</code></p>
 
-<p>10.<code class="highlighter-rouge">placeholder</code>	占位符	string	—	请选择</p>
+<p>10.<code class="language-plaintext highlighter-rouge">placeholder</code>	占位符	string	—	请选择</p>
 
 <p>11.其它 <el-select style="width: 80%"></el-select></p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;</span><span class="n">html</span><span class="o">&gt;</span>
 <span class="o">&lt;</span><span class="n">head</span><span class="o">&gt;</span>
 <span class="o">&lt;</span><span class="n">meta</span> <span class="n">charset</span><span class="o">=</span><span class="s">"utf-8"</span><span class="o">&gt;</span>
-<span class="o">&lt;</span><span class="n">title</span><span class="o">&gt;</span><span class="n">Vue</span> <span class="err">测试实例</span> <span class="o">-</span> <span class="err">菜鸟教程</span><span class="o">(</span><span class="n">runoob</span><span class="o">.</span><span class="na">com</span><span class="o">)&lt;/</span><span class="n">title</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="n">title</span><span class="o">&gt;</span><span class="nc">Vue</span> <span class="n">测试实例</span> <span class="o">-</span> <span class="n">菜鸟教程</span><span class="o">(</span><span class="n">runoob</span><span class="o">.</span><span class="na">com</span><span class="o">)&lt;/</span><span class="n">title</span><span class="o">&gt;</span>
 <span class="o">&lt;</span><span class="n">script</span> <span class="n">src</span><span class="o">=</span><span class="s">"https://cdn.bootcss.com/vue/2.2.2/vue.min.js"</span><span class="o">&gt;&lt;/</span><span class="n">script</span><span class="o">&gt;</span>
 <span class="o">&lt;/</span><span class="n">head</span><span class="o">&gt;</span>
 <span class="o">&lt;</span><span class="n">body</span><span class="o">&gt;</span>
 <span class="o">&lt;</span><span class="n">div</span> <span class="n">id</span><span class="o">=</span><span class="s">"app"</span><span class="o">&gt;</span>
   <span class="o">&lt;</span><span class="n">select</span> <span class="n">v</span><span class="o">-</span><span class="n">model</span><span class="o">=</span><span class="s">"selected"</span> <span class="n">name</span><span class="o">=</span><span class="s">"fruit"</span><span class="o">&gt;</span>
-    <span class="o">&lt;</span><span class="n">option</span> <span class="n">value</span><span class="o">=</span><span class="s">""</span><span class="o">&gt;</span><span class="err">选择一个网站</span><span class="o">&lt;/</span><span class="n">option</span><span class="o">&gt;</span>
-    <span class="o">&lt;</span><span class="n">option</span> <span class="n">value</span><span class="o">=</span><span class="s">"www.runoob.com"</span><span class="o">&gt;</span><span class="n">Runoob</span><span class="o">&lt;/</span><span class="n">option</span><span class="o">&gt;</span>
-    <span class="o">&lt;</span><span class="n">option</span> <span class="n">value</span><span class="o">=</span><span class="s">"www.google.com"</span><span class="o">&gt;</span><span class="n">Google</span><span class="o">&lt;/</span><span class="n">option</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">option</span> <span class="n">value</span><span class="o">=</span><span class="s">""</span><span class="o">&gt;</span><span class="n">选择一个网站</span><span class="o">&lt;/</span><span class="n">option</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">option</span> <span class="n">value</span><span class="o">=</span><span class="s">"www.runoob.com"</span><span class="o">&gt;</span><span class="nc">Runoob</span><span class="o">&lt;/</span><span class="n">option</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="n">option</span> <span class="n">value</span><span class="o">=</span><span class="s">"www.google.com"</span><span class="o">&gt;</span><span class="nc">Google</span><span class="o">&lt;/</span><span class="n">option</span><span class="o">&gt;</span>
   <span class="o">&lt;/</span><span class="n">select</span><span class="o">&gt;</span>
  
   <span class="o">&lt;</span><span class="n">div</span> <span class="n">id</span><span class="o">=</span><span class="s">"output"</span><span class="o">&gt;</span>
-      <span class="err">选择的网站是</span><span class="o">:</span> 
+      <span class="nl">选择的网站是:</span> 
   <span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
 <span class="o">&lt;/</span><span class="n">div</span><span class="o">&gt;</span>
 
@@ -349,13 +349,13 @@
                             
         				
                             
-                				<a href="/tags/#自我总结" title="自我总结" rel="34">
+                				<a href="/tags/#自我总结" title="自我总结" rel="36">
                                     自我总结
                                 </a>
                             
         				
                             
-                				<a href="/tags/#编程之路" title="编程之路" rel="88">
+                				<a href="/tags/#编程之路" title="编程之路" rel="92">
                                     编程之路
                                 </a>
                             
@@ -466,6 +466,8 @@
                 				<a href="/tags/#MongoDB" title="MongoDB" rel="2">
                                     MongoDB
                                 </a>
+                            
+        				
                             
         				
                             
@@ -622,7 +624,7 @@
                     
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; MY Blog 2019
+                    Copyright &copy; MY Blog 2020
                     <br>
                     Theme on <a href="https://github.com/uniquezhangqi/uniquezhangqi.github.io.git">GitHub</a> |
                     <iframe

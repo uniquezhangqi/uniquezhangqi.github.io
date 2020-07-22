@@ -234,12 +234,12 @@
 <h4 id="切换用户">切换用户：</h4>
 <p>su - 用户名</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>例如： su - es
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>例如： su - es
 </code></pre></div></div>
 
 <h3 id="踩坑-1">踩坑</h3>
 <p>用root跟普通账号给指定目录权限：
-<code class="highlighter-rouge">sudo chown -R es:staff elasticsearch</code></p>
+<code class="language-plaintext highlighter-rouge">sudo chown -R es:staff elasticsearch</code></p>
 
 <p>chown -R 普通用户名(这里不是全名称): 群组 elasticsearch</p>
 
@@ -247,7 +247,7 @@
 
 <h3 id="修改配置">修改配置</h3>
 <p>head插件与ElasticSearch是两个独立的进程，解决它们之间的访问跨域问题，需要在elasticsearch.yml 最末端加入：</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http.cors.enabled: true
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>http.cors.enabled: true
 http.cors.allow-origin: "*"
 </code></pre></div></div>
 
@@ -259,7 +259,7 @@ http.cors.allow-origin: "*"
 <p>截图里面的2个配置文件都需要跟自己的default配置文件相互修改对应的名字，不然会报错。
 它这里是优先使用没有.default的配置文件。</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>例子： 
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>例子： 
 1. A   A.default     A 改为 A.其它   A.default 改为 A
 2. B   B.default	 B 改为 B.其它   B.default 改为 B
 </code></pre></div></div>
@@ -375,13 +375,13 @@ elasticsearch-head 没更新的话，第二次直接 npm run start 就好；
                             
         				
                             
-                				<a href="/tags/#自我总结" title="自我总结" rel="34">
+                				<a href="/tags/#自我总结" title="自我总结" rel="36">
                                     自我总结
                                 </a>
                             
         				
                             
-                				<a href="/tags/#编程之路" title="编程之路" rel="88">
+                				<a href="/tags/#编程之路" title="编程之路" rel="92">
                                     编程之路
                                 </a>
                             
@@ -492,6 +492,8 @@ elasticsearch-head 没更新的话，第二次直接 npm run start 就好；
                 				<a href="/tags/#MongoDB" title="MongoDB" rel="2">
                                     MongoDB
                                 </a>
+                            
+        				
                             
         				
                             
@@ -648,7 +650,7 @@ elasticsearch-head 没更新的话，第二次直接 npm run start 就好；
                     
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; MY Blog 2019
+                    Copyright &copy; MY Blog 2020
                     <br>
                     Theme on <a href="https://github.com/uniquezhangqi/uniquezhangqi.github.io.git">GitHub</a> |
                     <iframe

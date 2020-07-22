@@ -209,13 +209,13 @@
  * web层全局常量配置帮助类
  */</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">GlobalSetting</span> <span class="o">{</span>
-	<span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">FILE_NAME</span> <span class="o">=</span> <span class="s">"/global.properties"</span><span class="o">;</span>
+	<span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="nc">String</span> <span class="no">FILE_NAME</span> <span class="o">=</span> <span class="s">"/global.properties"</span><span class="o">;</span>
 	<span class="kd">private</span> <span class="nf">GlobalSetting</span><span class="o">(){}</span>
-	<span class="kd">private</span> <span class="kd">static</span> <span class="n">Properties</span> <span class="n">p</span><span class="o">;</span>
+	<span class="kd">private</span> <span class="kd">static</span> <span class="nc">Properties</span> <span class="n">p</span><span class="o">;</span>
 	<span class="kd">static</span><span class="o">{</span>
-		<span class="n">p</span> <span class="o">=</span> <span class="n">PropertiesHelper</span><span class="o">.</span><span class="na">load</span><span class="o">(</span><span class="n">FILE_NAME</span><span class="o">);</span>
+		<span class="n">p</span> <span class="o">=</span> <span class="nc">PropertiesHelper</span><span class="o">.</span><span class="na">load</span><span class="o">(</span><span class="no">FILE_NAME</span><span class="o">);</span>
 	<span class="o">}</span>
-	<span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="nf">get</span><span class="o">(</span><span class="n">String</span> <span class="n">key</span><span class="o">){</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="nc">String</span> <span class="nf">get</span><span class="o">(</span><span class="nc">String</span> <span class="n">key</span><span class="o">){</span>
 		<span class="k">return</span> <span class="kc">null</span><span class="o">==</span><span class="n">p</span><span class="o">?</span><span class="s">""</span><span class="o">:</span><span class="n">p</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="n">key</span><span class="o">);</span>
 	<span class="o">}</span>
 	
@@ -225,7 +225,7 @@
 
 <h4 id="使用">使用</h4>
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 类名.get(配置文件配置的属性对应的常量类里面的常量名)</span>
-<span class="n">GlobalSetting</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">ConstantPool</span><span class="o">.</span><span class="na">QINIU_IMAGE_BUCKET</span><span class="o">);</span>
+<span class="nc">GlobalSetting</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="nc">ConstantPool</span><span class="o">.</span><span class="na">QINIU_IMAGE_BUCKET</span><span class="o">);</span>
 </code></pre></div></div>
 <h4 id="解析">解析：</h4>
 <p>java.util.Properties是对properties这类配置文件的映射。支持key-value类型和xml类型两种。</p>
@@ -242,7 +242,7 @@
   <li>静态导包用法，将类的方法直接导入到当前类中，从而直接使用“方法名”即可调用类方法，更加方便。</li>
 </ol>
 
-<p><code class="highlighter-rouge">文章中若有不足之处，还望指出。坚持是一种精神，分享是一种快乐！</code></p>
+<p><code class="language-plaintext highlighter-rouge">文章中若有不足之处，还望指出。坚持是一种精神，分享是一种快乐！</code></p>
 
 
 
@@ -321,13 +321,13 @@
                             
         				
                             
-                				<a href="/tags/#自我总结" title="自我总结" rel="34">
+                				<a href="/tags/#自我总结" title="自我总结" rel="36">
                                     自我总结
                                 </a>
                             
         				
                             
-                				<a href="/tags/#编程之路" title="编程之路" rel="88">
+                				<a href="/tags/#编程之路" title="编程之路" rel="92">
                                     编程之路
                                 </a>
                             
@@ -438,6 +438,8 @@
                 				<a href="/tags/#MongoDB" title="MongoDB" rel="2">
                                     MongoDB
                                 </a>
+                            
+        				
                             
         				
                             
@@ -594,7 +596,7 @@
                     
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; MY Blog 2019
+                    Copyright &copy; MY Blog 2020
                     <br>
                     Theme on <a href="https://github.com/uniquezhangqi/uniquezhangqi.github.io.git">GitHub</a> |
                     <iframe

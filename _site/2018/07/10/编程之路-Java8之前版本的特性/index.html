@@ -10,7 +10,7 @@
     <meta name="keywords"  content=" MY Blog, 伊恩的博客, Ian, 伊恩, java, Apple">
     <meta name="theme-color" content="#000000">
     
-    <title>Java8之前版本的特性 - 伊恩的博客 | MY Blog</title>
+    <title>Java8之前版本的特性比较 - 伊恩的博客 | MY Blog</title>
 
     <!-- Web App Manifest -->
     <link rel="manifest" href="/pwa/manifest.json">
@@ -180,7 +180,7 @@
                         <a class="tag" href="/tags/#java8" title="java8">java8</a>
                         
                     </div>
-                    <h1>Java8之前版本的特性</h1>
+                    <h1>Java8之前版本的特性比较</h1>
                     
                     
                     <h2 class="subheading">转载：王爵nice</h2>
@@ -218,7 +218,7 @@
     <span class="c1">//使用流对象</span>
     <span class="n">stream</span><span class="o">.</span><span class="na">ream</span><span class="o">();</span>
     <span class="n">stream</span><span class="o">.</span><span class="na">write</span><span class="o">();</span>
-<span class="o">}</span><span class="k">catch</span><span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">){</span>
+<span class="o">}</span><span class="k">catch</span><span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">){</span>
     <span class="c1">//捕获异常 并处理</span>
 <span class="o">}</span><span class="k">finally</span><span class="o">{</span>
     <span class="c1">//关闭流资源 写在这个是里面的代码是必须执行的</span>
@@ -227,65 +227,65 @@
 	<span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div></div>
-<p>这样无疑有些繁琐，而且<code class="highlighter-rouge">finally</code>块还有可能抛出异常。在JDK7中提出了<code class="highlighter-rouge">try-with-resources</code>机制，它规定你操作的类只要是实现了<code class="highlighter-rouge">AutoCloseable</code>接口就可以在try语句块退出的时候自动调用<code class="highlighter-rouge">close</code>方法关闭流资源。</p>
+<p>这样无疑有些繁琐，而且<code class="language-plaintext highlighter-rouge">finally</code>块还有可能抛出异常。在JDK7中提出了<code class="language-plaintext highlighter-rouge">try-with-resources</code>机制，它规定你操作的类只要是实现了<code class="language-plaintext highlighter-rouge">AutoCloseable</code>接口就可以在try语句块退出的时候自动调用<code class="language-plaintext highlighter-rouge">close</code>方法关闭流资源。</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">tryWithResources</span><span class="o">()</span><span class="kd">throws</span> <span class="nf">IOException</span><span class="o">(){</span>
-    <span class="k">try</span><span class="o">(</span><span class="n">InputStream</span> <span class="n">ins</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FileInputStream</span><span class="o">(</span><span class="s">"/home/Ian/a.txt"</span><span class="o">)){</span>
+    <span class="k">try</span><span class="o">(</span><span class="nc">InputStream</span> <span class="n">ins</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">FileInputStream</span><span class="o">(</span><span class="s">"/home/Ian/a.txt"</span><span class="o">)){</span>
         <span class="kt">char</span> <span class="n">charStr</span> <span class="o">=</span> <span class="o">(</span><span class="kt">char</span><span class="o">)</span><span class="n">ins</span><span class="o">.</span><span class="na">read</span><span class="o">();</span>
-        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="n">charStr</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="n">charStr</span><span class="o">);</span>
     <span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div></div>
 <p>使用多个资源</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">try</span><span class="o">(</span><span class="n">InputStream</span> <span class="n">is</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FileInputStream</span><span class="o">(</span><span class="s">"/home/ian/a.txt"</span><span class="o">);</span>
-	<span class="n">OutputStream</span> <span class="n">os</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FileOutputStream</span><span class="o">(</span><span class="s">"/home/ian/b.txt"</span><span class="o">)</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">try</span><span class="o">(</span><span class="nc">InputStream</span> <span class="n">is</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">FileInputStream</span><span class="o">(</span><span class="s">"/home/ian/a.txt"</span><span class="o">);</span>
+	<span class="nc">OutputStream</span> <span class="n">os</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">FileOutputStream</span><span class="o">(</span><span class="s">"/home/ian/b.txt"</span><span class="o">)</span>
 <span class="o">){</span>
 	<span class="kt">char</span> <span class="n">charStr</span> <span class="o">=</span> <span class="o">(</span><span class="kt">char</span><span class="o">)</span><span class="n">is</span><span class="o">.</span><span class="na">read</span><span class="o">();</span>
 	<span class="n">os</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">charStr</span><span class="o">);</span>
 <span class="o">}</span>
 </code></pre></div></div>
-<p>当如如果你使用的是非标准库的类也可以自定义<code class="highlighter-rouge">AutoCloseable</code>，只要实现其<code class="highlighter-rouge">close</code>方法即可。</p>
+<p>当如如果你使用的是非标准库的类也可以自定义<code class="language-plaintext highlighter-rouge">AutoCloseable</code>，只要实现其<code class="language-plaintext highlighter-rouge">close</code>方法即可。</p>
 
 <h4 id="捕获多个exception">捕获多个Exception</h4>
 <p>当我们在操作一个对象的时候，有时候它会抛出多个异常，像这样：</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">try</span><span class="o">{</span>
-    <span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">20000</span><span class="o">);</span>
-    <span class="n">FileInputStream</span> <span class="n">fis</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FileInputStream</span><span class="o">(</span><span class="s">"/a/b.txt"</span><span class="o">);</span>
-<span class="o">}</span><span class="k">catch</span><span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">){</span>
+    <span class="nc">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">20000</span><span class="o">);</span>
+    <span class="nc">FileInputStream</span> <span class="n">fis</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">FileInputStream</span><span class="o">(</span><span class="s">"/a/b.txt"</span><span class="o">);</span>
+<span class="o">}</span><span class="k">catch</span><span class="o">(</span><span class="nc">InterruptedException</span> <span class="n">e</span><span class="o">){</span>
     <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
-<span class="o">}</span><span class="k">catch</span><span class="o">(</span><span class="n">IOException</span> <span class="n">ee</span><span class="o">){</span>
+<span class="o">}</span><span class="k">catch</span><span class="o">(</span><span class="nc">IOException</span> <span class="n">ee</span><span class="o">){</span>
 	<span class="n">ee</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
 <span class="o">}</span>
 </code></pre></div></div>
 <p>这样代码写起来要捕获很多异常，不是很优雅，JDK7允许你捕获多个异常：</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">try</span><span class="o">{</span>
-    <span class="n">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">20000</span><span class="o">);</span>
-    <span class="n">FileInputStream</span> <span class="n">fis</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FileInputStream</span><span class="o">(</span><span class="s">"/a/b.txt"</span><span class="o">);</span>
-<span class="o">}</span><span class="k">catch</span><span class="o">(</span><span class="n">InterruptedException</span> <span class="o">|</span> <span class="n">IOExcepiton</span> <span class="n">e</span><span class="o">){</span>
+    <span class="nc">Thread</span><span class="o">.</span><span class="na">sleep</span><span class="o">(</span><span class="mi">20000</span><span class="o">);</span>
+    <span class="nc">FileInputStream</span> <span class="n">fis</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">FileInputStream</span><span class="o">(</span><span class="s">"/a/b.txt"</span><span class="o">);</span>
+<span class="o">}</span><span class="k">catch</span><span class="o">(</span><span class="nc">InterruptedException</span> <span class="o">|</span> <span class="nc">IOExcepiton</span> <span class="n">e</span><span class="o">){</span>
     <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
 <span class="o">}</span>
 </code></pre></div></div>
-<p>并且<code class="highlighter-rouge">catch</code>语句后面的异常参数是<code class="highlighter-rouge">final</code>的，不可以再修改、复制。</p>
+<p>并且<code class="language-plaintext highlighter-rouge">catch</code>语句后面的异常参数是<code class="language-plaintext highlighter-rouge">final</code>的，不可以再修改、复制。</p>
 
 <h4 id="处理反射异常">处理反射异常</h4>
 <p>使用过反射的朋友可能知道我们有时候操作反射方法的时候会抛出很多不相关的检查异常，例如：</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">try</span><span class="o">{</span>
-    <span class="n">Class</span><span class="o">&lt;?&gt;</span> <span class="n">clazz</span> <span class="o">=</span> <span class="n">Class</span><span class="o">.</span><span class="na">forName</span><span class="o">(</span><span class="s">"com.ian.apple.User"</span><span class="o">);</span>
+    <span class="nc">Class</span><span class="o">&lt;?&gt;</span> <span class="n">clazz</span> <span class="o">=</span> <span class="nc">Class</span><span class="o">.</span><span class="na">forName</span><span class="o">(</span><span class="s">"com.ian.apple.User"</span><span class="o">);</span>
     <span class="n">clazz</span><span class="o">.</span><span class="na">getMethods</span><span class="o">()[</span><span class="mi">0</span><span class="o">].</span><span class="na">invoke</span><span class="o">(</span><span class="n">object</span><span class="o">);</span>
-<span class="o">}</span><span class="k">catch</span><span class="o">(</span><span class="n">IllegalAccessException</span> <span class="n">e</span><span class="o">){</span>
+<span class="o">}</span><span class="k">catch</span><span class="o">(</span><span class="nc">IllegalAccessException</span> <span class="n">e</span><span class="o">){</span>
     <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
-<span class="o">}</span><span class="k">catch</span><span class="o">(</span><span class="n">InvocationTargetException</span> <span class="n">ee</span><span class="o">){</span>
+<span class="o">}</span><span class="k">catch</span><span class="o">(</span><span class="nc">InvocationTargetException</span> <span class="n">ee</span><span class="o">){</span>
 	<span class="n">ee</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
-<span class="o">}</span><span class="k">catch</span><span class="o">(</span><span class="n">ClassNotFoundException</span> <span class="n">eee</span><span class="o">){</span>
+<span class="o">}</span><span class="k">catch</span><span class="o">(</span><span class="nc">ClassNotFoundException</span> <span class="n">eee</span><span class="o">){</span>
     <span class="n">eee</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
 <span class="o">}</span>
 </code></pre></div></div>
-<p>尽管你可以使用<code class="highlighter-rouge">catch</code>多个异常的方法将上述异常都捕获，但这也让人感到痛苦。
-JDK7修复了这个缺陷，引入一个新类<code class="highlighter-rouge">ReflectiveOperationException</code>可以帮你捕获这些反射异常：</p>
+<p>尽管你可以使用<code class="language-plaintext highlighter-rouge">catch</code>多个异常的方法将上述异常都捕获，但这也让人感到痛苦。
+JDK7修复了这个缺陷，引入一个新类<code class="language-plaintext highlighter-rouge">ReflectiveOperationException</code>可以帮你捕获这些反射异常：</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/*   
 	forName是一个静态方法，其作用：通过调用来获取类名对应的Class对象，同时将Class对象加载进来。
@@ -298,34 +298,34 @@ JDK7修复了这个缺陷，引入一个新类<code class="highlighter-rouge">Re
    返回：根据obj和args调用的方法的返回值
 */</span>
 <span class="k">try</span><span class="o">{</span>
-    <span class="n">Clss</span><span class="o">&lt;?&gt;</span> <span class="n">clazz</span> <span class="o">=</span> <span class="n">Class</span><span class="o">.</span><span class="na">forName</span><span class="o">(</span><span class="s">"com.ian.apple.User"</span><span class="o">);</span>
+    <span class="nc">Clss</span><span class="o">&lt;?&gt;</span> <span class="n">clazz</span> <span class="o">=</span> <span class="nc">Class</span><span class="o">.</span><span class="na">forName</span><span class="o">(</span><span class="s">"com.ian.apple.User"</span><span class="o">);</span>
     <span class="n">clazz</span><span class="o">.</span><span class="na">getMethods</span><span class="o">()[</span><span class="mi">0</span><span class="o">].</span><span class="na">invoke</span><span class="o">(</span><span class="n">object</span><span class="o">);</span>
-<span class="o">}</span><span class="k">catch</span><span class="o">(</span><span class="n">ReflectiveOperationException</span> <span class="n">e</span><span class="o">){</span>
+<span class="o">}</span><span class="k">catch</span><span class="o">(</span><span class="nc">ReflectiveOperationException</span> <span class="n">e</span><span class="o">){</span>
     <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
 <h3 id="文件操作">文件操作</h3>
-<p>我们知道在JDK6甚至之前的时候，我们想要读取一个文本文件也是非常麻烦的一件事，而现在他们都变得简单了，这要归功于<code class="highlighter-rouge">NIO2</code>,我们先看看之前的做法：</p>
+<p>我们知道在JDK6甚至之前的时候，我们想要读取一个文本文件也是非常麻烦的一件事，而现在他们都变得简单了，这要归功于<code class="language-plaintext highlighter-rouge">NIO2</code>,我们先看看之前的做法：</p>
 
 <h4 id="读取一个文本文件">读取一个文本文件</h4>
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">BufferedReader</span> <span class="n">br</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">BufferedReader</span> <span class="n">br</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
 <span class="k">try</span><span class="o">{</span>
-    <span class="k">new</span> <span class="nf">BufferedReader</span><span class="o">(</span><span class="k">new</span> <span class="n">FileReader</span><span class="o">(</span><span class="s">"file.txt"</span><span class="o">));</span>
-    <span class="n">StringBuilder</span> <span class="n">sb</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">();</span>
-    <span class="n">String</span> <span class="n">line</span> <span class="o">=</span> <span class="n">br</span><span class="o">.</span><span class="na">readLine</span><span class="o">();</span>
+    <span class="k">new</span> <span class="nf">BufferedReader</span><span class="o">(</span><span class="k">new</span> <span class="nc">FileReader</span><span class="o">(</span><span class="s">"file.txt"</span><span class="o">));</span>
+    <span class="nc">StringBuilder</span> <span class="n">sb</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">StringBuilder</span><span class="o">();</span>
+    <span class="nc">String</span> <span class="n">line</span> <span class="o">=</span> <span class="n">br</span><span class="o">.</span><span class="na">readLine</span><span class="o">();</span>
     <span class="k">while</span><span class="o">(</span><span class="kc">null</span> <span class="o">!=</span> <span class="n">line</span><span class="o">){</span>
         <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">line</span><span class="o">);</span>
-        <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">lineSeparator</span><span class="o">());</span>
+        <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">lineSeparator</span><span class="o">());</span>
         <span class="n">line</span> <span class="o">=</span> <span class="n">br</span><span class="o">.</span><span class="na">readLine</span><span class="o">();</span>
     <span class="o">}</span>
-    <span class="n">String</span> <span class="n">everything</span> <span class="o">=</span> <span class="n">sb</span><span class="o">.</span><span class="na">toString</span><span class="o">();</span>
-<span class="o">}</span><span class="k">catch</span><span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">){</span>
+    <span class="nc">String</span> <span class="n">everything</span> <span class="o">=</span> <span class="n">sb</span><span class="o">.</span><span class="na">toString</span><span class="o">();</span>
+<span class="o">}</span><span class="k">catch</span><span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">){</span>
 	<span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
 <span class="o">}</span><span class="k">finally</span><span class="o">{</span>
     <span class="k">try</span><span class="o">{</span>
         <span class="n">br</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
-    <span class="o">}</span><span class="k">catch</span><span class="o">(</span><span class="n">IOExcepiton</span> <span class="n">ee</span><span class="o">){</span>
+    <span class="o">}</span><span class="k">catch</span><span class="o">(</span><span class="nc">IOExcepiton</span> <span class="n">ee</span><span class="o">){</span>
         <span class="n">ee</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
     <span class="o">}</span>
 <span class="o">}</span>
@@ -335,91 +335,91 @@ JDK7修复了这个缺陷，引入一个新类<code class="highlighter-rouge">Re
 <p>下面我要介绍在JDK7中是如何改善这些问题的。</p>
 
 <h3 id="path">Path</h3>
-<p><code class="highlighter-rouge">path</code> 用于来表示文件路径和文件，和<code class="highlighter-rouge">File</code>对象类似，<code class="highlighter-rouge">path</code>对象并不一定要对应一个实际存在在文件，它只是一个路径的抽象序列。</p>
+<p><code class="language-plaintext highlighter-rouge">path</code> 用于来表示文件路径和文件，和<code class="language-plaintext highlighter-rouge">File</code>对象类似，<code class="language-plaintext highlighter-rouge">path</code>对象并不一定要对应一个实际存在在文件，它只是一个路径的抽象序列。</p>
 
-<p>要创建一个<code class="highlighter-rouge">path</code>对象有很多种方法，首先是<code class="highlighter-rouge">final</code>类<code class="highlighter-rouge">paths</code>的两个<code class="highlighter-rouge">static</code>方法，如何从一个路径字符串来构造<code class="highlighter-rouge">path</code>对象：</p>
+<p>要创建一个<code class="language-plaintext highlighter-rouge">path</code>对象有很多种方法，首先是<code class="language-plaintext highlighter-rouge">final</code>类<code class="language-plaintext highlighter-rouge">paths</code>的两个<code class="language-plaintext highlighter-rouge">static</code>方法，如何从一个路径字符串来构造<code class="language-plaintext highlighter-rouge">path</code>对象：</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Path</span> <span class="n">path1</span> <span class="o">=</span> <span class="n">Paths</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"/home/ian"</span><span class="o">,</span><span class="s">"a.txt"</span><span class="o">);</span>
-<span class="n">Path</span> <span class="n">path2</span> <span class="o">=</span> <span class="n">Paths</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"/home/ian/a.txt"</span><span class="o">);</span>
-<span class="n">URI</span> <span class="n">u</span> <span class="o">=</span> <span class="n">URI</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="s">"file:////home/ian/a.txt"</span><span class="o">);</span>
-<span class="n">Path</span> <span class="n">pathURI</span> <span class="o">=</span> <span class="n">Paths</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">u</span><span class="o">);</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Path</span> <span class="n">path1</span> <span class="o">=</span> <span class="nc">Paths</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"/home/ian"</span><span class="o">,</span><span class="s">"a.txt"</span><span class="o">);</span>
+<span class="nc">Path</span> <span class="n">path2</span> <span class="o">=</span> <span class="nc">Paths</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"/home/ian/a.txt"</span><span class="o">);</span>
+<span class="no">URI</span> <span class="n">u</span> <span class="o">=</span> <span class="no">URI</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="s">"file:////home/ian/a.txt"</span><span class="o">);</span>
+<span class="nc">Path</span> <span class="n">pathURI</span> <span class="o">=</span> <span class="nc">Paths</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">u</span><span class="o">);</span>
 </code></pre></div></div>
-<p>通过<code class="highlighter-rouge">FileSystems</code>构造</p>
+<p>通过<code class="language-plaintext highlighter-rouge">FileSystems</code>构造</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Path</span> <span class="n">filePath</span> <span class="o">=</span> <span class="n">FileSystems</span><span class="o">.</span><span class="na">getDefault</span><span class="o">().</span><span class="na">getPath</span><span class="o">(</span><span class="s">"/home/ian"</span><span class="o">,</span><span class="s">"a.txt"</span><span class="o">);</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Path</span> <span class="n">filePath</span> <span class="o">=</span> <span class="nc">FileSystems</span><span class="o">.</span><span class="na">getDefault</span><span class="o">().</span><span class="na">getPath</span><span class="o">(</span><span class="s">"/home/ian"</span><span class="o">,</span><span class="s">"a.txt"</span><span class="o">);</span>
 </code></pre></div></div>
 
-<p><code class="highlighter-rouge">Path</code>、<code class="highlighter-rouge">URI</code>、<code class="highlighter-rouge">File</code>之间的转换</p>
+<p><code class="language-plaintext highlighter-rouge">Path</code>、<code class="language-plaintext highlighter-rouge">URI</code>、<code class="language-plaintext highlighter-rouge">File</code>之间的转换</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">File</span> <span class="n">file</span> <span class="o">=</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span><span class="s">"/home/ian/a.txt"</span><span class="o">);</span>
-<span class="n">Path</span> <span class="n">p1</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="na">toPath</span><span class="o">();</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">File</span> <span class="n">file</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">File</span><span class="o">(</span><span class="s">"/home/ian/a.txt"</span><span class="o">);</span>
+<span class="nc">Path</span> <span class="n">p1</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="na">toPath</span><span class="o">();</span>
 <span class="n">p1</span><span class="o">.</span><span class="na">toFile</span><span class="o">();</span>
 <span class="n">file</span><span class="o">.</span><span class="na">toURI</span><span class="o">();</span>
 </code></pre></div></div>
 
 <h4 id="读写文件">读写文件</h4>
-<p>你可以使用<code class="highlighter-rouge">Files</code>类快速实现文件操作，例如读取文件内容：</p>
+<p>你可以使用<code class="language-plaintext highlighter-rouge">Files</code>类快速实现文件操作，例如读取文件内容：</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">byte</span><span class="o">[]</span> <span class="n">data</span> <span class="o">=</span> <span class="n">Files</span><span class="o">.</span><span class="na">readAllBytes</span><span class="o">(</span><span class="n">Paths</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"/home/ian/a.txt"</span><span class="o">));</span>
-<span class="n">String</span> <span class="n">content</span> <span class="o">=</span> <span class="k">new</span> <span class="n">String</span><span class="o">(</span><span class="n">data</span><span class="o">,</span><span class="n">StandardCharsets</span><span class="o">.</span><span class="na">UTF</span><span class="o">-</span><span class="mi">8</span><span class="o">);</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">byte</span><span class="o">[]</span> <span class="n">data</span> <span class="o">=</span> <span class="nc">Files</span><span class="o">.</span><span class="na">readAllBytes</span><span class="o">(</span><span class="nc">Paths</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"/home/ian/a.txt"</span><span class="o">));</span>
+<span class="nc">String</span> <span class="n">content</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">String</span><span class="o">(</span><span class="n">data</span><span class="o">,</span><span class="nc">StandardCharsets</span><span class="o">.</span><span class="na">UTF</span><span class="o">-</span><span class="mi">8</span><span class="o">);</span>
 </code></pre></div></div>
 
 <p>如果希望按照行读取文件，可以调用</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">lines</span> <span class="o">=</span> <span class="n">Files</span><span class="o">.</span><span class="na">readAllLines</span><span class="o">(</span><span class="n">Paths</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"/home/ian/a.txt"</span><span class="o">));</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">List</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">lines</span> <span class="o">=</span> <span class="nc">Files</span><span class="o">.</span><span class="na">readAllLines</span><span class="o">(</span><span class="nc">Paths</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"/home/ian/a.txt"</span><span class="o">));</span>
 </code></pre></div></div>
 <p>反之你想将字符串写入到文件可以调用</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Files</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">Paths</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"/home/ian/b.txt"</span><span class="o">),</span><span class="s">"Hello JDK7!"</span><span class="o">.</span><span class="na">getBytes</span><span class="o">());</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Files</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="nc">Paths</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"/home/ian/b.txt"</span><span class="o">),</span><span class="s">"Hello JDK7!"</span><span class="o">.</span><span class="na">getBytes</span><span class="o">());</span>
 </code></pre></div></div>
 
-<p>你也可以按照行写入文件，<code class="highlighter-rouge">Files.write</code>方法的参数中支持传递一个实现<code class="highlighter-rouge">Iterable</code>接口的类实例。将内容追加到指定文件可以使用<code class="highlighter-rouge">write</code>方法的第三个参数<code class="highlighter-rouge">OpenOption</code>：</p>
+<p>你也可以按照行写入文件，<code class="language-plaintext highlighter-rouge">Files.write</code>方法的参数中支持传递一个实现<code class="language-plaintext highlighter-rouge">Iterable</code>接口的类实例。将内容追加到指定文件可以使用<code class="language-plaintext highlighter-rouge">write</code>方法的第三个参数<code class="language-plaintext highlighter-rouge">OpenOption</code>：</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Files</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="n">Paths</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"/home/ian/b.txt"</span><span class="o">),</span><span class="s">"Hello JDK7!"</span><span class="o">.</span><span class="na">getBytes</span><span class="o">(),</span>
-<span class="n">StandardOpenOption</span><span class="o">.</span><span class="na">APPEND</span><span class="o">);</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Files</span><span class="o">.</span><span class="na">write</span><span class="o">(</span><span class="nc">Paths</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"/home/ian/b.txt"</span><span class="o">),</span><span class="s">"Hello JDK7!"</span><span class="o">.</span><span class="na">getBytes</span><span class="o">(),</span>
+<span class="nc">StandardOpenOption</span><span class="o">.</span><span class="na">APPEND</span><span class="o">);</span>
 </code></pre></div></div>
 <blockquote>
   <p>默认情况Files类中的所有方法都会使用UTF-8编码进行操作，当你不愿意这么干的时候可以传递Carset参数进去变更。</p>
 </blockquote>
 
-<p>当然<code class="highlighter-rouge">Files</code>还有一些其他的常用方法：</p>
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">InputStream</span> <span class="n">ins</span> <span class="o">=</span> <span class="n">Files</span><span class="o">.</span><span class="na">newInputStream</span><span class="o">(</span><span class="n">path</span><span class="o">);</span>
-<span class="n">OutputStream</span> <span class="n">ops</span> <span class="o">=</span> <span class="n">Files</span><span class="o">.</span><span class="na">newOutputStream</span><span class="o">(</span><span class="n">path</span><span class="o">);</span>
-<span class="n">Reader</span> <span class="n">reader</span> <span class="o">=</span> <span class="n">Files</span><span class="o">.</span><span class="na">newBufferedReader</span><span class="o">(</span><span class="n">path</span><span class="o">);</span>
-<span class="n">Writer</span> <span class="n">writer</span> <span class="o">=</span> <span class="n">Files</span><span class="o">.</span><span class="na">newBufferedWriter</span><span class="o">(</span><span class="n">path</span><span class="o">);</span>
+<p>当然<code class="language-plaintext highlighter-rouge">Files</code>还有一些其他的常用方法：</p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">InputStream</span> <span class="n">ins</span> <span class="o">=</span> <span class="nc">Files</span><span class="o">.</span><span class="na">newInputStream</span><span class="o">(</span><span class="n">path</span><span class="o">);</span>
+<span class="nc">OutputStream</span> <span class="n">ops</span> <span class="o">=</span> <span class="nc">Files</span><span class="o">.</span><span class="na">newOutputStream</span><span class="o">(</span><span class="n">path</span><span class="o">);</span>
+<span class="nc">Reader</span> <span class="n">reader</span> <span class="o">=</span> <span class="nc">Files</span><span class="o">.</span><span class="na">newBufferedReader</span><span class="o">(</span><span class="n">path</span><span class="o">);</span>
+<span class="nc">Writer</span> <span class="n">writer</span> <span class="o">=</span> <span class="nc">Files</span><span class="o">.</span><span class="na">newBufferedWriter</span><span class="o">(</span><span class="n">path</span><span class="o">);</span>
 </code></pre></div></div>
 
 <h3 id="创建移动删除">创建、移动、删除</h3>
 <p>创建文件、目录</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 这个是如果路径不存在的话 为true，则创建</span>
-<span class="k">if</span><span class="o">(!</span><span class="n">Files</span><span class="o">.</span><span class="na">exists</span><span class="o">(</span><span class="n">path</span><span class="o">)){</span>
-    <span class="n">Files</span><span class="o">.</span><span class="na">createFile</span><span class="o">(</span><span class="n">path</span><span class="o">);</span>
-    <span class="n">Files</span><span class="o">.</span><span class="na">createDirectory</span><span class="o">(</span><span class="n">path</span><span class="o">);</span>
+<span class="k">if</span><span class="o">(!</span><span class="nc">Files</span><span class="o">.</span><span class="na">exists</span><span class="o">(</span><span class="n">path</span><span class="o">)){</span>
+    <span class="nc">Files</span><span class="o">.</span><span class="na">createFile</span><span class="o">(</span><span class="n">path</span><span class="o">);</span>
+    <span class="nc">Files</span><span class="o">.</span><span class="na">createDirectory</span><span class="o">(</span><span class="n">path</span><span class="o">);</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p><code class="highlighter-rouge">Files</code> 还提供了一些方法让我们创建临时文件、临时目录：</p>
+<p><code class="language-plaintext highlighter-rouge">Files</code> 还提供了一些方法让我们创建临时文件、临时目录：</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Files</span><span class="o">.</span><span class="na">createTempFile</span><span class="o">(</span><span class="n">dir</span><span class="o">,</span> <span class="n">prefix</span><span class="o">,</span> <span class="n">suffix</span><span class="o">);</span>
-<span class="n">Files</span><span class="o">.</span><span class="na">createTempFile</span><span class="o">(</span><span class="n">prefix</span><span class="o">,</span> <span class="n">suffix</span><span class="o">);</span>
-<span class="n">Files</span><span class="o">.</span><span class="na">createTempDirectory</span><span class="o">(</span><span class="n">dir</span><span class="o">,</span> <span class="n">prefix</span><span class="o">);</span>
-<span class="n">Files</span><span class="o">.</span><span class="na">createTempDirectory</span><span class="o">(</span><span class="n">prefix</span><span class="o">);</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Files</span><span class="o">.</span><span class="na">createTempFile</span><span class="o">(</span><span class="n">dir</span><span class="o">,</span> <span class="n">prefix</span><span class="o">,</span> <span class="n">suffix</span><span class="o">);</span>
+<span class="nc">Files</span><span class="o">.</span><span class="na">createTempFile</span><span class="o">(</span><span class="n">prefix</span><span class="o">,</span> <span class="n">suffix</span><span class="o">);</span>
+<span class="nc">Files</span><span class="o">.</span><span class="na">createTempDirectory</span><span class="o">(</span><span class="n">dir</span><span class="o">,</span> <span class="n">prefix</span><span class="o">);</span>
+<span class="nc">Files</span><span class="o">.</span><span class="na">createTempDirectory</span><span class="o">(</span><span class="n">prefix</span><span class="o">);</span>
 </code></pre></div></div>
-<p>这里的<code class="highlighter-rouge">dir</code>是一个<code class="highlighter-rouge">Path</code>对象，并且字符串<code class="highlighter-rouge">prefix</code>和<code class="highlighter-rouge">suffix</code>都可能为null。
-例如调用<code class="highlighter-rouge">Files.createTempFile(null,".txt")</code>会返回一个类似/tmp/37864823749.txt的文件</p>
+<p>这里的<code class="language-plaintext highlighter-rouge">dir</code>是一个<code class="language-plaintext highlighter-rouge">Path</code>对象，并且字符串<code class="language-plaintext highlighter-rouge">prefix</code>和<code class="language-plaintext highlighter-rouge">suffix</code>都可能为null。
+例如调用<code class="language-plaintext highlighter-rouge">Files.createTempFile(null,".txt")</code>会返回一个类似/tmp/37864823749.txt的文件</p>
 <blockquote>
   <p>读取一个目录下的文件请使用Files.list和Files.walk方法</p>
 </blockquote>
 
 <p>复制、移动一个文件内容到某个路径</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Files</span><span class="o">.</span><span class="na">copy</span><span class="o">(</span><span class="n">in</span><span class="o">,</span> <span class="n">path</span><span class="o">);</span>
-<span class="n">Files</span><span class="o">.</span><span class="na">move</span><span class="o">(</span><span class="n">path</span><span class="o">,</span> <span class="n">path</span><span class="o">);</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Files</span><span class="o">.</span><span class="na">copy</span><span class="o">(</span><span class="n">in</span><span class="o">,</span> <span class="n">path</span><span class="o">);</span>
+<span class="nc">Files</span><span class="o">.</span><span class="na">move</span><span class="o">(</span><span class="n">path</span><span class="o">,</span> <span class="n">path</span><span class="o">);</span>
 </code></pre></div></div>
 <p>删除一个文件</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Files</span><span class="o">.</span><span class="na">delete</span><span class="o">(</span><span class="n">path</span><span class="o">);</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Files</span><span class="o">.</span><span class="na">delete</span><span class="o">(</span><span class="n">path</span><span class="o">);</span>
 </code></pre></div></div>
 
 <h3 id="小的改进">小的改进</h3>
@@ -428,37 +428,37 @@ JDK7修复了这个缺陷，引入一个新类<code class="highlighter-rouge">Re
 <h3 id="字符串">字符串</h3>
 <p>使用过javaScript的人可能会知道当我们将一个数组中的元素组合起来变成字符串有一个方法join，例如 我们经常用到将数组中的字符串拼接成勇逗号分隔的一长串，这在Java中是要写for循环来完成的。</p>
 
-<p>Java8中添加了<code class="highlighter-rouge">join</code>方法帮你搞定这一切：</p>
+<p>Java8中添加了<code class="language-plaintext highlighter-rouge">join</code>方法帮你搞定这一切：</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">String</span> <span class="n">str</span> <span class="o">=</span> <span class="n">String</span><span class="o">.</span><span class="na">join</span><span class="o">(</span><span class="s">","</span><span class="o">,</span><span class="s">"a"</span><span class="o">,</span><span class="s">"b"</span><span class="o">,</span><span class="s">"c"</span><span class="o">);</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">String</span> <span class="n">str</span> <span class="o">=</span> <span class="nc">String</span><span class="o">.</span><span class="na">join</span><span class="o">(</span><span class="s">","</span><span class="o">,</span><span class="s">"a"</span><span class="o">,</span><span class="s">"b"</span><span class="o">,</span><span class="s">"c"</span><span class="o">);</span>
 </code></pre></div></div>
-<p>第一个参数是分隔符，后面接收一个<code class="highlighter-rouge">CharSequence</code>类型的可变参数数组或一个<code class="highlighter-rouge">Iterable</code>。</p>
+<p>第一个参数是分隔符，后面接收一个<code class="language-plaintext highlighter-rouge">CharSequence</code>类型的可变参数数组或一个<code class="language-plaintext highlighter-rouge">Iterable</code>。</p>
 
 <h3 id="集合">集合</h3>
-<p>集合改变中最大的当属<code class="highlighter-rouge">Stream API</code>，除此之外还有一些小的改动。</p>
+<p>集合改变中最大的当属<code class="language-plaintext highlighter-rouge">Stream API</code>，除此之外还有一些小的改动。</p>
 
 <p><img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-06-09-Java8%E4%B9%8B%E5%89%8D%E7%89%88%E6%9C%AC%E7%9A%84%E7%89%B9%E6%80%A7.jpg" alt="" /></p>
 
 <ul>
-  <li><code class="highlighter-rouge">Map</code>中的很多方法对并发访问十分重要，后面再说。</li>
-  <li><code class="highlighter-rouge">Iterator</code>提供<code class="highlighter-rouge">forEachRemaining</code>将剩余的元素传递给一个函数</li>
-  <li><code class="highlighter-rouge">BitSet</code>可以产生一个<code class="highlighter-rouge">Stream</code>对象</li>
+  <li><code class="language-plaintext highlighter-rouge">Map</code>中的很多方法对并发访问十分重要，后面再说。</li>
+  <li><code class="language-plaintext highlighter-rouge">Iterator</code>提供<code class="language-plaintext highlighter-rouge">forEachRemaining</code>将剩余的元素传递给一个函数</li>
+  <li><code class="language-plaintext highlighter-rouge">BitSet</code>可以产生一个<code class="language-plaintext highlighter-rouge">Stream</code>对象</li>
 </ul>
 
 <h4 id="通用目标类型判断">通用目标类型判断</h4>
 <p>Java8 对泛型参数的推断进行了增强。相信你对Java8 之前版本中的类型推断已经比较熟悉了。
-比如，<code class="highlighter-rouge">Collections</code>中的方法<code class="highlighter-rouge">EmptyList</code>方法定义如下：</p>
+比如，<code class="language-plaintext highlighter-rouge">Collections</code>中的方法<code class="language-plaintext highlighter-rouge">EmptyList</code>方法定义如下：</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Static</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="nf">emptyList</span><span class="o">()</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Static</span><span class="o">&lt;</span><span class="no">T</span><span class="o">&gt;</span> <span class="nc">List</span><span class="o">&lt;</span><span class="no">T</span><span class="o">&gt;</span> <span class="nf">emptyList</span><span class="o">()</span>
 </code></pre></div></div>
-<p><code class="highlighter-rouge">emptyList</code> 方法使用了泛型类型 <code class="highlighter-rouge">T</code>进行参数化。你可以像下面这样为该类型参数提供一个显式的类型进行函数调用：</p>
+<p><code class="language-plaintext highlighter-rouge">emptyList</code> 方法使用了泛型类型 <code class="language-plaintext highlighter-rouge">T</code>进行参数化。你可以像下面这样为该类型参数提供一个显式的类型进行函数调用：</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">List</span><span class="o">&lt;</span><span class="n">Person</span><span class="o">&gt;</span> <span class="n">persions</span> <span class="o">=</span> <span class="n">Collections</span><span class="o">.&lt;</span><span class="n">Person</span><span class="o">&gt;</span><span class="n">emptyList</span><span class="o">();</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">List</span><span class="o">&lt;</span><span class="nc">Person</span><span class="o">&gt;</span> <span class="n">persions</span> <span class="o">=</span> <span class="nc">Collections</span><span class="o">.&lt;</span><span class="nc">Person</span><span class="o">&gt;</span><span class="n">emptyList</span><span class="o">();</span>
 </code></pre></div></div>
 
 <p>不过编译器也可以推断泛型参数的类型，上面的代码和下面这段代码是等价的：</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">List</span><span class="o">&lt;</span><span class="n">person</span><span class="o">&gt;</span> <span class="n">persions</span> <span class="o">=</span> <span class="n">Collections</span><span class="o">.</span><span class="na">emptyList</span><span class="o">();</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">List</span><span class="o">&lt;</span><span class="n">person</span><span class="o">&gt;</span> <span class="n">persions</span> <span class="o">=</span> <span class="nc">Collections</span><span class="o">.</span><span class="na">emptyList</span><span class="o">();</span>
 </code></pre></div></div>
 <p>我还是习惯于这样书写。</p>
 
@@ -473,8 +473,8 @@ JDK7修复了这个缺陷，引入一个新类<code class="highlighter-rouge">Re
 <h4 id="重复注解">重复注解</h4>
 <p>之前版本的Java禁止对同样的注解类型声明多次。由于这个原因，下面的第二句代码是无效的：</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@interface</span> <span class="n">Basic</span><span class="o">{</span>
-    <span class="n">String</span> <span class="nf">name</span><span class="o">();</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@interface</span> <span class="nc">Basic</span><span class="o">{</span>
+    <span class="nc">String</span> <span class="nf">name</span><span class="o">();</span>
 <span class="o">}</span>
 <span class="nd">@Basic</span><span class="o">(</span><span class="n">name</span><span class="o">=</span><span class="s">"fix"</span><span class="o">)</span>
 <span class="nd">@Basic</span><span class="o">(</span><span class="n">name</span><span class="o">=</span><span class="s">"todo"</span><span class="o">)</span>
@@ -483,11 +483,11 @@ JDK7修复了这个缺陷，引入一个新类<code class="highlighter-rouge">Re
 
 <p>我们之前可能会通过数组的做法绕过这一限制：</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@interface</span> <span class="n">Basic</span><span class="o">{</span>
-    <span class="n">String</span> <span class="nf">name</span><span class="o">();</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@interface</span> <span class="nc">Basic</span><span class="o">{</span>
+    <span class="nc">String</span> <span class="nf">name</span><span class="o">();</span>
 <span class="o">}</span>
-<span class="nd">@interface</span> <span class="n">Basics</span><span class="o">{</span>
-    <span class="n">Basic</span><span class="o">[]</span> <span class="nf">value</span><span class="o">();</span>
+<span class="nd">@interface</span> <span class="nc">Basics</span><span class="o">{</span>
+    <span class="nc">Basic</span><span class="o">[]</span> <span class="nf">value</span><span class="o">();</span>
 <span class="o">}</span>
 <span class="nd">@Basics</span><span class="o">({</span><span class="nd">@Basic</span><span class="o">(</span><span class="n">name</span><span class="o">=</span><span class="s">"fix"</span><span class="o">),</span><span class="nd">@Basic</span><span class="o">(</span><span class="s">"todo"</span><span class="o">)})</span>
 <span class="kd">class</span> <span class="nc">Person</span><span class="o">{}</span>
@@ -501,40 +501,40 @@ JDK7修复了这个缺陷，引入一个新类<code class="highlighter-rouge">Re
 <p>如果一个注解在设计之初就是可重复的，你可以直接使用它。但是，如果你提供的注解是为用户提供的，那么就需要做一些工作，说明该注解可以重复。下面是你需要执行的两个步骤：</p>
 
 <ol>
-  <li>将注解标记为<code class="highlighter-rouge">@Repeatable</code></li>
-  <li>提供一个注解的容器下面的例子展示了如何将<code class="highlighter-rouge">@Basic</code>注解修改为可重复注解</li>
+  <li>将注解标记为<code class="language-plaintext highlighter-rouge">@Repeatable</code></li>
+  <li>提供一个注解的容器下面的例子展示了如何将<code class="language-plaintext highlighter-rouge">@Basic</code>注解修改为可重复注解</li>
 </ol>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Repeatable</span><span class="o">(</span><span class="n">Basics</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
-<span class="nd">@interface</span> <span class="n">Basic</span><span class="o">{</span>
-    <span class="n">String</span> <span class="nf">name</span><span class="o">();</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Repeatable</span><span class="o">(</span><span class="nc">Basics</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+<span class="nd">@interface</span> <span class="nc">Basic</span><span class="o">{</span>
+    <span class="nc">String</span> <span class="nf">name</span><span class="o">();</span>
 <span class="o">}</span>
-<span class="nd">@Retention</span><span class="o">(</span><span class="n">RetentionPolicy</span><span class="o">.</span><span class="na">RUNTIME</span><span class="o">)</span>
-<span class="nd">@interface</span> <span class="n">Basics</span><span class="o">{</span>
-    <span class="n">Basic</span><span class="o">[]</span> <span class="nf">value</span><span class="o">();</span>
+<span class="nd">@Retention</span><span class="o">(</span><span class="nc">RetentionPolicy</span><span class="o">.</span><span class="na">RUNTIME</span><span class="o">)</span>
+<span class="nd">@interface</span> <span class="nc">Basics</span><span class="o">{</span>
+    <span class="nc">Basic</span><span class="o">[]</span> <span class="nf">value</span><span class="o">();</span>
 <span class="o">}</span>
 </code></pre></div></div>
-<p>完成了这样的定义之后，<code class="highlighter-rouge">Person</code>类可以通过多个<code class="highlighter-rouge">@Basic</code>注解进行注释，如下所示：</p>
+<p>完成了这样的定义之后，<code class="language-plaintext highlighter-rouge">Person</code>类可以通过多个<code class="language-plaintext highlighter-rouge">@Basic</code>注解进行注释，如下所示：</p>
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Basic</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"fix"</span><span class="o">)</span>
 <span class="nd">@Basic</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">"todo"</span><span class="o">)</span>
 <span class="kd">class</span> <span class="nc">Person</span><span class="o">{}</span>
 </code></pre></div></div>
 
-<p>编译时， <code class="highlighter-rouge">Person</code> 会被认为使用了 <code class="highlighter-rouge">@Basics( { @Basic(name="fix") , @Basic(name="todo")} )</code>
+<p>编译时， <code class="language-plaintext highlighter-rouge">Person</code> 会被认为使用了 <code class="language-plaintext highlighter-rouge">@Basics( { @Basic(name="fix") , @Basic(name="todo")} )</code>
 这样的形式进行了注解，所以，你可以把这种新的机制看成是一种语法糖，
 它提供了程序员之前利用的惯用法类似的功能。为了确保与反射方法在行为上的一致性，
-注解会被封装到一个容器中。 Java API中的<code class="highlighter-rouge">getAnnotation(Class&lt;T&gt; annotationClass)</code>方法会为注解元素返回类型为T的注解。
+注解会被封装到一个容器中。 Java API中的<code class="language-plaintext highlighter-rouge">getAnnotation(Class&lt;T&gt; annotationClass)</code>方法会为注解元素返回类型为T的注解。
 如果实际情况有多个类型为T的注解，该方法的返回到底是哪一个呢？</p>
 
-<p>我们不希望一下子就陷入细节的魔咒，类Class提供了一个新的<code class="highlighter-rouge">getAnnotationsByType</code>方法，
+<p>我们不希望一下子就陷入细节的魔咒，类Class提供了一个新的<code class="language-plaintext highlighter-rouge">getAnnotationsByType</code>方法，
 它可以帮助我们更好地使用重复注解。比如，你可以像下面这样打印输出Person类的所有Basic注解：</p>
 
 <p>返回一个由重复注解Basic组成的数组</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
-    <span class="n">Basic</span><span class="o">[]</span> <span class="n">basics</span> <span class="o">=</span> <span class="n">Person</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getAnnotationsByType</span><span class="o">(</span><span class="n">Basic</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
-    <span class="n">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="n">basics</span><span class="o">).</span><span class="na">forEach</span><span class="o">(</span><span class="n">a</span> <span class="o">-&gt;</span> <span class="o">{</span> 
-        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">a</span><span class="o">.</span><span class="na">name</span><span class="o">());</span> 
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nc">Basic</span><span class="o">[]</span> <span class="n">basics</span> <span class="o">=</span> <span class="nc">Person</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getAnnotationsByType</span><span class="o">(</span><span class="nc">Basic</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="nc">Arrays</span><span class="o">.</span><span class="na">asList</span><span class="o">(</span><span class="n">basics</span><span class="o">).</span><span class="na">forEach</span><span class="o">(</span><span class="n">a</span> <span class="o">-&gt;</span> <span class="o">{</span> 
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">a</span><span class="o">.</span><span class="na">name</span><span class="o">());</span> 
     <span class="o">});</span> 
 <span class="o">}</span>
 </code></pre></div></div>
@@ -543,12 +543,12 @@ JDK7修复了这个缺陷，引入一个新类<code class="highlighter-rouge">Re
 
 <h4 id="使用optional优化代码">使用Optional优化代码</h4>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="nf">getUserNameByOptional</span><span class="o">(</span><span class="n">User</span> <span class="n">user</span><span class="o">){</span>
-    <span class="n">Optional</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">userName</span> <span class="o">=</span> 			 <span class="n">Optional</span><span class="o">.</span><span class="na">ofNullable</span><span class="o">(</span><span class="n">user</span><span class="o">).</span><span class="na">map</span><span class="o">(</span><span class="nl">User:</span><span class="o">:</span><span class="n">getName</span><span class="o">);</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="nc">String</span> <span class="nf">getUserNameByOptional</span><span class="o">(</span><span class="nc">User</span> <span class="n">user</span><span class="o">){</span>
+    <span class="nc">Optional</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">userName</span> <span class="o">=</span> 			 <span class="nc">Optional</span><span class="o">.</span><span class="na">ofNullable</span><span class="o">(</span><span class="n">user</span><span class="o">).</span><span class="na">map</span><span class="o">(</span><span class="nl">User:</span><span class="o">:</span><span class="n">getName</span><span class="o">);</span>
     <span class="k">return</span> <span class="n">userName</span><span class="o">.</span><span class="na">orElse</span><span class="o">(</span><span class="kc">null</span><span class="o">);</span>
 <span class="o">}</span>
 </code></pre></div></div>
-<p>当<code class="highlighter-rouge">user</code>为<code class="highlighter-rouge">null</code>的时候我们设置<code class="highlighter-rouge">UserName</code>的值为<code class="highlighter-rouge">null</code>，否则返回<code class="highlighter-rouge">getName</code>的返回值，但此时不会抛出异常空指针。</p>
+<p>当<code class="language-plaintext highlighter-rouge">user</code>为<code class="language-plaintext highlighter-rouge">null</code>的时候我们设置<code class="language-plaintext highlighter-rouge">UserName</code>的值为<code class="language-plaintext highlighter-rouge">null</code>，否则返回<code class="language-plaintext highlighter-rouge">getName</code>的返回值，但此时不会抛出异常空指针。</p>
 
 <p>在之前的代码片段中是我们最熟悉的命令式编程思维，写下的代码可以描述程序的执行逻辑，得到什么样的结果。</p>
 
@@ -556,61 +556,61 @@ JDK7修复了这个缺陷，引入一个新类<code class="highlighter-rouge">Re
 
 <p>这种情况下提高程序的性能是一个不容易的事情。</p>
 
-<p>我们再次了解下<code class="highlighter-rouge">Optional</code>中的一些使用方法</p>
+<p>我们再次了解下<code class="language-plaintext highlighter-rouge">Optional</code>中的一些使用方法</p>
 
 <h3 id="optional方法">Optional方法</h3>
-<p>你可以通过静态工厂方法<code class="highlighter-rouge">Optional.empty</code>，创建一个空的<code class="highlighter-rouge">Optional</code>对象：</p>
+<p>你可以通过静态工厂方法<code class="language-plaintext highlighter-rouge">Optional.empty</code>，创建一个空的<code class="language-plaintext highlighter-rouge">Optional</code>对象：</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Optional</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="n">emptyUser</span> <span class="o">=</span> <span class="n">Optional</span><span class="o">.</span><span class="na">empty</span><span class="o">();</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Optional</span><span class="o">&lt;</span><span class="nc">User</span><span class="o">&gt;</span> <span class="n">emptyUser</span> <span class="o">=</span> <span class="nc">Optional</span><span class="o">.</span><span class="na">empty</span><span class="o">();</span>
 </code></pre></div></div>
 
-<p>创建一个非空值的<code class="highlighter-rouge">Optional</code></p>
+<p>创建一个非空值的<code class="language-plaintext highlighter-rouge">Optional</code></p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Optinal</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="n">userOptional</span> <span class="o">=</span> <span class="n">Optional</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">user</span><span class="o">);</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Optinal</span><span class="o">&lt;</span><span class="nc">User</span><span class="o">&gt;</span> <span class="n">userOptional</span> <span class="o">=</span> <span class="nc">Optional</span><span class="o">.</span><span class="na">of</span><span class="o">(</span><span class="n">user</span><span class="o">);</span>
 </code></pre></div></div>
 
-<p>如果<code class="highlighter-rouge">user</code>是一个<code class="highlighter-rouge">null</code>，这段代码会立即抛出一个<code class="highlighter-rouge">NullPointerException</code>，而不是等到你试图访问<code class="highlighter-rouge">user</code>的属性值时才返回一个错误。</p>
+<p>如果<code class="language-plaintext highlighter-rouge">user</code>是一个<code class="language-plaintext highlighter-rouge">null</code>，这段代码会立即抛出一个<code class="language-plaintext highlighter-rouge">NullPointerException</code>，而不是等到你试图访问<code class="language-plaintext highlighter-rouge">user</code>的属性值时才返回一个错误。</p>
 
-<p>可接受<code class="highlighter-rouge">null</code>的<code class="highlighter-rouge">Optional</code></p>
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Optional</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="n">ofNullOptional</span> <span class="o">=</span> <span class="n">Optional</span><span class="o">.</span><span class="na">ofNullable</span><span class="o">(</span><span class="n">user</span><span class="o">);</span>
+<p>可接受<code class="language-plaintext highlighter-rouge">null</code>的<code class="language-plaintext highlighter-rouge">Optional</code></p>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Optional</span><span class="o">&lt;</span><span class="nc">User</span><span class="o">&gt;</span> <span class="n">ofNullOptional</span> <span class="o">=</span> <span class="nc">Optional</span><span class="o">.</span><span class="na">ofNullable</span><span class="o">(</span><span class="n">user</span><span class="o">);</span>
 </code></pre></div></div>
 
-<p>使用静态工厂方法<code class="highlighter-rouge">Optional.ofNullable</code>，你可以创建一个允许<code class="highlighter-rouge">null</code>值得<code class="highlighter-rouge">Optional</code>对象。</p>
+<p>使用静态工厂方法<code class="language-plaintext highlighter-rouge">Optional.ofNullable</code>，你可以创建一个允许<code class="language-plaintext highlighter-rouge">null</code>值得<code class="language-plaintext highlighter-rouge">Optional</code>对象。</p>
 
-<p>如果user 是 null，那么得到的<code class="highlighter-rouge">Optional</code>对象就是个空对象，但不会让你导致空指针。</p>
+<p>如果user 是 null，那么得到的<code class="language-plaintext highlighter-rouge">Optional</code>对象就是个空对象，但不会让你导致空指针。</p>
 
 <p>使用 map 从 Optional对象中提取和转换值</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Optional</span><span class="o">&lt;</span><span class="n">User</span><span class="o">&gt;</span> <span class="n">ofNullOptional</span> <span class="o">=</span> <span class="n">Optional</span><span class="o">.</span><span class="na">ofNullable</span><span class="o">(</span><span class="n">user</span><span class="o">);</span>
-<span class="n">Optional</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">userName</span> <span class="o">=</span> <span class="n">ofNullOptional</span><span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="nl">User:</span><span class="o">:</span><span class="n">getName</span><span class="o">);</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Optional</span><span class="o">&lt;</span><span class="nc">User</span><span class="o">&gt;</span> <span class="n">ofNullOptional</span> <span class="o">=</span> <span class="nc">Optional</span><span class="o">.</span><span class="na">ofNullable</span><span class="o">(</span><span class="n">user</span><span class="o">);</span>
+<span class="nc">Optional</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">userName</span> <span class="o">=</span> <span class="n">ofNullOptional</span><span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="nl">User:</span><span class="o">:</span><span class="n">getName</span><span class="o">);</span>
 </code></pre></div></div>
 <p>这种操作就像我们之前在操作Stream是一样的，获取的只是User中的一个属性。</p>
 
 <h4 id="默认行为及解引用optional对象">默认行为及解引用Optional对象</h4>
-<p>我们决定采用<code class="highlighter-rouge">orElse</code>方法读取这个变量的值，使用这种方式你还可以定义一个默认值，
-遭遇空的<code class="highlighter-rouge">Optional</code>变量时，默认值会作为该方法的调用返回值。
+<p>我们决定采用<code class="language-plaintext highlighter-rouge">orElse</code>方法读取这个变量的值，使用这种方式你还可以定义一个默认值，
+遭遇空的<code class="language-plaintext highlighter-rouge">Optional</code>变量时，默认值会作为该方法的调用返回值。
 Optional类提供了多种方法读取 Optional实例中的变量值。</p>
 
 <ul>
   <li>
-    <p><code class="highlighter-rouge">get()</code>是这些方法中最简单但又最不安全的方法。如果变量存在，它直接返回封装的变量 
-值，否则就抛出一个<code class="highlighter-rouge">NoSuchElementException</code>异常。所以，除非你非常确定Optional 
+    <p><code class="language-plaintext highlighter-rouge">get()</code>是这些方法中最简单但又最不安全的方法。如果变量存在，它直接返回封装的变量 
+值，否则就抛出一个<code class="language-plaintext highlighter-rouge">NoSuchElementException</code>异常。所以，除非你非常确定Optional 
 变量一定包含值，否则使用这个方法是个相当糟糕的主意。此外，这种方式即便相对于 嵌套式的null检查，也并未体现出多大的改进。</p>
   </li>
   <li>
-    <p><code class="highlighter-rouge">orElse(T other)</code>是我们在代码清单10-5中使用的方法，正如之前提到的，它允许你在 Optional对象不包含值时提供一个默认值。</p>
+    <p><code class="language-plaintext highlighter-rouge">orElse(T other)</code>是我们在代码清单10-5中使用的方法，正如之前提到的，它允许你在 Optional对象不包含值时提供一个默认值。</p>
   </li>
   <li>
-    <p><code class="highlighter-rouge">orElseGet(Supplier&lt;? extends T&gt; other)</code>是<code class="highlighter-rouge">orElse</code>方法的延迟调用版，Supplier
+    <p><code class="language-plaintext highlighter-rouge">orElseGet(Supplier&lt;? extends T&gt; other)</code>是<code class="language-plaintext highlighter-rouge">orElse</code>方法的延迟调用版，Supplier
 方法只有在Optional对象不含值时才执行调用。如果创建默认值是件耗时费力的工作， 
 你应该考虑采用这种方式（借此提升程序的性能），或者你需要非常确定某个方法仅在</p>
   </li>
   <li>
-    <p><code class="highlighter-rouge">Optional</code>为空时才进行调用，也可以考虑该方式（这种情况有严格的限制条件）。
-<code class="highlighter-rouge">orElseThrow(Supplier&lt;? extends X&gt; exceptionSupplier)</code>和<code class="highlighter-rouge">get</code>方法非常类似， 它们遭遇Optional对象为空时都会抛出一个异常，但是使用<code class="highlighter-rouge">orElseThrow</code>你可以定制希 望抛出的异常类型。</p>
+    <p><code class="language-plaintext highlighter-rouge">Optional</code>为空时才进行调用，也可以考虑该方式（这种情况有严格的限制条件）。
+<code class="language-plaintext highlighter-rouge">orElseThrow(Supplier&lt;? extends X&gt; exceptionSupplier)</code>和<code class="language-plaintext highlighter-rouge">get</code>方法非常类似， 它们遭遇Optional对象为空时都会抛出一个异常，但是使用<code class="language-plaintext highlighter-rouge">orElseThrow</code>你可以定制希 望抛出的异常类型。</p>
   </li>
   <li>
-    <p><code class="highlighter-rouge">ifPresent(Consumer&lt;? super T&gt;)</code>让你能在变量值存在时执行一个作为参数传入的 方法，否则就不进行任何操作。</p>
+    <p><code class="language-plaintext highlighter-rouge">ifPresent(Consumer&lt;? super T&gt;)</code>让你能在变量值存在时执行一个作为参数传入的 方法，否则就不进行任何操作。</p>
   </li>
 </ul>
 
@@ -624,17 +624,17 @@ Optional类提供了多种方法读取 Optional实例中的变量值。</p>
 但是，正如我们之前介绍的，大多数情况下，你可能希望这些方法能返回一个Optional对象。
 你无法修改这些方法的签名，但是你很容易用Optional对这些方法的返回值进行封装。</p>
 
-<p>我们接着用Map做例子，假设你有一个<code class="highlighter-rouge">Map&lt;String, Object&gt;</code>类型的<code class="highlighter-rouge">map</code>，访问由<code class="highlighter-rouge">key</code>的值时，
+<p>我们接着用Map做例子，假设你有一个<code class="language-plaintext highlighter-rouge">Map&lt;String, Object&gt;</code>类型的<code class="language-plaintext highlighter-rouge">map</code>，访问由<code class="language-plaintext highlighter-rouge">key</code>的值时，
 如果map中没有与key关联的值，该次调用就会返回一个null。</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Object</span> <span class="n">value</span> <span class="o">=</span> <span class="n">map</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"key"</span><span class="o">);</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Object</span> <span class="n">value</span> <span class="o">=</span> <span class="n">map</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"key"</span><span class="o">);</span>
 </code></pre></div></div>
 
-<p>使用<code class="highlighter-rouge">Optional</code>封装<code class="highlighter-rouge">map</code>的返回值，你可以对这段代码进行优化。要达到这个目的有两种方式：
-你可以使用笨拙的<code class="highlighter-rouge">if-then-else</code>判断语句，毫无疑问这种方式会增加代码的复杂度；
-或者你可以采用<code class="highlighter-rouge">Optional.ofNullable</code>方法</p>
+<p>使用<code class="language-plaintext highlighter-rouge">Optional</code>封装<code class="language-plaintext highlighter-rouge">map</code>的返回值，你可以对这段代码进行优化。要达到这个目的有两种方式：
+你可以使用笨拙的<code class="language-plaintext highlighter-rouge">if-then-else</code>判断语句，毫无疑问这种方式会增加代码的复杂度；
+或者你可以采用<code class="language-plaintext highlighter-rouge">Optional.ofNullable</code>方法</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Optional</span><span class="o">&lt;</span><span class="n">Object</span><span class="o">&gt;</span> <span class="n">value</span> <span class="o">=</span> <span class="n">Optional</span><span class="o">.</span><span class="na">ofNullable</span><span class="o">(</span><span class="n">map</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"key"</span><span class="o">));</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Optional</span><span class="o">&lt;</span><span class="nc">Object</span><span class="o">&gt;</span> <span class="n">value</span> <span class="o">=</span> <span class="nc">Optional</span><span class="o">.</span><span class="na">ofNullable</span><span class="o">(</span><span class="n">map</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"key"</span><span class="o">));</span>
 </code></pre></div></div>
 
 <p>每次你希望安全地对潜在为null的对象进行转换，将其替换为Optional对象时，都可以考虑使用这种方法。</p>
@@ -657,9 +657,9 @@ Optional类提供了多种方法读取 Optional实例中的变量值。</p>
                     
                     
                     <li class="next">
-                        <a href="/2018/07/10/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Java8%E6%96%B0%E7%89%B9%E6%80%A7%E6%8C%87%E5%8D%97/" data-toggle="tooltip" data-placement="top" title="自我总结Java8新特性">
+                        <a href="/2018/07/12/%E7%94%9F%E6%B4%BB-%E4%BB%80%E4%B9%88%E6%98%AFP2P/" data-toggle="tooltip" data-placement="top" title="什么是P2P">
                         Next<br>
-                        <span>自我总结Java8新特性</span>
+                        <span>什么是P2P</span>
                         </a>
                     </li>
                     
@@ -719,13 +719,13 @@ Optional类提供了多种方法读取 Optional实例中的变量值。</p>
                             
         				
                             
-                				<a href="/tags/#自我总结" title="自我总结" rel="34">
+                				<a href="/tags/#自我总结" title="自我总结" rel="36">
                                     自我总结
                                 </a>
                             
         				
                             
-                				<a href="/tags/#编程之路" title="编程之路" rel="88">
+                				<a href="/tags/#编程之路" title="编程之路" rel="92">
                                     编程之路
                                 </a>
                             
@@ -836,6 +836,8 @@ Optional类提供了多种方法读取 Optional实例中的变量值。</p>
                 				<a href="/tags/#MongoDB" title="MongoDB" rel="2">
                                     MongoDB
                                 </a>
+                            
+        				
                             
         				
                             
@@ -992,7 +994,7 @@ Optional类提供了多种方法读取 Optional实例中的变量值。</p>
                     
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; MY Blog 2019
+                    Copyright &copy; MY Blog 2020
                     <br>
                     Theme on <a href="https://github.com/uniquezhangqi/uniquezhangqi.github.io.git">GitHub</a> |
                     <iframe

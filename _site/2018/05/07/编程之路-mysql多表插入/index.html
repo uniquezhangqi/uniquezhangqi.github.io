@@ -226,33 +226,33 @@
 <h3 id="mapper">mapper:</h3>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	<span class="c1">// 保存控制器二维码</span>
-	<span class="kt">void</span> <span class="nf">saveControllerQrCode</span><span class="o">(</span><span class="n">DwAddData</span> <span class="n">record</span><span class="o">);</span>
+	<span class="kt">void</span> <span class="nf">saveControllerQrCode</span><span class="o">(</span><span class="nc">DwAddData</span> <span class="n">record</span><span class="o">);</span>
 
 	<span class="c1">// 保存车辆二维码</span>
-	<span class="kt">void</span> <span class="nf">saveSyscode</span><span class="o">(</span><span class="n">DwAddData</span> <span class="n">record</span><span class="o">);</span>
+	<span class="kt">void</span> <span class="nf">saveSyscode</span><span class="o">(</span><span class="nc">DwAddData</span> <span class="n">record</span><span class="o">);</span>
 
 	<span class="c1">// 保存车架号</span>
-	<span class="kt">void</span> <span class="nf">saveDwPlateNumber</span><span class="o">(</span><span class="n">DwAddData</span> <span class="n">record</span><span class="o">);</span>
+	<span class="kt">void</span> <span class="nf">saveDwPlateNumber</span><span class="o">(</span><span class="nc">DwAddData</span> <span class="n">record</span><span class="o">);</span>
 </code></pre></div></div>
 
 <h3 id="mapperxml">mapper.xml</h3>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="o">&lt;!--</span> <span class="err">控制器二维码</span>  <span class="o">--&gt;</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="o">&lt;!--</span> <span class="n">控制器二维码</span>  <span class="o">--&gt;</span>
     <span class="o">&lt;</span><span class="n">insert</span> <span class="n">id</span><span class="o">=</span><span class="s">"saveControllerQrCode"</span> <span class="n">parameterType</span><span class="o">=</span><span class="s">"com.xe.demo.model.DwAddData"</span> <span class="n">useGeneratedKeys</span><span class="o">=</span><span class="s">"true"</span> <span class="n">keyProperty</span><span class="o">=</span><span class="s">"id"</span><span class="o">&gt;</span>
-        <span class="n">insert</span> <span class="n">IGNORE</span> <span class="n">into</span> <span class="nf">base_controller_info</span> <span class="o">(</span><span class="n">id</span><span class="o">,</span> <span class="n">controllerQrCode</span><span class="o">)</span>
-        <span class="n">values</span> <span class="o">(</span><span class="err">#</span><span class="o">{</span><span class="n">id</span><span class="o">,</span><span class="n">jdbcType</span><span class="o">=</span><span class="n">BIGINT</span><span class="o">},</span> <span class="err">#</span><span class="o">{</span><span class="n">dwControllerQrcode</span><span class="o">,</span><span class="n">jdbcType</span><span class="o">=</span><span class="n">VARCHAR</span><span class="o">})</span>
+        <span class="n">insert</span> <span class="no">IGNORE</span> <span class="n">into</span> <span class="nf">base_controller_info</span> <span class="o">(</span><span class="n">id</span><span class="o">,</span> <span class="n">controllerQrCode</span><span class="o">)</span>
+        <span class="n">values</span> <span class="o">(</span><span class="err">#</span><span class="o">{</span><span class="n">id</span><span class="o">,</span><span class="n">jdbcType</span><span class="o">=</span><span class="no">BIGINT</span><span class="o">},</span> <span class="err">#</span><span class="o">{</span><span class="n">dwControllerQrcode</span><span class="o">,</span><span class="n">jdbcType</span><span class="o">=</span><span class="no">VARCHAR</span><span class="o">})</span>
     <span class="o">&lt;/</span><span class="n">insert</span><span class="o">&gt;</span>
     
-    <span class="o">&lt;!--</span> <span class="err">车辆二维码</span>   <span class="o">--&gt;</span>
+    <span class="o">&lt;!--</span> <span class="n">车辆二维码</span>   <span class="o">--&gt;</span>
     <span class="o">&lt;</span><span class="n">insert</span> <span class="n">id</span><span class="o">=</span><span class="s">"saveSyscode"</span> <span class="n">parameterType</span><span class="o">=</span><span class="s">"com.xe.demo.model.DwAddData"</span> <span class="n">useGeneratedKeys</span><span class="o">=</span><span class="s">"true"</span> <span class="n">keyProperty</span><span class="o">=</span><span class="s">"id"</span><span class="o">&gt;</span>
-    		<span class="n">insert</span> <span class="n">IGNORE</span> <span class="n">into</span> <span class="nf">base_system_qrcode</span> <span class="o">(</span><span class="n">id</span><span class="o">,</span> <span class="n">controllerQrCode</span><span class="o">,</span> <span class="n">batchId</span><span class="o">)</span>
-        <span class="n">values</span> <span class="o">(</span><span class="err">#</span><span class="o">{</span><span class="n">id</span><span class="o">,</span><span class="n">jdbcType</span><span class="o">=</span><span class="n">BIGINT</span><span class="o">},</span> <span class="err">#</span><span class="o">{</span><span class="n">syscode</span><span class="o">,</span><span class="n">jdbcType</span><span class="o">=</span><span class="n">VARCHAR</span><span class="o">},</span> <span class="s">"0"</span><span class="o">)</span>
+    		<span class="n">insert</span> <span class="no">IGNORE</span> <span class="n">into</span> <span class="nf">base_system_qrcode</span> <span class="o">(</span><span class="n">id</span><span class="o">,</span> <span class="n">controllerQrCode</span><span class="o">,</span> <span class="n">batchId</span><span class="o">)</span>
+        <span class="n">values</span> <span class="o">(</span><span class="err">#</span><span class="o">{</span><span class="n">id</span><span class="o">,</span><span class="n">jdbcType</span><span class="o">=</span><span class="no">BIGINT</span><span class="o">},</span> <span class="err">#</span><span class="o">{</span><span class="n">syscode</span><span class="o">,</span><span class="n">jdbcType</span><span class="o">=</span><span class="no">VARCHAR</span><span class="o">},</span> <span class="s">"0"</span><span class="o">)</span>
     <span class="o">&lt;/</span><span class="n">insert</span><span class="o">&gt;</span>
     
-    <span class="o">&lt;!--</span> <span class="err">车辆信息表</span> <span class="err">车架号</span>  <span class="o">--&gt;</span>
+    <span class="o">&lt;!--</span> <span class="n">车辆信息表</span> <span class="n">车架号</span>  <span class="o">--&gt;</span>
     <span class="o">&lt;</span><span class="n">insert</span> <span class="n">id</span><span class="o">=</span><span class="s">"saveDwPlateNumber"</span> <span class="n">parameterType</span><span class="o">=</span><span class="s">"com.xe.demo.model.DwAddData"</span> <span class="n">useGeneratedKeys</span><span class="o">=</span><span class="s">"true"</span> <span class="n">keyProperty</span><span class="o">=</span><span class="s">"id"</span><span class="o">&gt;</span>
-    		<span class="n">insert</span> <span class="n">IGNORE</span> <span class="n">into</span> <span class="nf">veh_vehicle_information</span> <span class="o">(</span><span class="n">id</span><span class="o">,</span> <span class="n">frame_number</span><span class="o">)</span>
-        <span class="n">values</span> <span class="o">(</span><span class="err">#</span><span class="o">{</span><span class="n">id</span><span class="o">,</span><span class="n">jdbcType</span><span class="o">=</span><span class="n">BIGINT</span><span class="o">},</span> <span class="err">#</span><span class="o">{</span><span class="n">dwPlateNumber</span><span class="o">,</span><span class="n">jdbcType</span><span class="o">=</span><span class="n">VARCHAR</span><span class="o">})</span>
+    		<span class="n">insert</span> <span class="no">IGNORE</span> <span class="n">into</span> <span class="nf">veh_vehicle_information</span> <span class="o">(</span><span class="n">id</span><span class="o">,</span> <span class="n">frame_number</span><span class="o">)</span>
+        <span class="n">values</span> <span class="o">(</span><span class="err">#</span><span class="o">{</span><span class="n">id</span><span class="o">,</span><span class="n">jdbcType</span><span class="o">=</span><span class="no">BIGINT</span><span class="o">},</span> <span class="err">#</span><span class="o">{</span><span class="n">dwPlateNumber</span><span class="o">,</span><span class="n">jdbcType</span><span class="o">=</span><span class="no">VARCHAR</span><span class="o">})</span>
     <span class="o">&lt;/</span><span class="n">insert</span><span class="o">&gt;</span>
 </code></pre></div></div>
 
@@ -336,13 +336,13 @@
                             
         				
                             
-                				<a href="/tags/#自我总结" title="自我总结" rel="34">
+                				<a href="/tags/#自我总结" title="自我总结" rel="36">
                                     自我总结
                                 </a>
                             
         				
                             
-                				<a href="/tags/#编程之路" title="编程之路" rel="88">
+                				<a href="/tags/#编程之路" title="编程之路" rel="92">
                                     编程之路
                                 </a>
                             
@@ -453,6 +453,8 @@
                 				<a href="/tags/#MongoDB" title="MongoDB" rel="2">
                                     MongoDB
                                 </a>
+                            
+        				
                             
         				
                             
@@ -609,7 +611,7 @@
                     
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; MY Blog 2019
+                    Copyright &copy; MY Blog 2020
                     <br>
                     Theme on <a href="https://github.com/uniquezhangqi/uniquezhangqi.github.io.git">GitHub</a> |
                     <iframe

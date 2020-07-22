@@ -202,40 +202,40 @@
                 post-container">
 
 				<h4 id="springcontextholder静态持有springcontext的引用">SpringContextHolder静态持有SpringContext的引用</h4>
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SpringContextHolder</span> <span class="kd">implements</span> <span class="n">ApplicationContextAware</span><span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SpringContextHolder</span> <span class="kd">implements</span> <span class="nc">ApplicationContextAware</span><span class="o">{</span>
  
-    <span class="kd">private</span> <span class="kd">static</span> <span class="n">ApplicationContext</span> <span class="n">applicationContext</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="nc">ApplicationContext</span> <span class="n">applicationContext</span><span class="o">;</span>
  
      
     <span class="c1">//实现ApplicationContextAware接口的context注入函数, 将其存入静态变量.</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setApplicationContext</span><span class="o">(</span><span class="n">ApplicationContext</span> <span class="n">applicationContext</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">SpringContextHolder</span><span class="o">.</span><span class="na">applicationContext</span> <span class="o">=</span> <span class="n">applicationContext</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setApplicationContext</span><span class="o">(</span><span class="nc">ApplicationContext</span> <span class="n">applicationContext</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">SpringContextHolder</span><span class="o">.</span><span class="na">applicationContext</span> <span class="o">=</span> <span class="n">applicationContext</span><span class="o">;</span>
     <span class="o">}</span>
  
     
     <span class="c1">//取得存储在静态变量中的ApplicationContext.</span>
-    <span class="kd">public</span> <span class="kd">static</span> <span class="n">ApplicationContext</span> <span class="nf">getApplicationContext</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="nc">ApplicationContext</span> <span class="nf">getApplicationContext</span><span class="o">()</span> <span class="o">{</span>
         <span class="n">checkApplicationContext</span><span class="o">();</span>
         <span class="k">return</span> <span class="n">applicationContext</span><span class="o">;</span>
     <span class="o">}</span>
      
     <span class="c1">//从静态变量ApplicationContext中取得Bean, 自动转型为所赋值对象的类型.</span>
     <span class="nd">@SuppressWarnings</span><span class="o">(</span><span class="s">"unchecked"</span><span class="o">)</span>
-    <span class="kd">public</span> <span class="kd">static</span> <span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">T</span> <span class="nf">getBean</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="o">&lt;</span><span class="no">T</span><span class="o">&gt;</span> <span class="no">T</span> <span class="nf">getBean</span><span class="o">(</span><span class="nc">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
         <span class="n">checkApplicationContext</span><span class="o">();</span>
-        <span class="k">return</span> <span class="o">(</span><span class="n">T</span><span class="o">)</span> <span class="n">applicationContext</span><span class="o">.</span><span class="na">getBean</span><span class="o">(</span><span class="n">name</span><span class="o">);</span>
+        <span class="k">return</span> <span class="o">(</span><span class="no">T</span><span class="o">)</span> <span class="n">applicationContext</span><span class="o">.</span><span class="na">getBean</span><span class="o">(</span><span class="n">name</span><span class="o">);</span>
     <span class="o">}</span>
  
      
     <span class="c1">//从静态变量ApplicationContext中取得Bean, 自动转型为所赋值对象的类型.</span>
     <span class="c1">//如果有多个Bean符合Class, 取出第一个.</span>
     <span class="nd">@SuppressWarnings</span><span class="o">(</span><span class="s">"unchecked"</span><span class="o">)</span>
-    <span class="kd">public</span> <span class="kd">static</span> <span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">T</span> <span class="nf">getBean</span><span class="o">(</span><span class="n">Class</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">clazz</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="o">&lt;</span><span class="no">T</span><span class="o">&gt;</span> <span class="no">T</span> <span class="nf">getBean</span><span class="o">(</span><span class="nc">Class</span><span class="o">&lt;</span><span class="no">T</span><span class="o">&gt;</span> <span class="n">clazz</span><span class="o">)</span> <span class="o">{</span>
         <span class="n">checkApplicationContext</span><span class="o">();</span>
         <span class="nd">@SuppressWarnings</span><span class="o">(</span><span class="s">"rawtypes"</span><span class="o">)</span>
-                <span class="n">Map</span> <span class="n">beanMaps</span> <span class="o">=</span> <span class="n">applicationContext</span><span class="o">.</span><span class="na">getBeansOfType</span><span class="o">(</span><span class="n">clazz</span><span class="o">);</span>
+                <span class="nc">Map</span> <span class="n">beanMaps</span> <span class="o">=</span> <span class="n">applicationContext</span><span class="o">.</span><span class="na">getBeansOfType</span><span class="o">(</span><span class="n">clazz</span><span class="o">);</span>
         <span class="k">if</span> <span class="o">(</span><span class="n">beanMaps</span><span class="o">!=</span><span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">beanMaps</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">())</span> <span class="o">{</span>
-            <span class="k">return</span> <span class="o">(</span><span class="n">T</span><span class="o">)</span> <span class="n">beanMaps</span><span class="o">.</span><span class="na">values</span><span class="o">().</span><span class="na">iterator</span><span class="o">().</span><span class="na">next</span><span class="o">();</span>
+            <span class="k">return</span> <span class="o">(</span><span class="no">T</span><span class="o">)</span> <span class="n">beanMaps</span><span class="o">.</span><span class="na">values</span><span class="o">().</span><span class="na">iterator</span><span class="o">().</span><span class="na">next</span><span class="o">();</span>
         <span class="o">}</span> <span class="k">else</span><span class="o">{</span>
             <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
         <span class="o">}</span>
@@ -248,7 +248,7 @@
     <span class="o">}</span>
  
 <span class="o">}</span>
-<span class="o">&lt;!--</span> <span class="err">用于持有</span><span class="n">ApplicationContext</span><span class="o">,</span><span class="err">可以使用</span><span class="n">SpringContextHolder</span><span class="o">.</span><span class="na">getBean</span><span class="o">(</span><span class="err">'</span><span class="n">xxxx</span><span class="err">'</span><span class="o">)</span><span class="err">的静态方法得到</span><span class="n">spring</span> <span class="n">bean</span><span class="err">对象</span> <span class="o">--&gt;</span>  
+<span class="o">&lt;!--</span> <span class="n">用于持有ApplicationContext</span><span class="o">,</span><span class="n">可以使用SpringContextHolder</span><span class="o">.</span><span class="na">getBean</span><span class="o">(</span><span class="err">'</span><span class="n">xxxx</span><span class="err">'</span><span class="o">)</span><span class="n">的静态方法得到spring</span> <span class="n">bean对象</span> <span class="o">--&gt;</span>  
 
 <span class="o">&lt;</span><span class="n">bean</span> <span class="kd">class</span><span class="err">="</span><span class="nc">com</span><span class="o">.</span><span class="na">xxxxx</span><span class="o">.</span><span class="na">SpringContextHolder</span><span class="err">"</span>  <span class="o">/&gt;</span>
 
@@ -368,13 +368,13 @@ scheduleService = (IScheduleService)context.getBean(“scheduleService”);
                             
         				
                             
-                				<a href="/tags/#自我总结" title="自我总结" rel="34">
+                				<a href="/tags/#自我总结" title="自我总结" rel="36">
                                     自我总结
                                 </a>
                             
         				
                             
-                				<a href="/tags/#编程之路" title="编程之路" rel="88">
+                				<a href="/tags/#编程之路" title="编程之路" rel="92">
                                     编程之路
                                 </a>
                             
@@ -485,6 +485,8 @@ scheduleService = (IScheduleService)context.getBean(“scheduleService”);
                 				<a href="/tags/#MongoDB" title="MongoDB" rel="2">
                                     MongoDB
                                 </a>
+                            
+        				
                             
         				
                             
@@ -641,7 +643,7 @@ scheduleService = (IScheduleService)context.getBean(“scheduleService”);
                     
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; MY Blog 2019
+                    Copyright &copy; MY Blog 2020
                     <br>
                     Theme on <a href="https://github.com/uniquezhangqi/uniquezhangqi.github.io.git">GitHub</a> |
                     <iframe

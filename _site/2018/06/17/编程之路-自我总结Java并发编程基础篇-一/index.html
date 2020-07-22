@@ -275,10 +275,10 @@
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/*ThreadSafe是可选的，如果一个类没有标注为线程安全的，那么就应该加上它不是线程安全的，但如果想明确地表示这个类不是线程安全的，那么就可以使用@NotThreadSafe
 */</span>
 <span class="nd">@ThreadSafe</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">StatelessFactorizer</span> <span class="kd">implements</span> <span class="n">Servlet</span><span class="o">{</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">service</span> <span class="o">(</span><span class="n">ServletRequest</span> <span class="n">req</span><span class="o">,</span> <span class="n">ServletResponse</span> <span class="n">resp</span><span class="o">){</span>
-        <span class="n">BigInteger</span> <span class="n">i</span> <span class="o">=</span> <span class="n">extractFromRequest</span><span class="o">(</span><span class="n">req</span><span class="o">);</span>
-        <span class="n">BigInteger</span><span class="o">[]</span> <span class="n">factors</span> <span class="o">=</span> <span class="n">factor</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">StatelessFactorizer</span> <span class="kd">implements</span> <span class="nc">Servlet</span><span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">service</span> <span class="o">(</span><span class="nc">ServletRequest</span> <span class="n">req</span><span class="o">,</span> <span class="nc">ServletResponse</span> <span class="n">resp</span><span class="o">){</span>
+        <span class="nc">BigInteger</span> <span class="n">i</span> <span class="o">=</span> <span class="n">extractFromRequest</span><span class="o">(</span><span class="n">req</span><span class="o">);</span>
+        <span class="nc">BigInteger</span><span class="o">[]</span> <span class="n">factors</span> <span class="o">=</span> <span class="n">factor</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
         <span class="n">encodeIntoResponse</span><span class="o">(</span><span class="n">resp</span><span class="o">,</span> <span class="n">factors</span><span class="o">);</span>
     <span class="o">}</span>
 <span class="o">}</span>
@@ -302,10 +302,10 @@
 */</span>
 <span class="nd">@NotThreadSafe</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">LazyInitRace</span><span class="o">{</span>
-    <span class="kd">private</span> <span class="n">ExpensiveObject</span> <span class="n">instance</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
-    <span class="kd">public</span> <span class="n">ExpensiveObject</span> <span class="nf">getInstance</span><span class="o">(){</span>
+    <span class="kd">private</span> <span class="nc">ExpensiveObject</span> <span class="n">instance</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="nc">ExpensiveObject</span> <span class="nf">getInstance</span><span class="o">(){</span>
         <span class="k">if</span><span class="o">(</span><span class="n">instance</span> <span class="o">==</span> <span class="kc">null</span><span class="o">){</span>
-            <span class="n">instance</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ExpensiveObject</span><span class="o">();</span>
+            <span class="n">instance</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ExpensiveObject</span><span class="o">();</span>
         <span class="o">}</span>
         <span class="k">return</span> <span class="n">instance</span><span class="o">;</span>
     <span class="o">}</span>
@@ -326,14 +326,14 @@
 2. 使用AtomicLong类型的变量来统计已处理请求的数量
 */</span>
 <span class="nd">@ThreadSafe</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">CountingFactorizer</span> <span class="kd">implements</span> <span class="n">Servlet</span><span class="o">{</span>
-    <span class="kd">private</span> <span class="kd">final</span> <span class="n">AtomicLong</span> <span class="n">count</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AtomicLong</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">CountingFactorizer</span> <span class="kd">implements</span> <span class="nc">Servlet</span><span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">AtomicLong</span> <span class="n">count</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">AtomicLong</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
     <span class="kd">public</span> <span class="kt">long</span> <span class="nf">getCount</span><span class="o">(){</span>
         <span class="k">return</span> <span class="n">count</span><span class="o">.</span><span class="na">get</span><span class="o">();</span>
     <span class="o">}</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">service</span><span class="o">(</span><span class="n">ServietRequest</span> <span class="n">req</span><span class="o">,</span> <span class="n">ServletResponse</span> <span class="n">resp</span><span class="o">){</span>
-        <span class="n">BigInteger</span> <span class="n">i</span> <span class="o">=</span> <span class="n">extractFromRequest</span><span class="o">(</span><span class="n">req</span><span class="o">);</span>
-        <span class="n">BigInteger</span><span class="o">[]</span> <span class="n">factors</span> <span class="o">=</span> <span class="n">factor</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">service</span><span class="o">(</span><span class="nc">ServietRequest</span> <span class="n">req</span><span class="o">,</span> <span class="nc">ServletResponse</span> <span class="n">resp</span><span class="o">){</span>
+        <span class="nc">BigInteger</span> <span class="n">i</span> <span class="o">=</span> <span class="n">extractFromRequest</span><span class="o">(</span><span class="n">req</span><span class="o">);</span>
+        <span class="nc">BigInteger</span><span class="o">[]</span> <span class="n">factors</span> <span class="o">=</span> <span class="n">factor</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
         <span class="n">count</span><span class="o">.</span><span class="na">incrementAndGet</span><span class="o">();</span>
         <span class="n">encodeIntoResponse</span><span class="o">(</span><span class="n">resp</span><span class="o">,</span><span class="n">factors</span><span class="o">);</span>
     <span class="o">}</span>
@@ -347,16 +347,16 @@
 <h3 id="加锁机制">加锁机制</h3>
 <p>示例：该Servlet在没有足够原子性保证的情况下对其最近计算结果进行缓存(不要这么做)</p>
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@NotThreadSafe</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">UnsafeCachingFactorizer</span> <span class="kd">implements</span> <span class="n">Servlet</span><span class="o">{</span>
-	<span class="kd">private</span> <span class="kd">final</span> <span class="n">AtomicReference</span><span class="o">&lt;</span><span class="n">BigInteger</span><span class="o">&gt;</span> <span class="n">lastNumber</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AtomicReference</span><span class="o">&lt;</span><span class="n">BigInteger</span><span class="o">&gt;();</span>
-	<span class="kd">private</span> <span class="kd">final</span> <span class="n">AtomicReference</span><span class="o">&lt;</span><span class="n">BigInteger</span><span class="o">[]&gt;</span> <span class="n">lastFactors</span> <span class="o">=</span> <span class="k">new</span> <span class="n">AtomicReference</span><span class="o">&lt;</span><span class="n">BigInteger</span><span class="o">&gt;();</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">UnsafeCachingFactorizer</span> <span class="kd">implements</span> <span class="nc">Servlet</span><span class="o">{</span>
+	<span class="kd">private</span> <span class="kd">final</span> <span class="nc">AtomicReference</span><span class="o">&lt;</span><span class="nc">BigInteger</span><span class="o">&gt;</span> <span class="n">lastNumber</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">AtomicReference</span><span class="o">&lt;</span><span class="nc">BigInteger</span><span class="o">&gt;();</span>
+	<span class="kd">private</span> <span class="kd">final</span> <span class="nc">AtomicReference</span><span class="o">&lt;</span><span class="nc">BigInteger</span><span class="o">[]&gt;</span> <span class="n">lastFactors</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">AtomicReference</span><span class="o">&lt;</span><span class="nc">BigInteger</span><span class="o">&gt;();</span>
 	
-	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">service</span><span class="o">(</span><span class="n">ServletRequest</span> <span class="n">req</span><span class="o">,</span> <span class="n">ServletResponse</span> <span class="n">resp</span><span class="o">){</span>
-        <span class="n">BigInteger</span> <span class="n">i</span> <span class="o">=</span> <span class="n">extractFromRequest</span><span class="o">(</span><span class="n">req</span><span class="o">);</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">service</span><span class="o">(</span><span class="nc">ServletRequest</span> <span class="n">req</span><span class="o">,</span> <span class="nc">ServletResponse</span> <span class="n">resp</span><span class="o">){</span>
+        <span class="nc">BigInteger</span> <span class="n">i</span> <span class="o">=</span> <span class="n">extractFromRequest</span><span class="o">(</span><span class="n">req</span><span class="o">);</span>
         <span class="k">if</span><span class="o">(</span><span class="n">i</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">lastNumber</span><span class="o">.</span><span class="na">get</span><span class="o">())){</span>
             <span class="n">encodeIntoResponse</span><span class="o">(</span><span class="n">resp</span><span class="o">,</span> <span class="n">lastFactors</span><span class="o">.</span><span class="na">get</span><span class="o">());</span>
         <span class="o">}</span><span class="k">else</span><span class="o">{</span>
-            <span class="n">BigInteger</span><span class="o">[]</span> <span class="n">factors</span> <span class="o">=</span> <span class="n">factor</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+            <span class="nc">BigInteger</span><span class="o">[]</span> <span class="n">factors</span> <span class="o">=</span> <span class="n">factor</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
             <span class="n">lastNumber</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
             <span class="n">lastFactors</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">factors</span><span class="o">);</span>
             <span class="n">encodeIntoResponse</span><span class="o">(</span><span class="n">resp</span><span class="o">,</span> <span class="n">factors</span><span class="o">);</span>
@@ -383,15 +383,15 @@
 @GuardedBy(“this”) ,表示在包含对象上的内置锁(被标注的方法或域是该对象的成员)
 */</span>
 <span class="nd">@ThreadSafe</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SynchronizedFactorizer</span> <span class="kd">implements</span> <span class="n">Servlet</span><span class="o">{</span>
-    <span class="nd">@GuardedBy</span><span class="o">(</span><span class="s">"this"</span><span class="o">)</span> <span class="kd">private</span> <span class="n">BigInteger</span> <span class="n">lastNumber</span><span class="o">;</span>
-    <span class="nd">@GuardedBy</span><span class="o">(</span><span class="s">"this"</span><span class="o">)</span> <span class="kd">private</span> <span class="n">BigInteger</span><span class="o">[]</span> <span class="n">lastFactors</span><span class="o">;</span>
-    <span class="kd">public</span> <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">service</span><span class="o">(</span><span class="n">ServletRequest</span> <span class="n">req</span><span class="o">,</span> <span class="n">ServletResponse</span> <span class="n">resp</span><span class="o">){</span>
-        <span class="n">BigInteger</span> <span class="n">i</span> <span class="o">=</span> <span class="n">extractFromRequest</span><span class="o">(</span><span class="n">req</span><span class="o">);</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SynchronizedFactorizer</span> <span class="kd">implements</span> <span class="nc">Servlet</span><span class="o">{</span>
+    <span class="nd">@GuardedBy</span><span class="o">(</span><span class="s">"this"</span><span class="o">)</span> <span class="kd">private</span> <span class="nc">BigInteger</span> <span class="n">lastNumber</span><span class="o">;</span>
+    <span class="nd">@GuardedBy</span><span class="o">(</span><span class="s">"this"</span><span class="o">)</span> <span class="kd">private</span> <span class="nc">BigInteger</span><span class="o">[]</span> <span class="n">lastFactors</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">service</span><span class="o">(</span><span class="nc">ServletRequest</span> <span class="n">req</span><span class="o">,</span> <span class="nc">ServletResponse</span> <span class="n">resp</span><span class="o">){</span>
+        <span class="nc">BigInteger</span> <span class="n">i</span> <span class="o">=</span> <span class="n">extractFromRequest</span><span class="o">(</span><span class="n">req</span><span class="o">);</span>
         <span class="k">if</span><span class="o">(</span><span class="n">i</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">lastNumber</span><span class="o">)){</span>
             <span class="n">encodeIntoResponse</span><span class="o">(</span><span class="n">resp</span><span class="o">,</span> <span class="n">lastFactors</span><span class="o">);</span>
         <span class="o">}</span><span class="k">else</span><span class="o">{</span>
-            <span class="n">BigInteger</span><span class="o">[]</span> <span class="n">factors</span> <span class="o">=</span> <span class="n">factor</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+            <span class="nc">BigInteger</span><span class="o">[]</span> <span class="n">factors</span> <span class="o">=</span> <span class="n">factor</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
             <span class="n">lastNumber</span> <span class="o">=</span> <span class="n">i</span><span class="o">;</span>
             <span class="n">lastFactors</span> <span class="o">=</span> <span class="n">factors</span><span class="o">;</span>
             <span class="n">encodeIntoResponse</span><span class="o">(</span><span class="n">resp</span><span class="o">,</span> <span class="n">factors</span><span class="o">);</span>
@@ -409,14 +409,14 @@
         <span class="o">...</span>
     <span class="o">}</span>
 <span class="o">}</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">LoggingWidget</span> <span class="kd">extends</span> <span class="n">Widget</span><span class="o">{</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">LoggingWidget</span> <span class="kd">extends</span> <span class="nc">Widget</span><span class="o">{</span>
     <span class="kd">public</span> <span class="kd">synchronized</span> <span class="kt">void</span> <span class="nf">doSomething</span><span class="o">(){</span>
-        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">pringln</span><span class="o">(</span><span class="n">toString</span><span class="o">()</span> <span class="o">+</span> <span class="s">": calling doSomething"</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">pringln</span><span class="o">(</span><span class="n">toString</span><span class="o">()</span> <span class="o">+</span> <span class="s">": calling doSomething"</span><span class="o">);</span>
         <span class="kd">super</span><span class="o">.</span><span class="na">doSomething</span><span class="o">();</span>
     <span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div></div>
-<p>子类改写了父类的<code class="highlighter-rouge">synchronized</code>方法，然后调用父类中的方法，此时如果没有可重入的锁，那么这段代码将产生死锁。由于<code class="highlighter-rouge">Widget</code>和<code class="highlighter-rouge">LoggingWidget</code>中<code class="highlighter-rouge">doSomething</code>方法都是<code class="highlighter-rouge">synchronized</code>方法，因此每个<code class="highlighter-rouge">doSomething</code>方法在执行前都会获取<code class="highlighter-rouge">Widget</code>上的锁。然而，如果内置锁是不可重入的，那么在调用<code class="highlighter-rouge">super.doSomething</code>时将无法获得<code class="highlighter-rouge">Widget</code>上的锁，因为这个锁已经被持有，从而线程将永远停顿下去，等待一个永远也无法获得的锁。重入则避免了这种死锁情况的发生。</p>
+<p>子类改写了父类的<code class="language-plaintext highlighter-rouge">synchronized</code>方法，然后调用父类中的方法，此时如果没有可重入的锁，那么这段代码将产生死锁。由于<code class="language-plaintext highlighter-rouge">Widget</code>和<code class="language-plaintext highlighter-rouge">LoggingWidget</code>中<code class="language-plaintext highlighter-rouge">doSomething</code>方法都是<code class="language-plaintext highlighter-rouge">synchronized</code>方法，因此每个<code class="language-plaintext highlighter-rouge">doSomething</code>方法在执行前都会获取<code class="language-plaintext highlighter-rouge">Widget</code>上的锁。然而，如果内置锁是不可重入的，那么在调用<code class="language-plaintext highlighter-rouge">super.doSomething</code>时将无法获得<code class="language-plaintext highlighter-rouge">Widget</code>上的锁，因为这个锁已经被持有，从而线程将永远停顿下去，等待一个永远也无法获得的锁。重入则避免了这种死锁情况的发生。</p>
 
 <h3 id="用锁来保护状态">用锁来保护状态</h3>
 <p>由于锁能使其保护的代码路径以串行形式来访问，因此可以通过锁来构造一些协议以实现对共享状态的独占访问。只要始终遵循这些协议，就能确保状态的一致性。</p>
@@ -426,7 +426,7 @@
   <p>对于可能被多个线程同时访问的可变状态变量，在访问它时都需要持有同一个锁，在这种情况下，我们称为状态变量是由这个锁保护的。</p>
 </blockquote>
 
-<p>之所以每个对象都一个内置锁，只是为了免去现实地创建锁对象。在<code class="highlighter-rouge">SynchronizedFactoriser</code>类中说命了这条规则：<strong>缓存的数值和因数分解结果都是由Servlet对象内置锁来保护</strong>。</p>
+<p>之所以每个对象都一个内置锁，只是为了免去现实地创建锁对象。在<code class="language-plaintext highlighter-rouge">SynchronizedFactoriser</code>类中说命了这条规则：<strong>缓存的数值和因数分解结果都是由Servlet对象内置锁来保护</strong>。</p>
 <blockquote>
   <p>对于每个包含多个变量的不变性条件，其中涉及的所有变量都需要由同一个锁来保护。</p>
 
@@ -444,9 +444,9 @@
 @GuardedBy(“this”) ,表示在包含对象上的内置锁(被标注的方法或域是该对象的成员)
 */</span>
 <span class="nd">@ThreadSafe</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">CachedFactorizer</span> <span class="kd">implements</span> <span class="n">Servlet</span><span class="o">{</span>
-    <span class="nd">@GuardedBy</span><span class="o">(</span><span class="s">"this"</span><span class="o">)</span> <span class="kd">private</span> <span class="n">BigInteger</span> <span class="n">lastNumber</span><span class="o">;</span>
-    <span class="nd">@GuardedBy</span><span class="o">(</span><span class="s">"this"</span><span class="o">)</span> <span class="kd">private</span> <span class="n">BigInteger</span><span class="o">[]</span> <span class="n">lastFactors</span><span class="o">;</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">CachedFactorizer</span> <span class="kd">implements</span> <span class="nc">Servlet</span><span class="o">{</span>
+    <span class="nd">@GuardedBy</span><span class="o">(</span><span class="s">"this"</span><span class="o">)</span> <span class="kd">private</span> <span class="nc">BigInteger</span> <span class="n">lastNumber</span><span class="o">;</span>
+    <span class="nd">@GuardedBy</span><span class="o">(</span><span class="s">"this"</span><span class="o">)</span> <span class="kd">private</span> <span class="nc">BigInteger</span><span class="o">[]</span> <span class="n">lastFactors</span><span class="o">;</span>
     <span class="nd">@GuardedBy</span><span class="o">(</span><span class="s">"this"</span><span class="o">)</span> <span class="kd">private</span> <span class="kt">long</span> <span class="n">hits</span><span class="o">;</span>
     <span class="nd">@GuardedBy</span><span class="o">(</span><span class="s">"this"</span><span class="o">)</span> <span class="kd">private</span> <span class="kt">long</span> <span class="n">cacheHits</span><span class="o">;</span>
     <span class="kd">public</span> <span class="kd">synchronized</span> <span class="kt">long</span> <span class="nf">getHits</span><span class="o">(){</span>
@@ -455,9 +455,9 @@
 	<span class="kd">public</span> <span class="kd">synchronized</span> <span class="kt">double</span> <span class="nf">getCacheHitRatio</span><span class="o">(){</span>
 		<span class="k">return</span> <span class="o">(</span><span class="kt">double</span><span class="o">)</span><span class="n">cacheHits</span> <span class="o">/</span> <span class="o">(</span><span class="kt">double</span><span class="o">)</span><span class="n">hits</span><span class="o">;</span>
 	<span class="o">}</span>
-	<span class="kd">public</span> <span class="n">vlid</span> <span class="nf">service</span><span class="o">(</span><span class="n">ServletRequest</span> <span class="n">req</span><span class="o">,</span> <span class="n">ServletResponse</span> <span class="n">resp</span><span class="o">){</span>
-        <span class="n">BigInteger</span> <span class="n">i</span> <span class="o">=</span> <span class="n">extractFromRequest</span><span class="o">(</span><span class="n">req</span><span class="o">);</span>
-        <span class="n">BigInteger</span><span class="o">[]</span> <span class="n">factors</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+	<span class="kd">public</span> <span class="n">vlid</span> <span class="nf">service</span><span class="o">(</span><span class="nc">ServletRequest</span> <span class="n">req</span><span class="o">,</span> <span class="nc">ServletResponse</span> <span class="n">resp</span><span class="o">){</span>
+        <span class="nc">BigInteger</span> <span class="n">i</span> <span class="o">=</span> <span class="n">extractFromRequest</span><span class="o">(</span><span class="n">req</span><span class="o">);</span>
+        <span class="nc">BigInteger</span><span class="o">[]</span> <span class="n">factors</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
         <span class="kd">synchronized</span><span class="o">(</span><span class="k">this</span><span class="o">){</span>
         	<span class="o">++</span><span class="n">hits</span><span class="o">;</span>
         	<span class="k">if</span><span class="o">(</span><span class="n">i</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">lastNumber</span><span class="o">)){</span>
@@ -557,13 +557,13 @@
                             
         				
                             
-                				<a href="/tags/#自我总结" title="自我总结" rel="34">
+                				<a href="/tags/#自我总结" title="自我总结" rel="36">
                                     自我总结
                                 </a>
                             
         				
                             
-                				<a href="/tags/#编程之路" title="编程之路" rel="88">
+                				<a href="/tags/#编程之路" title="编程之路" rel="92">
                                     编程之路
                                 </a>
                             
@@ -674,6 +674,8 @@
                 				<a href="/tags/#MongoDB" title="MongoDB" rel="2">
                                     MongoDB
                                 </a>
+                            
+        				
                             
         				
                             
@@ -830,7 +832,7 @@
                     
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; MY Blog 2019
+                    Copyright &copy; MY Blog 2020
                     <br>
                     Theme on <a href="https://github.com/uniquezhangqi/uniquezhangqi.github.io.git">GitHub</a> |
                     <iframe

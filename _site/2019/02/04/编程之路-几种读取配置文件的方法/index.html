@@ -209,13 +209,13 @@
  * web层全局常量配置帮助类
  */</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">GlobalSetting</span> <span class="o">{</span>
-	<span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">FILE_NAME</span> <span class="o">=</span> <span class="s">"/global.properties"</span><span class="o">;</span>
+	<span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="nc">String</span> <span class="no">FILE_NAME</span> <span class="o">=</span> <span class="s">"/global.properties"</span><span class="o">;</span>
 	<span class="kd">private</span> <span class="nf">GlobalSetting</span><span class="o">(){}</span>
-	<span class="kd">private</span> <span class="kd">static</span> <span class="n">Properties</span> <span class="n">p</span><span class="o">;</span>
+	<span class="kd">private</span> <span class="kd">static</span> <span class="nc">Properties</span> <span class="n">p</span><span class="o">;</span>
 	<span class="kd">static</span><span class="o">{</span>
-		<span class="n">p</span> <span class="o">=</span> <span class="n">PropertiesHelper</span><span class="o">.</span><span class="na">load</span><span class="o">(</span><span class="n">FILE_NAME</span><span class="o">);</span>
+		<span class="n">p</span> <span class="o">=</span> <span class="nc">PropertiesHelper</span><span class="o">.</span><span class="na">load</span><span class="o">(</span><span class="no">FILE_NAME</span><span class="o">);</span>
 	<span class="o">}</span>
-	<span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="nf">get</span><span class="o">(</span><span class="n">String</span> <span class="n">key</span><span class="o">){</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="nc">String</span> <span class="nf">get</span><span class="o">(</span><span class="nc">String</span> <span class="n">key</span><span class="o">){</span>
 		<span class="k">return</span> <span class="kc">null</span><span class="o">==</span><span class="n">p</span><span class="o">?</span><span class="s">""</span><span class="o">:</span><span class="n">p</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="n">key</span><span class="o">);</span>
 	<span class="o">}</span>
 <span class="o">}</span>
@@ -225,45 +225,45 @@
 <span class="kn">import</span> <span class="nn">java.io.InputStreamReader</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">java.util.Properties</span><span class="o">;</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">PropertiesHelper</span> <span class="o">{</span>
-	<span class="kd">public</span> <span class="kd">static</span> <span class="n">Properties</span> <span class="nf">load</span><span class="o">(</span><span class="n">String</span> <span class="n">fileName</span><span class="o">)</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="nc">Properties</span> <span class="nf">load</span><span class="o">(</span><span class="nc">String</span> <span class="n">fileName</span><span class="o">)</span> <span class="o">{</span>
 		<span class="k">try</span> <span class="o">{</span>
-			<span class="n">InputStream</span> <span class="n">in</span> <span class="o">=</span> <span class="n">PropertiesHelper</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getResourceAsStream</span><span class="o">(</span><span class="n">fileName</span><span class="o">);</span>
-			<span class="n">BufferedReader</span> <span class="n">br</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedReader</span><span class="o">(</span><span class="k">new</span> <span class="n">InputStreamReader</span><span class="o">(</span><span class="n">in</span><span class="o">));</span>
-			<span class="n">Properties</span> <span class="n">p</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Properties</span><span class="o">();</span>
+			<span class="nc">InputStream</span> <span class="n">in</span> <span class="o">=</span> <span class="nc">PropertiesHelper</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getResourceAsStream</span><span class="o">(</span><span class="n">fileName</span><span class="o">);</span>
+			<span class="nc">BufferedReader</span> <span class="n">br</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">BufferedReader</span><span class="o">(</span><span class="k">new</span> <span class="nc">InputStreamReader</span><span class="o">(</span><span class="n">in</span><span class="o">));</span>
+			<span class="nc">Properties</span> <span class="n">p</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Properties</span><span class="o">();</span>
 			<span class="n">p</span><span class="o">.</span><span class="na">load</span><span class="o">(</span><span class="n">br</span><span class="o">);</span>
 			<span class="k">return</span> <span class="n">p</span><span class="o">;</span>
-		<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+		<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
 			<span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
 			<span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
 		<span class="o">}</span>
 	<span class="o">}</span>
 <span class="o">}</span>
-<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">ConstantPool</span> <span class="o">--</span> <span class="err">常量池</span>
-<span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">QINIU_AK</span> <span class="o">=</span> <span class="s">"QINIU_AK"</span><span class="o">;</span>
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">ConstantPool</span> <span class="o">--</span> <span class="n">常量池</span>
+<span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="nc">String</span> <span class="no">QINIU_AK</span> <span class="o">=</span> <span class="s">"QINIU_AK"</span><span class="o">;</span>
 
-<span class="err">配置文件：</span>
-<span class="err">#</span><span class="n">XX</span>
-<span class="n">QINIU_AK</span><span class="o">=</span><span class="n">XXXXXXX</span>
+<span class="n">配置文件</span><span class="err">：</span>
+<span class="err">#</span><span class="no">XX</span>
+<span class="no">QINIU_AK</span><span class="o">=</span><span class="no">XXXXXXX</span>
 
-<span class="err">使用获取配置文件：</span>
-<span class="n">GlobalSetting</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">ConstantPool</span><span class="o">.</span><span class="na">QINIU_AK</span><span class="o">);</span>
+<span class="n">使用获取配置文件</span><span class="err">：</span>
+<span class="nc">GlobalSetting</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="nc">ConstantPool</span><span class="o">.</span><span class="na">QINIU_AK</span><span class="o">);</span>
 
 <span class="o">-----</span>
-<span class="n">springboot</span> <span class="err">定时任务</span> <span class="err">另一种读配置文件</span>
- <span class="err">启动类</span> <span class="nd">@EnableScheduling</span>
-<span class="err">定时任务类</span> <span class="err">上</span> <span class="nd">@Component</span> 
+<span class="n">springboot</span> <span class="n">定时任务</span> <span class="n">另一种读配置文件</span>
+ <span class="n">启动类</span> <span class="nd">@EnableScheduling</span>
+<span class="n">定时任务类</span> <span class="n">上</span> <span class="nd">@Component</span> 
 
-<span class="err">配置文件的：</span><span class="n">moxie</span><span class="o">.</span><span class="na">carriers</span><span class="o">.</span><span class="na">contract</span><span class="o">.</span><span class="na">handler</span><span class="o">.</span><span class="na">task</span> <span class="o">=</span><span class="mi">59</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span>
+<span class="n">配置文件的</span><span class="err">：</span><span class="n">moxie</span><span class="o">.</span><span class="na">carriers</span><span class="o">.</span><span class="na">contract</span><span class="o">.</span><span class="na">handler</span><span class="o">.</span><span class="na">task</span> <span class="o">=</span><span class="mi">59</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span>
 
-<span class="err">方法上</span><span class="nd">@Scheduled</span><span class="o">(</span><span class="n">cron</span> <span class="o">=</span> <span class="s">"${moxie.carriers.contract.handler.task}"</span><span class="err">）</span>
+<span class="n">方法上</span><span class="nd">@Scheduled</span><span class="o">(</span><span class="n">cron</span> <span class="o">=</span> <span class="s">"${moxie.carriers.contract.handler.task}"</span><span class="err">）</span>
 <span class="s">"---------
 读取配置方式二：
 @Component
-@PropertySource(name="</span><span class="n">application</span><span class="o">.</span><span class="na">properties</span><span class="s">",value= {"</span><span class="nl">classpath:</span><span class="n">application</span><span class="o">.</span><span class="na">properties</span><span class="s">"},ignoreResourceNotFound=false,encoding="</span><span class="n">UTF</span><span class="o">-</span><span class="mi">8</span><span class="s">")
+@PropertySource(name="</span><span class="n">application</span><span class="o">.</span><span class="na">properties</span><span class="s">",value= {"</span><span class="nl">classpath:</span><span class="n">application</span><span class="o">.</span><span class="na">properties</span><span class="s">"},ignoreResourceNotFound=false,encoding="</span><span class="no">UTF</span><span class="o">-</span><span class="mi">8</span><span class="s">")
 
  方法上 @Scheduled(cron ="</span><span class="err">$</span><span class="o">{</span><span class="n">jobs</span><span class="o">.</span><span class="na">lawTime</span><span class="o">}</span><span class="err">"</span> <span class="o">)</span>
 
-<span class="err">配置文件的：</span><span class="n">jobs</span><span class="o">.</span><span class="na">lawTime</span> <span class="o">=</span><span class="mi">59</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span>
+<span class="n">配置文件的</span><span class="err">：</span><span class="n">jobs</span><span class="o">.</span><span class="na">lawTime</span> <span class="o">=</span><span class="mi">59</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span>
 </code></pre></div></div>
 
 <blockquote>
@@ -352,13 +352,13 @@
                             
         				
                             
-                				<a href="/tags/#自我总结" title="自我总结" rel="34">
+                				<a href="/tags/#自我总结" title="自我总结" rel="36">
                                     自我总结
                                 </a>
                             
         				
                             
-                				<a href="/tags/#编程之路" title="编程之路" rel="88">
+                				<a href="/tags/#编程之路" title="编程之路" rel="92">
                                     编程之路
                                 </a>
                             
@@ -469,6 +469,8 @@
                 				<a href="/tags/#MongoDB" title="MongoDB" rel="2">
                                     MongoDB
                                 </a>
+                            
+        				
                             
         				
                             
@@ -625,7 +627,7 @@
                     
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; MY Blog 2019
+                    Copyright &copy; MY Blog 2020
                     <br>
                     Theme on <a href="https://github.com/uniquezhangqi/uniquezhangqi.github.io.git">GitHub</a> |
                     <iframe

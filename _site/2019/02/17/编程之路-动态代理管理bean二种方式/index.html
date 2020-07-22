@@ -215,27 +215,27 @@
 
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">JDKProxy</span> <span class="o">{</span>
 
-      <span class="kd">public</span> <span class="kd">static</span> <span class="n">Object</span> <span class="nf">getPoxyObject</span><span class="o">(</span><span class="kd">final</span> <span class="n">Object</span> <span class="n">c</span><span class="o">)</span> <span class="o">{</span>
+      <span class="kd">public</span> <span class="kd">static</span> <span class="nc">Object</span> <span class="nf">getPoxyObject</span><span class="o">(</span><span class="kd">final</span> <span class="nc">Object</span> <span class="n">c</span><span class="o">)</span> <span class="o">{</span>
     
-            <span class="k">return</span> <span class="n">Proxy</span><span class="o">.</span><span class="na">newProxyInstance</span><span class="o">(</span><span class="n">c</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">getClassLoader</span><span class="o">(),</span> <span class="n">c</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">getInterfaces</span><span class="o">(),</span><span class="c1">// JDK实现动态代理，但JDK实现必须需要接口</span>
+            <span class="k">return</span> <span class="nc">Proxy</span><span class="o">.</span><span class="na">newProxyInstance</span><span class="o">(</span><span class="n">c</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">getClassLoader</span><span class="o">(),</span> <span class="n">c</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">getInterfaces</span><span class="o">(),</span><span class="c1">// JDK实现动态代理，但JDK实现必须需要接口</span>
     
                         <span class="k">new</span> <span class="nf">InvocationHandler</span><span class="o">()</span> <span class="o">{</span>
     
-                             <span class="kd">public</span> <span class="n">Object</span> <span class="nf">invoke</span><span class="o">(</span><span class="n">Object</span> <span class="n">proxy</span><span class="o">,</span> <span class="n">Method</span> <span class="n">method</span><span class="o">,</span> <span class="n">Object</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Throwable</span> <span class="o">{</span>
+                             <span class="kd">public</span> <span class="nc">Object</span> <span class="nf">invoke</span><span class="o">(</span><span class="nc">Object</span> <span class="n">proxy</span><span class="o">,</span> <span class="nc">Method</span> <span class="n">method</span><span class="o">,</span> <span class="nc">Object</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">Throwable</span> <span class="o">{</span>
     
                                     <span class="c1">// TODO Auto-generated method stub</span>
     
-                                    <span class="n">Object</span> <span class="n">reObj</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+                                    <span class="nc">Object</span> <span class="n">reObj</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
     
-                                    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">"you say: "</span><span class="o">);</span>
+                                    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">"you say: "</span><span class="o">);</span>
     
                                     <span class="n">reObj</span> <span class="o">=</span> <span class="n">method</span><span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="n">c</span><span class="o">,</span> <span class="n">args</span><span class="o">);</span>
     
-                                    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">" ["</span> <span class="o">+</span> <span class="n">Calendar</span><span class="o">.</span><span class="na">getInstance</span><span class="o">().</span><span class="na">get</span><span class="o">(</span><span class="n">Calendar</span><span class="o">.</span><span class="na">HOUR</span><span class="o">)</span> <span class="o">+</span> <span class="s">":"</span>
+                                    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">" ["</span> <span class="o">+</span> <span class="nc">Calendar</span><span class="o">.</span><span class="na">getInstance</span><span class="o">().</span><span class="na">get</span><span class="o">(</span><span class="nc">Calendar</span><span class="o">.</span><span class="na">HOUR</span><span class="o">)</span> <span class="o">+</span> <span class="s">":"</span>
     
-                                                <span class="o">+</span> <span class="n">Calendar</span><span class="o">.</span><span class="na">getInstance</span><span class="o">().</span><span class="na">get</span><span class="o">(</span><span class="n">Calendar</span><span class="o">.</span><span class="na">MINUTE</span><span class="o">)</span> <span class="o">+</span> <span class="s">" "</span>
+                                                <span class="o">+</span> <span class="nc">Calendar</span><span class="o">.</span><span class="na">getInstance</span><span class="o">().</span><span class="na">get</span><span class="o">(</span><span class="nc">Calendar</span><span class="o">.</span><span class="na">MINUTE</span><span class="o">)</span> <span class="o">+</span> <span class="s">" "</span>
     
-                                                <span class="o">+</span> <span class="n">Calendar</span><span class="o">.</span><span class="na">getInstance</span><span class="o">().</span><span class="na">get</span><span class="o">(</span><span class="n">Calendar</span><span class="o">.</span><span class="na">SECOND</span><span class="o">)</span> <span class="o">+</span> <span class="s">"]"</span><span class="o">);</span>
+                                                <span class="o">+</span> <span class="nc">Calendar</span><span class="o">.</span><span class="na">getInstance</span><span class="o">().</span><span class="na">get</span><span class="o">(</span><span class="nc">Calendar</span><span class="o">.</span><span class="na">SECOND</span><span class="o">)</span> <span class="o">+</span> <span class="s">"]"</span><span class="o">);</span>
     
                                     <span class="k">return</span> <span class="n">reObj</span><span class="o">;</span>
     
@@ -251,15 +251,15 @@
 
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">TestForPoxy</span> <span class="o">{</span>
 
-      <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+      <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
     
-            <span class="n">ServiceTest</span> <span class="n">service</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ServiceTestImpl</span><span class="o">();</span>
+            <span class="nc">ServiceTest</span> <span class="n">service</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ServiceTestImpl</span><span class="o">();</span>
     
-            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">service</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">getSimpleName</span><span class="o">());</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">service</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">getSimpleName</span><span class="o">());</span>
     
-            <span class="n">ServiceTest</span> <span class="n">poxyService</span> <span class="o">=</span> <span class="o">(</span><span class="n">ServiceTest</span><span class="o">)</span> <span class="n">JDKProxy</span><span class="o">.</span><span class="na">getPoxyObject</span><span class="o">(</span><span class="n">service</span><span class="o">);</span>
+            <span class="nc">ServiceTest</span> <span class="n">poxyService</span> <span class="o">=</span> <span class="o">(</span><span class="nc">ServiceTest</span><span class="o">)</span> <span class="nc">JDKProxy</span><span class="o">.</span><span class="na">getPoxyObject</span><span class="o">(</span><span class="n">service</span><span class="o">);</span>
     
-            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">poxyService</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">getSuperclass</span><span class="o">());</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">poxyService</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">getSuperclass</span><span class="o">());</span>
     
             <span class="n">poxyService</span><span class="o">.</span><span class="na">saySomething</span><span class="o">(</span><span class="s">"hello,My QQ code is 107966750."</span><span class="o">);</span>
     
@@ -287,27 +287,27 @@
 
 <p>实现方式如下</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">EX</span><span class="err">：</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">EX</span><span class="err">：</span>
 
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">CGLIBProxy</span> <span class="o">{</span>
 
-      <span class="kd">public</span> <span class="kd">static</span> <span class="n">Object</span> <span class="nf">getPoxyObject</span><span class="o">(</span><span class="n">Object</span> <span class="n">c</span><span class="o">)</span> <span class="o">{</span>
+      <span class="kd">public</span> <span class="kd">static</span> <span class="nc">Object</span> <span class="nf">getPoxyObject</span><span class="o">(</span><span class="nc">Object</span> <span class="n">c</span><span class="o">)</span> <span class="o">{</span>
     
-            <span class="n">Enhancer</span> <span class="n">enhancer</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Enhancer</span><span class="o">();</span>
+            <span class="nc">Enhancer</span> <span class="n">enhancer</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Enhancer</span><span class="o">();</span>
     
             <span class="n">enhancer</span><span class="o">.</span><span class="na">setSuperclass</span><span class="o">(</span><span class="n">c</span><span class="o">.</span><span class="na">getClass</span><span class="o">());</span>
     
-            <span class="n">enhancer</span><span class="o">.</span><span class="na">setCallback</span><span class="o">(</span><span class="k">new</span> <span class="n">MethodInterceptor</span><span class="o">()</span> <span class="o">{</span>
+            <span class="n">enhancer</span><span class="o">.</span><span class="na">setCallback</span><span class="o">(</span><span class="k">new</span> <span class="nc">MethodInterceptor</span><span class="o">()</span> <span class="o">{</span>
     
-                  <span class="kd">public</span> <span class="n">Object</span> <span class="nf">intercept</span><span class="o">(</span><span class="n">Object</span> <span class="n">arg0</span><span class="o">,</span> <span class="n">Method</span> <span class="n">arg1</span><span class="o">,</span> <span class="n">Object</span><span class="o">[]</span> <span class="n">arg2</span><span class="o">,</span> <span class="n">MethodProxy</span> <span class="n">proxy</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Throwable</span> <span class="o">{</span>
+                  <span class="kd">public</span> <span class="nc">Object</span> <span class="nf">intercept</span><span class="o">(</span><span class="nc">Object</span> <span class="n">arg0</span><span class="o">,</span> <span class="nc">Method</span> <span class="n">arg1</span><span class="o">,</span> <span class="nc">Object</span><span class="o">[]</span> <span class="n">arg2</span><span class="o">,</span> <span class="nc">MethodProxy</span> <span class="n">proxy</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">Throwable</span> <span class="o">{</span>
     
-                        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">"you say: "</span><span class="o">);</span>
+                        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">"you say: "</span><span class="o">);</span>
     
                         <span class="n">proxy</span><span class="o">.</span><span class="na">invokeSuper</span><span class="o">(</span><span class="n">arg0</span><span class="o">,</span> <span class="n">arg2</span><span class="o">);</span>
     
-                        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">" ["</span> <span class="o">+</span> <span class="n">Calendar</span><span class="o">.</span><span class="na">getInstance</span><span class="o">().</span><span class="na">get</span><span class="o">(</span><span class="n">Calendar</span><span class="o">.</span><span class="na">HOUR</span><span class="o">)</span> <span class="o">+</span> <span class="s">":"</span>
+                        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">" ["</span> <span class="o">+</span> <span class="nc">Calendar</span><span class="o">.</span><span class="na">getInstance</span><span class="o">().</span><span class="na">get</span><span class="o">(</span><span class="nc">Calendar</span><span class="o">.</span><span class="na">HOUR</span><span class="o">)</span> <span class="o">+</span> <span class="s">":"</span>
     
-                                    <span class="o">+</span> <span class="n">Calendar</span><span class="o">.</span><span class="na">getInstance</span><span class="o">().</span><span class="na">get</span><span class="o">(</span><span class="n">Calendar</span><span class="o">.</span><span class="na">MINUTE</span><span class="o">)</span> <span class="o">+</span> <span class="s">" "</span> <span class="o">+</span> <span class="n">Calendar</span><span class="o">.</span><span class="na">getInstance</span><span class="o">().</span><span class="na">get</span><span class="o">(</span><span class="n">Calendar</span><span class="o">.</span><span class="na">SECOND</span><span class="o">)</span>
+                                    <span class="o">+</span> <span class="nc">Calendar</span><span class="o">.</span><span class="na">getInstance</span><span class="o">().</span><span class="na">get</span><span class="o">(</span><span class="nc">Calendar</span><span class="o">.</span><span class="na">MINUTE</span><span class="o">)</span> <span class="o">+</span> <span class="s">" "</span> <span class="o">+</span> <span class="nc">Calendar</span><span class="o">.</span><span class="na">getInstance</span><span class="o">().</span><span class="na">get</span><span class="o">(</span><span class="nc">Calendar</span><span class="o">.</span><span class="na">SECOND</span><span class="o">)</span>
     
                                     <span class="o">+</span> <span class="s">"]"</span><span class="o">);</span>
     
@@ -327,17 +327,17 @@
 
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">TestForPoxy</span> <span class="o">{</span>
 
-      <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+      <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
     
-            <span class="n">ServiceTest</span> <span class="n">service</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ServiceTestImpl</span><span class="o">();</span>
+            <span class="nc">ServiceTest</span> <span class="n">service</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ServiceTestImpl</span><span class="o">();</span>
     
-            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">service</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">getSimpleName</span><span class="o">());</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">service</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">getSimpleName</span><span class="o">());</span>
 
 <span class="c1">//          ServiceTest poxyService = (ServiceTest) JDKProxy.getPoxyObject(service);</span>
 
-            <span class="n">ServiceTest</span> <span class="n">poxyService</span> <span class="o">=</span> <span class="o">(</span><span class="n">ServiceTest</span><span class="o">)</span> <span class="n">CGLIBProxy</span><span class="o">.</span><span class="na">getPoxyObject</span><span class="o">(</span><span class="n">service</span><span class="o">);</span>
+            <span class="nc">ServiceTest</span> <span class="n">poxyService</span> <span class="o">=</span> <span class="o">(</span><span class="nc">ServiceTest</span><span class="o">)</span> <span class="nc">CGLIBProxy</span><span class="o">.</span><span class="na">getPoxyObject</span><span class="o">(</span><span class="n">service</span><span class="o">);</span>
     
-            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">poxyService</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">getSuperclass</span><span class="o">());</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">poxyService</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">getSuperclass</span><span class="o">());</span>
     
             <span class="n">poxyService</span><span class="o">.</span><span class="na">saySomething</span><span class="o">(</span><span class="s">"hello,My QQ code is 107966750."</span><span class="o">);</span>
     
@@ -412,7 +412,7 @@
     
       &lt;aop:config&gt;
     
-            &lt;aop:aspect id="</span><span class="n">TestAspect</span><span class="s">" ref="</span><span class="n">aspectBean</span><span class="s">"&gt;
+            &lt;aop:aspect id="</span><span class="nc">TestAspect</span><span class="s">" ref="</span><span class="n">aspectBean</span><span class="s">"&gt;
     
                   &lt;!--配置切面--&gt;
     
@@ -448,7 +448,7 @@ public class TestBeans {
     
             Test test=(Test) ctx.getBean("</span><span class="n">test</span><span class="err">"</span><span class="o">);</span>
     
-            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">test</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">getSimpleName</span><span class="o">());</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">test</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">getSimpleName</span><span class="o">());</span>
     
             <span class="n">test</span><span class="o">.</span><span class="na">say</span><span class="o">();</span>
     
@@ -475,7 +475,7 @@ public class TestBeans {
 
       <span class="kd">public</span> <span class="kt">void</span> <span class="nf">say</span><span class="o">()</span> <span class="o">{</span>
     
-            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"welcome for test，My QQ is 107966750"</span><span class="o">);</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"welcome for test，My QQ is 107966750"</span><span class="o">);</span>
     
       <span class="o">}</span>
 
@@ -485,19 +485,19 @@ public class TestBeans {
 
 <span class="c1">// 在TestBeans中加入打印当前对象的名称</span>
 
-<span class="err">如下：</span>
+<span class="n">如下</span><span class="err">：</span>
 
-<span class="n">ApplicationContext</span> <span class="n">ctx</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ClassPathXmlApplicationContext</span><span class="o">(</span><span class="s">"test.xml"</span><span class="o">);</span>
+<span class="nc">ApplicationContext</span> <span class="n">ctx</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ClassPathXmlApplicationContext</span><span class="o">(</span><span class="s">"test.xml"</span><span class="o">);</span>
 
-<span class="n">Test</span> <span class="n">test</span><span class="o">=(</span><span class="n">Test</span><span class="o">)</span> <span class="n">ctx</span><span class="o">.</span><span class="na">getBean</span><span class="o">(</span><span class="s">"test"</span><span class="o">);</span>
+<span class="nc">Test</span> <span class="n">test</span><span class="o">=(</span><span class="nc">Test</span><span class="o">)</span> <span class="n">ctx</span><span class="o">.</span><span class="na">getBean</span><span class="o">(</span><span class="s">"test"</span><span class="o">);</span>
 
-<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">test</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">getSimpleName</span><span class="o">());</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">test</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">getSimpleName</span><span class="o">());</span>
 
 <span class="n">test</span><span class="o">.</span><span class="na">say</span><span class="o">();</span>
 
 <span class="c1">// 输出：</span>
 
-<span class="n">Test</span><span class="err">$</span><span class="n">$EnhancerByCGLIB</span><span class="err">$$</span><span class="mi">4791</span><span class="n">b36c</span>
+<span class="nc">Test</span><span class="err">$</span><span class="n">$EnhancerByCGLIB</span><span class="err">$$</span><span class="mi">4791</span><span class="n">b36c</span>
 
 <span class="kd">super</span> <span class="kd">class</span> <span class="nc">is</span> <span class="kd">class</span> <span class="nc">org</span><span class="o">.</span><span class="na">ben</span><span class="o">.</span><span class="na">spring</span><span class="o">.</span><span class="na">service</span><span class="o">.</span><span class="na">Test</span>
 
@@ -509,17 +509,17 @@ public class TestBeans {
 
 </code></pre></div></div>
 
-<p>明显看到用了AOP之后，输出的是代理类对象Test<script type="math/tex">EnhancerByCGLIB</script>bb9b6a7c.而且它的父类是我们的代理目标类。说明是有CGLIB生成的</p>
+<p>明显看到用了AOP之后，输出的是代理类对象Test\(EnhancerByCGLIB\)bb9b6a7c.而且它的父类是我们的代理目标类。说明是有CGLIB生成的</p>
 
 <h4 id="第二种情况">第二种情况</h4>
 
 <p>XML的配置不变，改变代理目标类Test的实现方法，如下</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Test</span> <span class="kd">implements</span> <span class="n">TestInter</span><span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Test</span> <span class="kd">implements</span> <span class="nc">TestInter</span><span class="o">{</span>
 
       <span class="kd">public</span> <span class="kt">void</span> <span class="nf">say</span><span class="o">()</span> <span class="o">{</span>
     
-            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"welcome for test，My QQ is 107966750"</span><span class="o">);</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"welcome for test，My QQ is 107966750"</span><span class="o">);</span>
     
       <span class="o">}</span>
 
@@ -531,13 +531,13 @@ public class TestBeans {
 */</span>
 
 
-<span class="n">ApplicationContext</span> <span class="n">ctx</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ClassPathXmlApplicationContext</span><span class="o">(</span><span class="s">"test.xml"</span><span class="o">);</span>
+<span class="nc">ApplicationContext</span> <span class="n">ctx</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ClassPathXmlApplicationContext</span><span class="o">(</span><span class="s">"test.xml"</span><span class="o">);</span>
 
-<span class="n">TestInter</span> <span class="n">test</span><span class="o">=(</span><span class="n">TestInter</span><span class="o">)</span> <span class="n">ctx</span><span class="o">.</span><span class="na">getBean</span><span class="o">(</span><span class="s">"test"</span><span class="o">);</span>
+<span class="nc">TestInter</span> <span class="n">test</span><span class="o">=(</span><span class="nc">TestInter</span><span class="o">)</span> <span class="n">ctx</span><span class="o">.</span><span class="na">getBean</span><span class="o">(</span><span class="s">"test"</span><span class="o">);</span>
 
-<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">test</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">getSimpleName</span><span class="o">());</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">test</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">getSimpleName</span><span class="o">());</span>
 
-<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"super class is "</span><span class="o">+</span><span class="n">test</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">getSuperclass</span><span class="o">());</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"super class is "</span><span class="o">+</span><span class="n">test</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">getSuperclass</span><span class="o">());</span>
 
 <span class="n">test</span><span class="o">.</span><span class="na">say</span><span class="o">();</span>
 
@@ -551,7 +551,7 @@ public class TestBeans {
 
 <span class="k">do</span> <span class="n">something</span> <span class="n">in</span> <span class="n">befor</span>
 
-<span class="n">welcome</span> <span class="k">for</span> <span class="n">test</span><span class="o">,</span><span class="n">My</span> <span class="n">QQ</span> <span class="n">is</span> <span class="mi">107966750</span>
+<span class="n">welcome</span> <span class="k">for</span> <span class="n">test</span><span class="o">,</span><span class="nc">My</span> <span class="no">QQ</span> <span class="n">is</span> <span class="mi">107966750</span>
 
 <span class="k">do</span> <span class="n">something</span> <span class="n">in</span> <span class="n">after</span>
 </code></pre></div></div>
@@ -577,9 +577,9 @@ public class TestBeans {
                 <ul class="pager">
                     
                     <li class="previous">
-                        <a href="/2019/02/17/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-zipkin%E5%88%86%E5%B8%83%E5%BC%8F%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/" data-toggle="tooltip" data-placement="top" title="zipkin分布式链路追踪">
+                        <a href="/2019/02/17/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-java8-Lambda%E6%8E%92%E5%BA%8F/" data-toggle="tooltip" data-placement="top" title="java8--Lambda排序">
                         Previous<br>
-                        <span>zipkin分布式链路追踪</span>
+                        <span>java8--Lambda排序</span>
                         </a>
                     </li>
                     
@@ -647,13 +647,13 @@ public class TestBeans {
                             
         				
                             
-                				<a href="/tags/#自我总结" title="自我总结" rel="34">
+                				<a href="/tags/#自我总结" title="自我总结" rel="36">
                                     自我总结
                                 </a>
                             
         				
                             
-                				<a href="/tags/#编程之路" title="编程之路" rel="88">
+                				<a href="/tags/#编程之路" title="编程之路" rel="92">
                                     编程之路
                                 </a>
                             
@@ -764,6 +764,8 @@ public class TestBeans {
                 				<a href="/tags/#MongoDB" title="MongoDB" rel="2">
                                     MongoDB
                                 </a>
+                            
+        				
                             
         				
                             
@@ -920,7 +922,7 @@ public class TestBeans {
                     
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; MY Blog 2019
+                    Copyright &copy; MY Blog 2020
                     <br>
                     Theme on <a href="https://github.com/uniquezhangqi/uniquezhangqi.github.io.git">GitHub</a> |
                     <iframe

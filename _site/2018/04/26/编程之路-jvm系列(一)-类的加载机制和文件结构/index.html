@@ -205,7 +205,7 @@
   <p>本文首次发布于<a href="http://uniquezhangqi.top">My Blog</a>,作者<a href="http://uniquezhangqi.top/about/">@张琦(Ian)</a>,转载请保留原文链接。</p>
 </blockquote>
 
-<p>如果看的<code class="highlighter-rouge">过程中遇到不懂的名词或者语句</code>，比如：“<code class="highlighter-rouge">全限定名</code>”、“<code class="highlighter-rouge">数组去掉一个维度的类型</code>”等等，请拉到本文的底部，有解释说明，大佬请忽视😅。</p>
+<p>如果看的<code class="language-plaintext highlighter-rouge">过程中遇到不懂的名词或者语句</code>，比如：“<code class="language-plaintext highlighter-rouge">全限定名</code>”、“<code class="language-plaintext highlighter-rouge">数组去掉一个维度的类型</code>”等等，请拉到本文的底部，有解释说明，大佬请忽视😅。</p>
 
 <h3 id="引言">引言：</h3>
 
@@ -215,7 +215,7 @@
 
 <h3 id="java虚拟机并不关心class的来源是何种语言">Java虚拟机并不关心Class的来源是何种语言</h3>
 
-<p><code class="highlighter-rouge">Java虚拟机不和包括Java在内的任何语言绑定</code>，<strong>它只与“class”文件这种特定的二进制文件格式所关联，class文件中包含了Java虚拟机指令集和符号表以及若干其它辅助信息。</strong></p>
+<p><code class="language-plaintext highlighter-rouge">Java虚拟机不和包括Java在内的任何语言绑定</code>，<strong>它只与“class”文件这种特定的二进制文件格式所关联，class文件中包含了Java虚拟机指令集和符号表以及若干其它辅助信息。</strong></p>
 
 <h3 id="class类文件的结构">Class类文件的结构</h3>
 
@@ -223,30 +223,30 @@
   <p>任何一个Class文件都对应着唯一一个类或者接口的定义信息，但反过来说，类或接口并不一定都得定义在文件里(比如类或接口也可以通过类加载器直接生成)。</p>
 </blockquote>
 
-<p>Class文件是一组以8位字节为基础单位的二进制流，各个数据项目严格按照顺序紧凑地排列在Class文件之中，<code class="highlighter-rouge">中间没有添加任何分隔符</code>，这使得整个Class文件中存储的内容几乎全部是程序运行的必要数据，没有空隙存在。当遇到需要占用8位字节以上的空间的数据项时，则会<code class="highlighter-rouge">按照高位在前的方式分割成若干个8位字节进行存储</code>。</p>
+<p>Class文件是一组以8位字节为基础单位的二进制流，各个数据项目严格按照顺序紧凑地排列在Class文件之中，<code class="language-plaintext highlighter-rouge">中间没有添加任何分隔符</code>，这使得整个Class文件中存储的内容几乎全部是程序运行的必要数据，没有空隙存在。当遇到需要占用8位字节以上的空间的数据项时，则会<code class="language-plaintext highlighter-rouge">按照高位在前的方式分割成若干个8位字节进行存储</code>。</p>
 
 <h4 id="class文件格式">Class文件格式</h4>
 
-<p>Class文件格式采用一种类似于C语言结构体的伪结构来存储数据，这种伪结构中只有两种数据类型：<code class="highlighter-rouge">无符号数</code>，<code class="highlighter-rouge">表</code>，后面解析都要以这两种数据类型为基础。</p>
+<p>Class文件格式采用一种类似于C语言结构体的伪结构来存储数据，这种伪结构中只有两种数据类型：<code class="language-plaintext highlighter-rouge">无符号数</code>，<code class="language-plaintext highlighter-rouge">表</code>，后面解析都要以这两种数据类型为基础。</p>
 
 <ul>
-  <li><code class="highlighter-rouge">无符号数</code>属于基本数据类型，以u1、u2、u4、u8来分别代表1个字节、2个字节、4个字节和8个字节的无符号数，无符号数可以用来描述数字、索引引用、数量值或者按照<code class="highlighter-rouge">UTF-8</code>编码构成字符串值。</li>
-  <li><code class="highlighter-rouge">表</code>是由多个无符号数或者其它表作为数据项构成的复合数据类型，所有表都习惯性地以<code class="highlighter-rouge">“_info”</code>结尾。表用于描述有层次关系的复合结构的数据，整个Class文件本质上就是一张表。</li>
+  <li><code class="language-plaintext highlighter-rouge">无符号数</code>属于基本数据类型，以u1、u2、u4、u8来分别代表1个字节、2个字节、4个字节和8个字节的无符号数，无符号数可以用来描述数字、索引引用、数量值或者按照<code class="language-plaintext highlighter-rouge">UTF-8</code>编码构成字符串值。</li>
+  <li><code class="language-plaintext highlighter-rouge">表</code>是由多个无符号数或者其它表作为数据项构成的复合数据类型，所有表都习惯性地以<code class="language-plaintext highlighter-rouge">“_info”</code>结尾。表用于描述有层次关系的复合结构的数据，整个Class文件本质上就是一张表。</li>
 </ul>
 
 <h4 id="魔数与class文件的版本">魔数与Class文件的版本</h4>
 
-<p>每个Class文件的头4个字节称为魔数（Magic Number），它唯一作用是确定这个文件是否为一个能被虚拟机接受的Class文件。<code class="highlighter-rouge">Class文件的魔数获得很有“浪漫气息”,值为：0xCAFEBABE(咖啡宝贝)</code></p>
+<p>每个Class文件的头4个字节称为魔数（Magic Number），它唯一作用是确定这个文件是否为一个能被虚拟机接受的Class文件。<code class="language-plaintext highlighter-rouge">Class文件的魔数获得很有“浪漫气息”,值为：0xCAFEBABE(咖啡宝贝)</code></p>
 <blockquote>
   <p>根据Java开发小组最初的关键成员Patrick Naughton所说：“我们一直在寻找一些好玩的，容易记忆的东西，选择0xCAFEBABE是因为它象征着著名咖啡品牌Peet’s Coffee中深受欢迎的Baristas 咖啡”。所以现在Java的商标名称就是一个☕️</p>
 </blockquote>
 
-<p>紧接着魔数的<code class="highlighter-rouge">4</code>个字节存储的是Class文件的版本号：<code class="highlighter-rouge">第5</code>和<code class="highlighter-rouge">第6</code>个字节是次版本号（Minor Version），<code class="highlighter-rouge">第7</code>和<code class="highlighter-rouge">第8</code>个字节是主版本号（Major Version）。</p>
+<p>紧接着魔数的<code class="language-plaintext highlighter-rouge">4</code>个字节存储的是Class文件的版本号：<code class="language-plaintext highlighter-rouge">第5</code>和<code class="language-plaintext highlighter-rouge">第6</code>个字节是次版本号（Minor Version），<code class="language-plaintext highlighter-rouge">第7</code>和<code class="language-plaintext highlighter-rouge">第8</code>个字节是主版本号（Major Version）。</p>
 
 <h3 id="常量池">常量池</h3>
 
 <p>紧接着主次版本号之后的就是常量池入口，常量池可以理解为Class文件之中的资源仓库。
-常量池中主要存放两大类常量：<code class="highlighter-rouge">字面量</code>和<code class="highlighter-rouge">符号引用</code>。</p>
+常量池中主要存放两大类常量：<code class="language-plaintext highlighter-rouge">字面量</code>和<code class="language-plaintext highlighter-rouge">符号引用</code>。</p>
 
 <ul>
   <li>字面量：比较接近于Java语言层面的常量概念，如：文本字符串、声明为final的常量值等。</li>
@@ -267,21 +267,21 @@
 
 <h3 id="类的加载时机">类的加载时机</h3>
 
-<p>类从被加载到虚拟机内存中开始，到卸载内存为止，它的整个生命周期包括：<code class="highlighter-rouge">加载</code>、<code class="highlighter-rouge">验证</code>、<code class="highlighter-rouge">准备</code>、<code class="highlighter-rouge">解析</code>、<code class="highlighter-rouge">初始化</code>、<code class="highlighter-rouge">使用</code>和<code class="highlighter-rouge">卸载</code>7个阶段。其中<code class="highlighter-rouge">验证、准备、解析</code>3个部分统称为<code class="highlighter-rouge">连接</code>，下面是用在线工具processon画的图（这个工具很好用，推荐），如下图：</p>
+<p>类从被加载到虚拟机内存中开始，到卸载内存为止，它的整个生命周期包括：<code class="language-plaintext highlighter-rouge">加载</code>、<code class="language-plaintext highlighter-rouge">验证</code>、<code class="language-plaintext highlighter-rouge">准备</code>、<code class="language-plaintext highlighter-rouge">解析</code>、<code class="language-plaintext highlighter-rouge">初始化</code>、<code class="language-plaintext highlighter-rouge">使用</code>和<code class="language-plaintext highlighter-rouge">卸载</code>7个阶段。其中<code class="language-plaintext highlighter-rouge">验证、准备、解析</code>3个部分统称为<code class="language-plaintext highlighter-rouge">连接</code>，下面是用在线工具processon画的图（这个工具很好用，推荐），如下图：</p>
 
 <p><img src="https://ws1.sinaimg.cn/large/006tNc79gy1fqr7c9ta4xj30h707k746.jpg" alt="" /></p>
 
-<p>通常会在一个阶段执行的过程中调用、激活另外一个阶段。但是对于初始化阶段，虚拟机规范规则是严格规定类<code class="highlighter-rouge">有且只有</code>5种情况必须立即对类进行“初始化”（而加载、验证、准备自然需要在此之前开始）：</p>
+<p>通常会在一个阶段执行的过程中调用、激活另外一个阶段。但是对于初始化阶段，虚拟机规范规则是严格规定类<code class="language-plaintext highlighter-rouge">有且只有</code>5种情况必须立即对类进行“初始化”（而加载、验证、准备自然需要在此之前开始）：</p>
 
 <ol>
-  <li>遇到<code class="highlighter-rouge">new</code>、<code class="highlighter-rouge">getstatic</code>、<code class="highlighter-rouge">putstatic</code>或<code class="highlighter-rouge">invokestatic</code>这4条字节码指令时，如果类没有进行过初始化，则需要先触发其初始化。生成这4条指令的最常见的Java代码场景是：使用new关键字实例化对象的时候、读取或设置一个类的静态字段（被final修饰、已在编译期把结果放入常量池的静态字段除外）的时候，以及调用一个类的静态方法的时候。</li>
-  <li>使用<code class="highlighter-rouge">java.lang.reflect</code>包的方法对类进行反射调用的时候，如果类没有进行过初始化，则需要先触发其初始化。</li>
+  <li>遇到<code class="language-plaintext highlighter-rouge">new</code>、<code class="language-plaintext highlighter-rouge">getstatic</code>、<code class="language-plaintext highlighter-rouge">putstatic</code>或<code class="language-plaintext highlighter-rouge">invokestatic</code>这4条字节码指令时，如果类没有进行过初始化，则需要先触发其初始化。生成这4条指令的最常见的Java代码场景是：使用new关键字实例化对象的时候、读取或设置一个类的静态字段（被final修饰、已在编译期把结果放入常量池的静态字段除外）的时候，以及调用一个类的静态方法的时候。</li>
+  <li>使用<code class="language-plaintext highlighter-rouge">java.lang.reflect</code>包的方法对类进行反射调用的时候，如果类没有进行过初始化，则需要先触发其初始化。</li>
   <li>当初始化一个类的时候，如果发现其父类还没有进行过初始化，则需要触发其父类的初始化。</li>
   <li>当虚拟机启动时，用户需要指定一个要执行的主类（包含main()方法的那个类），虚拟机会先初始化这个主类。</li>
-  <li>当使用JDK 1.7的动态语言支持时，如果一个<code class="highlighter-rouge">java.lang.invoke.MethodHandle</code>实例最后的解析结果<code class="highlighter-rouge">REF_getStatic</code>、<code class="highlighter-rouge">REF_putStatus</code>、<code class="highlighter-rouge">REF_invokeStatic</code>的方法句柄，并且这个方法句柄所对应的类没有进行过初始化，则需要先触发其初始化。</li>
+  <li>当使用JDK 1.7的动态语言支持时，如果一个<code class="language-plaintext highlighter-rouge">java.lang.invoke.MethodHandle</code>实例最后的解析结果<code class="language-plaintext highlighter-rouge">REF_getStatic</code>、<code class="language-plaintext highlighter-rouge">REF_putStatus</code>、<code class="language-plaintext highlighter-rouge">REF_invokeStatic</code>的方法句柄，并且这个方法句柄所对应的类没有进行过初始化，则需要先触发其初始化。</li>
 </ol>
 
-<p>对于上面5种场景中的行为称为对一个类进行<code class="highlighter-rouge">主动引用</code>。除此之外，所有引用类的方式都不会触发初始化，称为<code class="highlighter-rouge">被动引用</code>。</p>
+<p>对于上面5种场景中的行为称为对一个类进行<code class="language-plaintext highlighter-rouge">主动引用</code>。除此之外，所有引用类的方式都不会触发初始化，称为<code class="language-plaintext highlighter-rouge">被动引用</code>。</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
  * 被动使用类字段demo
@@ -290,15 +290,15 @@
 **/</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">SuperClass</span><span class="o">{</span>
 	<span class="kd">static</span><span class="o">{</span>
-		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"SuperClass init!"</span><span class="o">);</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"SuperClass init!"</span><span class="o">);</span>
 	<span class="o">}</span>
 	
 	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="n">value</span> <span class="o">=</span> <span class="mi">123</span><span class="o">;</span>
 <span class="o">}</span>
 
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SubClass</span> <span class="kd">extends</span> <span class="n">SuperClass</span><span class="o">{</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SubClass</span> <span class="kd">extends</span> <span class="nc">SuperClass</span><span class="o">{</span>
 	<span class="kd">static</span> <span class="o">{</span>
-		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"SubClass init!"</span><span class="o">);</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"SubClass init!"</span><span class="o">);</span>
 	<span class="o">}</span>
 <span class="o">}</span>
 
@@ -308,26 +308,26 @@
  
 **/</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">NotInitialization</span><span class="o">{</span>
-	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
-		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">SubClass</span><span class="o">.</span><span class="na">value</span><span class="o">);</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="nc">SubClass</span><span class="o">.</span><span class="na">value</span><span class="o">);</span>
 	<span class="o">}</span>
 <span class="o">}</span>
 
 </code></pre></div></div>
-<p>上述代码运行之后，只会输出<code class="highlighter-rouge">“SuperClass init！”</code>。对于静态字段，只有直接定义这个字段的类才会被初始化，因此通过其子类来引用父类中定义的静态字段，只会触发父类的初始化而不会触发子类的初始化。</p>
+<p>上述代码运行之后，只会输出<code class="language-plaintext highlighter-rouge">“SuperClass init！”</code>。对于静态字段，只有直接定义这个字段的类才会被初始化，因此通过其子类来引用父类中定义的静态字段，只会触发父类的初始化而不会触发子类的初始化。</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
  * 被动使用类字段demo
  * 通过数组定义来引用类，不会触发此类的初始化。
 **/</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">NoInitialization</span><span class="o">{</span>
-	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
-		<span class="n">SuperClass</span><span class="o">[]</span> <span class="n">sca</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SuperClass</span><span class="o">[</span><span class="mi">10</span><span class="o">];</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
+		<span class="nc">SuperClass</span><span class="o">[]</span> <span class="n">sca</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">SuperClass</span><span class="o">[</span><span class="mi">10</span><span class="o">];</span>
 	<span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
-<p>运行之后没有输出<code class="highlighter-rouge">“SuperClass init！”</code>，说明并没有触发类<code class="highlighter-rouge">SuperClass</code>的初始化阶段。但是这段代码里面触发类另一个名为“<code class="highlighter-rouge">[Lorg.fenixsoft.classloading.SuperClass</code>” 的类的初始化阶段，对于用户代码来说，这个并不是一个合法的类名称，它是一个由虚拟机自动生成的、直接继承于<code class="highlighter-rouge">java.lang.Object</code>的子类，创建动作由字节码指令<code class="highlighter-rouge">newarray</code>的触发。</p>
+<p>运行之后没有输出<code class="language-plaintext highlighter-rouge">“SuperClass init！”</code>，说明并没有触发类<code class="language-plaintext highlighter-rouge">SuperClass</code>的初始化阶段。但是这段代码里面触发类另一个名为“<code class="language-plaintext highlighter-rouge">[Lorg.fenixsoft.classloading.SuperClass</code>” 的类的初始化阶段，对于用户代码来说，这个并不是一个合法的类名称，它是一个由虚拟机自动生成的、直接继承于<code class="language-plaintext highlighter-rouge">java.lang.Object</code>的子类，创建动作由字节码指令<code class="language-plaintext highlighter-rouge">newarray</code>的触发。</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
  * 常量在编译阶段会存入调用类的常量池中，本质上并没有直接引用到定义常量的类，因此不会触发定义常 *量的类的初始化。
@@ -335,9 +335,9 @@
 **/</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">ConstClass</span><span class="o">{</span>
 	<span class="kd">static</span> <span class="o">{</span>
-		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"ConstClass init!"</span><span class="o">);</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"ConstClass init!"</span><span class="o">);</span>
 	<span class="o">}</span>
-	<span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">HELLOWORLD</span> <span class="o">=</span> <span class="s">"hello world"</span><span class="o">;</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="nc">String</span> <span class="no">HELLOWORLD</span> <span class="o">=</span> <span class="s">"hello world"</span><span class="o">;</span>
 <span class="o">}</span>
 
 <span class="cm">/**
@@ -345,19 +345,19 @@
  *
 **/</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">NotInitialization</span><span class="o">{</span>
-	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
-		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"ConstClass.HELLOWORLD"</span><span class="o">);</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"ConstClass.HELLOWORLD"</span><span class="o">);</span>
 	<span class="o">}</span>
 <span class="o">}</span>
 
 </code></pre></div></div>
 
-<p>上述代码运行之后，也没有输出，这是因为虽然在Java源码中引用了<code class="highlighter-rouge">ConstClass</code>类中的常量HELLOWORLD,但其实在编译阶段通过常量传播优化，已经将此常量的值“<code class="highlighter-rouge">hello world</code>”存储到了NotInitialization类的常量池中，以后<code class="highlighter-rouge">NotInitialization</code>对常量<code class="highlighter-rouge">ConstClass.HELLOWORLD</code>的引用实际都被转化为NotInitialization自身常量池的引用了。也就是说，实际上<code class="highlighter-rouge">NotInitialization</code>的Class文件之中并没有<code class="highlighter-rouge">ConstClass</code>类的符号引用入口，这两个类在编译成Class之后就不存在任何联系了。</p>
+<p>上述代码运行之后，也没有输出，这是因为虽然在Java源码中引用了<code class="language-plaintext highlighter-rouge">ConstClass</code>类中的常量HELLOWORLD,但其实在编译阶段通过常量传播优化，已经将此常量的值“<code class="language-plaintext highlighter-rouge">hello world</code>”存储到了NotInitialization类的常量池中，以后<code class="language-plaintext highlighter-rouge">NotInitialization</code>对常量<code class="language-plaintext highlighter-rouge">ConstClass.HELLOWORLD</code>的引用实际都被转化为NotInitialization自身常量池的引用了。也就是说，实际上<code class="language-plaintext highlighter-rouge">NotInitialization</code>的Class文件之中并没有<code class="language-plaintext highlighter-rouge">ConstClass</code>类的符号引用入口，这两个类在编译成Class之后就不存在任何联系了。</p>
 
 <h3 id="接口和类加载过程稍有区别">接口和类加载过程稍有区别</h3>
 <p>接口也有初始化过程，这点是于类是一致的。</p>
 
-<p>接口与类真正有所区别的是前面讲述的5种“有且仅有”需要开始初始化场景中的第3种：<strong>当一个<code class="highlighter-rouge">类</code>在初始化时，要求其父类全部都已经初始化过了，但是一个<code class="highlighter-rouge">接口</code>在初始化时，并不要求其父类接口全部都完成了初始化，只有真正使用父类的时候（如引用接口中定义的常量）才会初始化。</strong></p>
+<p>接口与类真正有所区别的是前面讲述的5种“有且仅有”需要开始初始化场景中的第3种：<strong>当一个<code class="language-plaintext highlighter-rouge">类</code>在初始化时，要求其父类全部都已经初始化过了，但是一个<code class="language-plaintext highlighter-rouge">接口</code>在初始化时，并不要求其父类接口全部都完成了初始化，只有真正使用父类的时候（如引用接口中定义的常量）才会初始化。</strong></p>
 
 <h3 id="类加载的过程">类加载的过程</h3>
 
@@ -371,7 +371,7 @@
   <li>在内存中生成一个代表这个类的java.lang.Class对象，作为方法区这个类的各种数据的访问入口。</li>
 </ol>
 
-<p>对于<code class="highlighter-rouge">数组</code>而言，情况就有所不同，数组类本身不通过类加载器创建，它是由Java虚拟机直接创建的。一个数组类创建过程需要遵循以下规则：</p>
+<p>对于<code class="language-plaintext highlighter-rouge">数组</code>而言，情况就有所不同，数组类本身不通过类加载器创建，它是由Java虚拟机直接创建的。一个数组类创建过程需要遵循以下规则：</p>
 
 <ol>
   <li>如果数组的组建类型（Component Type，指的是数组去掉一个维度的类型）是引用类型，那就递归采用本节中定义的加载过程区加载这个组件类型，数组C将在加载该组件类型的类加载器的类名称空间上被标识。</li>
@@ -386,7 +386,7 @@
 	<span class="cm">/**
 	 * @param args
 	 */</span>
-	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
 		<span class="n">test1</span><span class="o">();</span>
 		<span class="n">test2</span><span class="o">();</span>
 		<span class="n">test3</span><span class="o">();</span>
@@ -398,15 +398,15 @@
 	 * 测试数组的特殊特性对参数传递的便利性
 	 */</span>
 	<span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">test3</span><span class="o">()</span> <span class="o">{</span>
-		<span class="n">String</span><span class="o">[]</span> <span class="n">a</span> <span class="o">=</span> <span class="k">new</span> <span class="n">String</span><span class="o">[</span><span class="mi">3</span><span class="o">];</span>
+		<span class="nc">String</span><span class="o">[]</span> <span class="n">a</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">String</span><span class="o">[</span><span class="mi">3</span><span class="o">];</span>
 		<span class="n">doArray</span><span class="o">(</span><span class="n">a</span><span class="o">);</span>
 	<span class="o">}</span>
 
-	<span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">doArray</span><span class="o">(</span><span class="n">Object</span><span class="o">[]</span> <span class="n">objs</span><span class="o">){</span>
+	<span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">doArray</span><span class="o">(</span><span class="nc">Object</span><span class="o">[]</span> <span class="n">objs</span><span class="o">){</span>
 		
 	<span class="o">}</span>
 	
-	<span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">doArray1</span><span class="o">(</span><span class="n">Object</span> <span class="n">obj</span><span class="o">){</span>
+	<span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">doArray1</span><span class="o">(</span><span class="nc">Object</span> <span class="n">obj</span><span class="o">){</span>
 		<span class="c1">//不能用Object接收数组，因为这样无法对数组的元素进行访问</span>
 		<span class="c1">// obj[1]  //错误</span>
 		
@@ -414,11 +414,11 @@
 		<span class="c1">// Object[] objs = (Object[]) obj;</span>
 	<span class="o">}</span>
 	
-	<span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">doArray2</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">strs</span><span class="o">){</span>
+	<span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">doArray2</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">strs</span><span class="o">){</span>
 		<span class="c1">//如果适用特定类型的数组，就限制了类型，失去灵活性和通用性</span>
 	<span class="o">}</span>
 	
-	<span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">doArray3</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="kt">int</span> <span class="n">age</span><span class="o">,</span> <span class="n">String</span> <span class="n">id</span><span class="o">,</span> <span class="kt">float</span> <span class="n">account</span><span class="o">){</span>
+	<span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">doArray3</span><span class="o">(</span><span class="nc">String</span> <span class="n">name</span><span class="o">,</span> <span class="kt">int</span> <span class="n">age</span><span class="o">,</span> <span class="nc">String</span> <span class="n">id</span><span class="o">,</span> <span class="kt">float</span> <span class="n">account</span><span class="o">){</span>
 		<span class="c1">//如果不适用数组而是依次传递参数，会使参数列表变得冗长，难以阅读</span>
 	<span class="o">}</span>
 	<span class="cm">/**
@@ -428,30 +428,30 @@
 		
 		<span class="c1">//1		在test1()中已经测试得到以下结论: 数组也是对象, 数组的顶层父类是Object, 所以可以向上转型</span>
 		<span class="kt">int</span><span class="o">[]</span> <span class="n">a</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">int</span><span class="o">[</span><span class="mi">8</span><span class="o">];</span>
-		<span class="n">Object</span> <span class="n">obj</span> <span class="o">=</span> <span class="n">a</span> <span class="o">;</span> <span class="c1">//数组的父类也是Object,可以将a向上转型到Object</span>
+		<span class="nc">Object</span> <span class="n">obj</span> <span class="o">=</span> <span class="n">a</span> <span class="o">;</span> <span class="c1">//数组的父类也是Object,可以将a向上转型到Object</span>
 		
 		<span class="c1">//2		那么能向下转型吗?</span>
 		<span class="kt">int</span><span class="o">[]</span> <span class="n">b</span> <span class="o">=</span> <span class="o">(</span><span class="kt">int</span><span class="o">[])</span><span class="n">obj</span><span class="o">;</span>  <span class="c1">//可以进行向下转型</span>
 		
 		<span class="c1">//3		能使用instanceof关键字判定吗?</span>
 		<span class="k">if</span><span class="o">(</span><span class="n">obj</span> <span class="k">instanceof</span> <span class="kt">int</span><span class="o">[]){</span>  <span class="c1">//可以用instanceof关键字进行类型判定</span>
-			<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"obj的真实类型是int[]"</span><span class="o">);</span>
+			<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"obj的真实类型是int[]"</span><span class="o">);</span>
 		<span class="o">}</span>
 		
 		<span class="c1">//4  	下面代码成立吗?</span>
-		<span class="n">String</span><span class="o">[]</span> <span class="n">s</span> <span class="o">=</span> <span class="k">new</span> <span class="n">String</span><span class="o">[</span><span class="mi">5</span><span class="o">];</span>
-		<span class="n">Object</span><span class="o">[]</span> <span class="n">obja</span> <span class="o">=</span> <span class="n">s</span><span class="o">;</span>   <span class="c1">//成立,说明可以用Object[]的引用来接收String[]的对象</span>
+		<span class="nc">String</span><span class="o">[]</span> <span class="n">s</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">String</span><span class="o">[</span><span class="mi">5</span><span class="o">];</span>
+		<span class="nc">Object</span><span class="o">[]</span> <span class="n">obja</span> <span class="o">=</span> <span class="n">s</span><span class="o">;</span>   <span class="c1">//成立,说明可以用Object[]的引用来接收String[]的对象</span>
 		
 		<span class="c1">//5		那么String[] 的直接父类是Object[] 还是 Object?</span>
-		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">s</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">getSuperclass</span><span class="o">().</span><span class="na">getName</span><span class="o">());</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">s</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">getSuperclass</span><span class="o">().</span><span class="na">getName</span><span class="o">());</span>
 		<span class="c1">//打印结果为java.lang.Object,说明String[] 的直接父类是 Object而不是Object[]</span>
 		
 		<span class="c1">//6	  下面成立吗?  Father是Son的直接父类</span>
-		<span class="n">Son</span><span class="o">[]</span> <span class="n">sons</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Son</span><span class="o">[</span><span class="mi">3</span><span class="o">];</span>
-		<span class="n">Father</span><span class="o">[]</span> <span class="n">fa</span> <span class="o">=</span> <span class="n">sons</span><span class="o">;</span>  <span class="c1">//成立</span>
+		<span class="nc">Son</span><span class="o">[]</span> <span class="n">sons</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Son</span><span class="o">[</span><span class="mi">3</span><span class="o">];</span>
+		<span class="nc">Father</span><span class="o">[]</span> <span class="n">fa</span> <span class="o">=</span> <span class="n">sons</span><span class="o">;</span>  <span class="c1">//成立</span>
 		
 		<span class="c1">//7		那么Son[] 的直接父类是Father[] 还是  Object[] 或者是Object?</span>
-		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">sons</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">getSuperclass</span><span class="o">().</span><span class="na">getName</span><span class="o">());</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">sons</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">getSuperclass</span><span class="o">().</span><span class="na">getName</span><span class="o">());</span>
 		<span class="c1">//打印结果为java.lang.Object,说明Son[]的直接父类是Object</span>
 		
 		<span class="cm">/**
@@ -460,8 +460,8 @@
 		 */</span>
 		
 		<span class="c1">//8		上面的结论可以扩展到二维数组</span>
-		<span class="n">Son</span><span class="o">[][]</span> <span class="n">sonss</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Son</span><span class="o">[</span><span class="mi">2</span><span class="o">][</span><span class="mi">4</span><span class="o">];</span>
-		<span class="n">Father</span><span class="o">[][]</span> <span class="n">fathers</span> <span class="o">=</span> <span class="n">sonss</span><span class="o">;</span>
+		<span class="nc">Son</span><span class="o">[][]</span> <span class="n">sonss</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Son</span><span class="o">[</span><span class="mi">2</span><span class="o">][</span><span class="mi">4</span><span class="o">];</span>
+		<span class="nc">Father</span><span class="o">[][]</span> <span class="n">fathers</span> <span class="o">=</span> <span class="n">sonss</span><span class="o">;</span>
 		<span class="c1">//将Father[][]数组看成是一维数组, 这是个数组中的元素为Father[]</span>
 		<span class="c1">//将Son[][]数组看成是一维数组, 这是个数组中的元素为Son[]</span>
 		<span class="c1">//因为Father[]类型的引用可以指向Son[]类型的对象</span>
@@ -482,7 +482,7 @@
 		<span class="c1">//这是错误的, 因为Object不是int的父类,在这里自动装箱不起作用</span>
 		
 		<span class="c1">//10 	这样可以吗？</span>
-		<span class="n">Object</span><span class="o">[]</span> <span class="n">objss</span> <span class="o">=</span> <span class="o">{</span><span class="s">"aaa"</span><span class="o">,</span> <span class="mi">1</span><span class="o">,</span> <span class="mf">2.5</span><span class="o">};</span><span class="c1">//成立</span>
+		<span class="nc">Object</span><span class="o">[]</span> <span class="n">objss</span> <span class="o">=</span> <span class="o">{</span><span class="s">"aaa"</span><span class="o">,</span> <span class="mi">1</span><span class="o">,</span> <span class="mf">2.5</span><span class="o">};</span><span class="c1">//成立</span>
 	<span class="o">}</span>
 
 	<span class="cm">/**
@@ -505,15 +505,15 @@
 		 * 那么数组的类型是什么呢? 下面使用反射的方式进行验证
 		 */</span>
 		<span class="kt">int</span><span class="o">[]</span> <span class="n">a1</span> <span class="o">=</span> <span class="o">{</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">};</span>
-		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">a1</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">getName</span><span class="o">());</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">a1</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">getName</span><span class="o">());</span>
 		<span class="c1">//打印出的数组类的名字为[I</span>
 		
-		<span class="n">String</span><span class="o">[]</span> <span class="n">s</span> <span class="o">=</span> <span class="k">new</span> <span class="n">String</span><span class="o">[</span><span class="mi">2</span><span class="o">];</span>
-		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">s</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">getName</span><span class="o">());</span>
+		<span class="nc">String</span><span class="o">[]</span> <span class="n">s</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">String</span><span class="o">[</span><span class="mi">2</span><span class="o">];</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">s</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">getName</span><span class="o">());</span>
 		<span class="c1">//打印出的数组类的名字为  [Ljava.lang.String;</span>
 		
-		<span class="n">String</span><span class="o">[][]</span> <span class="n">ss</span> <span class="o">=</span> <span class="k">new</span> <span class="n">String</span><span class="o">[</span><span class="mi">2</span><span class="o">][</span><span class="mi">3</span><span class="o">];</span>
-		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">ss</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">getName</span><span class="o">());</span>
+		<span class="nc">String</span><span class="o">[][]</span> <span class="n">ss</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">String</span><span class="o">[</span><span class="mi">2</span><span class="o">][</span><span class="mi">3</span><span class="o">];</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">ss</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">getName</span><span class="o">());</span>
 		<span class="c1">//打印出的数组类的名字为    [[Ljava.lang.String;</span>
 		
 		<span class="cm">/**
@@ -534,7 +534,7 @@
 
 	<span class="o">}</span>
 	
-	<span class="kd">public</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">Son</span> <span class="kd">extends</span> <span class="n">Father</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">Son</span> <span class="kd">extends</span> <span class="nc">Father</span> <span class="o">{</span>
 
 	<span class="o">}</span>
 <span class="o">}</span>
@@ -605,7 +605,7 @@
   </li>
   <li>4.符号引用验证
     <ul>
-      <li>最后一个阶段的校验发生在虚拟机将符号引用过转化为直接引用的时候，这个转化动作将在连接的第三阶段–解析阶段中发生。<code class="highlighter-rouge">符号引用验证</code>可以看作是对类自身以外（常量池中的各种各样符号引用）的信息进行匹配性校验，通常校验如下：
+      <li>最后一个阶段的校验发生在虚拟机将符号引用过转化为直接引用的时候，这个转化动作将在连接的第三阶段–解析阶段中发生。<code class="language-plaintext highlighter-rouge">符号引用验证</code>可以看作是对类自身以外（常量池中的各种各样符号引用）的信息进行匹配性校验，通常校验如下：
       - 符号引用中通过字符串描述的全限定名是否能找到对应的类。
       - 在指定类中是否存在符合方法的字段描述符以及简单名称所描述的方法和字段。
       - 符号引用中的类、字段、方法的访问性（private、protected、public、default）是否可被当前类访问。</li>
@@ -619,7 +619,7 @@
 
 <h3 id="准备">准备</h3>
 
-<p>准备阶段是正式为类变量分配内存并设置类变量初始值的阶段，这些变量所使用的内存都将在方法区中进行分配。这个时候进行内存分配的仅包括<code class="highlighter-rouge">类变量</code>（被static修饰的变量），而不包括<code class="highlighter-rouge">实例变量</code>，实例变量将会在对象实例化时随着对象一起分配在Java堆中。</p>
+<p>准备阶段是正式为类变量分配内存并设置类变量初始值的阶段，这些变量所使用的内存都将在方法区中进行分配。这个时候进行内存分配的仅包括<code class="language-plaintext highlighter-rouge">类变量</code>（被static修饰的变量），而不包括<code class="language-plaintext highlighter-rouge">实例变量</code>，实例变量将会在对象实例化时随着对象一起分配在Java堆中。</p>
 
 <h3 id="解析">解析</h3>
 
@@ -630,7 +630,7 @@
   <li>直接引用：同一个符号引用在不同虚拟机实例上翻译出来的直接应用一般不会相同。如果有了直接引用，那引用的目标必定已经在内存中存在。</li>
 </ul>
 
-<p>解析动作主要针对类或<code class="highlighter-rouge">接口</code>、<code class="highlighter-rouge">字段</code>、<code class="highlighter-rouge">类方法</code>、<code class="highlighter-rouge">接口方法</code>、<code class="highlighter-rouge">方法类型</code>、<code class="highlighter-rouge">方法句柄</code>和<code class="highlighter-rouge">调用点限定符</code>7类符号引用进行，分别对应于常量池CONSTANT_Class_info、CONSTANT_Fieldref_info、CONSTANT_Methodref_info、CONSTANT_InterfaceMethodref_info、CONSTANT_MethodType_info、CONSTANT_MethodHandle_info和CONSTANT_InvokeDynamic_info 7中常量类型。</p>
+<p>解析动作主要针对类或<code class="language-plaintext highlighter-rouge">接口</code>、<code class="language-plaintext highlighter-rouge">字段</code>、<code class="language-plaintext highlighter-rouge">类方法</code>、<code class="language-plaintext highlighter-rouge">接口方法</code>、<code class="language-plaintext highlighter-rouge">方法类型</code>、<code class="language-plaintext highlighter-rouge">方法句柄</code>和<code class="language-plaintext highlighter-rouge">调用点限定符</code>7类符号引用进行，分别对应于常量池CONSTANT_Class_info、CONSTANT_Fieldref_info、CONSTANT_Methodref_info、CONSTANT_InterfaceMethodref_info、CONSTANT_MethodType_info、CONSTANT_MethodHandle_info和CONSTANT_InvokeDynamic_info 7中常量类型。</p>
 
 <h3 id="初始化">初始化</h3>
 
@@ -763,13 +763,13 @@
                             
         				
                             
-                				<a href="/tags/#自我总结" title="自我总结" rel="34">
+                				<a href="/tags/#自我总结" title="自我总结" rel="36">
                                     自我总结
                                 </a>
                             
         				
                             
-                				<a href="/tags/#编程之路" title="编程之路" rel="88">
+                				<a href="/tags/#编程之路" title="编程之路" rel="92">
                                     编程之路
                                 </a>
                             
@@ -880,6 +880,8 @@
                 				<a href="/tags/#MongoDB" title="MongoDB" rel="2">
                                     MongoDB
                                 </a>
+                            
+        				
                             
         				
                             
@@ -1036,7 +1038,7 @@
                     
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; MY Blog 2019
+                    Copyright &copy; MY Blog 2020
                     <br>
                     Theme on <a href="https://github.com/uniquezhangqi/uniquezhangqi.github.io.git">GitHub</a> |
                     <iframe

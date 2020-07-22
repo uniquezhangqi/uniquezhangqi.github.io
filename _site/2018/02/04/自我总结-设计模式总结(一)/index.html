@@ -206,7 +206,7 @@
 				<blockquote>
   <p>本文首次发布于<a href="http://uniquezhangqi.top">My Blog</a>,作者<a href="http://uniquezhangqi.top/about/">@张琦(Ian)</a>,转载请保留原文链接。<br />
 <br />
-右侧可以看<code class="highlighter-rouge">目录</code>，点击直接跳转，Z 一共写了4篇(可以点击下面直接跳转然后看右侧目录)：<br /></p>
+右侧可以看<code class="language-plaintext highlighter-rouge">目录</code>，点击直接跳转，Z 一共写了4篇(可以点击下面直接跳转然后看右侧目录)：<br /></p>
   <ul>
     <li><a href="http://uniquezhangqi.top/2018/03/02/自我总结-设计模式总结(二)">自我总结-设计模式总结(二)</a><br /></li>
     <li><a href="http://uniquezhangqi.top/2018/03/05/编程之路-设计模式总结(三)">自我总结-设计模式总结(三)</a><br /></li>
@@ -227,7 +227,7 @@
 </code></pre></div></div>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 正常收费子类，原价返回</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">CashNormal</span> <span class="kd">extends</span> <span class="n">CashSuper</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">CashNormal</span> <span class="kd">extends</span> <span class="nc">CashSuper</span> <span class="o">{</span>
 
     <span class="nd">@Override</span>
     <span class="kd">public</span> <span class="kt">double</span> <span class="nf">acceptCash</span><span class="o">(</span><span class="kt">double</span> <span class="n">money</span><span class="o">)</span> <span class="o">{</span>
@@ -237,12 +237,12 @@
 </code></pre></div></div>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 打折收费子类，初始化时，必需要输入折扣率，如八折就是0.8 </span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">CashRebate</span> <span class="kd">extends</span> <span class="n">CashSuper</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">CashRebate</span> <span class="kd">extends</span> <span class="nc">CashSuper</span> <span class="o">{</span>
 
     <span class="kd">private</span> <span class="kt">double</span> <span class="n">moneyRebate</span> <span class="o">=</span> <span class="mi">1</span><span class="n">d</span><span class="o">;</span>
 
-    <span class="kd">public</span> <span class="nf">CashRebate</span><span class="o">(</span><span class="n">String</span> <span class="n">moneyRebate</span><span class="o">){</span>
-        <span class="k">this</span><span class="o">.</span><span class="na">moneyRebate</span> <span class="o">=</span> <span class="n">Double</span><span class="o">.</span><span class="na">parseDouble</span><span class="o">(</span><span class="n">moneyRebate</span><span class="o">);</span>
+    <span class="kd">public</span> <span class="nf">CashRebate</span><span class="o">(</span><span class="nc">String</span> <span class="n">moneyRebate</span><span class="o">){</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">moneyRebate</span> <span class="o">=</span> <span class="nc">Double</span><span class="o">.</span><span class="na">parseDouble</span><span class="o">(</span><span class="n">moneyRebate</span><span class="o">);</span>
     <span class="o">}</span>
 
     <span class="nd">@Override</span>
@@ -253,13 +253,13 @@
 </code></pre></div></div>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 返利收费子类，初始化时必须要输入返利条件和返利值，比如满300返100，则moneyCondition为300,moneyReturn为100 </span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">CashReturn</span> <span class="kd">extends</span> <span class="n">CashSuper</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">CashReturn</span> <span class="kd">extends</span> <span class="nc">CashSuper</span> <span class="o">{</span>
     <span class="kd">private</span> <span class="kt">double</span> <span class="n">moneyCondition</span> <span class="o">=</span> <span class="mf">0.0d</span><span class="o">;</span>
     <span class="kd">private</span> <span class="kt">double</span> <span class="n">moneyReturn</span> <span class="o">=</span> <span class="mf">0.0d</span><span class="o">;</span>
 
-    <span class="kd">public</span> <span class="nf">CashReturn</span><span class="o">(</span><span class="n">String</span> <span class="n">moneyCondition</span><span class="o">,</span> <span class="n">String</span> <span class="n">moneyReturn</span><span class="o">)</span> <span class="o">{</span>
-        <span class="k">this</span><span class="o">.</span><span class="na">moneyCondition</span> <span class="o">=</span> <span class="n">Double</span><span class="o">.</span><span class="na">parseDouble</span><span class="o">(</span><span class="n">moneyCondition</span><span class="o">);</span>
-        <span class="k">this</span><span class="o">.</span><span class="na">moneyReturn</span> <span class="o">=</span> <span class="n">Double</span><span class="o">.</span><span class="na">parseDouble</span><span class="o">(</span><span class="n">moneyReturn</span><span class="o">);</span>
+    <span class="kd">public</span> <span class="nf">CashReturn</span><span class="o">(</span><span class="nc">String</span> <span class="n">moneyCondition</span><span class="o">,</span> <span class="nc">String</span> <span class="n">moneyReturn</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">moneyCondition</span> <span class="o">=</span> <span class="nc">Double</span><span class="o">.</span><span class="na">parseDouble</span><span class="o">(</span><span class="n">moneyCondition</span><span class="o">);</span>
+        <span class="k">this</span><span class="o">.</span><span class="na">moneyReturn</span> <span class="o">=</span> <span class="nc">Double</span><span class="o">.</span><span class="na">parseDouble</span><span class="o">(</span><span class="n">moneyReturn</span><span class="o">);</span>
     <span class="o">}</span>
 
     <span class="nd">@Override</span>
@@ -275,18 +275,18 @@
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 现金收费工厂类</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">CashFactory</span> <span class="o">{</span>
-    <span class="kd">public</span> <span class="kd">static</span> <span class="n">CashSuper</span> <span class="nf">createCashAccept</span><span class="o">(</span><span class="n">String</span> <span class="n">type</span><span class="o">){</span>
-        <span class="n">CashSuper</span> <span class="n">cs</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="nc">CashSuper</span> <span class="nf">createCashAccept</span><span class="o">(</span><span class="nc">String</span> <span class="n">type</span><span class="o">){</span>
+        <span class="nc">CashSuper</span> <span class="n">cs</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
         <span class="k">switch</span> <span class="o">(</span><span class="n">type</span><span class="o">){</span>
             <span class="k">case</span> <span class="s">"正常收费"</span><span class="o">:</span>
-                <span class="n">cs</span> <span class="o">=</span> <span class="k">new</span> <span class="n">CashNormal</span><span class="o">();</span>
+                <span class="n">cs</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">CashNormal</span><span class="o">();</span>
                 <span class="k">break</span><span class="o">;</span>
             <span class="k">case</span> <span class="s">"满300返100"</span><span class="o">:</span>
-                <span class="n">CashReturn</span> <span class="n">cr1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">CashReturn</span><span class="o">(</span><span class="s">"100"</span><span class="o">,</span><span class="s">"100"</span><span class="o">);</span>
+                <span class="nc">CashReturn</span> <span class="n">cr1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">CashReturn</span><span class="o">(</span><span class="s">"100"</span><span class="o">,</span><span class="s">"100"</span><span class="o">);</span>
                 <span class="n">cs</span> <span class="o">=</span> <span class="n">cr1</span><span class="o">;</span>
                 <span class="k">break</span><span class="o">;</span>
             <span class="k">case</span> <span class="s">"打8折"</span><span class="o">:</span>
-                <span class="n">CashRebate</span> <span class="n">cr2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">CashRebate</span><span class="o">(</span><span class="s">"0,8"</span><span class="o">);</span>
+                <span class="nc">CashRebate</span> <span class="n">cr2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">CashRebate</span><span class="o">(</span><span class="s">"0,8"</span><span class="o">);</span>
                 <span class="n">cs</span> <span class="o">=</span> <span class="n">cr2</span><span class="o">;</span>
                 <span class="k">break</span><span class="o">;</span>
         <span class="o">}</span>
@@ -296,14 +296,14 @@
 </code></pre></div></div>
 <p>上图代码设计：是先写一个父类，在继承它的实现多个打折和返利的子类，利用多态，完成这个代码。</p>
 <blockquote>
-  <p><code class="highlighter-rouge">聚合：</code>表示一种弱的‘拥有’关系，体现在A对象可以包含B对象，但是B对象不是A对象的一部分。</p>
+  <p><code class="language-plaintext highlighter-rouge">聚合：</code>表示一种弱的‘拥有’关系，体现在A对象可以包含B对象，但是B对象不是A对象的一部分。</p>
 
-  <p><code class="highlighter-rouge">合成：</code>是一种强的‘拥有’关系，体现了严格的部分和整体的关系，部分和整体的生命周期都一样。</p>
+  <p><code class="language-plaintext highlighter-rouge">合成：</code>是一种强的‘拥有’关系，体现了严格的部分和整体的关系，部分和整体的生命周期都一样。</p>
 </blockquote>
 
 <h2 id="策略模式">策略模式</h2>
 <blockquote>
-  <p><code class="highlighter-rouge">策略模式</code>：它定义算法家族，分别封装起来，让它们之间可以互相替换，此模式让算法的变化不会影响到使用算法的客户。</p>
+  <p><code class="language-plaintext highlighter-rouge">策略模式</code>：它定义算法家族，分别封装起来，让它们之间可以互相替换，此模式让算法的变化不会影响到使用算法的客户。</p>
 </blockquote>
 
 <h4 id="为什么要使用这个">为什么要使用这个</h4>
@@ -323,36 +323,36 @@
 </code></pre></div></div>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//封装类具体的算法或者行为</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ConcreteStrategyA</span> <span class="kd">extends</span> <span class="n">Strategy</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ConcreteStrategyA</span> <span class="kd">extends</span> <span class="nc">Strategy</span> <span class="o">{</span>
     <span class="c1">//算法A实现方法</span>
     <span class="nd">@Override</span>
     <span class="kd">public</span> <span class="kt">void</span> <span class="nf">algorithmInterface</span><span class="o">()</span> <span class="o">{</span>
-        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"算法A实现"</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"算法A实现"</span><span class="o">);</span>
     <span class="o">}</span>
 <span class="o">}</span>
 
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ConcreteStrategyB</span> <span class="kd">extends</span> <span class="n">Strategy</span><span class="o">{</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ConcreteStrategyB</span> <span class="kd">extends</span> <span class="nc">Strategy</span><span class="o">{</span>
     <span class="c1">//算法B实现方法</span>
     <span class="nd">@Override</span>
     <span class="kd">public</span> <span class="kt">void</span> <span class="nf">algorithmInterface</span><span class="o">()</span> <span class="o">{</span>
-        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"算法B实现"</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"算法B实现"</span><span class="o">);</span>
     <span class="o">}</span>
 <span class="o">}</span>
 
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ConcreteStrategyC</span> <span class="kd">extends</span> <span class="n">Strategy</span><span class="o">{</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ConcreteStrategyC</span> <span class="kd">extends</span> <span class="nc">Strategy</span><span class="o">{</span>
     <span class="c1">//算法C实现方法</span>
     <span class="nd">@Override</span>
     <span class="kd">public</span> <span class="kt">void</span> <span class="nf">algorithmInterface</span><span class="o">()</span> <span class="o">{</span>
-        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"算法C实现"</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"算法C实现"</span><span class="o">);</span>
     <span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//上下文</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Context</span> <span class="o">{</span>
-    <span class="n">Strategy</span> <span class="n">strategy</span><span class="o">;</span>
+    <span class="nc">Strategy</span> <span class="n">strategy</span><span class="o">;</span>
     <span class="c1">//初始化时，传入具体的策略对象</span>
-    <span class="kd">public</span> <span class="nf">Context</span><span class="o">(</span><span class="n">Strategy</span> <span class="n">strategy</span><span class="o">){</span>
+    <span class="kd">public</span> <span class="nf">Context</span><span class="o">(</span><span class="nc">Strategy</span> <span class="n">strategy</span><span class="o">){</span>
         <span class="k">this</span><span class="o">.</span><span class="na">strategy</span> <span class="o">=</span> <span class="n">strategy</span><span class="o">;</span>
     <span class="o">}</span>
 
@@ -366,15 +366,15 @@
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//“客户端代码”由于实例化不同的策略，所以最终在调用context.ContextInterface();时，所获得的结果就不尽相同。</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
-        <span class="n">Context</span> <span class="n">context</span><span class="o">;</span>
-        <span class="n">context</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Context</span><span class="o">(</span><span class="k">new</span> <span class="n">ConcreteStrategyA</span><span class="o">());</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
+        <span class="nc">Context</span> <span class="n">context</span><span class="o">;</span>
+        <span class="n">context</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Context</span><span class="o">(</span><span class="k">new</span> <span class="nc">ConcreteStrategyA</span><span class="o">());</span>
         <span class="n">context</span><span class="o">.</span><span class="na">ContextInterface</span><span class="o">();</span>
 
-        <span class="n">context</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Context</span><span class="o">(</span><span class="k">new</span> <span class="n">ConcreteStrategyB</span><span class="o">());</span>
+        <span class="n">context</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Context</span><span class="o">(</span><span class="k">new</span> <span class="nc">ConcreteStrategyB</span><span class="o">());</span>
         <span class="n">context</span><span class="o">.</span><span class="na">ContextInterface</span><span class="o">();</span>
 
-        <span class="n">context</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Context</span><span class="o">(</span><span class="k">new</span> <span class="n">ConcreteStrategyC</span><span class="o">());</span>
+        <span class="n">context</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Context</span><span class="o">(</span><span class="k">new</span> <span class="nc">ConcreteStrategyC</span><span class="o">());</span>
         <span class="n">context</span><span class="o">.</span><span class="na">ContextInterface</span><span class="o">();</span>
     <span class="o">}</span>
 <span class="o">}</span>
@@ -383,42 +383,42 @@
 
 <h2 id="单一职责原则">单一职责原则</h2>
 <blockquote>
-  <p><code class="highlighter-rouge">单一职责原则</code>：就一个类而言，应该仅有一个引起它变化的原因。如果一个类承担的职责过多，就等于把这些职责耦合在一起，一个职责的变化可能会削弱或者抑制这个类完成其它职责的能力。这种耦合会导致脆弱的设计，当变化发生时，设计会遭受到意想不到的破坏。</p>
+  <p><code class="language-plaintext highlighter-rouge">单一职责原则</code>：就一个类而言，应该仅有一个引起它变化的原因。如果一个类承担的职责过多，就等于把这些职责耦合在一起，一个职责的变化可能会削弱或者抑制这个类完成其它职责的能力。这种耦合会导致脆弱的设计，当变化发生时，设计会遭受到意想不到的破坏。</p>
 </blockquote>
 
-<p><code class="highlighter-rouge">总结</code>：工作中软件设计真正要做的许多内容，就是发现职责并把那些职责相互分离。如果你能够想到多于一个的动机去改变一个类，那么这个类就具有多于一个的职责，就应该考虑类的职责分离—-<strong>单一的职责这样的代码才是真正的易维护、易扩展、易复用、灵活多样。</strong></p>
+<p><code class="language-plaintext highlighter-rouge">总结</code>：工作中软件设计真正要做的许多内容，就是发现职责并把那些职责相互分离。如果你能够想到多于一个的动机去改变一个类，那么这个类就具有多于一个的职责，就应该考虑类的职责分离—-<strong>单一的职责这样的代码才是真正的易维护、易扩展、易复用、灵活多样。</strong></p>
 
 <h2 id="开放-封闭原则">开放-封闭原则</h2>
 <blockquote>
-  <p><code class="highlighter-rouge">开放--封闭原则</code>：是说软件实体(类、模块、函数等等)应该是可以扩展、但是不可修改。<strong>对于扩展是开放的，对于更改是封闭的。</strong></p>
+  <p><code class="language-plaintext highlighter-rouge">开放--封闭原则</code>：是说软件实体(类、模块、函数等等)应该是可以扩展、但是不可修改。<strong>对于扩展是开放的，对于更改是封闭的。</strong></p>
 </blockquote>
 
 <ul>
-  <li><code class="highlighter-rouge">会出现的问题</code>：绝对的对修改关闭是不可能的，无论模块是多么的‘封闭’，都会存在一些无法封闭的变化。既然不可能完全封闭，设计人员必须对于他设计的模块应该对哪种变化封闭做出选择。他必须先猜测出最有可能发生的变化种类，然后构造抽象来隔离那些变化。</li>
-  <li><code class="highlighter-rouge">核心</code>：开放–封闭原则 <em>是面向对象设计的核心所在</em>。遵循这个原则可以带来面向对象技术所声称的巨大好处，也就是<em>可维护、可扩展、可复用、灵活性好。</em>开发人员应该仅对程序中呈现出频繁变化的那些部分做出抽象，然而，对于应用程序中的每个部分都刻意地进行抽象同样不是一个好主意。<em>拒绝不成熟的抽象和抽象本身一样重要</em>。</li>
-  <li><code class="highlighter-rouge">总结</code>：面对需求，对程序的改动是通过增加新代码进行的，而不是更改现有的代码。</li>
+  <li><code class="language-plaintext highlighter-rouge">会出现的问题</code>：绝对的对修改关闭是不可能的，无论模块是多么的‘封闭’，都会存在一些无法封闭的变化。既然不可能完全封闭，设计人员必须对于他设计的模块应该对哪种变化封闭做出选择。他必须先猜测出最有可能发生的变化种类，然后构造抽象来隔离那些变化。</li>
+  <li><code class="language-plaintext highlighter-rouge">核心</code>：开放–封闭原则 <em>是面向对象设计的核心所在</em>。遵循这个原则可以带来面向对象技术所声称的巨大好处，也就是<em>可维护、可扩展、可复用、灵活性好。</em>开发人员应该仅对程序中呈现出频繁变化的那些部分做出抽象，然而，对于应用程序中的每个部分都刻意地进行抽象同样不是一个好主意。<em>拒绝不成熟的抽象和抽象本身一样重要</em>。</li>
+  <li><code class="language-plaintext highlighter-rouge">总结</code>：面对需求，对程序的改动是通过增加新代码进行的，而不是更改现有的代码。</li>
 </ul>
 
 <p>希望各位读者能对痛苦关闭，对快乐开放～😁</p>
 
 <h2 id="依赖倒转原则">依赖倒转原则</h2>
 <blockquote>
-  <p><code class="highlighter-rouge">依赖倒转原则</code>：高层模块不应该依赖低层模块，两个都应该依赖抽象。抽象不应该依赖细节，细节应该依赖抽象。</p>
+  <p><code class="language-plaintext highlighter-rouge">依赖倒转原则</code>：高层模块不应该依赖低层模块，两个都应该依赖抽象。抽象不应该依赖细节，细节应该依赖抽象。</p>
 
-  <p><code class="highlighter-rouge">里氏代换原则</code>：子类型必须能够替换掉它们的父类型。</p>
+  <p><code class="language-plaintext highlighter-rouge">里氏代换原则</code>：子类型必须能够替换掉它们的父类型。</p>
 </blockquote>
 
 <p>里氏代换原则解释：一个软件实体如果使用的是一个父类的话，那么一定适用于其子类，而且它察觉不出父类对象和子类对象的区别。也就是说，在软件里面，把父类都替换成它子类，程序的行为没有变化–简单地说，子类型必须能够替换掉它们的父类型。</p>
 
 <ul>
-  <li><code class="highlighter-rouge">影响</code>：也正因为这个原则，使得继承复用成为了可能，只有当子类可以替换掉父类，如软件单位的功能不收到影响时，父类才能真正被复用，而子类也能够在父类的基础上增加新的行为。</li>
+  <li><code class="language-plaintext highlighter-rouge">影响</code>：也正因为这个原则，使得继承复用成为了可能，只有当子类可以替换掉父类，如软件单位的功能不收到影响时，父类才能真正被复用，而子类也能够在父类的基础上增加新的行为。</li>
   <li>由于有里氏代换原则，才使得<em>开放-封闭成为了可能。</em>也可以这样说由于子类的可替代性才使得父类类型的模块在无需修改的情况下就可以扩展。</li>
-  <li><code class="highlighter-rouge">标志</code>：依赖倒转其实可以说是面向对象设计的标志，用哪种语言来编写程序都不重要，如果编写时考虑的都是如何针对抽象编程而不是针对细节编程，即程序中所有的依赖关系都是终止于抽象类或者接口，那就是面向对象设计，反之那就是过程化的设计了。</li>
-  <li><code class="highlighter-rouge">结语</code>：依赖倒转其实就是谁也不要依靠谁，除了约定的接口，大家都可以灵活自如。<br /><br /></li>
+  <li><code class="language-plaintext highlighter-rouge">标志</code>：依赖倒转其实可以说是面向对象设计的标志，用哪种语言来编写程序都不重要，如果编写时考虑的都是如何针对抽象编程而不是针对细节编程，即程序中所有的依赖关系都是终止于抽象类或者接口，那就是面向对象设计，反之那就是过程化的设计了。</li>
+  <li><code class="language-plaintext highlighter-rouge">结语</code>：依赖倒转其实就是谁也不要依靠谁，除了约定的接口，大家都可以灵活自如。<br /><br /></li>
 </ul>
 
 <blockquote>
-  <p>右侧可以看<code class="highlighter-rouge">目录</code>，点击直接跳转，Z 一共写了4篇(可以点击下面直接跳转然后看右侧目录)：<br /></p>
+  <p>右侧可以看<code class="language-plaintext highlighter-rouge">目录</code>，点击直接跳转，Z 一共写了4篇(可以点击下面直接跳转然后看右侧目录)：<br /></p>
   <ul>
     <li><a href="http://uniquezhangqi.top/2018/03/02/自我总结-设计模式总结(二)">自我总结-设计模式总结(二)</a><br /></li>
     <li><a href="http://uniquezhangqi.top/2018/03/05/编程之路-设计模式总结(三)">自我总结-设计模式总结(三)</a><br /></li>
@@ -515,13 +515,13 @@
                             
         				
                             
-                				<a href="/tags/#自我总结" title="自我总结" rel="34">
+                				<a href="/tags/#自我总结" title="自我总结" rel="36">
                                     自我总结
                                 </a>
                             
         				
                             
-                				<a href="/tags/#编程之路" title="编程之路" rel="88">
+                				<a href="/tags/#编程之路" title="编程之路" rel="92">
                                     编程之路
                                 </a>
                             
@@ -632,6 +632,8 @@
                 				<a href="/tags/#MongoDB" title="MongoDB" rel="2">
                                     MongoDB
                                 </a>
+                            
+        				
                             
         				
                             
@@ -788,7 +790,7 @@
                     
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; MY Blog 2019
+                    Copyright &copy; MY Blog 2020
                     <br>
                     Theme on <a href="https://github.com/uniquezhangqi/uniquezhangqi.github.io.git">GitHub</a> |
                     <iframe

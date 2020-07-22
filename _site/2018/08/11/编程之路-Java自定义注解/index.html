@@ -218,29 +218,29 @@
  * @author: Ian
  * @create: 2018-08-11 16:18
  **/</span>
-<span class="kd">enum</span> <span class="n">EnumTest</span><span class="o">{</span>
-    <span class="n">Hello</span><span class="o">,</span><span class="n">world</span><span class="o">,</span><span class="n">welcome</span><span class="o">;</span>
+<span class="kd">enum</span> <span class="nc">EnumTest</span><span class="o">{</span>
+    <span class="nc">Hello</span><span class="o">,</span><span class="n">world</span><span class="o">,</span><span class="n">welcome</span><span class="o">;</span>
 <span class="o">}</span>
 <span class="cm">/**
 * 自定义注解
 */</span>
-<span class="kd">public</span> <span class="nd">@interface</span> <span class="n">BlogDemo</span><span class="o">{</span>
+<span class="kd">public</span> <span class="nd">@interface</span> <span class="nc">BlogDemo</span><span class="o">{</span>
     <span class="cm">/**
     定义属性时，需要在后面加上小括号(这个和普通的类或接口是不同的)
     且命名为"value"的属性会自动解析为注解的默认属性
     比如@JadyerAnnotation("very")会被自动赋值给"value"，不过也可以写成 @JadyerAnnotation(value="very")
     */</span>
-    <span class="n">String</span> <span class="nf">value</span><span class="o">();</span>
+    <span class="nc">String</span> <span class="nf">value</span><span class="o">();</span>
     
     <span class="cm">/*
     对于属性名不叫value的，使用时若需赋值，就要显式的赋值，比如@JadyerAnnotation(username=“very”)
     */</span>
-    <span class="n">String</span><span class="o">[]</span> <span class="nf">username</span><span class="o">();</span>
+    <span class="nc">String</span><span class="o">[]</span> <span class="nf">username</span><span class="o">();</span>
     
     <span class="cm">/*
     也可以为一个属性设置默认值，使用时若没有显式赋值，则会取其默认值来解析
     */</span>
-    <span class="n">EnumTest</span> <span class="nf">password</span><span class="o">()</span> <span class="k">default</span> <span class="n">EnumTest</span><span class="o">.</span><span class="na">Hello</span><span class="o">;</span>
+    <span class="nc">EnumTest</span> <span class="nf">password</span><span class="o">()</span> <span class="k">default</span> <span class="nc">EnumTest</span><span class="o">.</span><span class="na">Hello</span><span class="o">;</span>
     
     <span class="cm">/*
     1.注解可使用的元素类型是有限的
@@ -264,9 +264,9 @@
   <li>ElementType.PACKAGE ：适用package</li>
 </ul>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Target</span><span class="o">(</span><span class="n">ElementType</span><span class="o">.</span><span class="na">METHOD</span><span class="o">)</span>
-<span class="kd">public</span> <span class="nd">@interface</span> <span class="n">JadyAnnotation</span><span class="o">{</span>
-    <span class="n">String</span> <span class="nf">value</span><span class="o">();</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Target</span><span class="o">(</span><span class="nc">ElementType</span><span class="o">.</span><span class="na">METHOD</span><span class="o">)</span>
+<span class="kd">public</span> <span class="nd">@interface</span> <span class="nc">JadyAnnotation</span><span class="o">{</span>
+    <span class="nc">String</span> <span class="nf">value</span><span class="o">();</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
@@ -274,8 +274,8 @@
 <p>使用者想要在制作JavaDoc的同时，也一并将注解信息加入的话 这时就需要使用java.lang.annotation.Documented注解标注</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Documented</span>
-<span class="kd">public</span> <span class="nd">@interface</span> <span class="n">JadyAnnotation</span><span class="o">{</span>
-    <span class="n">String</span> <span class="nf">hello</span><span class="o">();</span>
+<span class="kd">public</span> <span class="nd">@interface</span> <span class="nc">JadyAnnotation</span><span class="o">{</span>
+    <span class="nc">String</span> <span class="nf">hello</span><span class="o">();</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
@@ -284,14 +284,14 @@
 
 <ul>
   <li>RetentionPolicy.CLASS : 默认值，注解储存于class档案中，但不被虚拟机读取，仅用于编译程序或工具程序运行时提供信息</li>
-  <li>RetentionPolicy.SOURCE : 编译程序处理完注解信息后就完成任务，不会被记录在类文件中，而只是存在于<code class="highlighter-rouge">*.java</code>文件中</li>
+  <li>RetentionPolicy.SOURCE : 编译程序处理完注解信息后就完成任务，不会被记录在类文件中，而只是存在于<code class="language-plaintext highlighter-rouge">*.java</code>文件中</li>
   <li>RetentionPolicy.RUNTIME : 编译程序将注解储存于class档案，且可由虚拟机读入，故可反射读取注解信息</li>
 </ul>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Retention</span><span class="o">(</span><span class="n">RetentionPolicy</span><span class="o">.</span><span class="na">RUNTIME</span><span class="o">)</span>
-<span class="kd">public</span> <span class="nd">@interface</span> <span class="n">JadyerAnnotation</span><span class="o">{</span>
-    <span class="n">String</span> <span class="nf">hello</span><span class="o">()</span> <span class="k">default</span> <span class="s">"hello"</span><span class="o">;</span>
-	<span class="n">String</span> <span class="nf">world</span><span class="o">();</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Retention</span><span class="o">(</span><span class="nc">RetentionPolicy</span><span class="o">.</span><span class="na">RUNTIME</span><span class="o">)</span>
+<span class="kd">public</span> <span class="nd">@interface</span> <span class="nc">JadyerAnnotation</span><span class="o">{</span>
+    <span class="nc">String</span> <span class="nf">hello</span><span class="o">()</span> <span class="k">default</span> <span class="s">"hello"</span><span class="o">;</span>
+	<span class="nc">String</span> <span class="nf">world</span><span class="o">();</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
@@ -299,9 +299,9 @@
 <p>默认的父类中的注解并不会被继承至子类中，若想让子类也继承父类中的注解，可以在自定义注解时配置java.lang.anntation.Inherited 注解</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Inherited</span>
-<span class="nd">@Retention</span><span class="o">(</span><span class="n">RetentionPolicy</span><span class="o">.</span><span class="na">RUNTIME</span><span class="o">)</span>
-<span class="kd">public</span> <span class="nd">@Interface</span> <span class="n">JadyerAnnotation</span><span class="o">{</span>
-    <span class="n">String</span> <span class="nf">value</span><span class="o">();</span>
+<span class="nd">@Retention</span><span class="o">(</span><span class="nc">RetentionPolicy</span><span class="o">.</span><span class="na">RUNTIME</span><span class="o">)</span>
+<span class="kd">public</span> <span class="nd">@Interface</span> <span class="nc">JadyerAnnotation</span><span class="o">{</span>
+    <span class="nc">String</span> <span class="nf">value</span><span class="o">();</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
@@ -385,13 +385,13 @@
                             
         				
                             
-                				<a href="/tags/#自我总结" title="自我总结" rel="34">
+                				<a href="/tags/#自我总结" title="自我总结" rel="36">
                                     自我总结
                                 </a>
                             
         				
                             
-                				<a href="/tags/#编程之路" title="编程之路" rel="88">
+                				<a href="/tags/#编程之路" title="编程之路" rel="92">
                                     编程之路
                                 </a>
                             
@@ -502,6 +502,8 @@
                 				<a href="/tags/#MongoDB" title="MongoDB" rel="2">
                                     MongoDB
                                 </a>
+                            
+        				
                             
         				
                             
@@ -658,7 +660,7 @@
                     
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; MY Blog 2019
+                    Copyright &copy; MY Blog 2020
                     <br>
                     Theme on <a href="https://github.com/uniquezhangqi/uniquezhangqi.github.io.git">GitHub</a> |
                     <iframe

@@ -211,10 +211,10 @@
 <h2 id="重载方法">重载方法</h2>
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 <span class="c1">// 使用当前本地区域对象（Locale.getDefault()）格式化字符串</span>
-<span class="n">String</span> <span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="n">String</span> <span class="n">fmt</span><span class="o">,</span> <span class="n">Object</span><span class="o">...</span> <span class="n">args</span><span class="o">);</span>
+<span class="nc">String</span> <span class="nc">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="nc">String</span> <span class="n">fmt</span><span class="o">,</span> <span class="nc">Object</span><span class="o">...</span> <span class="n">args</span><span class="o">);</span>
 
 <span class="c1">// 自定义本地区域对象格式化字符串</span>
-<span class="n">String</span> <span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="n">Locale</span> <span class="n">locale</span><span class="o">,</span> <span class="n">String</span> <span class="n">fmt</span><span class="o">,</span> <span class="n">Object</span><span class="o">...</span> <span class="n">args</span><span class="o">);</span>
+<span class="nc">String</span> <span class="nc">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="nc">Locale</span> <span class="n">locale</span><span class="o">,</span> <span class="nc">String</span> <span class="n">fmt</span><span class="o">,</span> <span class="nc">Object</span><span class="o">...</span> <span class="n">args</span><span class="o">);</span>
 
 </code></pre></div></div>
 <h2 id="占位符">占位符</h2>
@@ -234,14 +234,14 @@
 <p>占位符格式为： %[index$][标识][最小宽度]转换符</p>
 
 <p>示例——将”hello”格式化为”  hello”</p>
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">String</span> <span class="n">raw</span> <span class="o">=</span> <span class="s">"hello"</span><span class="o">;</span>
-<span class="n">String</span> <span class="n">str</span> <span class="o">=</span> <span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">"%1$7s"</span><span class="o">,</span> <span class="n">raw</span><span class="o">);</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">String</span> <span class="n">raw</span> <span class="o">=</span> <span class="s">"hello"</span><span class="o">;</span>
+<span class="nc">String</span> <span class="n">str</span> <span class="o">=</span> <span class="nc">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">"%1$7s"</span><span class="o">,</span> <span class="n">raw</span><span class="o">);</span>
 <span class="c1">// 简化</span>
 <span class="c1">//String str = String.format("%7s", raw);</span>
 </code></pre></div></div>
 <p>示例——将”hello”格式化为”hello  “</p>
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">String</span> <span class="n">raw</span> <span class="o">=</span> <span class="s">"hello"</span><span class="o">;</span>
-<span class="n">String</span> <span class="n">str</span> <span class="o">=</span> <span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">"%1$-7s"</span><span class="o">,</span> <span class="n">raw</span><span class="o">);</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">String</span> <span class="n">raw</span> <span class="o">=</span> <span class="s">"hello"</span><span class="o">;</span>
+<span class="nc">String</span> <span class="n">str</span> <span class="o">=</span> <span class="nc">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">"%1$-7s"</span><span class="o">,</span> <span class="n">raw</span><span class="o">);</span>
 <span class="c1">// 简化</span>
 <span class="c1">//String str = String.format("%-7s", raw);</span>
 </code></pre></div></div>
@@ -266,12 +266,12 @@
 
 <p>示例——将1显示为0001</p>
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">num</span> <span class="o">=</span> <span class="mi">1</span><span class="o">;</span>
-<span class="n">String</span> <span class="n">str</span> <span class="o">=</span> <span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">"%04d"</span><span class="o">,</span> <span class="n">num</span><span class="o">)</span>
+<span class="nc">String</span> <span class="n">str</span> <span class="o">=</span> <span class="nc">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">"%04d"</span><span class="o">,</span> <span class="n">num</span><span class="o">)</span>
 </code></pre></div></div>
 
 <p>示例——将-1000显示为(1,000)</p>
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">num</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1000</span><span class="o">;</span>
-<span class="n">String</span> <span class="n">str</span> <span class="o">=</span> <span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">"%(,d"</span><span class="o">,</span> <span class="n">num</span><span class="o">)</span>
+<span class="nc">String</span> <span class="n">str</span> <span class="o">=</span> <span class="nc">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">"%(,d"</span><span class="o">,</span> <span class="n">num</span><span class="o">)</span>
 </code></pre></div></div>
 
 <h3 id="可用标识-1">可用标识：</h3>
@@ -302,9 +302,9 @@
 
 <p>示例：</p>
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">double</span> <span class="n">num</span> <span class="o">=</span> <span class="mf">123.4567899</span><span class="o">;</span>
-<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">"%f %n"</span><span class="o">,</span> <span class="n">num</span><span class="o">));</span> <span class="c1">// 123.456790 </span>
-<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">"%a %n"</span><span class="o">,</span> <span class="n">num</span><span class="o">));</span> <span class="c1">// 0x1.edd3c0bb46929p6 </span>
-<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">"%g %n"</span><span class="o">,</span> <span class="n">num</span><span class="o">));</span> <span class="c1">// 123.457</span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="nc">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">"%f %n"</span><span class="o">,</span> <span class="n">num</span><span class="o">));</span> <span class="c1">// 123.456790 </span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="nc">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">"%a %n"</span><span class="o">,</span> <span class="n">num</span><span class="o">));</span> <span class="c1">// 0x1.edd3c0bb46929p6 </span>
+<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="nc">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">"%g %n"</span><span class="o">,</span> <span class="n">num</span><span class="o">));</span> <span class="c1">// 123.457</span>
 </code></pre></div></div>
 <h3 id="可用标识-2">可用标识：</h3>
 
@@ -334,8 +334,8 @@
 <p>占位符格式为： %[index$]t转换符</p>
 
 <p>示例：</p>
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Date</span> <span class="n">now</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Date</span><span class="o">();</span>
-<span class="n">String</span> <span class="n">str</span> <span class="o">=</span> <span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">"%tF"</span><span class="o">,</span> <span class="n">now</span><span class="o">);</span> <span class="c1">// 2014-10-12</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Date</span> <span class="n">now</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Date</span><span class="o">();</span>
+<span class="nc">String</span> <span class="n">str</span> <span class="o">=</span> <span class="nc">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">"%tF"</span><span class="o">,</span> <span class="n">now</span><span class="o">);</span> <span class="c1">// 2014-10-12</span>
 </code></pre></div></div>
 <h3 id="可用转换符-3">可用转换符</h3>
 
@@ -383,7 +383,7 @@
 
 <p>示例：</p>
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">num</span> <span class="o">=</span> <span class="mi">1000</span><span class="o">;</span>
-<span class="n">String</span> <span class="n">str</span> <span class="o">=</span> <span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">"%d %&lt;,d"</span><span class="o">,</span> <span class="n">num</span><span class="o">);</span>
+<span class="nc">String</span> <span class="n">str</span> <span class="o">=</span> <span class="nc">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">"%d %&lt;,d"</span><span class="o">,</span> <span class="n">num</span><span class="o">);</span>
 <span class="c1">// 结果"1000 1,000</span>
 </code></pre></div></div>
 <h2 id="参考">参考</h2>
@@ -468,13 +468,13 @@
                             
         				
                             
-                				<a href="/tags/#自我总结" title="自我总结" rel="34">
+                				<a href="/tags/#自我总结" title="自我总结" rel="36">
                                     自我总结
                                 </a>
                             
         				
                             
-                				<a href="/tags/#编程之路" title="编程之路" rel="88">
+                				<a href="/tags/#编程之路" title="编程之路" rel="92">
                                     编程之路
                                 </a>
                             
@@ -585,6 +585,8 @@
                 				<a href="/tags/#MongoDB" title="MongoDB" rel="2">
                                     MongoDB
                                 </a>
+                            
+        				
                             
         				
                             
@@ -741,7 +743,7 @@
                     
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; MY Blog 2019
+                    Copyright &copy; MY Blog 2020
                     <br>
                     Theme on <a href="https://github.com/uniquezhangqi/uniquezhangqi.github.io.git">GitHub</a> |
                     <iframe

@@ -218,17 +218,17 @@
 <p>Constructor » @Autowired » @PostConstruct</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//举个栗子：</span>
-<span class="kd">public</span> <span class="n">Class</span> <span class="n">AAA</span> <span class="o">{</span><span class="err"> </span> <span class="err"> </span> 
+<span class="kd">public</span> <span class="nc">Class</span> <span class="no">AAA</span> <span class="o">{</span><span class="err"> </span> <span class="err"> </span> 
 	<span class="nd">@Autowired</span><span class="err"> </span> <span class="err"> </span> 
-	<span class="kd">private</span> <span class="n">BBB</span> <span class="n">b</span><span class="o">;</span><span class="err"> </span> <span class="err"> </span> 
+	<span class="kd">private</span> <span class="no">BBB</span> <span class="n">b</span><span class="o">;</span><span class="err"> </span> <span class="err"> </span> 
 	
 	<span class="kd">public</span> <span class="nf">AAA</span><span class="o">()</span> <span class="o">{</span><span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span>
-    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"此时b还未被注入: b = "</span> <span class="o">+</span> <span class="n">b</span><span class="o">);</span><span class="err"> </span> <span class="err"> </span> 
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"此时b还未被注入: b = "</span> <span class="o">+</span> <span class="n">b</span><span class="o">);</span><span class="err"> </span> <span class="err"> </span> 
 <span class="o">}</span><span class="err"> </span> <span class="err"> </span> 		
 
 	<span class="nd">@PostConstruct</span><span class="err"> </span> <span class="err"> </span>
     <span class="kd">private</span> <span class="kt">void</span> <span class="nf">init</span><span class="o">()</span> <span class="o">{</span><span class="err"> </span> <span class="err"> </span> <span class="err"> </span> <span class="err"> </span> 
-    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"@PostConstruct将在依赖注入完成后被自动调用: b = "</span> <span class="o">+</span> <span class="n">b</span><span class="o">);</span><span class="err"> </span> <span class="err"> </span> 
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"@PostConstruct将在依赖注入完成后被自动调用: b = "</span> <span class="o">+</span> <span class="n">b</span><span class="o">);</span><span class="err"> </span> <span class="err"> </span> 
     <span class="o">}</span>
 <span class="o">}</span>
 
@@ -312,13 +312,13 @@
                             
         				
                             
-                				<a href="/tags/#自我总结" title="自我总结" rel="34">
+                				<a href="/tags/#自我总结" title="自我总结" rel="36">
                                     自我总结
                                 </a>
                             
         				
                             
-                				<a href="/tags/#编程之路" title="编程之路" rel="88">
+                				<a href="/tags/#编程之路" title="编程之路" rel="92">
                                     编程之路
                                 </a>
                             
@@ -429,6 +429,8 @@
                 				<a href="/tags/#MongoDB" title="MongoDB" rel="2">
                                     MongoDB
                                 </a>
+                            
+        				
                             
         				
                             
@@ -585,7 +587,7 @@
                     
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; MY Blog 2019
+                    Copyright &copy; MY Blog 2020
                     <br>
                     Theme on <a href="https://github.com/uniquezhangqi/uniquezhangqi.github.io.git">GitHub</a> |
                     <iframe

@@ -276,7 +276,7 @@ minSessionTimeout=4000
 maxSessionTimeout=100000
 </code></pre></div></div>
 
-<p>在装有Zookeeper的机器的终端执行<code class="highlighter-rouge">zookeeper-server status</code>可以查看当前节点的Zookeeper是什么角色(Leader or Follower)。</p>
+<p>在装有Zookeeper的机器的终端执行<code class="language-plaintext highlighter-rouge">zookeeper-server status</code>可以查看当前节点的Zookeeper是什么角色(Leader or Follower)。</p>
 
 <div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[root@node-20-103 ~]# zookeeper-server status
 JMX enabled by default
@@ -294,9 +294,9 @@ Mode: leader
 <p>Zookeeper默认只有Leader和Follower两种角色，没有Observer角色。</p>
 
 <p>为了使用Observer模式，在任何想变成Observer的节点的配置文件中加入：
-<code class="highlighter-rouge">peerType=observer</code>
+<code class="language-plaintext highlighter-rouge">peerType=observer</code>
 并在所有server的配置文件中，配置成observer模式的server的那行配置追加：observer，例如：
-<code class="highlighter-rouge">server.1:localhost:2888:3888:observer</code></p>
+<code class="language-plaintext highlighter-rouge">server.1:localhost:2888:3888:observer</code></p>
 
 <p>Zookeeper集群的所有机器通过一个<strong>Leader选举过程</strong>来选定一台称为<strong>Leader</strong>的机器，<strong>Leader服务器</strong>为客户端提供<strong>读</strong>和<strong>写</strong>服务。</p>
 
@@ -575,13 +575,13 @@ numChildren = 0    //子节点的个数
                             
         				
                             
-                				<a href="/tags/#自我总结" title="自我总结" rel="34">
+                				<a href="/tags/#自我总结" title="自我总结" rel="36">
                                     自我总结
                                 </a>
                             
         				
                             
-                				<a href="/tags/#编程之路" title="编程之路" rel="88">
+                				<a href="/tags/#编程之路" title="编程之路" rel="92">
                                     编程之路
                                 </a>
                             
@@ -692,6 +692,8 @@ numChildren = 0    //子节点的个数
                 				<a href="/tags/#MongoDB" title="MongoDB" rel="2">
                                     MongoDB
                                 </a>
+                            
+        				
                             
         				
                             
@@ -848,7 +850,7 @@ numChildren = 0    //子节点的个数
                     
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; MY Blog 2019
+                    Copyright &copy; MY Blog 2020
                     <br>
                     Theme on <a href="https://github.com/uniquezhangqi/uniquezhangqi.github.io.git">GitHub</a> |
                     <iframe

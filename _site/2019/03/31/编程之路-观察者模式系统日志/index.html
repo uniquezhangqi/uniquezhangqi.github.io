@@ -228,16 +228,16 @@
 <span class="cm">/**
  * 操作日志注解
  */</span>
-<span class="nd">@Target</span><span class="o">(</span><span class="n">ElementType</span><span class="o">.</span><span class="na">METHOD</span><span class="o">)</span>
-<span class="nd">@Retention</span><span class="o">(</span><span class="n">RetentionPolicy</span><span class="o">.</span><span class="na">RUNTIME</span><span class="o">)</span>
+<span class="nd">@Target</span><span class="o">(</span><span class="nc">ElementType</span><span class="o">.</span><span class="na">METHOD</span><span class="o">)</span>
+<span class="nd">@Retention</span><span class="o">(</span><span class="nc">RetentionPolicy</span><span class="o">.</span><span class="na">RUNTIME</span><span class="o">)</span>
 <span class="nd">@Documented</span>
-<span class="kd">public</span> <span class="nd">@interface</span> <span class="n">SysLog</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="nd">@interface</span> <span class="nc">SysLog</span> <span class="o">{</span>
 
 	<span class="cm">/**
 	 * 描述
 	 * @return {String}
 	 */</span>
-	<span class="n">String</span> <span class="nf">value</span><span class="o">();</span>
+	<span class="nc">String</span> <span class="nf">value</span><span class="o">();</span>
 <span class="o">}</span>
 
 </code></pre></div></div>
@@ -263,18 +263,18 @@
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">SysLogAspect</span> <span class="o">{</span>
 
 	<span class="nd">@Around</span><span class="o">(</span><span class="s">"@annotation(sysLog)"</span><span class="o">)</span>
-	<span class="kd">public</span> <span class="n">Object</span> <span class="nf">aroundWxApi</span><span class="o">(</span><span class="n">ProceedingJoinPoint</span> <span class="n">point</span><span class="o">,</span> <span class="n">SysLog</span> <span class="n">sysLog</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Throwable</span> <span class="o">{</span>
-		<span class="n">String</span> <span class="n">strClassName</span> <span class="o">=</span> <span class="n">point</span><span class="o">.</span><span class="na">getTarget</span><span class="o">().</span><span class="na">getClass</span><span class="o">().</span><span class="na">getName</span><span class="o">();</span>
-		<span class="n">String</span> <span class="n">strMethodName</span> <span class="o">=</span> <span class="n">point</span><span class="o">.</span><span class="na">getSignature</span><span class="o">().</span><span class="na">getName</span><span class="o">();</span>
+	<span class="kd">public</span> <span class="nc">Object</span> <span class="nf">aroundWxApi</span><span class="o">(</span><span class="nc">ProceedingJoinPoint</span> <span class="n">point</span><span class="o">,</span> <span class="nc">SysLog</span> <span class="n">sysLog</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">Throwable</span> <span class="o">{</span>
+		<span class="nc">String</span> <span class="n">strClassName</span> <span class="o">=</span> <span class="n">point</span><span class="o">.</span><span class="na">getTarget</span><span class="o">().</span><span class="na">getClass</span><span class="o">().</span><span class="na">getName</span><span class="o">();</span>
+		<span class="nc">String</span> <span class="n">strMethodName</span> <span class="o">=</span> <span class="n">point</span><span class="o">.</span><span class="na">getSignature</span><span class="o">().</span><span class="na">getName</span><span class="o">();</span>
 		<span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"[类名]:{},[方法]:{}"</span><span class="o">,</span> <span class="n">strClassName</span><span class="o">,</span> <span class="n">strMethodName</span><span class="o">);</span>
 
-		<span class="n">SysLogDTO</span> <span class="n">sysLogDTO</span> <span class="o">=</span> <span class="n">SysLogUtils</span><span class="o">.</span><span class="na">getSysLogDTO</span><span class="o">();</span>
+		<span class="nc">SysLogDTO</span> <span class="n">sysLogDTO</span> <span class="o">=</span> <span class="nc">SysLogUtils</span><span class="o">.</span><span class="na">getSysLogDTO</span><span class="o">();</span>
 		<span class="n">sysLogDTO</span><span class="o">.</span><span class="na">setOperation</span><span class="o">(</span><span class="n">sysLog</span><span class="o">.</span><span class="na">value</span><span class="o">());</span>
 		<span class="n">sysLogDTO</span><span class="o">.</span><span class="na">setClassMethod</span><span class="o">(</span><span class="n">strClassName</span> <span class="o">+</span> <span class="s">"."</span> <span class="o">+</span> <span class="n">strMethodName</span> <span class="o">+</span> <span class="s">"();"</span><span class="o">);</span>
 
 		<span class="c1">// 发送异步日志事件</span>
 		<span class="c1">// publishEvent: 通知应用所有已注册且匹配的监听器</span>
-		<span class="n">SpringUtils</span><span class="o">.</span><span class="na">publishEvent</span><span class="o">(</span><span class="k">new</span> <span class="n">SysLogEvent</span><span class="o">(</span><span class="n">sysLogDTO</span><span class="o">));</span>
+		<span class="nc">SpringUtils</span><span class="o">.</span><span class="na">publishEvent</span><span class="o">(</span><span class="k">new</span> <span class="nc">SysLogEvent</span><span class="o">(</span><span class="n">sysLogDTO</span><span class="o">));</span>
 
 		<span class="k">return</span> <span class="n">point</span><span class="o">.</span><span class="na">proceed</span><span class="o">();</span>
 	<span class="o">}</span>
@@ -311,34 +311,34 @@
 <span class="cm">/**
  * spring 工具类
  */</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SpringUtils</span> <span class="kd">implements</span> <span class="n">ApplicationContextAware</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SpringUtils</span> <span class="kd">implements</span> <span class="nc">ApplicationContextAware</span> <span class="o">{</span>
 	<span class="nd">@Nullable</span>
-	<span class="kd">private</span> <span class="kd">static</span> <span class="n">ApplicationContext</span> <span class="n">context</span><span class="o">;</span>
+	<span class="kd">private</span> <span class="kd">static</span> <span class="nc">ApplicationContext</span> <span class="n">context</span><span class="o">;</span>
 
 	<span class="nd">@Override</span>
-	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setApplicationContext</span><span class="o">(</span><span class="n">ApplicationContext</span> <span class="n">context</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">BeansException</span> <span class="o">{</span>
-		<span class="n">SpringUtils</span><span class="o">.</span><span class="na">context</span> <span class="o">=</span> <span class="n">context</span><span class="o">;</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setApplicationContext</span><span class="o">(</span><span class="nc">ApplicationContext</span> <span class="n">context</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">BeansException</span> <span class="o">{</span>
+		<span class="nc">SpringUtils</span><span class="o">.</span><span class="na">context</span> <span class="o">=</span> <span class="n">context</span><span class="o">;</span>
 	<span class="o">}</span>
 
 	<span class="nd">@Nullable</span>
-	<span class="kd">public</span> <span class="kd">static</span> <span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">T</span> <span class="nf">getBean</span><span class="o">(</span><span class="n">Class</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">clazz</span><span class="o">){</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="o">&lt;</span><span class="no">T</span><span class="o">&gt;</span> <span class="no">T</span> <span class="nf">getBean</span><span class="o">(</span><span class="nc">Class</span><span class="o">&lt;</span><span class="no">T</span><span class="o">&gt;</span> <span class="n">clazz</span><span class="o">){</span>
 		<span class="k">if</span> <span class="o">(</span><span class="n">context</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span> <span class="k">return</span> <span class="kc">null</span><span class="o">;</span> <span class="o">}</span>
 		<span class="k">return</span> <span class="n">context</span><span class="o">.</span><span class="na">getBean</span><span class="o">(</span><span class="n">clazz</span><span class="o">);</span>
 	<span class="o">}</span>
 
 	<span class="nd">@Nullable</span>
-	<span class="kd">public</span> <span class="kd">static</span> <span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">T</span> <span class="nf">getBean</span><span class="o">(</span><span class="n">String</span> <span class="n">beanName</span><span class="o">,</span> <span class="n">Class</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">clazz</span><span class="o">)</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="o">&lt;</span><span class="no">T</span><span class="o">&gt;</span> <span class="no">T</span> <span class="nf">getBean</span><span class="o">(</span><span class="nc">String</span> <span class="n">beanName</span><span class="o">,</span> <span class="nc">Class</span><span class="o">&lt;</span><span class="no">T</span><span class="o">&gt;</span> <span class="n">clazz</span><span class="o">)</span> <span class="o">{</span>
 		<span class="k">if</span> <span class="o">(</span><span class="n">context</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span> <span class="k">return</span> <span class="kc">null</span><span class="o">;</span> <span class="o">}</span>
-		<span class="k">return</span> <span class="o">(</span><span class="n">T</span><span class="o">)</span> <span class="n">context</span><span class="o">.</span><span class="na">getBean</span><span class="o">(</span><span class="n">beanName</span><span class="o">,</span> <span class="n">clazz</span><span class="o">);</span>
+		<span class="k">return</span> <span class="o">(</span><span class="no">T</span><span class="o">)</span> <span class="n">context</span><span class="o">.</span><span class="na">getBean</span><span class="o">(</span><span class="n">beanName</span><span class="o">,</span> <span class="n">clazz</span><span class="o">);</span>
 	<span class="o">}</span>
 
 	<span class="nd">@Nullable</span>
-	<span class="kd">public</span> <span class="kd">static</span> <span class="n">ApplicationContext</span> <span class="nf">getContext</span><span class="o">(){</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="nc">ApplicationContext</span> <span class="nf">getContext</span><span class="o">(){</span>
 		<span class="k">return</span> <span class="n">context</span><span class="o">;</span>
 	<span class="o">}</span>
 
 <span class="c1">//////</span>
-	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">publishEvent</span><span class="o">(</span><span class="n">ApplicationEvent</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">publishEvent</span><span class="o">(</span><span class="nc">ApplicationEvent</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
 		<span class="k">if</span> <span class="o">(</span><span class="n">context</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span> <span class="k">return</span> <span class="o">;</span> <span class="o">}</span>
 		<span class="n">context</span><span class="o">.</span><span class="na">publishEvent</span><span class="o">(</span><span class="n">event</span><span class="o">);</span>
 	<span class="o">}</span>
@@ -359,27 +359,27 @@
 	<span class="cm">/**
 	 * 登陆名
 	 */</span>
-	<span class="kd">private</span> <span class="n">String</span> <span class="n">username</span><span class="o">;</span>
+	<span class="kd">private</span> <span class="nc">String</span> <span class="n">username</span><span class="o">;</span>
 	<span class="cm">/**
 	 * 角色名
 	 */</span>
-	<span class="kd">private</span> <span class="n">String</span> <span class="n">roleName</span><span class="o">;</span>
+	<span class="kd">private</span> <span class="nc">String</span> <span class="n">roleName</span><span class="o">;</span>
 	<span class="cm">/**
 	 * 操作
 	 */</span>
-	<span class="kd">private</span> <span class="n">String</span> <span class="n">operation</span><span class="o">;</span>
+	<span class="kd">private</span> <span class="nc">String</span> <span class="n">operation</span><span class="o">;</span>
 	<span class="cm">/**
 	 * 类-方法
 	 */</span>
-	<span class="kd">private</span> <span class="n">String</span> <span class="n">classMethod</span><span class="o">;</span>
+	<span class="kd">private</span> <span class="nc">String</span> <span class="n">classMethod</span><span class="o">;</span>
 	<span class="cm">/**
 	 * 内容
 	 */</span>
-	<span class="kd">private</span> <span class="n">String</span> <span class="n">content</span><span class="o">;</span>
+	<span class="kd">private</span> <span class="nc">String</span> <span class="n">content</span><span class="o">;</span>
 	<span class="cm">/**
 	 * 客户端ip
 	 */</span>
-	<span class="kd">private</span> <span class="n">String</span> <span class="n">clientIp</span><span class="o">;</span>
+	<span class="kd">private</span> <span class="nc">String</span> <span class="n">clientIp</span><span class="o">;</span>
 <span class="o">}</span>
 
 </code></pre></div></div>
@@ -390,9 +390,9 @@
  * 系统日志事件（自定义事件）
  *
  */</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SysLogEvent</span> <span class="kd">extends</span> <span class="n">ApplicationEvent</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SysLogEvent</span> <span class="kd">extends</span> <span class="nc">ApplicationEvent</span> <span class="o">{</span>
 
-	<span class="kd">public</span> <span class="nf">SysLogEvent</span><span class="o">(</span><span class="n">SysLogDTO</span> <span class="n">source</span><span class="o">)</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="nf">SysLogEvent</span><span class="o">(</span><span class="nc">SysLogDTO</span> <span class="n">source</span><span class="o">)</span> <span class="o">{</span>
 		<span class="kd">super</span><span class="o">(</span><span class="n">source</span><span class="o">);</span>
 	<span class="o">}</span>
 <span class="o">}</span>
@@ -410,7 +410,7 @@
 <span class="nd">@Component</span>
 <span class="nd">@AllArgsConstructor</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">SysLogListener</span> <span class="o">{</span>
-	<span class="kd">private</span> <span class="kd">final</span> <span class="n">ISysLogService</span> <span class="n">sysLogService</span><span class="o">;</span>
+	<span class="kd">private</span> <span class="kd">final</span> <span class="nc">ISysLogService</span> <span class="n">sysLogService</span><span class="o">;</span>
 	<span class="cm">/**
 	 * @EventListener + @Async 异步事件处理
 	 *
@@ -418,9 +418,9 @@
 	 */</span>
 	<span class="nd">@Async</span>
 	<span class="nd">@Order</span>
-	<span class="nd">@EventListener</span><span class="o">(</span><span class="n">SysLogEvent</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
-	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">saveSysLog</span><span class="o">(</span><span class="n">SysLogEvent</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
-		<span class="n">SysLogDTO</span> <span class="n">sysLogDTO</span> <span class="o">=</span> <span class="o">(</span><span class="n">SysLogDTO</span><span class="o">)</span> <span class="n">event</span><span class="o">.</span><span class="na">getSource</span><span class="o">();</span>
+	<span class="nd">@EventListener</span><span class="o">(</span><span class="nc">SysLogEvent</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">saveSysLog</span><span class="o">(</span><span class="nc">SysLogEvent</span> <span class="n">event</span><span class="o">)</span> <span class="o">{</span>
+		<span class="nc">SysLogDTO</span> <span class="n">sysLogDTO</span> <span class="o">=</span> <span class="o">(</span><span class="nc">SysLogDTO</span><span class="o">)</span> <span class="n">event</span><span class="o">.</span><span class="na">getSource</span><span class="o">();</span>
 		<span class="n">sysLogService</span><span class="o">.</span><span class="na">saveSysLog</span><span class="o">(</span><span class="n">sysLogDTO</span><span class="o">);</span>
 	<span class="o">}</span>
 <span class="o">}</span>
@@ -443,33 +443,33 @@
  */</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">SysLogUtils</span> <span class="o">{</span>
 
-	<span class="n">String</span> <span class="n">SECURITY_ROLE_PREFIX</span> <span class="o">=</span> <span class="s">"ROLE_"</span><span class="o">;</span>
+	<span class="nc">String</span> <span class="no">SECURITY_ROLE_PREFIX</span> <span class="o">=</span> <span class="s">"ROLE_"</span><span class="o">;</span>
 
-	<span class="kd">public</span> <span class="kd">static</span> <span class="n">SysLogDTO</span> <span class="nf">getSysLogDTO</span><span class="o">()</span> <span class="o">{</span>
-		<span class="n">SysLogDTO</span> <span class="n">sysLogDTO</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SysLogDTO</span><span class="o">();</span>
-		<span class="n">HttpServletRequest</span> <span class="n">request</span> <span class="o">=</span> <span class="n">WebUtils</span><span class="o">.</span><span class="na">getRequest</span><span class="o">();</span>
-		<span class="n">StringBuilder</span> <span class="n">params</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">();</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="nc">SysLogDTO</span> <span class="nf">getSysLogDTO</span><span class="o">()</span> <span class="o">{</span>
+		<span class="nc">SysLogDTO</span> <span class="n">sysLogDTO</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">SysLogDTO</span><span class="o">();</span>
+		<span class="nc">HttpServletRequest</span> <span class="n">request</span> <span class="o">=</span> <span class="nc">WebUtils</span><span class="o">.</span><span class="na">getRequest</span><span class="o">();</span>
+		<span class="nc">StringBuilder</span> <span class="n">params</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">StringBuilder</span><span class="o">();</span>
 		<span class="n">request</span><span class="o">.</span><span class="na">getParameterMap</span><span class="o">().</span><span class="na">forEach</span><span class="o">((</span><span class="n">key</span><span class="o">,</span> <span class="n">values</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span>
 			<span class="n">params</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">key</span><span class="o">).</span><span class="na">append</span><span class="o">(</span><span class="s">"＝"</span><span class="o">);</span>
 			<span class="k">if</span> <span class="o">(</span><span class="s">"password"</span><span class="o">.</span><span class="na">equalsIgnoreCase</span><span class="o">(</span><span class="n">key</span><span class="o">))</span> <span class="o">{</span>
 				<span class="n">params</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">"******"</span><span class="o">);</span>
 			<span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
-				<span class="n">params</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">StringUtils</span><span class="o">.</span><span class="na">join</span><span class="o">(</span><span class="n">values</span><span class="o">));</span>
+				<span class="n">params</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="nc">StringUtils</span><span class="o">.</span><span class="na">join</span><span class="o">(</span><span class="n">values</span><span class="o">));</span>
 			<span class="o">}</span>
 			<span class="n">params</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">"＆"</span><span class="o">);</span>
 		<span class="o">});</span>
 		<span class="n">sysLogDTO</span><span class="o">.</span><span class="na">setContent</span><span class="o">(</span><span class="n">params</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
-		<span class="n">sysLogDTO</span><span class="o">.</span><span class="na">setClientIp</span><span class="o">(</span><span class="n">WebUtils</span><span class="o">.</span><span class="na">getIP</span><span class="o">());</span>
-		<span class="n">AuthUser</span> <span class="n">authUser</span> <span class="o">=</span> <span class="n">SecurityUtils</span><span class="o">.</span><span class="na">getUser</span><span class="o">();</span>
+		<span class="n">sysLogDTO</span><span class="o">.</span><span class="na">setClientIp</span><span class="o">(</span><span class="nc">WebUtils</span><span class="o">.</span><span class="na">getIP</span><span class="o">());</span>
+		<span class="nc">AuthUser</span> <span class="n">authUser</span> <span class="o">=</span> <span class="nc">SecurityUtils</span><span class="o">.</span><span class="na">getUser</span><span class="o">();</span>
 		<span class="k">if</span> <span class="o">(</span><span class="n">authUser</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
 			<span class="n">sysLogDTO</span><span class="o">.</span><span class="na">setUsername</span><span class="o">(</span><span class="n">authUser</span><span class="o">.</span><span class="na">getUsername</span><span class="o">());</span>
-			<span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">roles</span> <span class="o">=</span> <span class="n">authUser</span><span class="o">.</span><span class="na">getAuthorities</span><span class="o">()</span>
+			<span class="nc">List</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">roles</span> <span class="o">=</span> <span class="n">authUser</span><span class="o">.</span><span class="na">getAuthorities</span><span class="o">()</span>
 				<span class="o">.</span><span class="na">stream</span><span class="o">()</span>
 				<span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="nl">GrantedAuthority:</span><span class="o">:</span><span class="n">getAuthority</span><span class="o">)</span>
-				<span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span><span class="o">.</span><span class="na">startsWith</span><span class="o">(</span><span class="n">DreamConstants</span><span class="o">.</span><span class="na">SECURITY_ROLE_PREFIX</span><span class="o">))</span>
-				<span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span><span class="o">.</span><span class="na">replace</span><span class="o">(</span><span class="n">DreamConstants</span><span class="o">.</span><span class="na">SECURITY_ROLE_PREFIX</span><span class="o">,</span> <span class="s">""</span><span class="o">))</span>
-				<span class="o">.</span><span class="na">collect</span><span class="o">(</span><span class="n">Collectors</span><span class="o">.</span><span class="na">toList</span><span class="o">());</span>
-			<span class="n">sysLogDTO</span><span class="o">.</span><span class="na">setRoleName</span><span class="o">(</span><span class="n">StringUtils</span><span class="o">.</span><span class="na">join</span><span class="o">(</span><span class="n">roles</span><span class="o">));</span>
+				<span class="o">.</span><span class="na">filter</span><span class="o">(</span><span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span><span class="o">.</span><span class="na">startsWith</span><span class="o">(</span><span class="nc">DreamConstants</span><span class="o">.</span><span class="na">SECURITY_ROLE_PREFIX</span><span class="o">))</span>
+				<span class="o">.</span><span class="na">map</span><span class="o">(</span><span class="n">x</span> <span class="o">-&gt;</span> <span class="n">x</span><span class="o">.</span><span class="na">replace</span><span class="o">(</span><span class="nc">DreamConstants</span><span class="o">.</span><span class="na">SECURITY_ROLE_PREFIX</span><span class="o">,</span> <span class="s">""</span><span class="o">))</span>
+				<span class="o">.</span><span class="na">collect</span><span class="o">(</span><span class="nc">Collectors</span><span class="o">.</span><span class="na">toList</span><span class="o">());</span>
+			<span class="n">sysLogDTO</span><span class="o">.</span><span class="na">setRoleName</span><span class="o">(</span><span class="nc">StringUtils</span><span class="o">.</span><span class="na">join</span><span class="o">(</span><span class="n">roles</span><span class="o">));</span>
 		<span class="o">}</span>
 		<span class="k">return</span> <span class="n">sysLogDTO</span><span class="o">;</span>
 	<span class="o">}</span>
@@ -499,47 +499,47 @@
 <span class="nd">@Getter</span>
 <span class="nd">@Setter</span>
 <span class="nd">@TableName</span><span class="o">(</span><span class="s">"t_sys_log"</span><span class="o">)</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SysLog</span> <span class="kd">implements</span> <span class="n">Serializable</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">SysLog</span> <span class="kd">implements</span> <span class="nc">Serializable</span> <span class="o">{</span>
 	<span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">long</span> <span class="n">serialVersionUID</span> <span class="o">=</span> <span class="mi">1L</span><span class="o">;</span>
 	<span class="cm">/**
 	 * 主键id
 	 */</span>
-	<span class="nd">@TableId</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"id"</span><span class="o">,</span> <span class="n">type</span> <span class="o">=</span> <span class="n">IdType</span><span class="o">.</span><span class="na">AUTO</span><span class="o">)</span>
-	<span class="kd">private</span> <span class="n">Integer</span> <span class="n">id</span><span class="o">;</span>
+	<span class="nd">@TableId</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"id"</span><span class="o">,</span> <span class="n">type</span> <span class="o">=</span> <span class="nc">IdType</span><span class="o">.</span><span class="na">AUTO</span><span class="o">)</span>
+	<span class="kd">private</span> <span class="nc">Integer</span> <span class="n">id</span><span class="o">;</span>
 	<span class="cm">/**
 	 * 登陆名
 	 */</span>
-	<span class="kd">private</span> <span class="n">String</span> <span class="n">username</span><span class="o">;</span>
+	<span class="kd">private</span> <span class="nc">String</span> <span class="n">username</span><span class="o">;</span>
 	<span class="cm">/**
 	 * 角色名
 	 */</span>
 	<span class="nd">@TableField</span><span class="o">(</span><span class="s">"role_name"</span><span class="o">)</span>
-	<span class="kd">private</span> <span class="n">String</span> <span class="n">roleName</span><span class="o">;</span>
+	<span class="kd">private</span> <span class="nc">String</span> <span class="n">roleName</span><span class="o">;</span>
 	<span class="cm">/**
 	 * 操作
 	 */</span>
-	<span class="kd">private</span> <span class="n">String</span> <span class="n">operation</span><span class="o">;</span>
+	<span class="kd">private</span> <span class="nc">String</span> <span class="n">operation</span><span class="o">;</span>
 	<span class="cm">/**
 	 * 类-方法
 	 */</span>
 	<span class="nd">@TableField</span><span class="o">(</span><span class="s">"class_method"</span><span class="o">)</span>
-	<span class="kd">private</span> <span class="n">String</span> <span class="n">classMethod</span><span class="o">;</span>
+	<span class="kd">private</span> <span class="nc">String</span> <span class="n">classMethod</span><span class="o">;</span>
 	<span class="cm">/**
 	 * 内容
 	 */</span>
-	<span class="kd">private</span> <span class="n">String</span> <span class="n">content</span><span class="o">;</span>
+	<span class="kd">private</span> <span class="nc">String</span> <span class="n">content</span><span class="o">;</span>
 	<span class="cm">/**
 	 * 客户端ip
 	 */</span>
 	<span class="nd">@TableField</span><span class="o">(</span><span class="s">"client_ip"</span><span class="o">)</span>
-	<span class="kd">private</span> <span class="n">String</span> <span class="n">clientIp</span><span class="o">;</span>
+	<span class="kd">private</span> <span class="nc">String</span> <span class="n">clientIp</span><span class="o">;</span>
 	<span class="cm">/**
 	 * 创建时间
 	 */</span>
 	<span class="nd">@TableField</span><span class="o">(</span><span class="s">"create_time"</span><span class="o">)</span>
-	<span class="nd">@DateTimeFormat</span><span class="o">(</span><span class="n">pattern</span> <span class="o">=</span> <span class="n">DateUtils</span><span class="o">.</span><span class="na">PATTERN_DATETIME</span><span class="o">)</span>
-	<span class="nd">@JsonFormat</span><span class="o">(</span><span class="n">pattern</span> <span class="o">=</span> <span class="n">DateUtils</span><span class="o">.</span><span class="na">PATTERN_DATETIME</span><span class="o">)</span>
-	<span class="kd">private</span> <span class="n">LocalDateTime</span> <span class="n">createTime</span><span class="o">;</span>
+	<span class="nd">@DateTimeFormat</span><span class="o">(</span><span class="n">pattern</span> <span class="o">=</span> <span class="nc">DateUtils</span><span class="o">.</span><span class="na">PATTERN_DATETIME</span><span class="o">)</span>
+	<span class="nd">@JsonFormat</span><span class="o">(</span><span class="n">pattern</span> <span class="o">=</span> <span class="nc">DateUtils</span><span class="o">.</span><span class="na">PATTERN_DATETIME</span><span class="o">)</span>
+	<span class="kd">private</span> <span class="nc">LocalDateTime</span> <span class="n">createTime</span><span class="o">;</span>
 
 <span class="o">}</span>
 </code></pre></div></div>
@@ -574,6 +574,13 @@ INSERT INTO `t_sys_log` VALUES (1,'admin','admin,de,pm,test','编辑角色','net
                         </a>
                     </li>
                     
+                    
+                    <li class="next">
+                        <a href="/2019/04/02/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-JSONObject-%E8%BD%AC-Map/" data-toggle="tooltip" data-placement="top" title="JSONObject 转 Map">
+                        Next<br>
+                        <span>JSONObject 转 Map</span>
+                        </a>
+                    </li>
                     
                 </ul>
 
@@ -631,13 +638,13 @@ INSERT INTO `t_sys_log` VALUES (1,'admin','admin,de,pm,test','编辑角色','net
                             
         				
                             
-                				<a href="/tags/#自我总结" title="自我总结" rel="34">
+                				<a href="/tags/#自我总结" title="自我总结" rel="36">
                                     自我总结
                                 </a>
                             
         				
                             
-                				<a href="/tags/#编程之路" title="编程之路" rel="88">
+                				<a href="/tags/#编程之路" title="编程之路" rel="92">
                                     编程之路
                                 </a>
                             
@@ -748,6 +755,8 @@ INSERT INTO `t_sys_log` VALUES (1,'admin','admin,de,pm,test','编辑角色','net
                 				<a href="/tags/#MongoDB" title="MongoDB" rel="2">
                                     MongoDB
                                 </a>
+                            
+        				
                             
         				
                             
@@ -904,7 +913,7 @@ INSERT INTO `t_sys_log` VALUES (1,'admin','admin,de,pm,test','编辑角色','net
                     
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; MY Blog 2019
+                    Copyright &copy; MY Blog 2020
                     <br>
                     Theme on <a href="https://github.com/uniquezhangqi/uniquezhangqi.github.io.git">GitHub</a> |
                     <iframe

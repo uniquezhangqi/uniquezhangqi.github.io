@@ -657,16 +657,16 @@
   <li>tools定义工具栏，继承自panel的应该都可以使用。</li>
 </ol>
 
-<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">$</span><span class="p">(</span><span class="s1">'#p'</span><span class="p">).</span><span class="nx">panel</span><span class="p">({</span>   
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">$</span><span class="p">(</span><span class="dl">'</span><span class="s1">#p</span><span class="dl">'</span><span class="p">).</span><span class="nx">panel</span><span class="p">({</span>   
     <span class="na">width</span><span class="p">:</span><span class="mi">500</span><span class="p">,</span>   
     <span class="na">height</span><span class="p">:</span><span class="mi">150</span><span class="p">,</span>   
-    <span class="na">title</span><span class="p">:</span> <span class="s1">'My Panel'</span><span class="p">,</span>   
+    <span class="na">title</span><span class="p">:</span> <span class="dl">'</span><span class="s1">My Panel</span><span class="dl">'</span><span class="p">,</span>   
    <span class="na">tools</span><span class="p">:</span> <span class="p">[{</span>   
-     <span class="na">iconCls</span><span class="p">:</span><span class="s1">'icon-add'</span><span class="p">,</span>   
-     <span class="na">handler</span><span class="p">:</span><span class="kd">function</span><span class="p">(){</span><span class="nx">alert</span><span class="p">(</span><span class="s1">'new'</span><span class="p">)}</span>   
+     <span class="na">iconCls</span><span class="p">:</span><span class="dl">'</span><span class="s1">icon-add</span><span class="dl">'</span><span class="p">,</span>   
+     <span class="na">handler</span><span class="p">:</span><span class="kd">function</span><span class="p">(){</span><span class="nx">alert</span><span class="p">(</span><span class="dl">'</span><span class="s1">new</span><span class="dl">'</span><span class="p">)}</span>   
     <span class="p">},{</span>   
-     <span class="na">iconCls</span><span class="p">:</span><span class="s1">'icon-save'</span> 
-     <span class="na">handler</span><span class="p">:</span><span class="kd">function</span><span class="p">(){</span><span class="nx">alert</span><span class="p">(</span><span class="s1">'save'</span><span class="p">)}</span>   
+     <span class="na">iconCls</span><span class="p">:</span><span class="dl">'</span><span class="s1">icon-save</span><span class="dl">'</span> 
+     <span class="na">handler</span><span class="p">:</span><span class="kd">function</span><span class="p">(){</span><span class="nx">alert</span><span class="p">(</span><span class="dl">'</span><span class="s1">save</span><span class="dl">'</span><span class="p">)}</span>   
    <span class="p">}]</span>   
 <span class="p">});</span>
 </code></pre></div></div>
@@ -688,51 +688,51 @@
 <p>data-options和这里效果是一样，但是API里面大部分是按照属性来定义标签的，就想早先的HTML，而data-options就想style定义样式，不知道这两种有什么优劣。</p>
 
 <h2 id="继承">继承</h2>
-<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;!</span><span class="nx">DOCTYPE</span> <span class="nx">html</span> <span class="nx">PUBLIC</span> <span class="s2">"-//W3C//DTD XHTML 1.0 Transitional//EN"</span> <span class="s2">"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"</span><span class="o">&gt;</span>
-<span class="o">&lt;</span><span class="nx">html</span> <span class="nx">xmlns</span><span class="o">=</span><span class="s2">"http://www.w3.org/1999/xhtml"</span><span class="o">&gt;</span>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;!</span><span class="nx">DOCTYPE</span> <span class="nx">html</span> <span class="nx">PUBLIC</span> <span class="dl">"</span><span class="s2">-//W3C//DTD XHTML 1.0 Transitional//EN</span><span class="dl">"</span> <span class="dl">"</span><span class="s2">http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd</span><span class="dl">"</span><span class="o">&gt;</span>
+<span class="o">&lt;</span><span class="nx">html</span> <span class="nx">xmlns</span><span class="o">=</span><span class="dl">"</span><span class="s2">http://www.w3.org/1999/xhtml</span><span class="dl">"</span><span class="o">&gt;</span>
 <span class="o">&lt;</span><span class="nx">head</span><span class="o">&gt;</span>
     <span class="o">&lt;</span><span class="nx">title</span><span class="o">&gt;&lt;</span><span class="sr">/title</span><span class="err">&gt;
-</span>    <span class="o">&lt;</span><span class="nx">script</span> <span class="nx">src</span><span class="o">=</span><span class="s2">"easyui/jquery-1.7.2.min.js"</span> <span class="nx">type</span><span class="o">=</span><span class="s2">"text/javascript"</span><span class="o">&gt;&lt;</span><span class="sr">/script</span><span class="err">&gt;
-</span>    <span class="o">&lt;</span><span class="nx">script</span> <span class="nx">src</span><span class="o">=</span><span class="s2">"easyui/jquery.easyui.min.js"</span> <span class="nx">type</span><span class="o">=</span><span class="s2">"text/javascript"</span><span class="o">&gt;&lt;</span><span class="sr">/script</span><span class="err">&gt;
-</span>    <span class="o">&lt;</span><span class="nx">link</span> <span class="nx">href</span><span class="o">=</span><span class="s2">"easyui/themes/gray/easyui.css"</span> <span class="nx">rel</span><span class="o">=</span><span class="s2">"stylesheet"</span> <span class="nx">type</span><span class="o">=</span><span class="s2">"text/css"</span> <span class="o">/&gt;</span>
-    <span class="o">&lt;</span><span class="nx">link</span> <span class="nx">href</span><span class="o">=</span><span class="s2">"easyui/themes/icon.css"</span> <span class="nx">rel</span><span class="o">=</span><span class="s2">"stylesheet"</span> <span class="nx">type</span><span class="o">=</span><span class="s2">"text/css"</span> <span class="o">/&gt;</span>
-    <span class="o">&lt;</span><span class="nx">script</span> <span class="nx">type</span><span class="o">=</span><span class="s2">"text/javascript"</span><span class="o">&gt;</span>
+</span>    <span class="o">&lt;</span><span class="nx">script</span> <span class="nx">src</span><span class="o">=</span><span class="dl">"</span><span class="s2">easyui/jquery-1.7.2.min.js</span><span class="dl">"</span> <span class="nx">type</span><span class="o">=</span><span class="dl">"</span><span class="s2">text/javascript</span><span class="dl">"</span><span class="o">&gt;&lt;</span><span class="sr">/script</span><span class="err">&gt;
+</span>    <span class="o">&lt;</span><span class="nx">script</span> <span class="nx">src</span><span class="o">=</span><span class="dl">"</span><span class="s2">easyui/jquery.easyui.min.js</span><span class="dl">"</span> <span class="nx">type</span><span class="o">=</span><span class="dl">"</span><span class="s2">text/javascript</span><span class="dl">"</span><span class="o">&gt;&lt;</span><span class="sr">/script</span><span class="err">&gt;
+</span>    <span class="o">&lt;</span><span class="nx">link</span> <span class="nx">href</span><span class="o">=</span><span class="dl">"</span><span class="s2">easyui/themes/gray/easyui.css</span><span class="dl">"</span> <span class="nx">rel</span><span class="o">=</span><span class="dl">"</span><span class="s2">stylesheet</span><span class="dl">"</span> <span class="nx">type</span><span class="o">=</span><span class="dl">"</span><span class="s2">text/css</span><span class="dl">"</span> <span class="o">/&gt;</span>
+    <span class="o">&lt;</span><span class="nx">link</span> <span class="nx">href</span><span class="o">=</span><span class="dl">"</span><span class="s2">easyui/themes/icon.css</span><span class="dl">"</span> <span class="nx">rel</span><span class="o">=</span><span class="dl">"</span><span class="s2">stylesheet</span><span class="dl">"</span> <span class="nx">type</span><span class="o">=</span><span class="dl">"</span><span class="s2">text/css</span><span class="dl">"</span> <span class="o">/&gt;</span>
+    <span class="o">&lt;</span><span class="nx">script</span> <span class="nx">type</span><span class="o">=</span><span class="dl">"</span><span class="s2">text/javascript</span><span class="dl">"</span><span class="o">&gt;</span>
         <span class="nx">$</span><span class="p">(</span><span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
-            <span class="nx">$</span><span class="p">(</span><span class="s1">'#dd'</span><span class="p">).</span><span class="nx">dialog</span><span class="p">({</span>
-                <span class="na">title</span><span class="p">:</span> <span class="s2">"My Dialog"</span><span class="p">,</span>
+            <span class="nx">$</span><span class="p">(</span><span class="dl">'</span><span class="s1">#dd</span><span class="dl">'</span><span class="p">).</span><span class="nx">dialog</span><span class="p">({</span>
+                <span class="na">title</span><span class="p">:</span> <span class="dl">"</span><span class="s2">My Dialog</span><span class="dl">"</span><span class="p">,</span>
                 <span class="na">modal</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="c1">//dialog继承自window，而window里面有modal属性，所以dialog也可以使用</span>
                 <span class="na">collapsible</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="c1">//是否可折叠，默认false</span>
                 <span class="na">minimizable</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span> <span class="c1">//是否可最小化，默认false</span>
                 <span class="na">maximizable</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="c1">//是否可最大化，默认false</span>
                 <span class="na">resizable</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span> <span class="c1">//是否可折叠，默认false</span>
                 <span class="na">toolbar</span><span class="p">:</span> <span class="p">[{</span>
-                    <span class="na">iconCls</span><span class="p">:</span> <span class="s1">'icon-add'</span><span class="p">,</span>
-                    <span class="na">handler</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="nx">alert</span><span class="p">(</span><span class="s1">'new'</span><span class="p">)</span> <span class="p">}</span>
+                    <span class="na">iconCls</span><span class="p">:</span> <span class="dl">'</span><span class="s1">icon-add</span><span class="dl">'</span><span class="p">,</span>
+                    <span class="na">handler</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="nx">alert</span><span class="p">(</span><span class="dl">'</span><span class="s1">new</span><span class="dl">'</span><span class="p">)</span> <span class="p">}</span>
                 <span class="p">},</span> <span class="p">{</span>
-                    <span class="na">iconCls</span><span class="p">:</span> <span class="s1">'icon-save'</span><span class="p">,</span>
-                    <span class="na">handler</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="nx">alert</span><span class="p">(</span><span class="s1">'save'</span><span class="p">)</span> <span class="p">}</span>
+                    <span class="na">iconCls</span><span class="p">:</span> <span class="dl">'</span><span class="s1">icon-save</span><span class="dl">'</span><span class="p">,</span>
+                    <span class="na">handler</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="nx">alert</span><span class="p">(</span><span class="dl">'</span><span class="s1">save</span><span class="dl">'</span><span class="p">)</span> <span class="p">}</span>
                 <span class="p">}],</span>
                 <span class="na">buttons</span><span class="p">:</span> <span class="p">[{</span>
-                    <span class="na">iconCls</span><span class="p">:</span> <span class="s1">'icon-add'</span><span class="p">,</span>
-                    <span class="na">handler</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="nx">alert</span><span class="p">(</span><span class="s1">'new'</span><span class="p">)</span> <span class="p">}</span>
+                    <span class="na">iconCls</span><span class="p">:</span> <span class="dl">'</span><span class="s1">icon-add</span><span class="dl">'</span><span class="p">,</span>
+                    <span class="na">handler</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="nx">alert</span><span class="p">(</span><span class="dl">'</span><span class="s1">new</span><span class="dl">'</span><span class="p">)</span> <span class="p">}</span>
                 <span class="p">},</span> <span class="p">{</span>
-                    <span class="na">iconCls</span><span class="p">:</span> <span class="s1">'icon-save'</span><span class="p">,</span>
-                    <span class="na">handler</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="nx">alert</span><span class="p">(</span><span class="s1">'save'</span><span class="p">)</span> <span class="p">}</span>
+                    <span class="na">iconCls</span><span class="p">:</span> <span class="dl">'</span><span class="s1">icon-save</span><span class="dl">'</span><span class="p">,</span>
+                    <span class="na">handler</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="nx">alert</span><span class="p">(</span><span class="dl">'</span><span class="s1">save</span><span class="dl">'</span><span class="p">)</span> <span class="p">}</span>
                 <span class="p">}],</span>
                 <span class="c1">//继承自panel,tool只有下面两个属性</span>
                 <span class="na">tools</span><span class="p">:</span> <span class="p">[{</span>
-                    <span class="na">iconCls</span><span class="p">:</span> <span class="s1">'icon-add'</span><span class="p">,</span>
-                    <span class="na">handler</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="nx">alert</span><span class="p">(</span><span class="s1">'new'</span><span class="p">)</span> <span class="p">}</span>
+                    <span class="na">iconCls</span><span class="p">:</span> <span class="dl">'</span><span class="s1">icon-add</span><span class="dl">'</span><span class="p">,</span>
+                    <span class="na">handler</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="nx">alert</span><span class="p">(</span><span class="dl">'</span><span class="s1">new</span><span class="dl">'</span><span class="p">)</span> <span class="p">}</span>
                 <span class="p">},</span> <span class="p">{</span>
-                    <span class="na">iconCls</span><span class="p">:</span> <span class="s1">'icon-save'</span><span class="p">,</span>
-                    <span class="na">handler</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="nx">alert</span><span class="p">(</span><span class="s1">'save'</span><span class="p">)</span> <span class="p">}</span>
+                    <span class="na">iconCls</span><span class="p">:</span> <span class="dl">'</span><span class="s1">icon-save</span><span class="dl">'</span><span class="p">,</span>
+                    <span class="na">handler</span><span class="p">:</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="nx">alert</span><span class="p">(</span><span class="dl">'</span><span class="s1">save</span><span class="dl">'</span><span class="p">)</span> <span class="p">}</span>
                 <span class="p">}]</span>
             <span class="p">});</span>
         <span class="p">})</span>
     <span class="o">&lt;</span><span class="sr">/script</span><span class="err">&gt;
 </span><span class="o">&lt;</span><span class="sr">/head</span><span class="err">&gt;
 </span><span class="o">&lt;</span><span class="nx">body</span><span class="o">&gt;</span>
-    <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">id</span><span class="o">=</span><span class="s2">"dd"</span> <span class="nx">style</span><span class="o">=</span><span class="s2">"width: 500px; height: 400px;"</span><span class="o">&gt;</span>
+    <span class="o">&lt;</span><span class="nx">div</span> <span class="nx">id</span><span class="o">=</span><span class="dl">"</span><span class="s2">dd</span><span class="dl">"</span> <span class="nx">style</span><span class="o">=</span><span class="dl">"</span><span class="s2">width: 500px; height: 400px;</span><span class="dl">"</span><span class="o">&gt;</span>
         <span class="nx">Dialog</span> <span class="nx">Content</span><span class="p">.</span>
     <span class="o">&lt;</span><span class="sr">/div</span><span class="err">&gt;
 </span><span class="o">&lt;</span><span class="sr">/body</span><span class="err">&gt;
@@ -819,13 +819,13 @@
                             
         				
                             
-                				<a href="/tags/#自我总结" title="自我总结" rel="34">
+                				<a href="/tags/#自我总结" title="自我总结" rel="36">
                                     自我总结
                                 </a>
                             
         				
                             
-                				<a href="/tags/#编程之路" title="编程之路" rel="88">
+                				<a href="/tags/#编程之路" title="编程之路" rel="92">
                                     编程之路
                                 </a>
                             
@@ -936,6 +936,8 @@
                 				<a href="/tags/#MongoDB" title="MongoDB" rel="2">
                                     MongoDB
                                 </a>
+                            
+        				
                             
         				
                             
@@ -1092,7 +1094,7 @@
                     
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; MY Blog 2019
+                    Copyright &copy; MY Blog 2020
                     <br>
                     Theme on <a href="https://github.com/uniquezhangqi/uniquezhangqi.github.io.git">GitHub</a> |
                     <iframe

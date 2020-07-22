@@ -226,11 +226,11 @@
 	 * 这里就是注解，称谓压缩警告，这是JDK内部自带的一个注解，一个注解就是一个类，在这里使用了这个注解就是创建了SuppressWarnings类的一个实例对象
 	 */</span>
 	<span class="nd">@SuppressWarnings</span><span class="o">(</span> <span class="s">":deprecation"</span> <span class="o">)</span>
-	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
 		<span class="cm">/*
 		下面这个runFinalizersOnExit()方法画了一条横线表示此方法已经过时，不建议使用
 		 */</span>
-		<span class="n">System</span><span class="o">.</span><span class="na">runFinalizersOnExit</span><span class="o">(</span> <span class="kc">true</span> <span class="o">);</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">runFinalizersOnExit</span><span class="o">(</span> <span class="kc">true</span> <span class="o">);</span>
 	<span class="o">}</span>
 
 	<span class="cm">/**
@@ -238,14 +238,14 @@
 	 */</span>
 	<span class="nd">@Deprecated</span>
 	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">hello</span><span class="o">(){</span>
-		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"hi,Ian"</span><span class="o">);</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"hi,Ian"</span><span class="o">);</span>
 	<span class="o">}</span>
 
 	<span class="cm">/**
 	 * 这也是JDK1.5之后内部提供的一个注解，意思就是重写(覆盖)JDK内部的toString()方法
 	 */</span>
 	<span class="nd">@Override</span>
-	<span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">(){</span>
+	<span class="kd">public</span> <span class="nc">String</span> <span class="nf">toString</span><span class="o">(){</span>
 		<span class="k">return</span> <span class="s">"Ian"</span><span class="o">;</span>
 	<span class="o">}</span>
 <span class="o">}</span>
@@ -265,10 +265,10 @@
  * Rentention注解决定MyAnnotation注解的生命周期
  */</span>
 
-<span class="nd">@Retention</span><span class="o">(</span> <span class="n">RetentionPolicy</span><span class="o">.</span><span class="na">RUNTIME</span> <span class="o">)</span>
+<span class="nd">@Retention</span><span class="o">(</span> <span class="nc">RetentionPolicy</span><span class="o">.</span><span class="na">RUNTIME</span> <span class="o">)</span>
 
 <span class="c1">//Target 注解决定MyAnnotation注解可以加上哪些成分上面，比如加在类身上，或者属性身上，或者方法等等</span>
-<span class="nd">@Target</span><span class="o">({</span><span class="n">ElementType</span><span class="o">.</span><span class="na">METHOD</span><span class="o">,</span> <span class="n">ElementType</span><span class="o">.</span><span class="na">TYPE</span><span class="o">})</span>
+<span class="nd">@Target</span><span class="o">({</span><span class="nc">ElementType</span><span class="o">.</span><span class="na">METHOD</span><span class="o">,</span> <span class="nc">ElementType</span><span class="o">.</span><span class="na">TYPE</span><span class="o">})</span>
 
 <span class="cm">/*
 @Retention(RetentionPolicy.ROURCE)
@@ -281,19 +281,19 @@
 这里是在注解类MyAnnotation上使用另一个注解类，这里的Retention称为元注解。
 Retention注解括号中的“RetentionPolicy.RUNTIME”意思是让MyAnnotation这个注解的声明周期一直在程序运行时都存在
  */</span>
-<span class="kd">public</span> <span class="nd">@interface</span> <span class="n">MyAnnotation</span><span class="o">{</span>
+<span class="kd">public</span> <span class="nd">@interface</span> <span class="nc">MyAnnotation</span><span class="o">{</span>
 	
 <span class="o">}</span>
 </code></pre></div></div>
 
 <p>把自定义注解加到某个类上并用反射进行测试AnnotationUser的定义上是否有@MyAnnotation：</p>
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="n">cn</span><span class="o">.</span><span class="na">gacl</span><span class="o">.</span><span class="na">annotation</span><span class="o">;</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">cn.gacl.annotation</span><span class="o">;</span>
  <span class="mi">2</span> <span class="nd">@MyAnnotation</span>
  <span class="mi">3</span> <span class="c1">//这里是将新创建好的注解类MyAnnotation标记到AnnotaionTest类上</span>
  <span class="mi">4</span> <span class="kd">public</span> <span class="kd">class</span> <span class="nc">AnnotationUse</span> <span class="o">{</span>
- <span class="mi">5</span>     <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+ <span class="mi">5</span>     <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
  <span class="mi">6</span>         <span class="c1">// 这里是检查Annotation类是否有注解，这里需要使用反射才能完成对Annotation类的检查</span>
- <span class="mi">7</span>         <span class="k">if</span> <span class="o">(</span><span class="n">AnnotationUse</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">isAnnotationPresent</span><span class="o">(</span><span class="n">MyAnnotation</span><span class="o">.</span><span class="na">class</span><span class="o">))</span> <span class="o">{</span>
+ <span class="mi">7</span>         <span class="k">if</span> <span class="o">(</span><span class="nc">AnnotationUse</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">isAnnotationPresent</span><span class="o">(</span><span class="nc">MyAnnotation</span><span class="o">.</span><span class="na">class</span><span class="o">))</span> <span class="o">{</span>
  <span class="mi">8</span>             <span class="cm">/*
  9              * MyAnnotation是一个类，这个类的实例对象annotation是通过反射得到的，这个实例对象是如何创建的呢？
 10              * 一旦在某个类上使用了@MyAnnotation，那么这个MyAnnotation类的实例对象annotation就会被创建出来了
@@ -302,9 +302,9 @@ Retention注解括号中的“RetentionPolicy.RUNTIME”意思是让MyAnnotation
 13              * 教官在考核时一看，哦，这个学员是有牌子的，是送过礼给他的，优先让有牌子的学员过，此时这个牌子就是一个注解
 14              * 一个牌子就是一个注解的实例对象，实实在在存在的牌子就是一个实实在在的注解对象，把牌子拿下来(去掉注解)注解对象就不存在了
 15              */</span>
-<span class="mi">16</span>             <span class="n">MyAnnotation</span> <span class="n">annotation</span> <span class="o">=</span> <span class="o">(</span><span class="n">MyAnnotation</span><span class="o">)</span> <span class="n">AnnotationUse</span><span class="o">.</span><span class="na">class</span>
-<span class="mi">17</span>                     <span class="o">.</span><span class="na">getAnnotation</span><span class="o">(</span><span class="n">MyAnnotation</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
-<span class="mi">18</span>             <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">annotation</span><span class="o">);</span><span class="c1">// 打印MyAnnotation对象，这里输出的结果为：@cn.itcast.day2.MyAnnotation()</span>
+<span class="mi">16</span>             <span class="nc">MyAnnotation</span> <span class="n">annotation</span> <span class="o">=</span> <span class="o">(</span><span class="nc">MyAnnotation</span><span class="o">)</span> <span class="nc">AnnotationUse</span><span class="o">.</span><span class="na">class</span>
+<span class="mi">17</span>                     <span class="o">.</span><span class="na">getAnnotation</span><span class="o">(</span><span class="nc">MyAnnotation</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+<span class="mi">18</span>             <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">annotation</span><span class="o">);</span><span class="c1">// 打印MyAnnotation对象，这里输出的结果为：@cn.itcast.day2.MyAnnotation()</span>
 <span class="mi">19</span>         <span class="o">}</span>
 <span class="mi">20</span>     <span class="o">}</span>
 <span class="mi">21</span> <span class="o">}</span>
@@ -315,25 +315,25 @@ Retention注解括号中的“RetentionPolicy.RUNTIME”意思是让MyAnnotation
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@MyAnnotation</span>
 <span class="c1">//这里是将新创建好的注解类MyAnnotation标记到AnnotaionTest类上</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">AnnotationUse</span> <span class="o">{</span>
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
         <span class="c1">// 这里是检查Annotation类是否有注解，这里需要使用反射才能完成对Annotation类的检查</span>
-        <span class="k">if</span> <span class="o">(</span><span class="n">AnnotationUse</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">isAnnotationPresent</span><span class="o">(</span><span class="n">MyAnnotation</span><span class="o">.</span><span class="na">class</span><span class="o">))</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="nc">AnnotationUse</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">isAnnotationPresent</span><span class="o">(</span><span class="nc">MyAnnotation</span><span class="o">.</span><span class="na">class</span><span class="o">))</span> <span class="o">{</span>
             <span class="cm">/*
              * MyAnnotation是一个类，这个类的实例对象annotation是通过反射得到的，这个实例对象是如何创建的呢？
              * 一旦在某个类上使用了@MyAnnotation，那么这个MyAnnotation类的实例对象annotation就会被创建出来了
              * 比如：各种商品上都有自己的价格，也就是标识，消费者一看就知道该商品的价格是多少。
              * 每个商品对应的价格就是一个注解的实例对象，实实在在存在的价格就是一个实实在在的注解对象，把对应价格去掉(去掉注解)注解对象就不存在了
              */</span>
-            <span class="n">MyAnnotation</span> <span class="n">annotation</span> <span class="o">=</span> <span class="o">(</span><span class="n">MyAnnotation</span><span class="o">)</span> <span class="n">AnnotationUse</span><span class="o">.</span><span class="na">class</span>
-                    <span class="o">.</span><span class="na">getAnnotation</span><span class="o">(</span><span class="n">MyAnnotation</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
-            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">annotation</span><span class="o">);</span><span class="c1">// 打印MyAnnotation对象，这里输出的结果为：@cn.itcast.day2.MyAnnotation()</span>
+            <span class="nc">MyAnnotation</span> <span class="n">annotation</span> <span class="o">=</span> <span class="o">(</span><span class="nc">MyAnnotation</span><span class="o">)</span> <span class="nc">AnnotationUse</span><span class="o">.</span><span class="na">class</span>
+                    <span class="o">.</span><span class="na">getAnnotation</span><span class="o">(</span><span class="nc">MyAnnotation</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+            <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">annotation</span><span class="o">);</span><span class="c1">// 打印MyAnnotation对象，这里输出的结果为：@cn.itcast.day2.MyAnnotation()</span>
         <span class="o">}</span>
     <span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
 <h3 id="retention元注解">@Retention元注解</h3>
-<p>根据反射的测试问题，引出@Retention元注解，其三种取值：<code class="highlighter-rouge">RetentionPolicy.SOURCE</code>、<code class="highlighter-rouge">RetentionPolicy.CLASS</code>、<code class="highlighter-rouge">RetentionPolicy.RUNTIME</code>分别对应：Java源文件(.java文件)—-&gt;.class文件—-&gt;内存中的字节码</p>
+<p>根据反射的测试问题，引出@Retention元注解，其三种取值：<code class="language-plaintext highlighter-rouge">RetentionPolicy.SOURCE</code>、<code class="language-plaintext highlighter-rouge">RetentionPolicy.CLASS</code>、<code class="language-plaintext highlighter-rouge">RetentionPolicy.RUNTIME</code>分别对应：Java源文件(.java文件)—-&gt;.class文件—-&gt;内存中的字节码</p>
 
 <h3 id="retention注解说明">Retention注解说明</h3>
 <p>当在Java源程序上加了一个注解，这个Java源程序要由javac去编译，javac把java源文件编译成.class文件，在编译成class时可能会把Java源程序上的一些注解给去掉，java编译器在处理java源程序时，可能会认为这个注解没有用了，于是就把这个注解去掉，那么此时在编译好的class就找不到该注解，这是编译器编译Java源程序时对注解进行处理的第一种可能情况，假设Java编译器在把Java源程序编译成class时，没有把注解去掉，那么此时在编译好的class中就可以找到注解，当程序使用编译好的class文件时，需要用类加载器把class文件加载到内存中并进行处理，如安全检查，处理完以后得到的最终在内存中的二进制的东西才是字节码，类加载器把class文件加载到内存中时也有转换，转换时是把class文件中的注解保留下来，这也有说法，所以说<strong>一个注解的生命周期有三个阶段：java源文件、class文件、内存中的字节码分别都是一个阶段</strong>，javac把java源文件编译成.class文件时，有可能去掉里面的注解，类加载器把.class文件加载到内存时也有可能去掉里面的注解，因此<strong>在自定义注解时就可以使用Retention注解知名自定义注解的生命周期，自定义注解的生命周期是在RetentionPolicy.SOURCE阶段（java源文件阶段），还是在RetentionPolicy.CLASS阶段(class文件阶段)，或者是在RetentionPolicy.RUNTIME阶段(内存中的字节码运行时阶段)，根据JDK提供的API可以知道默认是在RetentionPolicy.CLASS阶段 (JDK的API写到：the retention policy defaults to RetentionPolicy.CLASS)</strong></p>
@@ -344,25 +344,25 @@ Retention注解括号中的“RetentionPolicy.RUNTIME”意思是让MyAnnotation
 <p>java API中是这样定义的@Deprecated的</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Documented</span>
-<span class="nd">@Retention</span><span class="o">(</span><span class="n">value</span><span class="o">=</span><span class="n">RUNTIME</span><span class="o">)</span>
-<span class="kd">public</span> <span class="nd">@interface</span> <span class="n">Deprecated</span>
+<span class="nd">@Retention</span><span class="o">(</span><span class="n">value</span><span class="o">=</span><span class="no">RUNTIME</span><span class="o">)</span>
+<span class="kd">public</span> <span class="nd">@interface</span> <span class="nc">Deprecated</span>
 </code></pre></div></div>
 
 <h4 id="override">@Override</h4>
 <p>Java API中是这样定义的@Override的</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Target</span><span class="o">(</span><span class="n">value</span><span class="o">=</span><span class="n">METHOD</span><span class="o">)</span>
-<span class="nd">@Retention</span><span class="o">(</span><span class="n">value</span><span class="o">=</span><span class="n">SOURCE</span><span class="o">)</span>
-<span class="kd">public</span> <span class="nd">@interface</span> <span class="n">Override</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Target</span><span class="o">(</span><span class="n">value</span><span class="o">=</span><span class="no">METHOD</span><span class="o">)</span>
+<span class="nd">@Retention</span><span class="o">(</span><span class="n">value</span><span class="o">=</span><span class="no">SOURCE</span><span class="o">)</span>
+<span class="kd">public</span> <span class="nd">@interface</span> <span class="nc">Override</span>
 </code></pre></div></div>
 <p>@Override 是给javac看的，编译完以后@Override就没有价值了，@Override注解在源代码中有用，编译成.class文件后@Override注解就没有用了，因此@Override的Retention的属性值是RetentionPolicy.SOURCE</p>
 
 <h4 id="suppresswarnings">SuppressWarnings</h4>
 <p>Java API中是这样定义的@SuppressWarnings的</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Target</span><span class="o">(</span><span class="n">value</span><span class="o">{</span><span class="n">TYPE</span><span class="o">,</span><span class="n">FIELD</span><span class="o">,</span><span class="n">METHOD</span><span class="o">,</span><span class="n">PARAMETER</span><span class="o">,</span><span class="n">CONSTRUCTOR</span><span class="o">,</span><span class="n">LOCAL_VARIABLE</span><span class="o">})</span>
-<span class="nd">@Retention</span><span class="o">(</span><span class="n">value</span><span class="o">=</span><span class="n">SOURCE</span><span class="o">)</span>
-<span class="kd">public</span> <span class="nd">@interface</span> <span class="n">SuppressWarnings</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Target</span><span class="o">(</span><span class="n">value</span><span class="o">{</span><span class="no">TYPE</span><span class="o">,</span><span class="no">FIELD</span><span class="o">,</span><span class="no">METHOD</span><span class="o">,</span><span class="no">PARAMETER</span><span class="o">,</span><span class="no">CONSTRUCTOR</span><span class="o">,</span><span class="no">LOCAL_VARIABLE</span><span class="o">})</span>
+<span class="nd">@Retention</span><span class="o">(</span><span class="n">value</span><span class="o">=</span><span class="no">SOURCE</span><span class="o">)</span>
+<span class="kd">public</span> <span class="nd">@interface</span> <span class="nc">SuppressWarnings</span>
 </code></pre></div></div>
 <p>@SuppressWarnings是给javac(java编译器)看的，编译器编译完java文件后，@SuppressWarnings注解就没有用了，所以@SuppressWarnings的Retention的属性值是RetentionPolicy.SOURCE</p>
 
@@ -370,9 +370,9 @@ Retention注解括号中的“RetentionPolicy.RUNTIME”意思是让MyAnnotation
 <p>@Target元注解决定了一个注解可以标识到哪些成分上，如标识在在类身上，或者属性身上，或者方法身上等成分，@Target默认值为任何元素(成分)
 例如：</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Target</span><span class="o">(</span><span class="n">value</span><span class="o">={</span><span class="n">TYPE</span><span class="o">,</span><span class="n">FIELD</span><span class="o">,</span><span class="n">METHOD</span><span class="o">,</span><span class="n">PARAMETER</span><span class="o">,</span><span class="n">CONSTRUCTOR</span><span class="o">,</span><span class="n">LOCAL_VARIABLE</span><span class="o">})</span>
-<span class="nd">@Retention</span><span class="o">(</span><span class="n">value</span><span class="o">=</span><span class="n">SOURCE</span><span class="o">)</span>
-<span class="kd">public</span> <span class="nd">@interface</span> <span class="n">SuppressWarnings</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Target</span><span class="o">(</span><span class="n">value</span><span class="o">={</span><span class="no">TYPE</span><span class="o">,</span><span class="no">FIELD</span><span class="o">,</span><span class="no">METHOD</span><span class="o">,</span><span class="no">PARAMETER</span><span class="o">,</span><span class="no">CONSTRUCTOR</span><span class="o">,</span><span class="no">LOCAL_VARIABLE</span><span class="o">})</span>
+<span class="nd">@Retention</span><span class="o">(</span><span class="n">value</span><span class="o">=</span><span class="no">SOURCE</span><span class="o">)</span>
+<span class="kd">public</span> <span class="nd">@interface</span> <span class="nc">SuppressWarnings</span>
 </code></pre></div></div>
 
 <h3 id="为注解增加属性">为注解增加属性</h3>
@@ -382,13 +382,13 @@ Retention注解括号中的“RetentionPolicy.RUNTIME”意思是让MyAnnotation
 <p>语法：类型 属性名();</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//Retention注解决定MyAnnotation注解的生命周期</span>
-<span class="nd">@Retention</span><span class="o">(</span><span class="n">RetentionPolicy</span><span class="o">.</span><span class="na">RUNTIME</span><span class="o">)</span>
-<span class="nd">@Target</span><span class="o">({</span><span class="n">ElementType</span><span class="o">.</span><span class="na">METHOD</span><span class="o">,</span> <span class="n">ElementType</span><span class="o">.</span><span class="na">TYPE</span><span class="o">})</span>
-<span class="kd">public</span> <span class="nd">@interface</span> <span class="n">MyAnnotation</span><span class="o">{</span>
+<span class="nd">@Retention</span><span class="o">(</span><span class="nc">RetentionPolicy</span><span class="o">.</span><span class="na">RUNTIME</span><span class="o">)</span>
+<span class="nd">@Target</span><span class="o">({</span><span class="nc">ElementType</span><span class="o">.</span><span class="na">METHOD</span><span class="o">,</span> <span class="nc">ElementType</span><span class="o">.</span><span class="na">TYPE</span><span class="o">})</span>
+<span class="kd">public</span> <span class="nd">@interface</span> <span class="nc">MyAnnotation</span><span class="o">{</span>
     <span class="cm">/*
     	定义基本属性
     */</span>
-    <span class="n">String</span> <span class="nf">color</span><span class="o">();</span>
+    <span class="nc">String</span> <span class="nf">color</span><span class="o">();</span>
 <span class="o">}</span>
 </code></pre></div></div>
 <p>其实从代码的写法上来看，注解更像是一种特殊的接口，注解的属性定义方式就和接口中定义方法的方式一样，而应用了注解的类可以认为是实现了这个特殊的接口</p>
@@ -398,13 +398,13 @@ Retention注解括号中的“RetentionPolicy.RUNTIME”意思是让MyAnnotation
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//应用MyAnnotation注解的color属性</span>
 <span class="nd">@MyAnnotation</span><span class="o">(</span><span class="n">color</span><span class="o">=</span><span class="s">"red"</span><span class="o">)</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyAnnotationTest</span><span class="o">{</span>
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
         <span class="cm">/*
         	用反射方式获得注解对应的实例对象后，在通过该对象调用属性对应的方法
         */</span>
-        <span class="n">MyAnnotation</span> <span class="n">annotation</span> <span class="o">=</span> <span class="o">(</span><span class="n">MyAnnotation</span><span class="o">)</span><span class="n">MyAnnotationTest</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getAnnotation</span><span class="o">(</span><span class="n">MyAnnotation</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+        <span class="nc">MyAnnotation</span> <span class="n">annotation</span> <span class="o">=</span> <span class="o">(</span><span class="nc">MyAnnotation</span><span class="o">)</span><span class="nc">MyAnnotationTest</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getAnnotation</span><span class="o">(</span><span class="nc">MyAnnotation</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
         <span class="c1">//输出red</span>
-        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">annotation</span><span class="o">.</span><span class="na">color</span><span class="o">());</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">annotation</span><span class="o">.</span><span class="na">color</span><span class="o">());</span>
     <span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div></div>
@@ -413,22 +413,22 @@ Retention注解括号中的“RetentionPolicy.RUNTIME”意思是让MyAnnotation
 <p>语法：类型 属性名() default 默认值;</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//Retention注解决定MyAnnotation注解的生命周期</span>
-<span class="nd">@Retention</span><span class="o">(</span><span class="n">RetentionPolicy</span><span class="o">.</span><span class="na">RUNTIME</span><span class="o">)</span>
-<span class="nd">@Target</span><span class="o">({</span><span class="n">ElementType</span><span class="o">.</span><span class="na">METHOD</span><span class="o">,</span> <span class="n">ElementType</span><span class="o">.</span><span class="na">TYPE</span><span class="o">})</span>
-<span class="kd">public</span> <span class="nd">@interface</span> <span class="n">MyAnnotation</span><span class="o">{</span>
+<span class="nd">@Retention</span><span class="o">(</span><span class="nc">RetentionPolicy</span><span class="o">.</span><span class="na">RUNTIME</span><span class="o">)</span>
+<span class="nd">@Target</span><span class="o">({</span><span class="nc">ElementType</span><span class="o">.</span><span class="na">METHOD</span><span class="o">,</span> <span class="nc">ElementType</span><span class="o">.</span><span class="na">TYPE</span><span class="o">})</span>
+<span class="kd">public</span> <span class="nd">@interface</span> <span class="nc">MyAnnotation</span><span class="o">{</span>
     <span class="c1">//为属性指定缺省值</span>
-    <span class="n">String</span> <span class="nf">color</span><span class="o">()</span> <span class="k">default</span> <span class="s">"blue"</span><span class="o">;</span>
+    <span class="nc">String</span> <span class="nf">color</span><span class="o">()</span> <span class="k">default</span> <span class="s">"blue"</span><span class="o">;</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@MyAnnotation</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyAnnotationTest</span> <span class="o">{</span>
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
         <span class="cm">/**
          * 用反射方式获得注解对应的实例对象后，在通过该对象调用属性对应的方法
          */</span>
-        <span class="n">MyAnnotation</span> <span class="n">annotation</span> <span class="o">=</span> <span class="o">(</span><span class="n">MyAnnotation</span><span class="o">)</span> <span class="n">MyAnnotationTest</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getAnnotation</span><span class="o">(</span><span class="n">MyAnnotation</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
-        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">annotation</span><span class="o">.</span><span class="na">color</span><span class="o">());</span><span class="c1">//输出color属性的默认值：blue</span>
+        <span class="nc">MyAnnotation</span> <span class="n">annotation</span> <span class="o">=</span> <span class="o">(</span><span class="nc">MyAnnotation</span><span class="o">)</span> <span class="nc">MyAnnotationTest</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getAnnotation</span><span class="o">(</span><span class="nc">MyAnnotation</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">annotation</span><span class="o">.</span><span class="na">color</span><span class="o">());</span><span class="c1">//输出color属性的默认值：blue</span>
         
     <span class="o">}</span>
 <span class="o">}</span>
@@ -438,27 +438,27 @@ Retention注解括号中的“RetentionPolicy.RUNTIME”意思是让MyAnnotation
 <p>如果一个注解中有一个名称为value的属性，且你只想设置value属性(即其他属性都采用默认值或者你只有一个value属性)，那么可以省略掉“value=”部分。
 例如：@SuppressWarnings(“deprecation”)</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Retention</span><span class="o">(</span><span class="n">RetentionPolicy</span><span class="o">.</span><span class="na">RUNTIME</span><span class="o">)</span>
-<span class="nd">@Terget</span><span class="o">({</span><span class="n">ElementType</span><span class="o">.</span><span class="na">METHOD</span><span class="o">,</span> <span class="n">ElementType</span><span class="o">.</span><span class="na">Type</span><span class="o">})</span>
-<span class="kd">public</span> <span class="nd">@interface</span> <span class="n">MyAnnotation</span><span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Retention</span><span class="o">(</span><span class="nc">RetentionPolicy</span><span class="o">.</span><span class="na">RUNTIME</span><span class="o">)</span>
+<span class="nd">@Terget</span><span class="o">({</span><span class="nc">ElementType</span><span class="o">.</span><span class="na">METHOD</span><span class="o">,</span> <span class="nc">ElementType</span><span class="o">.</span><span class="na">Type</span><span class="o">})</span>
+<span class="kd">public</span> <span class="nd">@interface</span> <span class="nc">MyAnnotation</span><span class="o">{</span>
 	
 	<span class="c1">//为属性指定缺省值</span>
-    <span class="n">String</span> <span class="nf">color</span><span class="o">()</span> <span class="k">default</span> <span class="s">"blue"</span><span class="o">;</span>
+    <span class="nc">String</span> <span class="nf">color</span><span class="o">()</span> <span class="k">default</span> <span class="s">"blue"</span><span class="o">;</span>
 	
 	<span class="c1">//定义一个名称为value的属性</span>
-	<span class="n">String</span> <span class="nf">value</span><span class="o">();</span>
+	<span class="nc">String</span> <span class="nf">value</span><span class="o">();</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@MyAnnotation</span><span class="o">(</span><span class="s">"Ian"</span><span class="o">)</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyAnnotationTest</span><span class="o">{</span>
     <span class="c1">//用反射方式获得注解对应的实例对象后，在通过该对象调用属性对应的方法</span>
-    <span class="n">MyAnnotation</span> <span class="n">annotation</span> <span class="o">=</span> <span class="o">(</span><span class="n">MyAnnotation</span><span class="o">)</span><span class="n">MyAnnotationTest</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getAnnotation</span><span class="o">(</span><span class="n">MyAnnotation</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="nc">MyAnnotation</span> <span class="n">annotation</span> <span class="o">=</span> <span class="o">(</span><span class="nc">MyAnnotation</span><span class="o">)</span><span class="nc">MyAnnotationTest</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getAnnotation</span><span class="o">(</span><span class="nc">MyAnnotation</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
     <span class="c1">//输出color属性的默认值：blue</span>
-    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">annotation</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">annotation</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
     
     <span class="c1">//输出Ian</span>
-    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">annotation</span><span class="o">.</span><span class="na">value</span><span class="o">());</span>
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">annotation</span><span class="o">.</span><span class="na">value</span><span class="o">());</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
@@ -542,13 +542,13 @@ Retention注解括号中的“RetentionPolicy.RUNTIME”意思是让MyAnnotation
                             
         				
                             
-                				<a href="/tags/#自我总结" title="自我总结" rel="34">
+                				<a href="/tags/#自我总结" title="自我总结" rel="36">
                                     自我总结
                                 </a>
                             
         				
                             
-                				<a href="/tags/#编程之路" title="编程之路" rel="88">
+                				<a href="/tags/#编程之路" title="编程之路" rel="92">
                                     编程之路
                                 </a>
                             
@@ -659,6 +659,8 @@ Retention注解括号中的“RetentionPolicy.RUNTIME”意思是让MyAnnotation
                 				<a href="/tags/#MongoDB" title="MongoDB" rel="2">
                                     MongoDB
                                 </a>
+                            
+        				
                             
         				
                             
@@ -815,7 +817,7 @@ Retention注解括号中的“RetentionPolicy.RUNTIME”意思是让MyAnnotation
                     
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; MY Blog 2019
+                    Copyright &copy; MY Blog 2020
                     <br>
                     Theme on <a href="https://github.com/uniquezhangqi/uniquezhangqi.github.io.git">GitHub</a> |
                     <iframe

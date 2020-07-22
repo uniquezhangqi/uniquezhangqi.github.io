@@ -225,8 +225,8 @@
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Configuration</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">ShiroConfig</span> <span class="o">{</span>
     <span class="nd">@Bean</span>
-    <span class="kd">public</span> <span class="n">ShiroFilterFactoryBean</span> <span class="nf">shirFilter</span><span class="o">(</span><span class="n">SecurityManager</span> <span class="n">securityManager</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">ShiroFilterFactoryBean</span> <span class="n">shiroFilterFactoryBean</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ShiroFilterFactoryBean</span><span class="o">();</span>
+    <span class="kd">public</span> <span class="nc">ShiroFilterFactoryBean</span> <span class="nf">shirFilter</span><span class="o">(</span><span class="nc">SecurityManager</span> <span class="n">securityManager</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">ShiroFilterFactoryBean</span> <span class="n">shiroFilterFactoryBean</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ShiroFilterFactoryBean</span><span class="o">();</span>
         <span class="c1">// 必须设置 SecurityManager</span>
         <span class="n">shiroFilterFactoryBean</span><span class="o">.</span><span class="na">setSecurityManager</span><span class="o">(</span><span class="n">securityManager</span><span class="o">);</span>
         <span class="c1">// setLoginUrl 如果不设置值，默认会自动寻找Web工程根目录下的"/login.jsp"页面 或 "/login" 映射</span>
@@ -235,7 +235,7 @@
         <span class="n">shiroFilterFactoryBean</span><span class="o">.</span><span class="na">setUnauthorizedUrl</span><span class="o">(</span><span class="s">"/notRole"</span><span class="o">);</span>
 
         <span class="c1">// 设置拦截器</span>
-        <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">String</span><span class="o">&gt;</span> <span class="n">filterChainDefinitionMap</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LinkedHashMap</span><span class="o">&lt;&gt;();</span>
+        <span class="nc">Map</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">String</span><span class="o">&gt;</span> <span class="n">filterChainDefinitionMap</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">LinkedHashMap</span><span class="o">&lt;&gt;();</span>
         <span class="c1">//游客，开发权限</span>
         <span class="n">filterChainDefinitionMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"/guest/**"</span><span class="o">,</span> <span class="s">"anon"</span><span class="o">);</span>
         <span class="c1">//用户，需要角色权限 “user”</span>
@@ -249,7 +249,7 @@
         <span class="n">filterChainDefinitionMap</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">"/**"</span><span class="o">,</span> <span class="s">"authc"</span><span class="o">);</span>
 
         <span class="n">shiroFilterFactoryBean</span><span class="o">.</span><span class="na">setFilterChainDefinitionMap</span><span class="o">(</span><span class="n">filterChainDefinitionMap</span><span class="o">);</span>
-        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Shiro拦截器工厂类注入成功"</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Shiro拦截器工厂类注入成功"</span><span class="o">);</span>
         <span class="k">return</span> <span class="n">shiroFilterFactoryBean</span><span class="o">;</span>
     <span class="o">}</span>
 
@@ -257,8 +257,8 @@
      * 注入 securityManager
      */</span>
     <span class="nd">@Bean</span>
-    <span class="kd">public</span> <span class="n">SecurityManager</span> <span class="nf">securityManager</span><span class="o">()</span> <span class="o">{</span>
-        <span class="n">DefaultWebSecurityManager</span> <span class="n">securityManager</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DefaultWebSecurityManager</span><span class="o">();</span>
+    <span class="kd">public</span> <span class="nc">SecurityManager</span> <span class="nf">securityManager</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">DefaultWebSecurityManager</span> <span class="n">securityManager</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">DefaultWebSecurityManager</span><span class="o">();</span>
         <span class="c1">// 设置realm.</span>
         <span class="n">securityManager</span><span class="o">.</span><span class="na">setRealm</span><span class="o">(</span><span class="n">customRealm</span><span class="o">());</span>
         <span class="k">return</span> <span class="n">securityManager</span><span class="o">;</span>
@@ -271,14 +271,14 @@
      * 否则会影响 CustomRealm类 中其他类的依赖注入
      */</span>
     <span class="nd">@Bean</span>
-    <span class="kd">public</span> <span class="n">CustomRealm</span> <span class="nf">customRealm</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nc">CustomRealm</span> <span class="nf">customRealm</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">return</span> <span class="k">new</span> <span class="nf">CustomRealm</span><span class="o">();</span>
     <span class="o">}</span>
 <span class="o">}</span>
 
 </code></pre></div></div>
 
-<p>注意：里面的 <code class="highlighter-rouge">SecurityManager</code> 类导入的应该是 <code class="highlighter-rouge">import org.apache.shiro.mgt.SecurityManager</code>; 但是，如果你是复制代码过来的话，会默认导入 <code class="highlighter-rouge">java.lang.SecurityManager</code> 这里也稍稍有点坑，其他的类的话，也是都属于 shiro 包里面的类</p>
+<p>注意：里面的 <code class="language-plaintext highlighter-rouge">SecurityManager</code> 类导入的应该是 <code class="language-plaintext highlighter-rouge">import org.apache.shiro.mgt.SecurityManager</code>; 但是，如果你是复制代码过来的话，会默认导入 <code class="language-plaintext highlighter-rouge">java.lang.SecurityManager</code> 这里也稍稍有点坑，其他的类的话，也是都属于 shiro 包里面的类</p>
 
 <p>shirFilter 方法中主要是设置了一些重要的跳转 url，比如未登陆时，无权限时的跳转；以及设置了各类 url 的权限拦截，比如 /user 开始的 url 需要 user 权限，/admin 开始的 url 需要 admin 权限等</p>
 
@@ -332,22 +332,22 @@
     </tr>
     <tr>
       <td style="text-align: left">port[8081]</td>
-      <td style="text-align: center">当请求的URL端口不是8081时，跳转到 <code class="highlighter-rouge">schemal://serverName:8081?queryString</code> 其中 schmal 是协议 http 或 https 等等，serverName 是你访问的 Host，8081 是 Port 端口，queryString 是你访问的 URL 里的 ? 后面的参数常用的主要就是 anon，authc，user，roles，perms 等</td>
+      <td style="text-align: center">当请求的URL端口不是8081时，跳转到 <code class="language-plaintext highlighter-rouge">schemal://serverName:8081?queryString</code> 其中 schmal 是协议 http 或 https 等等，serverName 是你访问的 Host，8081 是 Port 端口，queryString 是你访问的 URL 里的 ? 后面的参数常用的主要就是 anon，authc，user，roles，perms 等</td>
     </tr>
   </tbody>
 </table>
 
-<p>注意：anon, authc, authcBasic, user 是第一组认证过滤器，perms, port, rest, roles, ssl 是第二组授权过滤器，要通过授权过滤器，就先要完成登陆认证操作（即先要完成认证才能前去寻找授权) 才能走第二组授权器（例如访问需要 roles 权限的 url，如果还没有登陆的话，会直接跳转到 <code class="highlighter-rouge">shiroFilterFactoryBean.setLoginUrl()</code>; 设置的 url ）</p>
+<p>注意：anon, authc, authcBasic, user 是第一组认证过滤器，perms, port, rest, roles, ssl 是第二组授权过滤器，要通过授权过滤器，就先要完成登陆认证操作（即先要完成认证才能前去寻找授权) 才能走第二组授权器（例如访问需要 roles 权限的 url，如果还没有登陆的话，会直接跳转到 <code class="language-plaintext highlighter-rouge">shiroFilterFactoryBean.setLoginUrl()</code>; 设置的 url ）</p>
 
 <h4 id="自定义-realm-类">自定义 realm 类</h4>
 <p>我们首先要继承 AuthorizingRealm 类来自定义我们自己的 realm 以进行我们自定义的身份，权限认证操作。
-记得要 Override 重写 <code class="highlighter-rouge">doGetAuthenticationInfo</code> 和 <code class="highlighter-rouge">doGetAuthorizationInfo</code> 两个方法（两个方法名很相似，不要搞错）</p>
+记得要 Override 重写 <code class="language-plaintext highlighter-rouge">doGetAuthenticationInfo</code> 和 <code class="language-plaintext highlighter-rouge">doGetAuthorizationInfo</code> 两个方法（两个方法名很相似，不要搞错）</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">CustomRealm</span> <span class="kd">extends</span> <span class="n">AuthorizingRealm</span> <span class="o">{</span>
-    <span class="kd">private</span> <span class="n">UserMapper</span> <span class="n">userMapper</span><span class="o">;</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">CustomRealm</span> <span class="kd">extends</span> <span class="nc">AuthorizingRealm</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="nc">UserMapper</span> <span class="n">userMapper</span><span class="o">;</span>
 
     <span class="nd">@Autowired</span>
-    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">setUserMapper</span><span class="o">(</span><span class="n">UserMapper</span> <span class="n">userMapper</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kt">void</span> <span class="nf">setUserMapper</span><span class="o">(</span><span class="nc">UserMapper</span> <span class="n">userMapper</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">userMapper</span> <span class="o">=</span> <span class="n">userMapper</span><span class="o">;</span>
     <span class="o">}</span>
 
@@ -359,14 +359,14 @@
      * @return 返回封装了用户信息的 AuthenticationInfo 实例
      */</span>
     <span class="nd">@Override</span>
-    <span class="kd">protected</span> <span class="n">AuthenticationInfo</span> <span class="nf">doGetAuthenticationInfo</span><span class="o">(</span><span class="n">AuthenticationToken</span> <span class="n">authenticationToken</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">AuthenticationException</span> <span class="o">{</span>
-        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"————身份认证方法————"</span><span class="o">);</span>
-        <span class="n">UsernamePasswordToken</span> <span class="n">token</span> <span class="o">=</span> <span class="o">(</span><span class="n">UsernamePasswordToken</span><span class="o">)</span> <span class="n">authenticationToken</span><span class="o">;</span>
+    <span class="kd">protected</span> <span class="nc">AuthenticationInfo</span> <span class="nf">doGetAuthenticationInfo</span><span class="o">(</span><span class="nc">AuthenticationToken</span> <span class="n">authenticationToken</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">AuthenticationException</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"————身份认证方法————"</span><span class="o">);</span>
+        <span class="nc">UsernamePasswordToken</span> <span class="n">token</span> <span class="o">=</span> <span class="o">(</span><span class="nc">UsernamePasswordToken</span><span class="o">)</span> <span class="n">authenticationToken</span><span class="o">;</span>
         <span class="c1">// 从数据库获取对应用户名密码的用户</span>
-        <span class="n">String</span> <span class="n">password</span> <span class="o">=</span> <span class="n">userMapper</span><span class="o">.</span><span class="na">getPassword</span><span class="o">(</span><span class="n">token</span><span class="o">.</span><span class="na">getUsername</span><span class="o">());</span>
+        <span class="nc">String</span> <span class="n">password</span> <span class="o">=</span> <span class="n">userMapper</span><span class="o">.</span><span class="na">getPassword</span><span class="o">(</span><span class="n">token</span><span class="o">.</span><span class="na">getUsername</span><span class="o">());</span>
         <span class="k">if</span> <span class="o">(</span><span class="kc">null</span> <span class="o">==</span> <span class="n">password</span><span class="o">)</span> <span class="o">{</span>
             <span class="k">throw</span> <span class="k">new</span> <span class="nf">AccountException</span><span class="o">(</span><span class="s">"用户名不正确"</span><span class="o">);</span>
-        <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(!</span><span class="n">password</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="k">new</span> <span class="n">String</span><span class="o">((</span><span class="kt">char</span><span class="o">[])</span> <span class="n">token</span><span class="o">.</span><span class="na">getCredentials</span><span class="o">())))</span> <span class="o">{</span>
+        <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(!</span><span class="n">password</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="k">new</span> <span class="nc">String</span><span class="o">((</span><span class="kt">char</span><span class="o">[])</span> <span class="n">token</span><span class="o">.</span><span class="na">getCredentials</span><span class="o">())))</span> <span class="o">{</span>
             <span class="k">throw</span> <span class="k">new</span> <span class="nf">AccountException</span><span class="o">(</span><span class="s">"密码不正确"</span><span class="o">);</span>
         <span class="o">}</span>
         <span class="k">return</span> <span class="k">new</span> <span class="nf">SimpleAuthenticationInfo</span><span class="o">(</span><span class="n">token</span><span class="o">.</span><span class="na">getPrincipal</span><span class="o">(),</span> <span class="n">password</span><span class="o">,</span> <span class="n">getName</span><span class="o">());</span>
@@ -379,13 +379,13 @@
      * @return
      */</span>
     <span class="nd">@Override</span>
-    <span class="kd">protected</span> <span class="n">AuthorizationInfo</span> <span class="nf">doGetAuthorizationInfo</span><span class="o">(</span><span class="n">PrincipalCollection</span> <span class="n">principalCollection</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"————权限认证————"</span><span class="o">);</span>
-        <span class="n">String</span> <span class="n">username</span> <span class="o">=</span> <span class="o">(</span><span class="n">String</span><span class="o">)</span> <span class="n">SecurityUtils</span><span class="o">.</span><span class="na">getSubject</span><span class="o">().</span><span class="na">getPrincipal</span><span class="o">();</span>
-        <span class="n">SimpleAuthorizationInfo</span> <span class="n">info</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SimpleAuthorizationInfo</span><span class="o">();</span>
+    <span class="kd">protected</span> <span class="nc">AuthorizationInfo</span> <span class="nf">doGetAuthorizationInfo</span><span class="o">(</span><span class="nc">PrincipalCollection</span> <span class="n">principalCollection</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"————权限认证————"</span><span class="o">);</span>
+        <span class="nc">String</span> <span class="n">username</span> <span class="o">=</span> <span class="o">(</span><span class="nc">String</span><span class="o">)</span> <span class="nc">SecurityUtils</span><span class="o">.</span><span class="na">getSubject</span><span class="o">().</span><span class="na">getPrincipal</span><span class="o">();</span>
+        <span class="nc">SimpleAuthorizationInfo</span> <span class="n">info</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">SimpleAuthorizationInfo</span><span class="o">();</span>
         <span class="c1">//获得该用户角色</span>
-        <span class="n">String</span> <span class="n">role</span> <span class="o">=</span> <span class="n">userMapper</span><span class="o">.</span><span class="na">getRole</span><span class="o">(</span><span class="n">username</span><span class="o">);</span>
-        <span class="n">Set</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">set</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashSet</span><span class="o">&lt;&gt;();</span>
+        <span class="nc">String</span> <span class="n">role</span> <span class="o">=</span> <span class="n">userMapper</span><span class="o">.</span><span class="na">getRole</span><span class="o">(</span><span class="n">username</span><span class="o">);</span>
+        <span class="nc">Set</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">set</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">HashSet</span><span class="o">&lt;&gt;();</span>
         <span class="c1">//需要将 role 封装到 Set 作为 info.setRoles() 的参数</span>
         <span class="n">set</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">role</span><span class="o">);</span>
         <span class="c1">//设置该用户拥有的角色</span>
@@ -397,27 +397,27 @@
 </code></pre></div></div>
 <p>重写的两个方法分别是实现身份认证以及权限认证，shiro 中有个作登陆操作的 Subject.login() 方法，当我们把封装了用户名，密码的 token 作为参数传入，便会跑进这两个方法里面（不一定两个方法都会进入）</p>
 
-<p>其中 doGetAuthorizationInfo 方法只有在需要权限认证时才会进去，比如前面配置类中配置了 <code class="highlighter-rouge">filterChainDefinitionMap.put("/admin/**", "roles[admin]")</code>; 的管理员角色，这时进入 /admin 时就会进入 doGetAuthorizationInfo 方法来检查权限；而 doGetAuthenticationInfo 方法则是需要身份认证时（比如前面的 Subject.login() 方法）才会进入</p>
+<p>其中 doGetAuthorizationInfo 方法只有在需要权限认证时才会进去，比如前面配置类中配置了 <code class="language-plaintext highlighter-rouge">filterChainDefinitionMap.put("/admin/**", "roles[admin]")</code>; 的管理员角色，这时进入 /admin 时就会进入 doGetAuthorizationInfo 方法来检查权限；而 doGetAuthenticationInfo 方法则是需要身份认证时（比如前面的 Subject.login() 方法）才会进入</p>
 
-<p>再说下 UsernamePasswordToken 类，我们可以从该对象拿到登陆时的用户名和密码（登陆时会使用 <code class="highlighter-rouge">new UsernamePasswordToken(username, password);）</code>，而 get 用户名或密码有以下几个方法</p>
+<p>再说下 UsernamePasswordToken 类，我们可以从该对象拿到登陆时的用户名和密码（登陆时会使用 <code class="language-plaintext highlighter-rouge">new UsernamePasswordToken(username, password);）</code>，而 get 用户名或密码有以下几个方法</p>
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">token</span><span class="o">.</span><span class="na">getUsername</span><span class="o">()</span>  <span class="c1">//获得用户名 String</span>
 <span class="n">token</span><span class="o">.</span><span class="na">getPrincipal</span><span class="o">()</span> <span class="c1">//获得用户名 Object </span>
 <span class="n">token</span><span class="o">.</span><span class="na">getPassword</span><span class="o">()</span>  <span class="c1">//获得密码 char[]</span>
 <span class="n">token</span><span class="o">.</span><span class="na">getCredentials</span><span class="o">()</span> <span class="c1">//获得密码 Object</span>
 </code></pre></div></div>
 
-<p>注意：有很多人会发现，UserMapper 等类，接口无法通过 @Autowired 注入进来，跑程序的时候会报 NullPointerException，网上说了很多诸如是 Spring 加载顺序等原因，但其实有一个很重要的地方要大家注意，CustomRealm 这个类是在 shiro 配置类的<code class="highlighter-rouge"> securityManager.setRealm()</code> 方法中设置进去的，而很多人直接写<code class="highlighter-rouge">securityManager.setRealm(new CustomRealm());</code> ,这样是不行的，必须要使用 @Bean 注入 MyRealm，不能直接 new 对象：</p>
+<p>注意：有很多人会发现，UserMapper 等类，接口无法通过 @Autowired 注入进来，跑程序的时候会报 NullPointerException，网上说了很多诸如是 Spring 加载顺序等原因，但其实有一个很重要的地方要大家注意，CustomRealm 这个类是在 shiro 配置类的<code class="language-plaintext highlighter-rouge"> securityManager.setRealm()</code> 方法中设置进去的，而很多人直接写<code class="language-plaintext highlighter-rouge">securityManager.setRealm(new CustomRealm());</code> ,这样是不行的，必须要使用 @Bean 注入 MyRealm，不能直接 new 对象：</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Bean</span>
-    <span class="kd">public</span> <span class="n">SecurityManager</span> <span class="nf">securityManager</span><span class="o">()</span> <span class="o">{</span>
-        <span class="n">DefaultWebSecurityManager</span> <span class="n">securityManager</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DefaultWebSecurityManager</span><span class="o">();</span>
+    <span class="kd">public</span> <span class="nc">SecurityManager</span> <span class="nf">securityManager</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">DefaultWebSecurityManager</span> <span class="n">securityManager</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">DefaultWebSecurityManager</span><span class="o">();</span>
         <span class="c1">// 设置realm.</span>
         <span class="n">securityManager</span><span class="o">.</span><span class="na">setRealm</span><span class="o">(</span><span class="n">customRealm</span><span class="o">());</span>
         <span class="k">return</span> <span class="n">securityManager</span><span class="o">;</span>
     <span class="o">}</span>
 
     <span class="nd">@Bean</span>
-    <span class="kd">public</span> <span class="n">CustomRealm</span> <span class="nf">customRealm</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nc">CustomRealm</span> <span class="nf">customRealm</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">return</span> <span class="k">new</span> <span class="nf">CustomRealm</span><span class="o">();</span>
     <span class="o">}</span>
 </code></pre></div></div>
@@ -427,8 +427,8 @@
 <p>当然，同样的道理也可以这样写：</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Bean</span>
-    <span class="kd">public</span> <span class="n">SecurityManager</span> <span class="nf">securityManager</span><span class="o">(</span><span class="n">CustomRealm</span> <span class="n">customRealm</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">DefaultWebSecurityManager</span> <span class="n">securityManager</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DefaultWebSecurityManager</span><span class="o">();</span>
+    <span class="kd">public</span> <span class="nc">SecurityManager</span> <span class="nf">securityManager</span><span class="o">(</span><span class="nc">CustomRealm</span> <span class="n">customRealm</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">DefaultWebSecurityManager</span> <span class="n">securityManager</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">DefaultWebSecurityManager</span><span class="o">();</span>
         <span class="c1">// 设置realm.</span>
         <span class="n">securityManager</span><span class="o">.</span><span class="na">setRealm</span><span class="o">(</span><span class="n">customRealm</span><span class="o">);</span>
         <span class="k">return</span> <span class="n">securityManager</span><span class="o">;</span>
@@ -446,15 +446,15 @@
 <span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">"/guest"</span><span class="o">)</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">GuestController</span><span class="o">{</span>
     <span class="nd">@Autowired</span>    
-    <span class="kd">private</span> <span class="kd">final</span> <span class="n">ResultMap</span> <span class="n">resultMap</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">ResultMap</span> <span class="n">resultMap</span><span class="o">;</span>
 
-    <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"/enter"</span><span class="o">,</span> <span class="n">method</span> <span class="o">=</span> <span class="n">RequestMethod</span><span class="o">.</span><span class="na">GET</span><span class="o">)</span>
-    <span class="kd">public</span> <span class="n">ResultMap</span> <span class="nf">login</span><span class="o">()</span> <span class="o">{</span>
+    <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"/enter"</span><span class="o">,</span> <span class="n">method</span> <span class="o">=</span> <span class="nc">RequestMethod</span><span class="o">.</span><span class="na">GET</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="nc">ResultMap</span> <span class="nf">login</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">return</span> <span class="n">resultMap</span><span class="o">.</span><span class="na">success</span><span class="o">().</span><span class="na">message</span><span class="o">(</span><span class="s">"欢迎进入，您的身份是游客"</span><span class="o">);</span>
     <span class="o">}</span>
 
-    <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"/getMessage"</span><span class="o">,</span> <span class="n">method</span> <span class="o">=</span> <span class="n">RequestMethod</span><span class="o">.</span><span class="na">GET</span><span class="o">)</span>
-    <span class="kd">public</span> <span class="n">ResultMap</span> <span class="nf">submitLogin</span><span class="o">()</span> <span class="o">{</span>
+    <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"/getMessage"</span><span class="o">,</span> <span class="n">method</span> <span class="o">=</span> <span class="nc">RequestMethod</span><span class="o">.</span><span class="na">GET</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="nc">ResultMap</span> <span class="nf">submitLogin</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">return</span> <span class="n">resultMap</span><span class="o">.</span><span class="na">success</span><span class="o">().</span><span class="na">message</span><span class="o">(</span><span class="s">"您拥有获得该接口的信息的权限！"</span><span class="o">);</span>
     <span class="o">}</span>
 <span class="o">}</span>
@@ -465,25 +465,25 @@
 <span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">"/user"</span><span class="o">)</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">UserController</span><span class="o">{</span>
     <span class="nd">@Autowired</span>    
-    <span class="kd">private</span> <span class="kd">final</span> <span class="n">ResultMap</span> <span class="n">resultMap</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">ResultMap</span> <span class="n">resultMap</span><span class="o">;</span>
 
-    <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"/getMessage"</span><span class="o">,</span> <span class="n">method</span> <span class="o">=</span> <span class="n">RequestMethod</span><span class="o">.</span><span class="na">GET</span><span class="o">)</span>
-    <span class="kd">public</span> <span class="n">ResultMap</span> <span class="nf">getMessage</span><span class="o">()</span> <span class="o">{</span>
+    <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"/getMessage"</span><span class="o">,</span> <span class="n">method</span> <span class="o">=</span> <span class="nc">RequestMethod</span><span class="o">.</span><span class="na">GET</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="nc">ResultMap</span> <span class="nf">getMessage</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">return</span> <span class="n">resultMap</span><span class="o">.</span><span class="na">success</span><span class="o">().</span><span class="na">message</span><span class="o">(</span><span class="s">"您拥有用户权限，可以获得该接口的信息！"</span><span class="o">);</span>
     <span class="o">}</span>
 <span class="o">}</span>
 
 </code></pre></div></div>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="err">管理员</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">管理员</span>
 <span class="nd">@RestController</span>
 <span class="nd">@RequestMapping</span><span class="o">(</span><span class="s">"/admin"</span><span class="o">)</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">AdminController</span> <span class="o">{</span>
     <span class="nd">@Autowired</span>    
-    <span class="kd">private</span> <span class="kd">final</span> <span class="n">ResultMap</span> <span class="n">resultMap</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">ResultMap</span> <span class="n">resultMap</span><span class="o">;</span>
 
-    <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"/getMessage"</span><span class="o">,</span> <span class="n">method</span> <span class="o">=</span> <span class="n">RequestMethod</span><span class="o">.</span><span class="na">GET</span><span class="o">)</span>
-    <span class="kd">public</span> <span class="n">ResultMap</span> <span class="nf">getMessage</span><span class="o">()</span> <span class="o">{</span>
+    <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"/getMessage"</span><span class="o">,</span> <span class="n">method</span> <span class="o">=</span> <span class="nc">RequestMethod</span><span class="o">.</span><span class="na">GET</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="nc">ResultMap</span> <span class="nf">getMessage</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">return</span> <span class="n">resultMap</span><span class="o">.</span><span class="na">success</span><span class="o">().</span><span class="na">message</span><span class="o">(</span><span class="s">"您拥有管理员权限，可以获得该接口的信息！"</span><span class="o">);</span>
     <span class="o">}</span>
 <span class="o">}</span>
@@ -493,16 +493,16 @@
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@RestControllerAdvice</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">ExceptionController</span> <span class="o">{</span>
-    <span class="kd">private</span> <span class="kd">final</span> <span class="n">ResultMap</span> <span class="n">resultMap</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">ResultMap</span> <span class="n">resultMap</span><span class="o">;</span>
 
     <span class="nd">@Autowired</span>
-    <span class="kd">public</span> <span class="nf">ExceptionController</span><span class="o">(</span><span class="n">ResultMap</span> <span class="n">resultMap</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">ExceptionController</span><span class="o">(</span><span class="nc">ResultMap</span> <span class="n">resultMap</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">resultMap</span> <span class="o">=</span> <span class="n">resultMap</span><span class="o">;</span>
     <span class="o">}</span>
 
     <span class="c1">// 捕捉 CustomRealm 抛出的异常</span>
-    <span class="nd">@ExceptionHandler</span><span class="o">(</span><span class="n">AccountException</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
-    <span class="kd">public</span> <span class="n">ResultMap</span> <span class="nf">handleShiroException</span><span class="o">(</span><span class="n">Exception</span> <span class="n">ex</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nd">@ExceptionHandler</span><span class="o">(</span><span class="nc">AccountException</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="nc">ResultMap</span> <span class="nf">handleShiroException</span><span class="o">(</span><span class="nc">Exception</span> <span class="n">ex</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">return</span> <span class="n">resultMap</span><span class="o">.</span><span class="na">fail</span><span class="o">().</span><span class="na">message</span><span class="o">(</span><span class="n">ex</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
     <span class="o">}</span>
 <span class="o">}</span>
@@ -512,22 +512,22 @@
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@RestController</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">LoginController</span> <span class="o">{</span>
     <span class="nd">@Autowired</span>    
-    <span class="kd">private</span> <span class="n">ResultMap</span> <span class="n">resultMap</span><span class="o">;</span>
-    <span class="kd">private</span> <span class="n">UserMapper</span> <span class="n">userMapper</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">ResultMap</span> <span class="n">resultMap</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">UserMapper</span> <span class="n">userMapper</span><span class="o">;</span>
 
-    <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"/notLogin"</span><span class="o">,</span> <span class="n">method</span> <span class="o">=</span> <span class="n">RequestMethod</span><span class="o">.</span><span class="na">GET</span><span class="o">)</span>
-    <span class="kd">public</span> <span class="n">ResultMap</span> <span class="nf">notLogin</span><span class="o">()</span> <span class="o">{</span>
+    <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"/notLogin"</span><span class="o">,</span> <span class="n">method</span> <span class="o">=</span> <span class="nc">RequestMethod</span><span class="o">.</span><span class="na">GET</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="nc">ResultMap</span> <span class="nf">notLogin</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">return</span> <span class="n">resultMap</span><span class="o">.</span><span class="na">success</span><span class="o">().</span><span class="na">message</span><span class="o">(</span><span class="s">"您尚未登陆！"</span><span class="o">);</span>
     <span class="o">}</span>
 
-    <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"/notRole"</span><span class="o">,</span> <span class="n">method</span> <span class="o">=</span> <span class="n">RequestMethod</span><span class="o">.</span><span class="na">GET</span><span class="o">)</span>
-    <span class="kd">public</span> <span class="n">ResultMap</span> <span class="nf">notRole</span><span class="o">()</span> <span class="o">{</span>
+    <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"/notRole"</span><span class="o">,</span> <span class="n">method</span> <span class="o">=</span> <span class="nc">RequestMethod</span><span class="o">.</span><span class="na">GET</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="nc">ResultMap</span> <span class="nf">notRole</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">return</span> <span class="n">resultMap</span><span class="o">.</span><span class="na">success</span><span class="o">().</span><span class="na">message</span><span class="o">(</span><span class="s">"您没有权限！"</span><span class="o">);</span>
     <span class="o">}</span>
 
-    <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"/logout"</span><span class="o">,</span> <span class="n">method</span> <span class="o">=</span> <span class="n">RequestMethod</span><span class="o">.</span><span class="na">GET</span><span class="o">)</span>
-    <span class="kd">public</span> <span class="n">ResultMap</span> <span class="nf">logout</span><span class="o">()</span> <span class="o">{</span>
-        <span class="n">Subject</span> <span class="n">subject</span> <span class="o">=</span> <span class="n">SecurityUtils</span><span class="o">.</span><span class="na">getSubject</span><span class="o">();</span>
+    <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"/logout"</span><span class="o">,</span> <span class="n">method</span> <span class="o">=</span> <span class="nc">RequestMethod</span><span class="o">.</span><span class="na">GET</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="nc">ResultMap</span> <span class="nf">logout</span><span class="o">()</span> <span class="o">{</span>
+        <span class="nc">Subject</span> <span class="n">subject</span> <span class="o">=</span> <span class="nc">SecurityUtils</span><span class="o">.</span><span class="na">getSubject</span><span class="o">();</span>
         <span class="c1">//注销</span>
         <span class="n">subject</span><span class="o">.</span><span class="na">logout</span><span class="o">();</span>
         <span class="k">return</span> <span class="n">resultMap</span><span class="o">.</span><span class="na">success</span><span class="o">().</span><span class="na">message</span><span class="o">(</span><span class="s">"成功注销！"</span><span class="o">);</span>
@@ -539,16 +539,16 @@
      * @param username 用户名
      * @param password 密码
      */</span>
-    <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"/login"</span><span class="o">,</span> <span class="n">method</span> <span class="o">=</span> <span class="n">RequestMethod</span><span class="o">.</span><span class="na">POST</span><span class="o">)</span>
-    <span class="kd">public</span> <span class="n">ResultMap</span> <span class="nf">login</span><span class="o">(</span><span class="n">String</span> <span class="n">username</span><span class="o">,</span> <span class="n">String</span> <span class="n">password</span><span class="o">)</span> <span class="o">{</span>
+    <span class="nd">@RequestMapping</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"/login"</span><span class="o">,</span> <span class="n">method</span> <span class="o">=</span> <span class="nc">RequestMethod</span><span class="o">.</span><span class="na">POST</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="nc">ResultMap</span> <span class="nf">login</span><span class="o">(</span><span class="nc">String</span> <span class="n">username</span><span class="o">,</span> <span class="nc">String</span> <span class="n">password</span><span class="o">)</span> <span class="o">{</span>
         <span class="c1">// 从SecurityUtils里边创建一个 subject</span>
-        <span class="n">Subject</span> <span class="n">subject</span> <span class="o">=</span> <span class="n">SecurityUtils</span><span class="o">.</span><span class="na">getSubject</span><span class="o">();</span>
+        <span class="nc">Subject</span> <span class="n">subject</span> <span class="o">=</span> <span class="nc">SecurityUtils</span><span class="o">.</span><span class="na">getSubject</span><span class="o">();</span>
         <span class="c1">// 在认证提交前准备 token（令牌）</span>
-        <span class="n">UsernamePasswordToken</span> <span class="n">token</span> <span class="o">=</span> <span class="k">new</span> <span class="n">UsernamePasswordToken</span><span class="o">(</span><span class="n">username</span><span class="o">,</span> <span class="n">password</span><span class="o">);</span>
+        <span class="nc">UsernamePasswordToken</span> <span class="n">token</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">UsernamePasswordToken</span><span class="o">(</span><span class="n">username</span><span class="o">,</span> <span class="n">password</span><span class="o">);</span>
         <span class="c1">// 执行认证登陆</span>
         <span class="n">subject</span><span class="o">.</span><span class="na">login</span><span class="o">(</span><span class="n">token</span><span class="o">);</span>
         <span class="c1">//根据权限，指定返回数据</span>
-        <span class="n">String</span> <span class="n">role</span> <span class="o">=</span> <span class="n">userMapper</span><span class="o">.</span><span class="na">getRole</span><span class="o">(</span><span class="n">username</span><span class="o">);</span>
+        <span class="nc">String</span> <span class="n">role</span> <span class="o">=</span> <span class="n">userMapper</span><span class="o">.</span><span class="na">getRole</span><span class="o">(</span><span class="n">username</span><span class="o">);</span>
         <span class="k">if</span> <span class="o">(</span><span class="s">"user"</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">role</span><span class="o">))</span> <span class="o">{</span>
             <span class="k">return</span> <span class="n">resultMap</span><span class="o">.</span><span class="na">success</span><span class="o">().</span><span class="na">message</span><span class="o">(</span><span class="s">"欢迎登陆"</span><span class="o">);</span>
         <span class="o">}</span>
@@ -665,13 +665,13 @@
                             
         				
                             
-                				<a href="/tags/#自我总结" title="自我总结" rel="34">
+                				<a href="/tags/#自我总结" title="自我总结" rel="36">
                                     自我总结
                                 </a>
                             
         				
                             
-                				<a href="/tags/#编程之路" title="编程之路" rel="88">
+                				<a href="/tags/#编程之路" title="编程之路" rel="92">
                                     编程之路
                                 </a>
                             
@@ -782,6 +782,8 @@
                 				<a href="/tags/#MongoDB" title="MongoDB" rel="2">
                                     MongoDB
                                 </a>
+                            
+        				
                             
         				
                             
@@ -938,7 +940,7 @@
                     
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; MY Blog 2019
+                    Copyright &copy; MY Blog 2020
                     <br>
                     Theme on <a href="https://github.com/uniquezhangqi/uniquezhangqi.github.io.git">GitHub</a> |
                     <iframe

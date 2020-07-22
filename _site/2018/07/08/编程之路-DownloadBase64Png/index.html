@@ -243,26 +243,26 @@
     <span class="kd">function</span> <span class="nx">downloadPng</span><span class="p">()</span> <span class="p">{</span>
         <span class="kd">let</span> <span class="nx">imgData</span><span class="p">,</span>
         <span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
-            <span class="na">type</span><span class="p">:</span> <span class="s2">"POST"</span><span class="p">,</span>
-            <span class="na">url</span><span class="p">:</span> <span class="s2">"后台接口"</span><span class="p">,</span>
+            <span class="na">type</span><span class="p">:</span> <span class="dl">"</span><span class="s2">POST</span><span class="dl">"</span><span class="p">,</span>
+            <span class="na">url</span><span class="p">:</span> <span class="dl">"</span><span class="s2">后台接口</span><span class="dl">"</span><span class="p">,</span>
             <span class="na">async</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
             <span class="na">data</span><span class="p">:</span> <span class="p">{</span><span class="na">id</span><span class="p">:</span> <span class="nx">id</span><span class="p">},</span>
             <span class="na">success</span><span class="p">:</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">downloadUrl</span><span class="p">)</span> <span class="p">{</span>
-                <span class="nx">imgData</span> <span class="o">=</span> <span class="s1">'data:image/png;base64,'</span> <span class="o">+</span> <span class="nx">downloadUrl</span><span class="p">;</span>
+                <span class="nx">imgData</span> <span class="o">=</span> <span class="dl">'</span><span class="s1">data:image/png;base64,</span><span class="dl">'</span> <span class="o">+</span> <span class="nx">downloadUrl</span><span class="p">;</span>
             <span class="p">}</span>
         <span class="p">});</span>
-        <span class="k">this</span><span class="p">.</span><span class="nx">downloadFile</span><span class="p">(</span><span class="s1">'二维码.png'</span><span class="p">,</span> <span class="nx">imgData</span><span class="p">);</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">downloadFile</span><span class="p">(</span><span class="dl">'</span><span class="s1">二维码.png</span><span class="dl">'</span><span class="p">,</span> <span class="nx">imgData</span><span class="p">);</span>
     <span class="p">}</span>
 
     <span class="c1">//下载</span>
     <span class="kd">function</span> <span class="nx">downloadFile</span><span class="p">(</span><span class="nx">fileName</span><span class="p">,</span> <span class="nx">content</span><span class="p">)</span> <span class="p">{</span>
-        <span class="kd">let</span> <span class="nx">aLink</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">'a'</span><span class="p">);</span>
+        <span class="kd">let</span> <span class="nx">aLink</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="dl">'</span><span class="s1">a</span><span class="dl">'</span><span class="p">);</span>
         <span class="c1">//new Blob([content]);</span>
         <span class="kd">let</span> <span class="nx">blob</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">base64ToBlob</span><span class="p">(</span><span class="nx">content</span><span class="p">);</span>
 
-        <span class="kd">let</span> <span class="nx">evt</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createEvent</span><span class="p">(</span><span class="s2">"HTMLEvents"</span><span class="p">);</span>
+        <span class="kd">let</span> <span class="nx">evt</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">createEvent</span><span class="p">(</span><span class="dl">"</span><span class="s2">HTMLEvents</span><span class="dl">"</span><span class="p">);</span>
         <span class="c1">//initEvent 不加后两个参数在FF下会报错  事件类型，是否冒泡，是否阻止浏览器的默认行为</span>
-        <span class="nx">evt</span><span class="p">.</span><span class="nx">initEvent</span><span class="p">(</span><span class="s2">"click"</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+        <span class="nx">evt</span><span class="p">.</span><span class="nx">initEvent</span><span class="p">(</span><span class="dl">"</span><span class="s2">click</span><span class="dl">"</span><span class="p">,</span> <span class="kc">true</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
         <span class="nx">aLink</span><span class="p">.</span><span class="nx">download</span> <span class="o">=</span> <span class="nx">fileName</span><span class="p">;</span>
         <span class="nx">aLink</span><span class="p">.</span><span class="nx">href</span> <span class="o">=</span> <span class="nx">URL</span><span class="p">.</span><span class="nx">createObjectURL</span><span class="p">(</span><span class="nx">blob</span><span class="p">);</span>
 
@@ -272,8 +272,8 @@
 
     <span class="c1">//base64转blob</span>
     <span class="kd">function</span> <span class="nx">base64ToBlob</span><span class="p">(</span><span class="nx">code</span><span class="p">)</span> <span class="p">{</span>
-        <span class="kd">let</span> <span class="nx">parts</span> <span class="o">=</span> <span class="nx">code</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s1">';base64,'</span><span class="p">);</span>
-        <span class="kd">let</span> <span class="nx">contentType</span> <span class="o">=</span> <span class="nx">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">split</span><span class="p">(</span><span class="s1">':'</span><span class="p">)[</span><span class="mi">1</span><span class="p">];</span>
+        <span class="kd">let</span> <span class="nx">parts</span> <span class="o">=</span> <span class="nx">code</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="dl">'</span><span class="s1">;base64,</span><span class="dl">'</span><span class="p">);</span>
+        <span class="kd">let</span> <span class="nx">contentType</span> <span class="o">=</span> <span class="nx">parts</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">split</span><span class="p">(</span><span class="dl">'</span><span class="s1">:</span><span class="dl">'</span><span class="p">)[</span><span class="mi">1</span><span class="p">];</span>
         <span class="kd">let</span> <span class="nx">raw</span> <span class="o">=</span> <span class="nb">window</span><span class="p">.</span><span class="nx">atob</span><span class="p">(</span><span class="nx">parts</span><span class="p">[</span><span class="mi">1</span><span class="p">]);</span>
         <span class="kd">let</span> <span class="nx">rawLength</span> <span class="o">=</span> <span class="nx">raw</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
 
@@ -292,42 +292,42 @@
 	<span class="cm">/**
 	 * 二维码宽度(默认)
 	 */</span>
-	<span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span>                         <span class="n">WIDTH</span>   <span class="o">=</span> <span class="mi">300</span><span class="o">;</span>
+	<span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span>                         <span class="no">WIDTH</span>   <span class="o">=</span> <span class="mi">300</span><span class="o">;</span>
 	<span class="cm">/**
 	 * 二维码高度(默认)
 	 */</span>
-	<span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span>                         <span class="n">HEIGHT</span>  <span class="o">=</span> <span class="mi">300</span><span class="o">;</span>
+	<span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span>                         <span class="no">HEIGHT</span>  <span class="o">=</span> <span class="mi">300</span><span class="o">;</span>
 	<span class="cm">/**
 	 * 二维码文件格式
 	 */</span>
-	<span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span>                      <span class="n">FORMAT</span>  <span class="o">=</span> <span class="s">"png"</span><span class="o">;</span>
+	<span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="nc">String</span>                      <span class="no">FORMAT</span>  <span class="o">=</span> <span class="s">"png"</span><span class="o">;</span>
 	<span class="cm">/**
 	 * 二维码参数
 	 */</span>
-	<span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">EncodeHintType</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="n">hints</span>   <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">();</span>
+	<span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="nc">Map</span><span class="o">&lt;</span><span class="nc">EncodeHintType</span><span class="o">,</span> <span class="nc">Object</span><span class="o">&gt;</span> <span class="n">hints</span>   <span class="o">=</span> <span class="k">new</span> <span class="nc">HashMap</span><span class="o">();</span>
 	<span class="cm">/**
 	 * 默认是黑色
 	 */</span>
-	<span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span>                         <span class="n">QRCOLOR</span> <span class="o">=</span> <span class="mh">0xFF000000</span><span class="o">;</span>
+	<span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span>                         <span class="no">QRCOLOR</span> <span class="o">=</span> <span class="mh">0xFF000000</span><span class="o">;</span>
 	<span class="cm">/**
 	 * 背景颜色
 	 */</span>
-	<span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span>                         <span class="n">BGWHITE</span> <span class="o">=</span> <span class="mh">0xFFFFFFFF</span><span class="o">;</span>
+	<span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span>                         <span class="no">BGWHITE</span> <span class="o">=</span> <span class="mh">0xFFFFFFFF</span><span class="o">;</span>
 
 	<span class="kd">static</span> <span class="o">{</span>
 		<span class="c1">//字符编码</span>
-		<span class="n">hints</span><span class="o">.</span><span class="na">put</span><span class="o">(</span> <span class="n">EncodeHintType</span><span class="o">.</span><span class="na">CHARACTER_SET</span><span class="o">,</span> <span class="s">"utf-8"</span> <span class="o">);</span>
+		<span class="n">hints</span><span class="o">.</span><span class="na">put</span><span class="o">(</span> <span class="nc">EncodeHintType</span><span class="o">.</span><span class="na">CHARACTER_SET</span><span class="o">,</span> <span class="s">"utf-8"</span> <span class="o">);</span>
 		<span class="c1">//容错等级 H为最高</span>
-		<span class="n">hints</span><span class="o">.</span><span class="na">put</span><span class="o">(</span> <span class="n">EncodeHintType</span><span class="o">.</span><span class="na">ERROR_CORRECTION</span><span class="o">,</span> <span class="n">ErrorCorrectionLevel</span><span class="o">.</span><span class="na">H</span> <span class="o">);</span>
+		<span class="n">hints</span><span class="o">.</span><span class="na">put</span><span class="o">(</span> <span class="nc">EncodeHintType</span><span class="o">.</span><span class="na">ERROR_CORRECTION</span><span class="o">,</span> <span class="nc">ErrorCorrectionLevel</span><span class="o">.</span><span class="na">H</span> <span class="o">);</span>
 		<span class="c1">//边距</span>
-		<span class="n">hints</span><span class="o">.</span><span class="na">put</span><span class="o">(</span> <span class="n">EncodeHintType</span><span class="o">.</span><span class="na">MARGIN</span><span class="o">,</span> <span class="mi">2</span> <span class="o">);</span>
+		<span class="n">hints</span><span class="o">.</span><span class="na">put</span><span class="o">(</span> <span class="nc">EncodeHintType</span><span class="o">.</span><span class="na">MARGIN</span><span class="o">,</span> <span class="mi">2</span> <span class="o">);</span>
 	<span class="o">}</span>
 
-	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
 		<span class="k">try</span> <span class="o">{</span>
-			<span class="n">String</span> <span class="n">a</span> <span class="o">=</span> <span class="n">getLogoQRCode</span><span class="o">(</span> <span class="s">"https://www.baidu.com/"</span><span class="o">,</span> <span class="s">"跳转到百度的二维码"</span> <span class="o">);</span>
+			<span class="nc">String</span> <span class="n">a</span> <span class="o">=</span> <span class="n">getLogoQRCode</span><span class="o">(</span> <span class="s">"https://www.baidu.com/"</span><span class="o">,</span> <span class="s">"跳转到百度的二维码"</span> <span class="o">);</span>
 			<span class="n">log</span><span class="o">.</span><span class="na">info</span><span class="o">(</span> <span class="s">"------------------:"</span> <span class="o">+</span> <span class="n">a</span> <span class="o">);</span>
-		<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+		<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
 			<span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
 		<span class="o">}</span>
 	<span class="o">}</span>
@@ -339,18 +339,18 @@
 	 * @param productName
 	 * @return
 	 */</span>
-	<span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="nf">getLogoQRCode</span><span class="o">(</span><span class="n">String</span> <span class="n">qrUrl</span><span class="o">,</span> <span class="n">String</span> <span class="n">productName</span><span class="o">)</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="nc">String</span> <span class="nf">getLogoQRCode</span><span class="o">(</span><span class="nc">String</span> <span class="n">qrUrl</span><span class="o">,</span> <span class="nc">String</span> <span class="n">productName</span><span class="o">)</span> <span class="o">{</span>
 		<span class="c1">//      String filePath = (javax.servlet.http.HttpServletRequest)request.getSession().getServletContext().getRealPath("/") + "resources/static/code/logo.png";</span>
 		<span class="c1">//      String filePath = "ClassPath:/resources/static/code/logo.png";  //这个路径有问题，到时候看直接弄绝对路径</span>
 		<span class="c1">//filePath是二维码logo的路径，但是实际中我们是放在项目的某个路径下面的，所以路径用上面的，把下面的注释就好</span>
-		<span class="n">String</span> <span class="n">filePath</span> <span class="o">=</span> <span class="s">"绝对路径"</span><span class="o">;</span>
+		<span class="nc">String</span> <span class="n">filePath</span> <span class="o">=</span> <span class="s">"绝对路径"</span><span class="o">;</span>
 
-		<span class="n">String</span> <span class="n">content</span> <span class="o">=</span> <span class="n">qrUrl</span><span class="o">;</span>
+		<span class="nc">String</span> <span class="n">content</span> <span class="o">=</span> <span class="n">qrUrl</span><span class="o">;</span>
 		<span class="k">try</span> <span class="o">{</span>
-			<span class="n">ZXingCode</span> <span class="n">zp</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ZXingCode</span><span class="o">();</span>
-			<span class="n">BufferedImage</span> <span class="n">bim</span> <span class="o">=</span> <span class="n">zp</span><span class="o">.</span><span class="na">getQR_CODEBufferedImage</span><span class="o">(</span> <span class="n">content</span><span class="o">,</span> <span class="n">BarcodeFormat</span><span class="o">.</span><span class="na">QR_CODE</span><span class="o">,</span> <span class="mi">400</span><span class="o">,</span> <span class="mi">400</span><span class="o">,</span> <span class="n">zp</span><span class="o">.</span><span class="na">getDecodeHintType</span><span class="o">()</span> <span class="o">);</span>
-			<span class="k">return</span> <span class="n">zp</span><span class="o">.</span><span class="na">addLogo_QRCode</span><span class="o">(</span> <span class="n">bim</span><span class="o">,</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span> <span class="n">filePath</span> <span class="o">),</span> <span class="k">new</span> <span class="n">LogoConfig</span><span class="o">(),</span> <span class="n">productName</span> <span class="o">);</span>
-		<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+			<span class="nc">ZXingCode</span> <span class="n">zp</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ZXingCode</span><span class="o">();</span>
+			<span class="nc">BufferedImage</span> <span class="n">bim</span> <span class="o">=</span> <span class="n">zp</span><span class="o">.</span><span class="na">getQR_CODEBufferedImage</span><span class="o">(</span> <span class="n">content</span><span class="o">,</span> <span class="nc">BarcodeFormat</span><span class="o">.</span><span class="na">QR_CODE</span><span class="o">,</span> <span class="mi">400</span><span class="o">,</span> <span class="mi">400</span><span class="o">,</span> <span class="n">zp</span><span class="o">.</span><span class="na">getDecodeHintType</span><span class="o">()</span> <span class="o">);</span>
+			<span class="k">return</span> <span class="n">zp</span><span class="o">.</span><span class="na">addLogo_QRCode</span><span class="o">(</span> <span class="n">bim</span><span class="o">,</span> <span class="k">new</span> <span class="nc">File</span><span class="o">(</span> <span class="n">filePath</span> <span class="o">),</span> <span class="k">new</span> <span class="nc">LogoConfig</span><span class="o">(),</span> <span class="n">productName</span> <span class="o">);</span>
+		<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
 			<span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
 		<span class="o">}</span>
 		<span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
@@ -364,9 +364,9 @@
 	 * @param width   宽
 	 * @param height  高
 	 */</span>
-	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">writeToStream</span><span class="o">(</span><span class="n">String</span> <span class="n">content</span><span class="o">,</span> <span class="n">OutputStream</span> <span class="n">stream</span><span class="o">,</span> <span class="kt">int</span> <span class="n">width</span><span class="o">,</span> <span class="kt">int</span> <span class="n">height</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">WriterException</span><span class="o">,</span> <span class="n">IOException</span> <span class="o">{</span>
-		<span class="n">BitMatrix</span> <span class="n">bitMatrix</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MultiFormatWriter</span><span class="o">().</span><span class="na">encode</span><span class="o">(</span> <span class="n">content</span><span class="o">,</span> <span class="n">BarcodeFormat</span><span class="o">.</span><span class="na">QR_CODE</span><span class="o">,</span> <span class="n">width</span><span class="o">,</span> <span class="n">height</span><span class="o">,</span> <span class="n">hints</span> <span class="o">);</span>
-		<span class="n">MatrixToImageWriter</span><span class="o">.</span><span class="na">writeToStream</span><span class="o">(</span> <span class="n">bitMatrix</span><span class="o">,</span> <span class="n">FORMAT</span><span class="o">,</span> <span class="n">stream</span> <span class="o">);</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">writeToStream</span><span class="o">(</span><span class="nc">String</span> <span class="n">content</span><span class="o">,</span> <span class="nc">OutputStream</span> <span class="n">stream</span><span class="o">,</span> <span class="kt">int</span> <span class="n">width</span><span class="o">,</span> <span class="kt">int</span> <span class="n">height</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">WriterException</span><span class="o">,</span> <span class="nc">IOException</span> <span class="o">{</span>
+		<span class="nc">BitMatrix</span> <span class="n">bitMatrix</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">MultiFormatWriter</span><span class="o">().</span><span class="na">encode</span><span class="o">(</span> <span class="n">content</span><span class="o">,</span> <span class="nc">BarcodeFormat</span><span class="o">.</span><span class="na">QR_CODE</span><span class="o">,</span> <span class="n">width</span><span class="o">,</span> <span class="n">height</span><span class="o">,</span> <span class="n">hints</span> <span class="o">);</span>
+		<span class="nc">MatrixToImageWriter</span><span class="o">.</span><span class="na">writeToStream</span><span class="o">(</span> <span class="n">bitMatrix</span><span class="o">,</span> <span class="no">FORMAT</span><span class="o">,</span> <span class="n">stream</span> <span class="o">);</span>
 	<span class="o">}</span>
 
 	<span class="cm">/**
@@ -378,18 +378,18 @@
 	 * @param productName
 	 * @return
 	 */</span>
-	<span class="kd">public</span> <span class="n">String</span> <span class="nf">addLogo_QRCode</span><span class="o">(</span><span class="n">BufferedImage</span> <span class="n">bim</span><span class="o">,</span> <span class="n">File</span> <span class="n">logoPic</span><span class="o">,</span> <span class="n">LogoConfig</span> <span class="n">logoConfig</span><span class="o">,</span> <span class="n">String</span> <span class="n">productName</span><span class="o">)</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="nc">String</span> <span class="nf">addLogo_QRCode</span><span class="o">(</span><span class="nc">BufferedImage</span> <span class="n">bim</span><span class="o">,</span> <span class="nc">File</span> <span class="n">logoPic</span><span class="o">,</span> <span class="nc">LogoConfig</span> <span class="n">logoConfig</span><span class="o">,</span> <span class="nc">String</span> <span class="n">productName</span><span class="o">)</span> <span class="o">{</span>
 		<span class="k">try</span> <span class="o">{</span>
 			<span class="cm">/**
 			 * 读取二维码图片，并构建绘图对象
 			 */</span>
-			<span class="n">BufferedImage</span> <span class="n">image</span> <span class="o">=</span> <span class="n">bim</span><span class="o">;</span>
-			<span class="n">Graphics2D</span> <span class="n">g</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="na">createGraphics</span><span class="o">();</span>
+			<span class="nc">BufferedImage</span> <span class="n">image</span> <span class="o">=</span> <span class="n">bim</span><span class="o">;</span>
+			<span class="nc">Graphics2D</span> <span class="n">g</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="na">createGraphics</span><span class="o">();</span>
 
 			<span class="cm">/**
 			 * 读取Logo图片
 			 */</span>
-			<span class="n">BufferedImage</span> <span class="n">logo</span> <span class="o">=</span> <span class="n">ImageIO</span><span class="o">.</span><span class="na">read</span><span class="o">(</span> <span class="n">logoPic</span> <span class="o">);</span>
+			<span class="nc">BufferedImage</span> <span class="n">logo</span> <span class="o">=</span> <span class="nc">ImageIO</span><span class="o">.</span><span class="na">read</span><span class="o">(</span> <span class="n">logoPic</span> <span class="o">);</span>
 			<span class="cm">/**
 			 * 设置logo的大小,本人设置为二维码图片的20%,因为过大会盖掉二维码
 			 */</span>
@@ -418,30 +418,30 @@
 			<span class="c1">//把商品名称添加上去，商品名称不要太长哦，这里最多支持两行。太长就会自动截取啦</span>
 			<span class="k">if</span> <span class="o">(</span><span class="n">productName</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">productName</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span> <span class="s">""</span> <span class="o">))</span> <span class="o">{</span>
 				<span class="c1">//新的图片，把带logo的二维码下面加上文字</span>
-				<span class="n">BufferedImage</span> <span class="n">outImage</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedImage</span><span class="o">(</span> <span class="mi">400</span><span class="o">,</span> <span class="mi">445</span><span class="o">,</span> <span class="n">BufferedImage</span><span class="o">.</span><span class="na">TYPE_4BYTE_ABGR</span> <span class="o">);</span>
-				<span class="n">Graphics2D</span> <span class="n">outg</span> <span class="o">=</span> <span class="n">outImage</span><span class="o">.</span><span class="na">createGraphics</span><span class="o">();</span>
+				<span class="nc">BufferedImage</span> <span class="n">outImage</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">BufferedImage</span><span class="o">(</span> <span class="mi">400</span><span class="o">,</span> <span class="mi">445</span><span class="o">,</span> <span class="nc">BufferedImage</span><span class="o">.</span><span class="na">TYPE_4BYTE_ABGR</span> <span class="o">);</span>
+				<span class="nc">Graphics2D</span> <span class="n">outg</span> <span class="o">=</span> <span class="n">outImage</span><span class="o">.</span><span class="na">createGraphics</span><span class="o">();</span>
 				<span class="c1">//画二维码到新的面板</span>
 				<span class="n">outg</span><span class="o">.</span><span class="na">drawImage</span><span class="o">(</span> <span class="n">image</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="n">image</span><span class="o">.</span><span class="na">getWidth</span><span class="o">(),</span> <span class="n">image</span><span class="o">.</span><span class="na">getHeight</span><span class="o">(),</span> <span class="kc">null</span> <span class="o">);</span>
 				<span class="c1">//画文字到新的面板</span>
-				<span class="n">outg</span><span class="o">.</span><span class="na">setColor</span><span class="o">(</span> <span class="n">Color</span><span class="o">.</span><span class="na">BLACK</span> <span class="o">);</span>
+				<span class="n">outg</span><span class="o">.</span><span class="na">setColor</span><span class="o">(</span> <span class="nc">Color</span><span class="o">.</span><span class="na">BLACK</span> <span class="o">);</span>
 				<span class="c1">//字体、字型、字号</span>
-				<span class="n">outg</span><span class="o">.</span><span class="na">setFont</span><span class="o">(</span> <span class="k">new</span> <span class="n">Font</span><span class="o">(</span> <span class="s">"宋体"</span><span class="o">,</span> <span class="n">Font</span><span class="o">.</span><span class="na">BOLD</span><span class="o">,</span> <span class="mi">30</span> <span class="o">)</span> <span class="o">);</span>
+				<span class="n">outg</span><span class="o">.</span><span class="na">setFont</span><span class="o">(</span> <span class="k">new</span> <span class="nc">Font</span><span class="o">(</span> <span class="s">"宋体"</span><span class="o">,</span> <span class="nc">Font</span><span class="o">.</span><span class="na">BOLD</span><span class="o">,</span> <span class="mi">30</span> <span class="o">)</span> <span class="o">);</span>
 				<span class="kt">int</span> <span class="n">strWidth</span> <span class="o">=</span> <span class="n">outg</span><span class="o">.</span><span class="na">getFontMetrics</span><span class="o">().</span><span class="na">stringWidth</span><span class="o">(</span> <span class="n">productName</span> <span class="o">);</span>
 				<span class="k">if</span> <span class="o">(</span><span class="n">strWidth</span> <span class="o">&gt;</span> <span class="mi">399</span><span class="o">)</span> <span class="o">{</span>
 					<span class="c1">//                  //长度过长就截取前面部分</span>
 					<span class="c1">//                  outg.drawString(productName, 0, image.getHeight() + (outImage.getHeight() - image.getHeight())/2 + 5 ); //画文字</span>
 					<span class="c1">//长度过长就换行</span>
-					<span class="n">String</span> <span class="n">productName1</span> <span class="o">=</span> <span class="n">productName</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span> <span class="mi">0</span><span class="o">,</span> <span class="n">productName</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">);</span>
-					<span class="n">String</span> <span class="n">productName2</span> <span class="o">=</span> <span class="n">productName</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span> <span class="n">productName</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">/</span> <span class="mi">2</span><span class="o">,</span> <span class="n">productName</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">);</span>
+					<span class="nc">String</span> <span class="n">productName1</span> <span class="o">=</span> <span class="n">productName</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span> <span class="mi">0</span><span class="o">,</span> <span class="n">productName</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">);</span>
+					<span class="nc">String</span> <span class="n">productName2</span> <span class="o">=</span> <span class="n">productName</span><span class="o">.</span><span class="na">substring</span><span class="o">(</span> <span class="n">productName</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">/</span> <span class="mi">2</span><span class="o">,</span> <span class="n">productName</span><span class="o">.</span><span class="na">length</span><span class="o">()</span> <span class="o">);</span>
 					<span class="kt">int</span> <span class="n">strWidth1</span> <span class="o">=</span> <span class="n">outg</span><span class="o">.</span><span class="na">getFontMetrics</span><span class="o">().</span><span class="na">stringWidth</span><span class="o">(</span> <span class="n">productName1</span> <span class="o">);</span>
 					<span class="kt">int</span> <span class="n">strWidth2</span> <span class="o">=</span> <span class="n">outg</span><span class="o">.</span><span class="na">getFontMetrics</span><span class="o">().</span><span class="na">stringWidth</span><span class="o">(</span> <span class="n">productName2</span> <span class="o">);</span>
 					<span class="n">outg</span><span class="o">.</span><span class="na">drawString</span><span class="o">(</span> <span class="n">productName1</span><span class="o">,</span> <span class="mi">200</span> <span class="o">-</span> <span class="n">strWidth1</span> <span class="o">/</span> <span class="mi">2</span><span class="o">,</span> <span class="n">image</span><span class="o">.</span><span class="na">getHeight</span><span class="o">()</span> <span class="o">+</span> <span class="o">(</span><span class="n">outImage</span><span class="o">.</span><span class="na">getHeight</span><span class="o">()</span> <span class="o">-</span> <span class="n">image</span><span class="o">.</span><span class="na">getHeight</span><span class="o">())</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">12</span> <span class="o">);</span>
-					<span class="n">BufferedImage</span> <span class="n">outImage2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedImage</span><span class="o">(</span> <span class="mi">400</span><span class="o">,</span> <span class="mi">485</span><span class="o">,</span> <span class="n">BufferedImage</span><span class="o">.</span><span class="na">TYPE_4BYTE_ABGR</span> <span class="o">);</span>
-					<span class="n">Graphics2D</span> <span class="n">outg2</span> <span class="o">=</span> <span class="n">outImage2</span><span class="o">.</span><span class="na">createGraphics</span><span class="o">();</span>
+					<span class="nc">BufferedImage</span> <span class="n">outImage2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">BufferedImage</span><span class="o">(</span> <span class="mi">400</span><span class="o">,</span> <span class="mi">485</span><span class="o">,</span> <span class="nc">BufferedImage</span><span class="o">.</span><span class="na">TYPE_4BYTE_ABGR</span> <span class="o">);</span>
+					<span class="nc">Graphics2D</span> <span class="n">outg2</span> <span class="o">=</span> <span class="n">outImage2</span><span class="o">.</span><span class="na">createGraphics</span><span class="o">();</span>
 					<span class="n">outg2</span><span class="o">.</span><span class="na">drawImage</span><span class="o">(</span> <span class="n">outImage</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="n">outImage</span><span class="o">.</span><span class="na">getWidth</span><span class="o">(),</span> <span class="n">outImage</span><span class="o">.</span><span class="na">getHeight</span><span class="o">(),</span> <span class="kc">null</span> <span class="o">);</span>
-					<span class="n">outg2</span><span class="o">.</span><span class="na">setColor</span><span class="o">(</span> <span class="n">Color</span><span class="o">.</span><span class="na">BLACK</span> <span class="o">);</span>
+					<span class="n">outg2</span><span class="o">.</span><span class="na">setColor</span><span class="o">(</span> <span class="nc">Color</span><span class="o">.</span><span class="na">BLACK</span> <span class="o">);</span>
 					<span class="c1">//字体、字型、字号</span>
-					<span class="n">outg2</span><span class="o">.</span><span class="na">setFont</span><span class="o">(</span> <span class="k">new</span> <span class="n">Font</span><span class="o">(</span> <span class="s">"宋体"</span><span class="o">,</span> <span class="n">Font</span><span class="o">.</span><span class="na">BOLD</span><span class="o">,</span> <span class="mi">30</span> <span class="o">)</span> <span class="o">);</span>
+					<span class="n">outg2</span><span class="o">.</span><span class="na">setFont</span><span class="o">(</span> <span class="k">new</span> <span class="nc">Font</span><span class="o">(</span> <span class="s">"宋体"</span><span class="o">,</span> <span class="nc">Font</span><span class="o">.</span><span class="na">BOLD</span><span class="o">,</span> <span class="mi">30</span> <span class="o">)</span> <span class="o">);</span>
 					<span class="n">outg2</span><span class="o">.</span><span class="na">drawString</span><span class="o">(</span> <span class="n">productName2</span><span class="o">,</span> <span class="mi">200</span> <span class="o">-</span> <span class="n">strWidth2</span> <span class="o">/</span> <span class="mi">2</span><span class="o">,</span>
 							<span class="n">outImage</span><span class="o">.</span><span class="na">getHeight</span><span class="o">()</span> <span class="o">+</span> <span class="o">(</span><span class="n">outImage2</span><span class="o">.</span><span class="na">getHeight</span><span class="o">()</span> <span class="o">-</span> <span class="n">outImage</span><span class="o">.</span><span class="na">getHeight</span><span class="o">())</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">+</span> <span class="mi">5</span> <span class="o">);</span>
 					<span class="n">outg2</span><span class="o">.</span><span class="na">dispose</span><span class="o">();</span>
@@ -457,22 +457,22 @@
 			<span class="o">}</span>
 			<span class="n">logo</span><span class="o">.</span><span class="na">flush</span><span class="o">();</span>
 			<span class="n">image</span><span class="o">.</span><span class="na">flush</span><span class="o">();</span>
-			<span class="n">ByteArrayOutputStream</span> <span class="n">baos</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ByteArrayOutputStream</span><span class="o">();</span>
+			<span class="nc">ByteArrayOutputStream</span> <span class="n">baos</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ByteArrayOutputStream</span><span class="o">();</span>
 			<span class="n">baos</span><span class="o">.</span><span class="na">flush</span><span class="o">();</span>
-			<span class="n">ImageIO</span><span class="o">.</span><span class="na">write</span><span class="o">(</span> <span class="n">image</span><span class="o">,</span> <span class="s">"png"</span><span class="o">,</span> <span class="n">baos</span> <span class="o">);</span>
+			<span class="nc">ImageIO</span><span class="o">.</span><span class="na">write</span><span class="o">(</span> <span class="n">image</span><span class="o">,</span> <span class="s">"png"</span><span class="o">,</span> <span class="n">baos</span> <span class="o">);</span>
 
             <span class="cm">/*
             二维码生成的路径
              */</span>
-			<span class="n">ImageIO</span><span class="o">.</span><span class="na">write</span><span class="o">(</span> <span class="n">image</span><span class="o">,</span> <span class="s">"png"</span><span class="o">,</span> <span class="k">new</span> <span class="n">File</span><span class="o">(</span>
-					<span class="s">"绝对路径"</span> <span class="o">+</span> <span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">()</span> <span class="o">+</span> <span class="s">".png"</span> <span class="o">)</span> <span class="o">);</span>
+			<span class="nc">ImageIO</span><span class="o">.</span><span class="na">write</span><span class="o">(</span> <span class="n">image</span><span class="o">,</span> <span class="s">"png"</span><span class="o">,</span> <span class="k">new</span> <span class="nc">File</span><span class="o">(</span>
+					<span class="s">"绝对路径"</span> <span class="o">+</span> <span class="nc">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">()</span> <span class="o">+</span> <span class="s">".png"</span> <span class="o">)</span> <span class="o">);</span>
 
-			<span class="n">BASE64Encoder</span> <span class="n">base64Encoder</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BASE64Encoder</span><span class="o">();</span>
-			<span class="n">String</span> <span class="n">imageBase64QRCode</span> <span class="o">=</span> <span class="n">base64Encoder</span><span class="o">.</span><span class="na">encode</span><span class="o">(</span> <span class="n">baos</span><span class="o">.</span><span class="na">toByteArray</span><span class="o">()</span> <span class="o">);</span>
+			<span class="nc">BASE64Encoder</span> <span class="n">base64Encoder</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">BASE64Encoder</span><span class="o">();</span>
+			<span class="nc">String</span> <span class="n">imageBase64QRCode</span> <span class="o">=</span> <span class="n">base64Encoder</span><span class="o">.</span><span class="na">encode</span><span class="o">(</span> <span class="n">baos</span><span class="o">.</span><span class="na">toByteArray</span><span class="o">()</span> <span class="o">);</span>
 
 			<span class="n">baos</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
 			<span class="k">return</span> <span class="n">imageBase64QRCode</span><span class="o">;</span>
-		<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+		<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
 			<span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
 		<span class="o">}</span>
 		<span class="k">return</span> <span class="s">""</span><span class="o">;</span>
@@ -484,11 +484,11 @@
 	 * @param bm
 	 * @return
 	 */</span>
-	<span class="kd">public</span> <span class="n">BufferedImage</span> <span class="nf">fileToBufferedImage</span><span class="o">(</span><span class="n">BitMatrix</span> <span class="n">bm</span><span class="o">)</span> <span class="o">{</span>
-		<span class="n">BufferedImage</span> <span class="n">image</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+	<span class="kd">public</span> <span class="nc">BufferedImage</span> <span class="nf">fileToBufferedImage</span><span class="o">(</span><span class="nc">BitMatrix</span> <span class="n">bm</span><span class="o">)</span> <span class="o">{</span>
+		<span class="nc">BufferedImage</span> <span class="n">image</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
 		<span class="k">try</span> <span class="o">{</span>
 			<span class="kt">int</span> <span class="n">w</span> <span class="o">=</span> <span class="n">bm</span><span class="o">.</span><span class="na">getWidth</span><span class="o">(),</span> <span class="n">h</span> <span class="o">=</span> <span class="n">bm</span><span class="o">.</span><span class="na">getHeight</span><span class="o">();</span>
-			<span class="n">image</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedImage</span><span class="o">(</span> <span class="n">w</span><span class="o">,</span> <span class="n">h</span><span class="o">,</span> <span class="n">BufferedImage</span><span class="o">.</span><span class="na">TYPE_INT_RGB</span> <span class="o">);</span>
+			<span class="n">image</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">BufferedImage</span><span class="o">(</span> <span class="n">w</span><span class="o">,</span> <span class="n">h</span><span class="o">,</span> <span class="nc">BufferedImage</span><span class="o">.</span><span class="na">TYPE_INT_RGB</span> <span class="o">);</span>
 
 			<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">w</span><span class="o">;</span> <span class="n">x</span><span class="o">++)</span> <span class="o">{</span>
 				<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="n">h</span><span class="o">;</span> <span class="n">y</span><span class="o">++)</span> <span class="o">{</span>
@@ -496,7 +496,7 @@
 				<span class="o">}</span>
 			<span class="o">}</span>
 
-		<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+		<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
 			<span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
 		<span class="o">}</span>
 		<span class="k">return</span> <span class="n">image</span><span class="o">;</span>
@@ -512,25 +512,25 @@
 	 * @param hints         设置参数
 	 * @return
 	 */</span>
-	<span class="kd">public</span> <span class="n">BufferedImage</span> <span class="nf">getQR_CODEBufferedImage</span><span class="o">(</span><span class="n">String</span> <span class="n">content</span><span class="o">,</span> <span class="n">BarcodeFormat</span> <span class="n">barcodeFormat</span><span class="o">,</span> <span class="kt">int</span> <span class="n">width</span><span class="o">,</span> <span class="kt">int</span> <span class="n">height</span><span class="o">,</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">EncodeHintType</span><span class="o">,</span> <span class="o">?&gt;</span> <span class="n">hints</span><span class="o">)</span> <span class="o">{</span>
-		<span class="n">MultiFormatWriter</span> <span class="n">multiFormatWriter</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
-		<span class="n">BitMatrix</span> <span class="n">bm</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
-		<span class="n">BufferedImage</span> <span class="n">image</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+	<span class="kd">public</span> <span class="nc">BufferedImage</span> <span class="nf">getQR_CODEBufferedImage</span><span class="o">(</span><span class="nc">String</span> <span class="n">content</span><span class="o">,</span> <span class="nc">BarcodeFormat</span> <span class="n">barcodeFormat</span><span class="o">,</span> <span class="kt">int</span> <span class="n">width</span><span class="o">,</span> <span class="kt">int</span> <span class="n">height</span><span class="o">,</span> <span class="nc">Map</span><span class="o">&lt;</span><span class="nc">EncodeHintType</span><span class="o">,</span> <span class="o">?&gt;</span> <span class="n">hints</span><span class="o">)</span> <span class="o">{</span>
+		<span class="nc">MultiFormatWriter</span> <span class="n">multiFormatWriter</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="nc">BitMatrix</span> <span class="n">bm</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="nc">BufferedImage</span> <span class="n">image</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
 		<span class="k">try</span> <span class="o">{</span>
-			<span class="n">multiFormatWriter</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MultiFormatWriter</span><span class="o">();</span>
+			<span class="n">multiFormatWriter</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">MultiFormatWriter</span><span class="o">();</span>
 			<span class="c1">// 参数顺序分别为：编码内容，编码类型，生成图片宽度，生成图片高度，设置参数</span>
 			<span class="n">bm</span> <span class="o">=</span> <span class="n">multiFormatWriter</span><span class="o">.</span><span class="na">encode</span><span class="o">(</span> <span class="n">content</span><span class="o">,</span> <span class="n">barcodeFormat</span><span class="o">,</span> <span class="n">width</span><span class="o">,</span> <span class="n">height</span><span class="o">,</span> <span class="n">hints</span> <span class="o">);</span>
 			<span class="kt">int</span> <span class="n">w</span> <span class="o">=</span> <span class="n">bm</span><span class="o">.</span><span class="na">getWidth</span><span class="o">();</span>
 			<span class="kt">int</span> <span class="n">h</span> <span class="o">=</span> <span class="n">bm</span><span class="o">.</span><span class="na">getHeight</span><span class="o">();</span>
-			<span class="n">image</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BufferedImage</span><span class="o">(</span> <span class="n">w</span><span class="o">,</span> <span class="n">h</span><span class="o">,</span> <span class="n">BufferedImage</span><span class="o">.</span><span class="na">TYPE_INT_RGB</span> <span class="o">);</span>
+			<span class="n">image</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">BufferedImage</span><span class="o">(</span> <span class="n">w</span><span class="o">,</span> <span class="n">h</span><span class="o">,</span> <span class="nc">BufferedImage</span><span class="o">.</span><span class="na">TYPE_INT_RGB</span> <span class="o">);</span>
 
 			<span class="c1">// 开始利用二维码数据创建Bitmap图片，分别设为黑（0xFFFFFFFF）白（0xFF000000）两色</span>
 			<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">x</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">w</span><span class="o">;</span> <span class="n">x</span><span class="o">++)</span> <span class="o">{</span>
 				<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">y</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="n">h</span><span class="o">;</span> <span class="n">y</span><span class="o">++)</span> <span class="o">{</span>
-					<span class="n">image</span><span class="o">.</span><span class="na">setRGB</span><span class="o">(</span> <span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">,</span> <span class="n">bm</span><span class="o">.</span><span class="na">get</span><span class="o">(</span> <span class="n">x</span><span class="o">,</span> <span class="n">y</span> <span class="o">)</span> <span class="o">?</span> <span class="n">QRCOLOR</span> <span class="o">:</span> <span class="n">BGWHITE</span> <span class="o">);</span>
+					<span class="n">image</span><span class="o">.</span><span class="na">setRGB</span><span class="o">(</span> <span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">,</span> <span class="n">bm</span><span class="o">.</span><span class="na">get</span><span class="o">(</span> <span class="n">x</span><span class="o">,</span> <span class="n">y</span> <span class="o">)</span> <span class="o">?</span> <span class="no">QRCOLOR</span> <span class="o">:</span> <span class="no">BGWHITE</span> <span class="o">);</span>
 				<span class="o">}</span>
 			<span class="o">}</span>
-		<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">WriterException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+		<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">WriterException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
 			<span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
 		<span class="o">}</span>
 		<span class="k">return</span> <span class="n">image</span><span class="o">;</span>
@@ -541,16 +541,16 @@
 	 *
 	 * @return
 	 */</span>
-	<span class="kd">public</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">EncodeHintType</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="nf">getDecodeHintType</span><span class="o">()</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="nc">Map</span><span class="o">&lt;</span><span class="nc">EncodeHintType</span><span class="o">,</span> <span class="nc">Object</span><span class="o">&gt;</span> <span class="nf">getDecodeHintType</span><span class="o">()</span> <span class="o">{</span>
 		<span class="c1">// 用于设置QR二维码参数</span>
-		<span class="n">Map</span><span class="o">&lt;</span><span class="n">EncodeHintType</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="n">hints</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;</span><span class="n">EncodeHintType</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;(</span> <span class="mi">16</span> <span class="o">);</span>
+		<span class="nc">Map</span><span class="o">&lt;</span><span class="nc">EncodeHintType</span><span class="o">,</span> <span class="nc">Object</span><span class="o">&gt;</span> <span class="n">hints</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">HashMap</span><span class="o">&lt;</span><span class="nc">EncodeHintType</span><span class="o">,</span> <span class="nc">Object</span><span class="o">&gt;(</span> <span class="mi">16</span> <span class="o">);</span>
 		<span class="c1">// 设置QR二维码的纠错级别（H为最高级别）具体级别信息</span>
-		<span class="n">hints</span><span class="o">.</span><span class="na">put</span><span class="o">(</span> <span class="n">EncodeHintType</span><span class="o">.</span><span class="na">ERROR_CORRECTION</span><span class="o">,</span> <span class="n">ErrorCorrectionLevel</span><span class="o">.</span><span class="na">H</span> <span class="o">);</span>
+		<span class="n">hints</span><span class="o">.</span><span class="na">put</span><span class="o">(</span> <span class="nc">EncodeHintType</span><span class="o">.</span><span class="na">ERROR_CORRECTION</span><span class="o">,</span> <span class="nc">ErrorCorrectionLevel</span><span class="o">.</span><span class="na">H</span> <span class="o">);</span>
 		<span class="c1">// 设置编码方式</span>
-		<span class="n">hints</span><span class="o">.</span><span class="na">put</span><span class="o">(</span> <span class="n">EncodeHintType</span><span class="o">.</span><span class="na">CHARACTER_SET</span><span class="o">,</span> <span class="s">"utf-8"</span> <span class="o">);</span>
-		<span class="n">hints</span><span class="o">.</span><span class="na">put</span><span class="o">(</span> <span class="n">EncodeHintType</span><span class="o">.</span><span class="na">MARGIN</span><span class="o">,</span> <span class="mi">0</span> <span class="o">);</span>
-		<span class="n">hints</span><span class="o">.</span><span class="na">put</span><span class="o">(</span> <span class="n">EncodeHintType</span><span class="o">.</span><span class="na">MAX_SIZE</span><span class="o">,</span> <span class="mi">350</span> <span class="o">);</span>
-		<span class="n">hints</span><span class="o">.</span><span class="na">put</span><span class="o">(</span> <span class="n">EncodeHintType</span><span class="o">.</span><span class="na">MIN_SIZE</span><span class="o">,</span> <span class="mi">100</span> <span class="o">);</span>
+		<span class="n">hints</span><span class="o">.</span><span class="na">put</span><span class="o">(</span> <span class="nc">EncodeHintType</span><span class="o">.</span><span class="na">CHARACTER_SET</span><span class="o">,</span> <span class="s">"utf-8"</span> <span class="o">);</span>
+		<span class="n">hints</span><span class="o">.</span><span class="na">put</span><span class="o">(</span> <span class="nc">EncodeHintType</span><span class="o">.</span><span class="na">MARGIN</span><span class="o">,</span> <span class="mi">0</span> <span class="o">);</span>
+		<span class="n">hints</span><span class="o">.</span><span class="na">put</span><span class="o">(</span> <span class="nc">EncodeHintType</span><span class="o">.</span><span class="na">MAX_SIZE</span><span class="o">,</span> <span class="mi">350</span> <span class="o">);</span>
+		<span class="n">hints</span><span class="o">.</span><span class="na">put</span><span class="o">(</span> <span class="nc">EncodeHintType</span><span class="o">.</span><span class="na">MIN_SIZE</span><span class="o">,</span> <span class="mi">100</span> <span class="o">);</span>
 
 		<span class="k">return</span> <span class="n">hints</span><span class="o">;</span>
 	<span class="o">}</span>
@@ -558,14 +558,14 @@
 
 <span class="kd">class</span> <span class="nc">LogoConfig</span> <span class="o">{</span>
 	<span class="c1">// logo默认边框颜色</span>
-	<span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Color</span> <span class="n">DEFAULT_BORDERCOLOR</span> <span class="o">=</span> <span class="n">Color</span><span class="o">.</span><span class="na">WHITE</span><span class="o">;</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="nc">Color</span> <span class="no">DEFAULT_BORDERCOLOR</span> <span class="o">=</span> <span class="nc">Color</span><span class="o">.</span><span class="na">WHITE</span><span class="o">;</span>
 	<span class="c1">// logo默认边框宽度</span>
-	<span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span>   <span class="n">DEFAULT_BORDER</span>      <span class="o">=</span> <span class="mi">2</span><span class="o">;</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span>   <span class="no">DEFAULT_BORDER</span>      <span class="o">=</span> <span class="mi">2</span><span class="o">;</span>
 	<span class="c1">// logo大小默认为照片的1/5</span>
-	<span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span>   <span class="n">DEFAULT_LOGOPART</span>    <span class="o">=</span> <span class="mi">5</span><span class="o">;</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kd">final</span> <span class="kt">int</span>   <span class="no">DEFAULT_LOGOPART</span>    <span class="o">=</span> <span class="mi">5</span><span class="o">;</span>
 
-	<span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span>   <span class="n">border</span> <span class="o">=</span> <span class="n">DEFAULT_BORDER</span><span class="o">;</span>
-	<span class="kd">private</span> <span class="kd">final</span> <span class="n">Color</span> <span class="n">borderColor</span><span class="o">;</span>
+	<span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span>   <span class="n">border</span> <span class="o">=</span> <span class="no">DEFAULT_BORDER</span><span class="o">;</span>
+	<span class="kd">private</span> <span class="kd">final</span> <span class="nc">Color</span> <span class="n">borderColor</span><span class="o">;</span>
 	<span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span>   <span class="n">logoPart</span><span class="o">;</span>
 
 	<span class="cm">/**
@@ -573,15 +573,15 @@
 	 * , generating normal black-on-white barcodes.
 	 */</span>
 	<span class="kd">public</span> <span class="nf">LogoConfig</span><span class="o">()</span> <span class="o">{</span>
-		<span class="k">this</span><span class="o">(</span> <span class="n">DEFAULT_BORDERCOLOR</span><span class="o">,</span> <span class="n">DEFAULT_LOGOPART</span> <span class="o">);</span>
+		<span class="k">this</span><span class="o">(</span> <span class="no">DEFAULT_BORDERCOLOR</span><span class="o">,</span> <span class="no">DEFAULT_LOGOPART</span> <span class="o">);</span>
 	<span class="o">}</span>
 
-	<span class="kd">public</span> <span class="nf">LogoConfig</span><span class="o">(</span><span class="n">Color</span> <span class="n">borderColor</span><span class="o">,</span> <span class="kt">int</span> <span class="n">logoPart</span><span class="o">)</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="nf">LogoConfig</span><span class="o">(</span><span class="nc">Color</span> <span class="n">borderColor</span><span class="o">,</span> <span class="kt">int</span> <span class="n">logoPart</span><span class="o">)</span> <span class="o">{</span>
 		<span class="k">this</span><span class="o">.</span><span class="na">borderColor</span> <span class="o">=</span> <span class="n">borderColor</span><span class="o">;</span>
 		<span class="k">this</span><span class="o">.</span><span class="na">logoPart</span> <span class="o">=</span> <span class="n">logoPart</span><span class="o">;</span>
 	<span class="o">}</span>
 
-	<span class="kd">public</span> <span class="n">Color</span> <span class="nf">getBorderColor</span><span class="o">()</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="nc">Color</span> <span class="nf">getBorderColor</span><span class="o">()</span> <span class="o">{</span>
 		<span class="k">return</span> <span class="n">borderColor</span><span class="o">;</span>
 	<span class="o">}</span>
 
@@ -618,9 +618,9 @@
                     
                     
                     <li class="next">
-                        <a href="/2018/07/10/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Java8%E4%B9%8B%E5%89%8D%E7%89%88%E6%9C%AC%E7%9A%84%E7%89%B9%E6%80%A7/" data-toggle="tooltip" data-placement="top" title="Java8之前版本的特性">
+                        <a href="/2018/07/10/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Java8%E4%B9%8B%E5%89%8D%E7%89%88%E6%9C%AC%E7%9A%84%E7%89%B9%E6%80%A7/" data-toggle="tooltip" data-placement="top" title="Java8之前版本的特性比较">
                         Next<br>
-                        <span>Java8之前版本的特性</span>
+                        <span>Java8之前版本的特性比较</span>
                         </a>
                     </li>
                     
@@ -680,13 +680,13 @@
                             
         				
                             
-                				<a href="/tags/#自我总结" title="自我总结" rel="34">
+                				<a href="/tags/#自我总结" title="自我总结" rel="36">
                                     自我总结
                                 </a>
                             
         				
                             
-                				<a href="/tags/#编程之路" title="编程之路" rel="88">
+                				<a href="/tags/#编程之路" title="编程之路" rel="92">
                                     编程之路
                                 </a>
                             
@@ -797,6 +797,8 @@
                 				<a href="/tags/#MongoDB" title="MongoDB" rel="2">
                                     MongoDB
                                 </a>
+                            
+        				
                             
         				
                             
@@ -953,7 +955,7 @@
                     
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; MY Blog 2019
+                    Copyright &copy; MY Blog 2020
                     <br>
                     Theme on <a href="https://github.com/uniquezhangqi/uniquezhangqi.github.io.git">GitHub</a> |
                     <iframe

@@ -219,13 +219,13 @@
   <li>表示一个工作，要执行的具体内容。此接口中只有一个方法。要创建一个任务，必须得实现这个接口。该接口只有一个execute方法，任务每次被调用的时候都会执行这个execute方法的逻辑，类似TimerTask的run方法，在里面编写业务逻辑。</li>
 </ul>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">TestJob</span> <span class="kd">implements</span> <span class="n">Job</span> <span class="o">{</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">TestJob</span> <span class="kd">implements</span> <span class="nc">Job</span> <span class="o">{</span>
       <span class="cm">/**把要执行的操作，写在execute方法中  */</span>
       <span class="nd">@Override</span>
-      <span class="kd">public</span> <span class="kt">void</span> <span class="nf">execute</span><span class="o">(</span><span class="n">JobExecutionContext</span> <span class="n">jobExecutionContext</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">JobExecutionException</span> <span class="o">{</span>
-          <span class="n">SimpleDateFormat</span> <span class="n">sdf</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SimpleDateFormat</span><span class="o">(</span><span class="s">"yyyy-MM-dd hh:mm:ss"</span><span class="o">);</span>
-          <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"I can do something..."</span><span class="o">);</span>
-          <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">sdf</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="k">new</span> <span class="n">Date</span><span class="o">()));</span>
+      <span class="kd">public</span> <span class="kt">void</span> <span class="nf">execute</span><span class="o">(</span><span class="nc">JobExecutionContext</span> <span class="n">jobExecutionContext</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">JobExecutionException</span> <span class="o">{</span>
+          <span class="nc">SimpleDateFormat</span> <span class="n">sdf</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">SimpleDateFormat</span><span class="o">(</span><span class="s">"yyyy-MM-dd hh:mm:ss"</span><span class="o">);</span>
+          <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"I can do something..."</span><span class="o">);</span>
+          <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">sdf</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="k">new</span> <span class="nc">Date</span><span class="o">()));</span>
       <span class="o">}</span>
   <span class="o">}</span>
 </code></pre></div></div>
@@ -235,19 +235,19 @@
   <li>JobBuilder：可向任务传递数据,通常情况下,我们使用它就可向任务类发送数据了，如有特别复杂的传递参数,它提供了一个传递递:JobDataMap对象的方法</li>
 </ul>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">JobDetail</span> <span class="n">jobDetail</span> <span class="o">=</span>  <span class="n">JobBuilder</span><span class="o">.</span><span class="na">newJob</span><span class="o">(</span><span class="n">TestJob</span><span class="o">.</span><span class="na">class</span><span class="o">).</span><span class="na">withIdentity</span><span class="o">(</span><span class="s">"testJob"</span><span class="o">,</span><span class="s">"group1"</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">JobDetail</span> <span class="n">jobDetail</span> <span class="o">=</span>  <span class="nc">JobBuilder</span><span class="o">.</span><span class="na">newJob</span><span class="o">(</span><span class="nc">TestJob</span><span class="o">.</span><span class="na">class</span><span class="o">).</span><span class="na">withIdentity</span><span class="o">(</span><span class="s">"testJob"</span><span class="o">,</span><span class="s">"group1"</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
 </code></pre></div></div>
 
 <h4 id="jobdetail">JobDetail</h4>
 <ul>
-  <li>详细的任务描述，包括名称，关联的<code class="highlighter-rouge">Job</code>，<code class="highlighter-rouge">Job</code>运行时所需要的参数等。<br /></li>
+  <li>详细的任务描述，包括名称，关联的<code class="language-plaintext highlighter-rouge">Job</code>，<code class="language-plaintext highlighter-rouge">Job</code>运行时所需要的参数等。<br /></li>
   <li>用来保存我们任务的详细信息。一个JobDetail可以有多个Trigger，但是一个Trigger只能对应一个JobDetail。下面是JobDetail的一些常用的属性和含义：
 <img src="https://ws3.sinaimg.cn/large/006tNc79gy1fpdyweyl0mj30iq05p74a.jpg" alt="" /></li>
 </ul>
 
 <h4 id="trigger">Trigger</h4>
 
-<p>任务调度器，描述什么时候执行<code class="highlighter-rouge">Job</code>，多久执行一次。</p>
+<p>任务调度器，描述什么时候执行<code class="language-plaintext highlighter-rouge">Job</code>，多久执行一次。</p>
 
 <ul>
   <li>SimpleTrigger 设置重复次数，重复执行间隔时长</li>
@@ -267,18 +267,18 @@
 </ul>
 
 <h4 id="scheduler">Scheduler</h4>
-<p>　　调度容器，<code class="highlighter-rouge">Job</code>与<code class="highlighter-rouge">Trigger</code>都需要在容器中注册，被容器统一管理。<br />
+<p>　　调度容器，<code class="language-plaintext highlighter-rouge">Job</code>与<code class="language-plaintext highlighter-rouge">Trigger</code>都需要在容器中注册，被容器统一管理。<br />
 　　代表一个Quartz的独立运行容器，Trigger和JobDetail可以注册到Scheduler中，两者在Scheduler中拥有各自的组及名称，组及名称是Scheduler查找定位容器中某一对象的依据，Trigger的组及名称必须唯一，JobDetail的组和名称也必须唯一（但可以和Trigger的组和名称相同，因为它们是不同类型的）。Scheduler定义了多个接口方法，允许外部通过组及名称访问和控制容器中Trigger和JobDetail。<br />
 　　Scheduler可以将Trigger绑定到某一JobDetail中，这样当Trigger触发时，对应的Job就被执行。一个Job可以对应多个Trigger，但一个Trigger只能对应一个Job。<br />
 　　可以通过SchedulerFactory创建一个Scheduler实例。Scheduler拥有一个SchedulerContext，它类似于ServletContext，保存着Scheduler上下文信息，Job和Trigger都可以访问SchedulerContext内的信息。SchedulerContext内部通过一个Map，以键值对的方式维护这些上下文数据，SchedulerContext为保存和获取数据提供了多个put()和getXxx()的方法。可以通过Scheduler# getContext()获取对应的SchedulerContext实例；</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">SchedulerFactory</span> <span class="n">schedulerfactory</span><span class="o">=</span><span class="k">new</span> <span class="n">StdSchedulerFactory</span><span class="o">();</span>
-    <span class="n">Scheduler</span> <span class="n">scheduler</span> <span class="o">=</span> <span class="n">schedulerfactory</span><span class="o">.</span><span class="na">getScheduler</span><span class="o">();</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">SchedulerFactory</span> <span class="n">schedulerfactory</span><span class="o">=</span><span class="k">new</span> <span class="nc">StdSchedulerFactory</span><span class="o">();</span>
+    <span class="nc">Scheduler</span> <span class="n">scheduler</span> <span class="o">=</span> <span class="n">schedulerfactory</span><span class="o">.</span><span class="na">getScheduler</span><span class="o">();</span>
 
-    <span class="n">DirectSchedulerFactory</span> <span class="n">factory</span> <span class="o">=</span> <span class="n">DirectSchedulerFactory</span><span class="o">.</span><span class="na">getInstance</span><span class="o">();</span>
+    <span class="nc">DirectSchedulerFactory</span> <span class="n">factory</span> <span class="o">=</span> <span class="nc">DirectSchedulerFactory</span><span class="o">.</span><span class="na">getInstance</span><span class="o">();</span>
     <span class="k">try</span> <span class="o">{</span>
-        <span class="n">Scheduler</span> <span class="n">scheduler</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="na">getScheduler</span><span class="o">();</span>
-    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">SchedulerException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">Scheduler</span> <span class="n">scheduler</span> <span class="o">=</span> <span class="n">factory</span><span class="o">.</span><span class="na">getScheduler</span><span class="o">();</span>
+    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">SchedulerException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
         <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
     <span class="o">}</span>
 </code></pre></div></div>
@@ -464,7 +464,7 @@
 
 <h4 id="quartzmanager">QuartzManager</h4>
 
-<p>QuartzManager中我封装了很多方法，包括<code class="highlighter-rouge">Job</code>，<code class="highlighter-rouge">Trigger</code>的添加，删除，修改等，这里只列举了其中一个。</p>
+<p>QuartzManager中我封装了很多方法，包括<code class="language-plaintext highlighter-rouge">Job</code>，<code class="language-plaintext highlighter-rouge">Trigger</code>的添加，删除，修改等，这里只列举了其中一个。</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">QuartzManager</span> <span class="o">{</span>
     <span class="cm">/**
@@ -479,27 +479,27 @@
      * @param triggerCron  触发器Cron表示式
      * @return
      */</span>
-    <span class="kd">public</span> <span class="n">Boolean</span> <span class="nf">addJob</span><span class="o">(</span><span class="n">String</span> <span class="n">jobName</span><span class="o">,</span> <span class="n">String</span> <span class="n">jobGroup</span><span class="o">,</span> <span class="n">Class</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="n">Job</span><span class="o">&gt;</span> <span class="n">jobClass</span><span class="o">,</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="n">jobData</span><span class="o">,</span> 
-                            <span class="n">String</span> <span class="n">triggerName</span><span class="o">,</span> <span class="n">String</span> <span class="n">triggerGroup</span><span class="o">,</span> <span class="n">String</span> <span class="n">triggerCron</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nc">Boolean</span> <span class="nf">addJob</span><span class="o">(</span><span class="nc">String</span> <span class="n">jobName</span><span class="o">,</span> <span class="nc">String</span> <span class="n">jobGroup</span><span class="o">,</span> <span class="nc">Class</span><span class="o">&lt;?</span> <span class="kd">extends</span> <span class="nc">Job</span><span class="o">&gt;</span> <span class="n">jobClass</span><span class="o">,</span> <span class="nc">Map</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">Object</span><span class="o">&gt;</span> <span class="n">jobData</span><span class="o">,</span> 
+                            <span class="nc">String</span> <span class="n">triggerName</span><span class="o">,</span> <span class="nc">String</span> <span class="n">triggerGroup</span><span class="o">,</span> <span class="nc">String</span> <span class="n">triggerCron</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">try</span> <span class="o">{</span>
             <span class="c1">// 任务名，任务组，任务执行类</span>
-            <span class="n">JobDetail</span> <span class="n">jobDetail</span> <span class="o">=</span> <span class="n">JobBuilder</span><span class="o">.</span><span class="na">newJob</span><span class="o">(</span><span class="n">jobClass</span><span class="o">).</span><span class="na">withIdentity</span><span class="o">(</span><span class="n">jobName</span><span class="o">,</span> <span class="n">jobGroup</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
+            <span class="nc">JobDetail</span> <span class="n">jobDetail</span> <span class="o">=</span> <span class="nc">JobBuilder</span><span class="o">.</span><span class="na">newJob</span><span class="o">(</span><span class="n">jobClass</span><span class="o">).</span><span class="na">withIdentity</span><span class="o">(</span><span class="n">jobName</span><span class="o">,</span> <span class="n">jobGroup</span><span class="o">).</span><span class="na">build</span><span class="o">();</span>
             <span class="k">if</span> <span class="o">(</span><span class="n">jobData</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">jobData</span><span class="o">.</span><span class="na">size</span><span class="o">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">)</span>
                 <span class="n">jobDetail</span><span class="o">.</span><span class="na">getJobDataMap</span><span class="o">().</span><span class="na">putAll</span><span class="o">(</span><span class="n">jobData</span><span class="o">);</span>
 
             <span class="c1">// 触发器</span>
-            <span class="n">TriggerBuilder</span><span class="o">&lt;</span><span class="n">Trigger</span><span class="o">&gt;</span> <span class="n">triggerBuilder</span> <span class="o">=</span> <span class="n">TriggerBuilder</span><span class="o">.</span><span class="na">newTrigger</span><span class="o">();</span>
+            <span class="nc">TriggerBuilder</span><span class="o">&lt;</span><span class="nc">Trigger</span><span class="o">&gt;</span> <span class="n">triggerBuilder</span> <span class="o">=</span> <span class="nc">TriggerBuilder</span><span class="o">.</span><span class="na">newTrigger</span><span class="o">();</span>
             <span class="c1">// 触发器名,触发器组</span>
             <span class="n">triggerBuilder</span><span class="o">.</span><span class="na">withIdentity</span><span class="o">(</span><span class="n">triggerName</span><span class="o">,</span> <span class="n">triggerGroup</span><span class="o">);</span>
             <span class="c1">// 触发器时间设定</span>
-            <span class="n">triggerBuilder</span><span class="o">.</span><span class="na">withSchedule</span><span class="o">(</span><span class="n">CronScheduleBuilder</span><span class="o">.</span><span class="na">cronSchedule</span><span class="o">(</span><span class="n">triggerCron</span><span class="o">));</span>
+            <span class="n">triggerBuilder</span><span class="o">.</span><span class="na">withSchedule</span><span class="o">(</span><span class="nc">CronScheduleBuilder</span><span class="o">.</span><span class="na">cronSchedule</span><span class="o">(</span><span class="n">triggerCron</span><span class="o">));</span>
             <span class="c1">// 创建Trigger对象</span>
-            <span class="n">CronTrigger</span> <span class="n">trigger</span> <span class="o">=</span> <span class="o">(</span><span class="n">CronTrigger</span><span class="o">)</span> <span class="n">triggerBuilder</span><span class="o">.</span><span class="na">build</span><span class="o">();</span>
+            <span class="nc">CronTrigger</span> <span class="n">trigger</span> <span class="o">=</span> <span class="o">(</span><span class="nc">CronTrigger</span><span class="o">)</span> <span class="n">triggerBuilder</span><span class="o">.</span><span class="na">build</span><span class="o">();</span>
 
             <span class="c1">// 调度容器设置JobDetail和Trigger</span>
             <span class="n">scheduler</span><span class="o">.</span><span class="na">scheduleJob</span><span class="o">(</span><span class="n">jobDetail</span><span class="o">,</span> <span class="n">trigger</span><span class="o">);</span>
             <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
-        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">SchedulerException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">SchedulerException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
             <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
             <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
         <span class="o">}</span>
@@ -510,15 +510,15 @@
 
 <h4 id="myjob">MyJob</h4>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyJob</span> <span class="kd">implements</span> <span class="n">Job</span> <span class="o">{</span>
-    <span class="kd">private</span> <span class="kd">final</span> <span class="n">DateFormat</span> <span class="n">df</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SimpleDateFormat</span><span class="o">(</span><span class="s">"yyyy-MM-dd HH:mm:ss.SSS"</span><span class="o">);</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">MyJob</span> <span class="kd">implements</span> <span class="nc">Job</span> <span class="o">{</span>
+    <span class="kd">private</span> <span class="kd">final</span> <span class="nc">DateFormat</span> <span class="n">df</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">SimpleDateFormat</span><span class="o">(</span><span class="s">"yyyy-MM-dd HH:mm:ss.SSS"</span><span class="o">);</span>
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">execute</span><span class="o">(</span><span class="n">JobExecutionContext</span> <span class="n">jobExecutionContext</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">JobExecutionException</span> <span class="o">{</span>
-        <span class="n">JobDetail</span> <span class="n">jobDetail</span> <span class="o">=</span> <span class="n">jobExecutionContext</span><span class="o">.</span><span class="na">getJobDetail</span><span class="o">();</span>
-        <span class="n">JobDataMap</span> <span class="n">jobDataMap</span> <span class="o">=</span> <span class="n">jobDetail</span><span class="o">.</span><span class="na">getJobDataMap</span><span class="o">();</span>
-        <span class="n">String</span> <span class="n">x</span> <span class="o">=</span> <span class="n">jobDataMap</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="s">"x"</span><span class="o">);</span>
-        <span class="n">String</span> <span class="n">y</span> <span class="o">=</span> <span class="n">jobDataMap</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="s">"y"</span><span class="o">);</span>
-        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">"%s x=%s, y=%s"</span><span class="o">,</span> <span class="n">df</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="k">new</span> <span class="n">Date</span><span class="o">()),</span> <span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">));</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">execute</span><span class="o">(</span><span class="nc">JobExecutionContext</span> <span class="n">jobExecutionContext</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">JobExecutionException</span> <span class="o">{</span>
+        <span class="nc">JobDetail</span> <span class="n">jobDetail</span> <span class="o">=</span> <span class="n">jobExecutionContext</span><span class="o">.</span><span class="na">getJobDetail</span><span class="o">();</span>
+        <span class="nc">JobDataMap</span> <span class="n">jobDataMap</span> <span class="o">=</span> <span class="n">jobDetail</span><span class="o">.</span><span class="na">getJobDataMap</span><span class="o">();</span>
+        <span class="nc">String</span> <span class="n">x</span> <span class="o">=</span> <span class="n">jobDataMap</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="s">"x"</span><span class="o">);</span>
+        <span class="nc">String</span> <span class="n">y</span> <span class="o">=</span> <span class="n">jobDataMap</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="s">"y"</span><span class="o">);</span>
+        <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="nc">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">"%s x=%s, y=%s"</span><span class="o">,</span> <span class="n">df</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="k">new</span> <span class="nc">Date</span><span class="o">()),</span> <span class="n">x</span><span class="o">,</span> <span class="n">y</span><span class="o">));</span>
     <span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div></div>
@@ -527,17 +527,17 @@
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">QuartzTest</span> <span class="o">{</span>
     <span class="nd">@Test</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">test</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
-        <span class="n">SchedulerFactory</span> <span class="n">schedulerFactory</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StdSchedulerFactory</span><span class="o">();</span>
-        <span class="n">Scheduler</span> <span class="n">scheduler</span> <span class="o">=</span> <span class="n">schedulerFactory</span><span class="o">.</span><span class="na">getScheduler</span><span class="o">();</span>
-        <span class="n">QuartzManager</span> <span class="n">quartzManager</span> <span class="o">=</span> <span class="k">new</span> <span class="n">QuartzManager</span><span class="o">(</span><span class="n">scheduler</span><span class="o">);</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">test</span><span class="o">()</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
+        <span class="nc">SchedulerFactory</span> <span class="n">schedulerFactory</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">StdSchedulerFactory</span><span class="o">();</span>
+        <span class="nc">Scheduler</span> <span class="n">scheduler</span> <span class="o">=</span> <span class="n">schedulerFactory</span><span class="o">.</span><span class="na">getScheduler</span><span class="o">();</span>
+        <span class="nc">QuartzManager</span> <span class="n">quartzManager</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">QuartzManager</span><span class="o">(</span><span class="n">scheduler</span><span class="o">);</span>
 
         <span class="c1">// 每1000毫秒执行一次，重复执行3次，共执行4次</span>
-        <span class="n">quartzManager</span><span class="o">.</span><span class="na">addJob</span><span class="o">(</span><span class="s">"myJob"</span><span class="o">,</span> <span class="s">"test"</span><span class="o">,</span> <span class="n">MyJob</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">Collections</span><span class="o">.</span><span class="na">singletonMap</span><span class="o">(</span><span class="s">"x"</span><span class="o">,</span> <span class="s">"1"</span><span class="o">),</span> <span class="mi">1000L</span><span class="o">,</span> <span class="mi">3</span><span class="o">);</span>
+        <span class="n">quartzManager</span><span class="o">.</span><span class="na">addJob</span><span class="o">(</span><span class="s">"myJob"</span><span class="o">,</span> <span class="s">"test"</span><span class="o">,</span> <span class="nc">MyJob</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="nc">Collections</span><span class="o">.</span><span class="na">singletonMap</span><span class="o">(</span><span class="s">"x"</span><span class="o">,</span> <span class="s">"1"</span><span class="o">),</span> <span class="mi">1000L</span><span class="o">,</span> <span class="mi">3</span><span class="o">);</span>
         <span class="n">quartzManager</span><span class="o">.</span><span class="na">startScheduler</span><span class="o">();</span>
 
-        <span class="k">while</span> <span class="o">(</span><span class="n">Thread</span><span class="o">.</span><span class="na">activeCount</span><span class="o">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">)</span>
-            <span class="n">Thread</span><span class="o">.</span><span class="na">yield</span><span class="o">();</span>
+        <span class="k">while</span> <span class="o">(</span><span class="nc">Thread</span><span class="o">.</span><span class="na">activeCount</span><span class="o">()</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="o">)</span>
+            <span class="nc">Thread</span><span class="o">.</span><span class="na">yield</span><span class="o">();</span>
     <span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div></div>
@@ -548,9 +548,9 @@
   <li>
     <p>先来了解一下Quartz的默认属性配置文件，默认配置如下：</p>
 
-    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="err">①集群的配置，这里不使用集群</span>
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="err">①</span><span class="n">集群的配置</span><span class="err">，</span><span class="n">这里不使用集群</span>
 	
- <span class="n">org</span><span class="o">.</span><span class="na">quartz</span><span class="o">.</span><span class="na">scheduler</span><span class="o">.</span><span class="na">instanceName</span> <span class="o">=</span> <span class="n">DefaultQuartzScheduler</span>
+ <span class="n">org</span><span class="o">.</span><span class="na">quartz</span><span class="o">.</span><span class="na">scheduler</span><span class="o">.</span><span class="na">instanceName</span> <span class="o">=</span> <span class="nc">DefaultQuartzScheduler</span>
 	
  <span class="n">org</span><span class="o">.</span><span class="na">quartz</span><span class="o">.</span><span class="na">scheduler</span><span class="o">.</span><span class="na">rmi</span><span class="o">.</span><span class="na">export</span> <span class="o">=</span> <span class="kc">false</span>
 	
@@ -558,7 +558,7 @@
 	
  <span class="n">org</span><span class="o">.</span><span class="na">quartz</span><span class="o">.</span><span class="na">scheduler</span><span class="o">.</span><span class="na">wrapJobExecutionInUserTransaction</span> <span class="o">=</span> <span class="kc">false</span>
 	
- <span class="err">②配置调度器的线程池</span>
+ <span class="err">②</span><span class="n">配置调度器的线程池</span>
 	
  <span class="n">org</span><span class="o">.</span><span class="na">quartz</span><span class="o">.</span><span class="na">threadPool</span><span class="o">.</span><span class="na">class</span> <span class="o">=</span> <span class="n">org</span><span class="o">.</span><span class="na">quartz</span><span class="o">.</span><span class="na">simpl</span><span class="o">.</span><span class="na">SimpleThreadPool</span>
 	
@@ -568,19 +568,19 @@
 	
  <span class="n">org</span><span class="o">.</span><span class="na">quartz</span><span class="o">.</span><span class="na">threadPool</span><span class="o">.</span><span class="na">threadsInheritContextClassLoaderOfInitializingThread</span> <span class="o">=</span> <span class="kc">true</span>
 	
- <span class="err">③配置任务调度现场数据保存机制</span>
+ <span class="err">③</span><span class="n">配置任务调度现场数据保存机制</span>
 	
  <span class="n">org</span><span class="o">.</span><span class="na">quartz</span><span class="o">.</span><span class="na">jobStore</span><span class="o">.</span><span class="na">class</span> <span class="o">=</span> <span class="n">org</span><span class="o">.</span><span class="na">quartz</span><span class="o">.</span><span class="na">simpl</span><span class="o">.</span><span class="na">RAMJobStore</span>
 	
- <span class="n">Quartz</span><span class="err">的属性配置文件主要包括三方面的信息：</span>
+ <span class="nc">Quartz的属性配置文件主要包括三方面的信息</span><span class="err">：</span>
 	
- <span class="mi">1</span><span class="o">)</span><span class="err">集群信息；</span>
+ <span class="mi">1</span><span class="o">)</span><span class="n">集群信息</span><span class="err">；</span>
 	
- <span class="mi">2</span><span class="o">)</span><span class="err">调度器线程池；</span>
+ <span class="mi">2</span><span class="o">)</span><span class="n">调度器线程池</span><span class="err">；</span>
 	
- <span class="mi">3</span><span class="o">)</span><span class="err">任务调度现场数据的保存。</span>
+ <span class="mi">3</span><span class="o">)</span><span class="n">任务调度现场数据的保存</span><span class="err">。</span>
 	
-    <span class="err">如果任务数目很大时，可以通过增大线程池的大小得到更好的性能。默认情况下，</span><span class="n">Quartz</span><span class="err">采用</span><span class="n">org</span><span class="o">.</span><span class="na">quartz</span><span class="o">.</span><span class="na">simpl</span><span class="o">.</span><span class="na">RAMJobStore</span><span class="err">保存任务的现场数据，顾名思义，信息保存在</span><span class="n">RAM</span><span class="err">内存中，我们可以通过以下设置将任务调度现场数据保存到数据库中。</span>
+    <span class="n">如果任务数目很大时</span><span class="err">，</span><span class="n">可以通过增大线程池的大小得到更好的性能</span><span class="err">。</span><span class="n">默认情况下</span><span class="err">，</span><span class="nc">Quartz采用org</span><span class="o">.</span><span class="na">quartz</span><span class="o">.</span><span class="na">simpl</span><span class="o">.</span><span class="na">RAMJobStore保存任务的现场数据</span><span class="err">，</span><span class="n">顾名思义</span><span class="err">，</span><span class="n">信息保存在RAM内存中</span><span class="err">，</span><span class="n">我们可以通过以下设置将任务调度现场数据保存到数据库中</span><span class="err">。</span>
 	     
 </code></pre></div>    </div>
   </li>
@@ -591,11 +591,11 @@
 	
  <span class="n">org</span><span class="o">.</span><span class="na">quartz</span><span class="o">.</span><span class="na">jobStore</span><span class="o">.</span><span class="na">class</span> <span class="o">=</span> <span class="n">org</span><span class="o">.</span><span class="na">quartz</span><span class="o">.</span><span class="na">impl</span><span class="o">.</span><span class="na">jdbcjobstore</span><span class="o">.</span><span class="na">JobStoreTX</span>
 	
- <span class="n">org</span><span class="o">.</span><span class="na">quartz</span><span class="o">.</span><span class="na">jobStore</span><span class="o">.</span><span class="na">tablePrefix</span> <span class="o">=</span> <span class="n">QRTZ_</span><span class="err">①数据表前缀</span>
+ <span class="n">org</span><span class="o">.</span><span class="na">quartz</span><span class="o">.</span><span class="na">jobStore</span><span class="o">.</span><span class="na">tablePrefix</span> <span class="o">=</span> <span class="no">QRTZ_</span><span class="err">①</span><span class="n">数据表前缀</span>
 	
- <span class="n">org</span><span class="o">.</span><span class="na">quartz</span><span class="o">.</span><span class="na">jobStore</span><span class="o">.</span><span class="na">dataSource</span> <span class="o">=</span> <span class="n">qzDS</span><span class="err">②数据源名称</span>
+ <span class="n">org</span><span class="o">.</span><span class="na">quartz</span><span class="o">.</span><span class="na">jobStore</span><span class="o">.</span><span class="na">dataSource</span> <span class="o">=</span> <span class="n">qzDS</span><span class="err">②</span><span class="n">数据源名称</span>
 	
- <span class="err">③定义数据源的具体属性</span>
+ <span class="err">③</span><span class="n">定义数据源的具体属性</span>
 	
  <span class="n">org</span><span class="o">.</span><span class="na">quartz</span><span class="o">.</span><span class="na">dataSource</span><span class="o">.</span><span class="na">qzDS</span><span class="o">.</span><span class="na">driver</span> <span class="o">=</span> <span class="n">oracle</span><span class="o">.</span><span class="na">jdbc</span><span class="o">.</span><span class="na">driver</span><span class="o">.</span><span class="na">OracleDriver</span>
 	
@@ -616,7 +616,7 @@
 
 <p><strong>仅供参考：</strong></p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Default Properties file for use by StdSchedulerFactory  
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># Default Properties file for use by StdSchedulerFactory  
 # to create a Quartz Scheduler Instance, if a different  
 # properties file is not explicitly specified.  
 #  
@@ -803,13 +803,13 @@ org.quartz.plugin.jobInitializer.wrapInUserTransaction = false
                             
         				
                             
-                				<a href="/tags/#自我总结" title="自我总结" rel="34">
+                				<a href="/tags/#自我总结" title="自我总结" rel="36">
                                     自我总结
                                 </a>
                             
         				
                             
-                				<a href="/tags/#编程之路" title="编程之路" rel="88">
+                				<a href="/tags/#编程之路" title="编程之路" rel="92">
                                     编程之路
                                 </a>
                             
@@ -920,6 +920,8 @@ org.quartz.plugin.jobInitializer.wrapInUserTransaction = false
                 				<a href="/tags/#MongoDB" title="MongoDB" rel="2">
                                     MongoDB
                                 </a>
+                            
+        				
                             
         				
                             
@@ -1076,7 +1078,7 @@ org.quartz.plugin.jobInitializer.wrapInUserTransaction = false
                     
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; MY Blog 2019
+                    Copyright &copy; MY Blog 2020
                     <br>
                     Theme on <a href="https://github.com/uniquezhangqi/uniquezhangqi.github.io.git">GitHub</a> |
                     <iframe

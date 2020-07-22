@@ -183,6 +183,177 @@
             ">
     			
 <div class="post-preview">
+    <a href="/2020/07/22/%E8%87%AA%E6%88%91%E6%80%BB%E7%BB%93-%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E6%80%BB%E7%BB%93(%E4%B8%80)/">
+        <h2 class="post-title">
+            测试按年分目录
+        </h2>
+        
+        <h3 class="post-subtitle">
+            Always on the way of programming.
+        </h3>
+        
+        <div class="post-content-preview">
+            test  测试
+
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Ian on July 22, 2020
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2019/06/04/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E6%97%A5%E5%B8%B8%E6%80%BB%E7%BB%93-list-%E5%8F%8Alombok%E9%9C%80%E6%B3%A8%E6%84%8F/">
+        <h2 class="post-title">
+            日常总结 list 及lombok需注意
+        </h2>
+        
+        <div class="post-content-preview">
+            
+  本文首次发布于My Blog,作者@张琦(Ian),转载请保留原文链接。
+
+
+lombok 注意的问题
+@Data相当于@Getter , @Setter ,@RequiredArgsConstructor, @ToString ,@EqualsAndHashCode这5个注解的合集。
+
+问题
+
+通过官方文档，可以得知，当使用@Data注解时，则有了@EqualsAndHashCode...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Ian on June 4, 2019
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2019/06/04/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-zipkin%E5%88%86%E5%B8%83%E5%BC%8F%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/">
+        <h2 class="post-title">
+            zipkin分布式链路追踪
+        </h2>
+        
+        <div class="post-content-preview">
+            
+  转载 dubbo集成zipkin：https://blog.csdn.net/wenj91/article/details/80926698
+
+
+介绍
+
+Zipkin是一款开源的分布式实时数据追踪系统（Distributed Tracking System），基于 Google Dapper的论文设计而来，由 Twitter 公司开发贡献。其主要功能是聚集来自各个异构系统的实时监控数据...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Ian on June 4, 2019
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2019/06/04/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-springboot%E5%8A%A8%E6%80%81%E6%95%B0%E6%8D%AE%E6%BA%90%E5%8A%A8%E6%80%81%E5%88%87%E6%8D%A2/">
+        <h2 class="post-title">
+            springboot动态数据源动态切换
+        </h2>
+        
+        <div class="post-content-preview">
+            前言
+
+
+详细原理请参考：原基于Spring Boot实现Mybatis的多数据源切换和动态数据源加载
+
+核心
+由于公司项目需求每一个新入驻商户需要一个独立的库，这就需要动态创建库，动态切换。
+
+经过一番查阅资料，使用核心东西就是通过 spring AbstractRoutingDataSource 为我们抽象了一个 DynamicDataSource 来解决这一问题的
+
+
+
+简单分析下 A...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Ian on June 4, 2019
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2019/06/03/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Java8%E6%96%B0%E7%89%B9%E6%80%A7%E6%8C%87%E5%8D%97/">
+        <h2 class="post-title">
+            自我总结Java8新特性
+        </h2>
+        
+        <h3 class="post-subtitle">
+            🧐
+        </h3>
+        
+        <div class="post-content-preview">
+            Z 昨天和大家一起回顾了Java8之前版本的特性 今天是Java 8 的新特性，后面工作使用中遇到问题的话，Z 会单独写，和大家一起学习。 右侧有目录 目录有滚动条，方便阅读。
+
+允许在接口中有默认方法实现
+
+Java 8 允许我们使用 default 关键字，为接口声明添加非抽象的方法实现。这个特性又被称为扩展方法。下面是我们的第一个例子：
+
+interface Formula{
+    ...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Ian on June 3, 2019
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2019/04/02/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-spring-%E4%B8%AD%E8%8E%B7%E5%8F%96%E6%B3%9B%E5%9E%8B/">
+        <h2 class="post-title">
+            spring 中获取泛型
+        </h2>
+        
+        <div class="post-content-preview">
+            private HashMap&lt;Integer, List&lt;String&gt;&gt; myMap;
+
+ public void example() {
+     ResolvableType t = ResolvableType.forField(getClass().getDeclaredField("myMap"));
+     t.getSuperType(); // ...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Ian on April 2, 2019
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2019/04/02/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-JSONObject-%E8%BD%AC-Map/">
+        <h2 class="post-title">
+            JSONObject 转 Map
+        </h2>
+        
+        <h3 class="post-subtitle">
+            常见应用场景调用第三方接口
+        </h3>
+        
+        <div class="post-content-preview">
+            
+  本文首次发布于My Blog,作者@张琦(Ian),转载请保留原文链接。
+
+
+JSONObject 转 Map 并使用 Lambda 表达式；应用场景：调用第三方接口。
+
+        JSONObject jsonObject = new JSONObject();
+        Object[] objects = {"1", "2", "3", "4"};
+        O...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Ian on April 2, 2019
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
     <a href="/2019/03/31/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F%E7%B3%BB%E7%BB%9F%E6%97%A5%E5%BF%97/">
         <h2 class="post-title">
             观察者模式系统日志
@@ -256,171 +427,6 @@ public class GlobalSetting {
 </div>
 <hr>
 
-<div class="post-preview">
-    <a href="/2019/03/31/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E9%98%B2%E9%87%8D/">
-        <h2 class="post-title">
-            防重
-        </h2>
-        
-        <div class="post-content-preview">
-            
-  本文首次发布于My Blog,作者@张琦(Ian),转载请保留原文链接。
-
-
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Ta...
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Ian on March 31, 2019
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2019/03/03/%E7%94%9F%E6%B4%BB-%E6%9C%80%E5%BC%BA%E5%A4%A7%E8%84%91-%E8%89%B2%E5%9D%97%E8%BF%B7%E8%B8%AA-%E8%96%9B%E8%BF%9C%E7%A8%8B%E8%A7%A3%E9%A2%98%E8%A7%A3%E6%9E%90/">
-        <h2 class="post-title">
-            最强大脑《色块迷踪》-- 薛远程解题解析
-        </h2>
-        
-        <div class="post-content-preview">
-            
-  本文首次发布于My Blog,作者@张琦(Ian),转载请保留原文链接。
-
-
-引言
-《最强大脑之燃烧吧大脑 第2季》  –  2019-03-01 第3期：中戏美女赢清华女博士 在大约1小时时段，这一期的的题目是《色块迷踪》。 前两期都没什么亮点，这期唯一的的亮点就是 薛远程。
-
-《色块迷踪》题目解析
-这个题目主要考的是节目里面各位大佬的空间力。简单解释就是给你一个  正方体，每一面都...
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Ian on March 3, 2019
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2019/03/02/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E6%90%AD%E5%BB%BAElasticSearch-6.6.1/">
-        <h2 class="post-title">
-            搭建ElasticSearch 6.6.1
-        </h2>
-        
-        <div class="post-content-preview">
-            
-  本文首次发布于My Blog,作者@张琦(Ian),转载请保留原文链接。
-
-
-引言
-虚拟机、服务器 系统请参考最下面的参考链接，下面安装只适用Mac book。
-
-安装ES
-
-
-  使用HomeBrew包管理器 安装 brew install elasticsearch.
-  官方文档：https://www.elastic.co/guide/cn/elasticsearch/guid...
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Ian on March 2, 2019
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2019/02/23/%E7%94%9F%E6%B4%BB-%E5%AE%9A%E6%8A%95%E5%9F%BA%E9%87%91/">
-        <h2 class="post-title">
-            定投基金
-        </h2>
-        
-        <div class="post-content-preview">
-            
-
-
-  原创： 单超君  七点半理财：https://mp.weixin.qq.com/s/dru-ic9kdEEFmfE1DjK0Wg
-
-
-基金的类型
-最基础的是养老基金、保险基金、货币基金，也就是大家非常熟悉的余额宝一类的宝宝类产品，现在年化收益在3-4%之间，基本上不太会亏损。
-
-第二档，债券型基金。这些基金募集的钱，专门用来买债券。比如纯债券基金，它不会给你什么惊喜，也不会给你什么...
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Ian on February 23, 2019
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2019/02/23/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-springboot%E6%8B%A6%E6%88%AA%E5%BC%82%E5%B8%B8%E5%B9%B6%E7%BB%9F%E4%B8%80%E5%A4%84%E7%90%86/">
-        <h2 class="post-title">
-            springboot拦截异常并统一处理
-        </h2>
-        
-        <div class="post-content-preview">
-            
-  转载 神奇Sam的博客：https://my.oschina.net/magicalSam/blog/1456337
-
-
-在spring 3.2中，新增了@ControllerAdvice 注解，可以用于定义@ExceptionHandler、@InitBinder、@ModelAttribute，并应用到所有@RequestMapping中
-
-创建 MyControllerAdvic...
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Ian on February 23, 2019
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2019/02/23/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-springboot-logback/">
-        <h2 class="post-title">
-            springboot logback
-        </h2>
-        
-        <div class="post-content-preview">
-            源码部分分析：
-springboot启动的时候会默认加载：
-springboot-logback1 new ContextInitializer(defaultLoggerContext).autoConfig();
-ch.qos.logback.classic.util.ContextInitializer.findURLOfDefaultConfigurationFile(boolean...
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Ian on February 23, 2019
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2019/02/23/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-AOP%E5%AE%9E%E7%8E%B0%E6%97%A5%E5%BF%97/">
-        <h2 class="post-title">
-            AOP实现日志
-        </h2>
-        
-        <div class="post-content-preview">
-            
-  参考：iteye_16572 –  https://blog.csdn.net/iteye_16572/article/details/82677981
-参考：山高我为峰 – https://www.cnblogs.com/liaojie970/p/7883687.html
-
-
-实现AOP的切面主要有以下几个要素：
-
-
-  使用@Aspect注解将一个java类定义为切面类
-  使用@...
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Ian on February 23, 2019
-    </p>
-</div>
-<hr>
-
 
 <!-- Pager -->
 
@@ -459,13 +465,13 @@ ch.qos.logback.classic.util.ContextInitializer.findURLOfDefaultConfigurationFile
                             
                         
                             
-                                <a href="/tags/#自我总结" title="自我总结" rel="34">
+                                <a href="/tags/#自我总结" title="自我总结" rel="36">
                                     自我总结
                                 </a>
                             
                         
                             
-                                <a href="/tags/#编程之路" title="编程之路" rel="88">
+                                <a href="/tags/#编程之路" title="编程之路" rel="92">
                                     编程之路
                                 </a>
                             
@@ -576,6 +582,8 @@ ch.qos.logback.classic.util.ContextInitializer.findURLOfDefaultConfigurationFile
                                 <a href="/tags/#MongoDB" title="MongoDB" rel="2">
                                     MongoDB
                                 </a>
+                            
+                        
                             
                         
                             
@@ -752,7 +760,7 @@ ch.qos.logback.classic.util.ContextInitializer.findURLOfDefaultConfigurationFile
                     
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; MY Blog 2019
+                    Copyright &copy; MY Blog 2020
                     <br>
                     Theme on <a href="https://github.com/uniquezhangqi/uniquezhangqi.github.io.git">GitHub</a> |
                     <iframe

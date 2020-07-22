@@ -209,15 +209,15 @@
 <span class="kn">import</span> <span class="nn">java.lang.annotation.Target</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">java.util.concurrent.TimeUnit</span><span class="o">;</span>
 
-<span class="nd">@Target</span><span class="o">({</span><span class="n">ElementType</span><span class="o">.</span><span class="na">METHOD</span><span class="o">,</span> <span class="n">ElementType</span><span class="o">.</span><span class="na">TYPE</span><span class="o">})</span>
-<span class="nd">@Retention</span><span class="o">(</span><span class="n">RetentionPolicy</span><span class="o">.</span><span class="na">RUNTIME</span><span class="o">)</span>
-<span class="kd">public</span> <span class="nd">@interface</span> <span class="n">CacheLock</span> <span class="o">{</span>
+<span class="nd">@Target</span><span class="o">({</span><span class="nc">ElementType</span><span class="o">.</span><span class="na">METHOD</span><span class="o">,</span> <span class="nc">ElementType</span><span class="o">.</span><span class="na">TYPE</span><span class="o">})</span>
+<span class="nd">@Retention</span><span class="o">(</span><span class="nc">RetentionPolicy</span><span class="o">.</span><span class="na">RUNTIME</span><span class="o">)</span>
+<span class="kd">public</span> <span class="nd">@interface</span> <span class="nc">CacheLock</span> <span class="o">{</span>
     <span class="cm">/**
      * redis 锁key的前缀
      *
      * @return redis 锁key的前缀
      */</span>
-    <span class="n">String</span> <span class="nf">prefix</span><span class="o">()</span> <span class="k">default</span> <span class="s">""</span><span class="o">;</span>
+    <span class="nc">String</span> <span class="nf">prefix</span><span class="o">()</span> <span class="k">default</span> <span class="s">""</span><span class="o">;</span>
 
     <span class="cm">/**
      * 过期秒数,默认为10秒
@@ -231,7 +231,7 @@
      *
      * @return 秒
      */</span>
-    <span class="n">TimeUnit</span> <span class="nf">timeUnit</span><span class="o">()</span> <span class="k">default</span> <span class="n">TimeUnit</span><span class="o">.</span><span class="na">SECONDS</span><span class="o">;</span>
+    <span class="nc">TimeUnit</span> <span class="nf">timeUnit</span><span class="o">()</span> <span class="k">default</span> <span class="nc">TimeUnit</span><span class="o">.</span><span class="na">SECONDS</span><span class="o">;</span>
 
     <span class="cm">/**
      * &lt;p&gt;Key的分隔符（默认 :）&lt;/p&gt;
@@ -239,7 +239,7 @@
      *
      * @return String
      */</span>
-    <span class="n">String</span> <span class="nf">delimiter</span><span class="o">()</span> <span class="k">default</span> <span class="s">"_"</span><span class="o">;</span>
+    <span class="nc">String</span> <span class="nf">delimiter</span><span class="o">()</span> <span class="k">default</span> <span class="s">"_"</span><span class="o">;</span>
 
 <span class="o">}</span>
 
@@ -260,18 +260,18 @@
 <span class="kn">import</span> <span class="nn">java.lang.reflect.Parameter</span><span class="o">;</span>
 
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">LockKeyGeneratorUtil</span> <span class="o">{</span>
-    <span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="nf">getLockKey</span><span class="o">(</span><span class="n">ProceedingJoinPoint</span> <span class="n">pjp</span><span class="o">)</span> <span class="o">{</span>
-        <span class="n">MethodSignature</span> <span class="n">signature</span> <span class="o">=</span> <span class="o">(</span><span class="n">MethodSignature</span><span class="o">)</span> <span class="n">pjp</span><span class="o">.</span><span class="na">getSignature</span><span class="o">();</span>
-        <span class="n">Method</span> <span class="n">method</span> <span class="o">=</span> <span class="n">signature</span><span class="o">.</span><span class="na">getMethod</span><span class="o">();</span>
-        <span class="n">CacheLock</span> <span class="n">lockAnnotation</span> <span class="o">=</span> <span class="n">method</span><span class="o">.</span><span class="na">getAnnotation</span><span class="o">(</span><span class="n">CacheLock</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
-        <span class="kd">final</span> <span class="n">Object</span><span class="o">[]</span> <span class="n">args</span> <span class="o">=</span> <span class="n">pjp</span><span class="o">.</span><span class="na">getArgs</span><span class="o">();</span>
-        <span class="kd">final</span> <span class="n">Parameter</span><span class="o">[]</span> <span class="n">parameters</span> <span class="o">=</span> <span class="n">method</span><span class="o">.</span><span class="na">getParameters</span><span class="o">();</span>
-        <span class="n">StringBuilder</span> <span class="n">builder</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">();</span>
-        <span class="n">StringBuilder</span> <span class="n">prefix</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">(</span><span class="n">BusiConstants</span><span class="o">.</span><span class="na">PREVENT_REPEAT_PREFIX</span><span class="o">+</span><span class="n">lockAnnotation</span><span class="o">.</span><span class="na">prefix</span><span class="o">());</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="nc">String</span> <span class="nf">getLockKey</span><span class="o">(</span><span class="nc">ProceedingJoinPoint</span> <span class="n">pjp</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">MethodSignature</span> <span class="n">signature</span> <span class="o">=</span> <span class="o">(</span><span class="nc">MethodSignature</span><span class="o">)</span> <span class="n">pjp</span><span class="o">.</span><span class="na">getSignature</span><span class="o">();</span>
+        <span class="nc">Method</span> <span class="n">method</span> <span class="o">=</span> <span class="n">signature</span><span class="o">.</span><span class="na">getMethod</span><span class="o">();</span>
+        <span class="nc">CacheLock</span> <span class="n">lockAnnotation</span> <span class="o">=</span> <span class="n">method</span><span class="o">.</span><span class="na">getAnnotation</span><span class="o">(</span><span class="nc">CacheLock</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+        <span class="kd">final</span> <span class="nc">Object</span><span class="o">[]</span> <span class="n">args</span> <span class="o">=</span> <span class="n">pjp</span><span class="o">.</span><span class="na">getArgs</span><span class="o">();</span>
+        <span class="kd">final</span> <span class="nc">Parameter</span><span class="o">[]</span> <span class="n">parameters</span> <span class="o">=</span> <span class="n">method</span><span class="o">.</span><span class="na">getParameters</span><span class="o">();</span>
+        <span class="nc">StringBuilder</span> <span class="n">builder</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">StringBuilder</span><span class="o">();</span>
+        <span class="nc">StringBuilder</span> <span class="n">prefix</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">StringBuilder</span><span class="o">(</span><span class="nc">BusiConstants</span><span class="o">.</span><span class="na">PREVENT_REPEAT_PREFIX</span><span class="o">+</span><span class="n">lockAnnotation</span><span class="o">.</span><span class="na">prefix</span><span class="o">());</span>
         <span class="c1">//获取当前线程缓存的手机号</span>
-        <span class="n">Object</span> <span class="n">mobile</span> <span class="o">=</span> <span class="n">UserContext</span><span class="o">.</span><span class="na">get</span><span class="o">().</span><span class="na">getMobile</span><span class="o">();</span>
+        <span class="nc">Object</span> <span class="n">mobile</span> <span class="o">=</span> <span class="nc">UserContext</span><span class="o">.</span><span class="na">get</span><span class="o">().</span><span class="na">getMobile</span><span class="o">();</span>
         <span class="c1">//未指定前缀使用方法名作为前缀</span>
-         <span class="k">if</span><span class="o">(</span><span class="n">BusiConstants</span><span class="o">.</span><span class="na">PREVENT_REPEAT_PREFIX</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">prefix</span><span class="o">.</span><span class="na">toString</span><span class="o">())){</span>
+         <span class="k">if</span><span class="o">(</span><span class="nc">BusiConstants</span><span class="o">.</span><span class="na">PREVENT_REPEAT_PREFIX</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">prefix</span><span class="o">.</span><span class="na">toString</span><span class="o">())){</span>
              <span class="n">prefix</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">method</span><span class="o">.</span><span class="na">getName</span><span class="o">())</span>
                      <span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">lockAnnotation</span><span class="o">.</span><span class="na">delimiter</span><span class="o">());</span>
          <span class="o">}</span>
@@ -280,24 +280,24 @@
         <span class="o">}</span>
         <span class="c1">//默认解析方法里面带 CacheParam 注解的属性,如果没有尝试着解析实体对象中的</span>
         <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">parameters</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
-            <span class="kd">final</span> <span class="n">CacheParam</span> <span class="n">annotation</span> <span class="o">=</span> <span class="n">parameters</span><span class="o">[</span><span class="n">i</span><span class="o">].</span><span class="na">getAnnotation</span><span class="o">(</span><span class="n">CacheParam</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+            <span class="kd">final</span> <span class="nc">CacheParam</span> <span class="n">annotation</span> <span class="o">=</span> <span class="n">parameters</span><span class="o">[</span><span class="n">i</span><span class="o">].</span><span class="na">getAnnotation</span><span class="o">(</span><span class="nc">CacheParam</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
             <span class="k">if</span> <span class="o">(</span><span class="n">annotation</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
                 <span class="k">continue</span><span class="o">;</span>
             <span class="o">}</span>
             <span class="n">builder</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">lockAnnotation</span><span class="o">.</span><span class="na">delimiter</span><span class="o">()).</span><span class="na">append</span><span class="o">(</span><span class="n">args</span><span class="o">[</span><span class="n">i</span><span class="o">]);</span>
         <span class="o">}</span>
-        <span class="k">if</span> <span class="o">(</span><span class="n">StringUtils</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">(</span><span class="n">builder</span><span class="o">.</span><span class="na">toString</span><span class="o">()))</span> <span class="o">{</span>
-            <span class="kd">final</span> <span class="n">Annotation</span><span class="o">[][]</span> <span class="n">parameterAnnotations</span> <span class="o">=</span> <span class="n">method</span><span class="o">.</span><span class="na">getParameterAnnotations</span><span class="o">();</span>
+        <span class="k">if</span> <span class="o">(</span><span class="nc">StringUtils</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">(</span><span class="n">builder</span><span class="o">.</span><span class="na">toString</span><span class="o">()))</span> <span class="o">{</span>
+            <span class="kd">final</span> <span class="nc">Annotation</span><span class="o">[][]</span> <span class="n">parameterAnnotations</span> <span class="o">=</span> <span class="n">method</span><span class="o">.</span><span class="na">getParameterAnnotations</span><span class="o">();</span>
             <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">parameterAnnotations</span><span class="o">.</span><span class="na">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
-                <span class="kd">final</span> <span class="n">Object</span> <span class="n">object</span> <span class="o">=</span> <span class="n">args</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
-                <span class="kd">final</span> <span class="n">Field</span><span class="o">[]</span> <span class="n">fields</span> <span class="o">=</span> <span class="n">object</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">getDeclaredFields</span><span class="o">();</span>
-                <span class="k">for</span> <span class="o">(</span><span class="n">Field</span> <span class="n">field</span> <span class="o">:</span> <span class="n">fields</span><span class="o">)</span> <span class="o">{</span>
-                    <span class="kd">final</span> <span class="n">CacheParam</span> <span class="n">annotation</span> <span class="o">=</span> <span class="n">field</span><span class="o">.</span><span class="na">getAnnotation</span><span class="o">(</span><span class="n">CacheParam</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+                <span class="kd">final</span> <span class="nc">Object</span> <span class="n">object</span> <span class="o">=</span> <span class="n">args</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+                <span class="kd">final</span> <span class="nc">Field</span><span class="o">[]</span> <span class="n">fields</span> <span class="o">=</span> <span class="n">object</span><span class="o">.</span><span class="na">getClass</span><span class="o">().</span><span class="na">getDeclaredFields</span><span class="o">();</span>
+                <span class="k">for</span> <span class="o">(</span><span class="nc">Field</span> <span class="n">field</span> <span class="o">:</span> <span class="n">fields</span><span class="o">)</span> <span class="o">{</span>
+                    <span class="kd">final</span> <span class="nc">CacheParam</span> <span class="n">annotation</span> <span class="o">=</span> <span class="n">field</span><span class="o">.</span><span class="na">getAnnotation</span><span class="o">(</span><span class="nc">CacheParam</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
                     <span class="k">if</span> <span class="o">(</span><span class="n">annotation</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
                         <span class="k">continue</span><span class="o">;</span>
                     <span class="o">}</span>
                     <span class="n">field</span><span class="o">.</span><span class="na">setAccessible</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
-                    <span class="n">builder</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">lockAnnotation</span><span class="o">.</span><span class="na">delimiter</span><span class="o">()).</span><span class="na">append</span><span class="o">(</span><span class="n">ReflectionUtils</span><span class="o">.</span><span class="na">getField</span><span class="o">(</span><span class="n">field</span><span class="o">,</span> <span class="n">object</span><span class="o">));</span>
+                    <span class="n">builder</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">lockAnnotation</span><span class="o">.</span><span class="na">delimiter</span><span class="o">()).</span><span class="na">append</span><span class="o">(</span><span class="nc">ReflectionUtils</span><span class="o">.</span><span class="na">getField</span><span class="o">(</span><span class="n">field</span><span class="o">,</span> <span class="n">object</span><span class="o">));</span>
                 <span class="o">}</span>
             <span class="o">}</span>
         <span class="o">}</span>
@@ -309,17 +309,17 @@
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">java.lang.annotation.*</span><span class="o">;</span>
 
-<span class="nd">@Target</span><span class="o">({</span><span class="n">ElementType</span><span class="o">.</span><span class="na">PARAMETER</span><span class="o">,</span> <span class="n">ElementType</span><span class="o">.</span><span class="na">METHOD</span><span class="o">,</span> <span class="n">ElementType</span><span class="o">.</span><span class="na">FIELD</span><span class="o">})</span>
-<span class="nd">@Retention</span><span class="o">(</span><span class="n">RetentionPolicy</span><span class="o">.</span><span class="na">RUNTIME</span><span class="o">)</span>
+<span class="nd">@Target</span><span class="o">({</span><span class="nc">ElementType</span><span class="o">.</span><span class="na">PARAMETER</span><span class="o">,</span> <span class="nc">ElementType</span><span class="o">.</span><span class="na">METHOD</span><span class="o">,</span> <span class="nc">ElementType</span><span class="o">.</span><span class="na">FIELD</span><span class="o">})</span>
+<span class="nd">@Retention</span><span class="o">(</span><span class="nc">RetentionPolicy</span><span class="o">.</span><span class="na">RUNTIME</span><span class="o">)</span>
 <span class="nd">@Documented</span>
 <span class="nd">@Inherited</span>
-<span class="kd">public</span> <span class="nd">@interface</span> <span class="n">CacheParam</span> <span class="o">{</span>
+<span class="kd">public</span> <span class="nd">@interface</span> <span class="nc">CacheParam</span> <span class="o">{</span>
     <span class="cm">/**
      * 字段名称
      *
      * @return String
      */</span>
-    <span class="n">String</span> <span class="nf">name</span><span class="o">()</span> <span class="k">default</span> <span class="s">""</span><span class="o">;</span>
+    <span class="nc">String</span> <span class="nf">name</span><span class="o">()</span> <span class="k">default</span> <span class="s">""</span><span class="o">;</span>
 <span class="o">}</span>
 
 </code></pre></div></div>
@@ -345,47 +345,47 @@
 <span class="nd">@Component</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">ServiceLogAspect</span> <span class="o">{</span>
     <span class="nd">@Autowired</span>
-    <span class="kd">private</span> <span class="n">CacheRedisService</span> <span class="n">cacheRedisService</span><span class="o">;</span>
-    <span class="kd">private</span> <span class="n">Logger</span> <span class="n">logger</span> <span class="o">=</span> <span class="n">LoggerFactory</span><span class="o">.</span><span class="na">getLogger</span><span class="o">(</span><span class="n">ServiceLogAspect</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="kd">private</span> <span class="nc">CacheRedisService</span> <span class="n">cacheRedisService</span><span class="o">;</span>
+    <span class="kd">private</span> <span class="nc">Logger</span> <span class="n">logger</span> <span class="o">=</span> <span class="nc">LoggerFactory</span><span class="o">.</span><span class="na">getLogger</span><span class="o">(</span><span class="nc">ServiceLogAspect</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
 
-    <span class="kd">private</span> <span class="n">ThreadLocal</span><span class="o">&lt;</span><span class="n">Long</span><span class="o">&gt;</span> <span class="n">startTime</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ThreadLocal</span><span class="o">&lt;</span><span class="n">Long</span><span class="o">&gt;();</span>
+    <span class="kd">private</span> <span class="nc">ThreadLocal</span><span class="o">&lt;</span><span class="nc">Long</span><span class="o">&gt;</span> <span class="n">startTime</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ThreadLocal</span><span class="o">&lt;</span><span class="nc">Long</span><span class="o">&gt;();</span>
 
     <span class="nd">@Pointcut</span><span class="o">(</span><span class="s">"execution(public * com.i78dk.*.service..*.*(..))"</span><span class="o">)</span>
     <span class="kd">public</span> <span class="kt">void</span> <span class="nf">serviceLog</span><span class="o">()</span> <span class="o">{}</span>
 
     <span class="nd">@Before</span><span class="o">(</span><span class="s">"serviceLog()"</span><span class="o">)</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">doBefore</span><span class="o">(</span><span class="n">JoinPoint</span> <span class="n">joinPoint</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Throwable</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">doBefore</span><span class="o">(</span><span class="nc">JoinPoint</span> <span class="n">joinPoint</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">Throwable</span> <span class="o">{</span>
         <span class="c1">// 请求内容</span>
         <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"[controller]----CLASS_METHOD: "</span> <span class="o">+</span> <span class="n">joinPoint</span><span class="o">.</span><span class="na">getSignature</span><span class="o">().</span><span class="na">getDeclaringTypeName</span><span class="o">()</span> <span class="o">+</span> <span class="s">"."</span>
                 <span class="o">+</span> <span class="n">joinPoint</span><span class="o">.</span><span class="na">getSignature</span><span class="o">().</span><span class="na">getName</span><span class="o">()</span> <span class="o">+</span> <span class="s">",参数 : "</span>
-                <span class="o">+</span> <span class="n">Arrays</span><span class="o">.</span><span class="na">toString</span><span class="o">(</span><span class="n">joinPoint</span><span class="o">.</span><span class="na">getArgs</span><span class="o">()));</span>
+                <span class="o">+</span> <span class="nc">Arrays</span><span class="o">.</span><span class="na">toString</span><span class="o">(</span><span class="n">joinPoint</span><span class="o">.</span><span class="na">getArgs</span><span class="o">()));</span>
     <span class="o">}</span>
 
     <span class="nd">@AfterReturning</span><span class="o">(</span><span class="n">returning</span> <span class="o">=</span> <span class="s">"ret"</span><span class="o">,</span> <span class="n">pointcut</span> <span class="o">=</span> <span class="s">"serviceLog()"</span><span class="o">)</span>
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">doAfterReturning</span><span class="o">(</span><span class="n">Object</span> <span class="n">ret</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Throwable</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">doAfterReturning</span><span class="o">(</span><span class="nc">Object</span> <span class="n">ret</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">Throwable</span> <span class="o">{</span>
         <span class="c1">// 返回内容</span>
         <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"[controller]----返回值 : "</span> <span class="o">+</span> <span class="n">ret</span><span class="o">);</span>
     <span class="o">}</span>
 
     <span class="nd">@Around</span><span class="o">(</span><span class="s">"serviceLog()"</span><span class="o">)</span>
-    <span class="kd">public</span> <span class="n">Object</span> <span class="nf">doAround</span><span class="o">(</span><span class="n">ProceedingJoinPoint</span> <span class="n">pjp</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Throwable</span> <span class="o">{</span>
-        <span class="n">startTime</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">());</span>
-        <span class="n">MethodSignature</span> <span class="n">signature</span> <span class="o">=</span> <span class="o">(</span><span class="n">MethodSignature</span><span class="o">)</span> <span class="n">pjp</span><span class="o">.</span><span class="na">getSignature</span><span class="o">();</span>
-        <span class="n">Method</span> <span class="n">method</span> <span class="o">=</span> <span class="n">signature</span><span class="o">.</span><span class="na">getMethod</span><span class="o">();</span>
-        <span class="n">CacheLock</span> <span class="n">key</span> <span class="o">=</span> <span class="n">method</span><span class="o">.</span><span class="na">getAnnotation</span><span class="o">(</span><span class="n">CacheLock</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
-        <span class="n">String</span> <span class="n">lockKey</span> <span class="o">=</span> <span class="s">"lock key is empty"</span><span class="o">;</span>
+    <span class="kd">public</span> <span class="nc">Object</span> <span class="nf">doAround</span><span class="o">(</span><span class="nc">ProceedingJoinPoint</span> <span class="n">pjp</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">Throwable</span> <span class="o">{</span>
+        <span class="n">startTime</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">());</span>
+        <span class="nc">MethodSignature</span> <span class="n">signature</span> <span class="o">=</span> <span class="o">(</span><span class="nc">MethodSignature</span><span class="o">)</span> <span class="n">pjp</span><span class="o">.</span><span class="na">getSignature</span><span class="o">();</span>
+        <span class="nc">Method</span> <span class="n">method</span> <span class="o">=</span> <span class="n">signature</span><span class="o">.</span><span class="na">getMethod</span><span class="o">();</span>
+        <span class="nc">CacheLock</span> <span class="n">key</span> <span class="o">=</span> <span class="n">method</span><span class="o">.</span><span class="na">getAnnotation</span><span class="o">(</span><span class="nc">CacheLock</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+        <span class="nc">String</span> <span class="n">lockKey</span> <span class="o">=</span> <span class="s">"lock key is empty"</span><span class="o">;</span>
         <span class="c1">//防重复提交</span>
         <span class="k">if</span> <span class="o">(</span><span class="n">key</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
-            <span class="n">lockKey</span> <span class="o">=</span> <span class="n">LockKeyGeneratorUtil</span><span class="o">.</span><span class="na">getLockKey</span><span class="o">(</span><span class="n">pjp</span><span class="o">);</span>
+            <span class="n">lockKey</span> <span class="o">=</span> <span class="nc">LockKeyGeneratorUtil</span><span class="o">.</span><span class="na">getLockKey</span><span class="o">(</span><span class="n">pjp</span><span class="o">);</span>
             <span class="kt">boolean</span> <span class="n">b</span> <span class="o">=</span> <span class="n">cacheRedisService</span><span class="o">.</span><span class="na">setIfAbsent</span><span class="o">(</span><span class="n">lockKey</span><span class="o">,</span> <span class="kc">true</span><span class="o">,</span> <span class="n">key</span><span class="o">.</span><span class="na">expire</span><span class="o">());</span>
             <span class="k">if</span> <span class="o">(!</span><span class="n">b</span><span class="o">)</span> <span class="o">{</span>
-                <span class="k">throw</span> <span class="k">new</span> <span class="nf">AssertException</span><span class="o">(</span><span class="n">ResultCodeConstants</span><span class="o">.</span><span class="na">CODE_S0025</span><span class="o">);</span>
+                <span class="k">throw</span> <span class="k">new</span> <span class="nf">AssertException</span><span class="o">(</span><span class="nc">ResultCodeConstants</span><span class="o">.</span><span class="na">CODE_S0025</span><span class="o">);</span>
             <span class="o">}</span>
         <span class="o">}</span>
         <span class="k">try</span> <span class="o">{</span>
             <span class="c1">// ob 为方法的返回值</span>
-            <span class="n">Object</span> <span class="n">ob</span> <span class="o">=</span> <span class="n">pjp</span><span class="o">.</span><span class="na">proceed</span><span class="o">();</span>
-            <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"[controller]----耗时 : "</span> <span class="o">+</span> <span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">()</span> <span class="o">-</span> <span class="n">startTime</span><span class="o">.</span><span class="na">get</span><span class="o">()));</span>
+            <span class="nc">Object</span> <span class="n">ob</span> <span class="o">=</span> <span class="n">pjp</span><span class="o">.</span><span class="na">proceed</span><span class="o">();</span>
+            <span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"[controller]----耗时 : "</span> <span class="o">+</span> <span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">currentTimeMillis</span><span class="o">()</span> <span class="o">-</span> <span class="n">startTime</span><span class="o">.</span><span class="na">get</span><span class="o">()));</span>
             <span class="k">return</span> <span class="n">ob</span><span class="o">;</span>
         <span class="o">}</span><span class="k">finally</span> <span class="o">{</span>
             <span class="c1">//无论业务是否成功释放锁</span>
@@ -397,6 +397,36 @@
 
     <span class="o">}</span>
 <span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+    <span class="cm">/**
+     * 设置有效时间
+     * @param key
+     * @param expire
+     * @return
+     */</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">expire</span><span class="o">(</span><span class="kd">final</span> <span class="nc">String</span> <span class="n">key</span><span class="o">,</span> <span class="kt">long</span> <span class="n">expire</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">redisTemplate</span><span class="o">.</span><span class="na">expire</span><span class="o">(</span><span class="n">key</span><span class="o">,</span> <span class="n">expire</span><span class="o">,</span> <span class="nc">TimeUnit</span><span class="o">.</span><span class="na">SECONDS</span><span class="o">);</span>
+    <span class="o">}</span>
+
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">setIfAbsent</span><span class="o">(</span><span class="nc">String</span> <span class="n">key</span><span class="o">,</span> <span class="nc">Object</span> <span class="n">o</span><span class="o">,</span> <span class="kt">long</span> <span class="n">expire</span><span class="o">)</span> <span class="o">{</span>
+        <span class="kt">boolean</span> <span class="n">sucess</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+        <span class="k">try</span> <span class="o">{</span>
+          <span class="n">sucess</span> <span class="o">=</span> <span class="n">redisTemplate</span><span class="o">.</span><span class="na">opsForValue</span><span class="o">().</span><span class="na">setIfAbsent</span><span class="o">(</span><span class="n">key</span><span class="o">,</span> <span class="n">o</span><span class="o">);</span>
+          <span class="c1">//保存成功设置过期时间</span>
+          <span class="k">if</span><span class="o">(</span><span class="n">sucess</span><span class="o">){</span>
+              <span class="n">expire</span><span class="o">(</span><span class="n">key</span><span class="o">,</span> <span class="n">expire</span><span class="o">);</span>
+          <span class="o">}</span>
+        <span class="o">}</span><span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">){</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+            <span class="k">return</span> <span class="n">sucess</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">sucess</span><span class="o">;</span>
+    <span class="o">}</span>
 </code></pre></div></div>
 
 <p>文章中若有不足之处，还望指出。坚持是一种精神，分享是一种快乐！</p>
@@ -478,13 +508,13 @@
                             
         				
                             
-                				<a href="/tags/#自我总结" title="自我总结" rel="34">
+                				<a href="/tags/#自我总结" title="自我总结" rel="36">
                                     自我总结
                                 </a>
                             
         				
                             
-                				<a href="/tags/#编程之路" title="编程之路" rel="88">
+                				<a href="/tags/#编程之路" title="编程之路" rel="92">
                                     编程之路
                                 </a>
                             
@@ -595,6 +625,8 @@
                 				<a href="/tags/#MongoDB" title="MongoDB" rel="2">
                                     MongoDB
                                 </a>
+                            
+        				
                             
         				
                             
@@ -751,7 +783,7 @@
                     
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; MY Blog 2019
+                    Copyright &copy; MY Blog 2020
                     <br>
                     Theme on <a href="https://github.com/uniquezhangqi/uniquezhangqi.github.io.git">GitHub</a> |
                     <iframe

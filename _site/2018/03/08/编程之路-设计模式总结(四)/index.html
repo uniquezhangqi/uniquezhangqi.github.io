@@ -206,7 +206,7 @@
 				<blockquote>
   <p>本文首次发布于<a href="http://uniquezhangqi.top">My Blog</a>,作者<a href="http://uniquezhangqi.top/about/">@张琦(Ian)</a>,转载请保留原文链接。<br />
 <br />
-右侧可以看<code class="highlighter-rouge">目录</code>，点击直接跳转，Z 一共写了4篇(可以点击下面直接跳转然后看右侧目录)：<br /></p>
+右侧可以看<code class="language-plaintext highlighter-rouge">目录</code>，点击直接跳转，Z 一共写了4篇(可以点击下面直接跳转然后看右侧目录)：<br /></p>
   <ul>
     <li><a href="http://uniquezhangqi.top/2018/02/04/自我总结-设计模式总结(一)">自我总结-设计模式总结(一)</a><br /></li>
     <li><a href="http://uniquezhangqi.top/2018/03/02/自我总结-设计模式总结(二)">自我总结-设计模式总结(二)</a><br /></li>
@@ -216,21 +216,21 @@
 
 <h2 id="单例模式">单例模式</h2>
 <blockquote>
-  <p><code class="highlighter-rouge">单例模式：</code>保证一个类仅有一个实例，并提供一个访问它的全局访问点。</p>
+  <p><code class="language-plaintext highlighter-rouge">单例模式：</code>保证一个类仅有一个实例，并提供一个访问它的全局访问点。</p>
 </blockquote>
 
 <p>例子：</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="n">calss</span> <span class="n">Singleton</span><span class="o">{</span>
-	<span class="kd">private</span> <span class="kd">static</span> <span class="n">Singleton</span> <span class="n">instance</span><span class="o">;</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="n">calss</span> <span class="nc">Singleton</span><span class="o">{</span>
+	<span class="kd">private</span> <span class="kd">static</span> <span class="nc">Singleton</span> <span class="n">instance</span><span class="o">;</span>
 	
 	<span class="c1">// 构造方法私有化，这就堵死了外界利用new创建此类实例可能。</span>
 	<span class="kd">private</span> <span class="nf">singleton</span><span class="o">(){}</span>
 	
 	<span class="c1">// 此方法是获得本类实例的唯一全局访问点</span>
-	<span class="kd">public</span> <span class="kd">static</span> <span class="n">Singleton</span> <span class="nf">getInstance</span><span class="o">(){</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="nc">Singleton</span> <span class="nf">getInstance</span><span class="o">(){</span>
 		<span class="k">if</span> <span class="o">(</span><span class="kc">null</span> <span class="o">==</span> <span class="n">instance</span><span class="o">){</span>
-			<span class="n">instance</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Singleton</span><span class="o">();</span>
+			<span class="n">instance</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Singleton</span><span class="o">();</span>
 		<span class="o">}</span>
 		<span class="k">return</span> <span class="n">instance</span><span class="o">;</span>
 	<span class="o">}</span>
@@ -238,13 +238,13 @@
 </code></pre></div></div>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">main</span><span class="o">{</span>
-	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
-		<span class="n">Singleton</span> <span class="n">s1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Singleton</span><span class="o">.</span><span class="na">getInstance</span><span class="o">();</span>
-		<span class="n">Singleton</span> <span class="n">s2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Singleton</span><span class="o">.</span><span class="na">getInstance</span><span class="o">();</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
+		<span class="nc">Singleton</span> <span class="n">s1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Singleton</span><span class="o">.</span><span class="na">getInstance</span><span class="o">();</span>
+		<span class="nc">Singleton</span> <span class="n">s2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Singleton</span><span class="o">.</span><span class="na">getInstance</span><span class="o">();</span>
 		
 		<span class="c1">// 比较两次实例化后对象的结果是实例相同</span>
 		<span class="k">if</span> <span class="o">(</span><span class="n">s1</span> <span class="o">==</span> <span class="n">s2</span><span class="o">){</span>
-			<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"两个对象是相同的实例."</span><span class="o">);</span>
+			<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"两个对象是相同的实例."</span><span class="o">);</span>
 		<span class="o">}</span>
 	<span class="o">}</span>
 <span class="o">}</span> 
@@ -256,9 +256,9 @@
 　　</p>
 <h2 id="桥接模式">桥接模式</h2>
 <blockquote>
-  <p><code class="highlighter-rouge">合成/聚合复用原则：</code>尽量使用合成/聚合，尽量不要使用类的继承。</p>
+  <p><code class="language-plaintext highlighter-rouge">合成/聚合复用原则：</code>尽量使用合成/聚合，尽量不要使用类的继承。</p>
 
-  <p><code class="highlighter-rouge">桥接模式：</code>将抽象部分与它的实现部分分离，使它们都可以独立的变化。</p>
+  <p><code class="language-plaintext highlighter-rouge">桥接模式：</code>将抽象部分与它的实现部分分离，使它们都可以独立的变化。</p>
 </blockquote>
 
 <h4 id="合成聚合复用原则">合成/聚合复用原则：</h4>
@@ -274,23 +274,23 @@
 </code></pre></div></div>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 具体的实现</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ConcreteImplementorA</span> <span class="kd">extends</span> <span class="n">Implementor</span><span class="o">{</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ConcreteImplementorA</span> <span class="kd">extends</span> <span class="nc">Implementor</span><span class="o">{</span>
 	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">operation</span><span class="o">(){</span>
-		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"具体实现A的方法执行"</span><span class="o">);</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"具体实现A的方法执行"</span><span class="o">);</span>
 	<span class="o">}</span>
 <span class="o">}</span>
 
-<span class="kd">class</span> <span class="nc">ConcreteImplementorB</span> <span class="kd">extends</span> <span class="n">Implementor</span><span class="o">{</span>
+<span class="kd">class</span> <span class="nc">ConcreteImplementorB</span> <span class="kd">extends</span> <span class="nc">Implementor</span><span class="o">{</span>
 	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">operation</span><span class="o">(){</span>
-		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"具体实现B方法执行"</span><span class="o">);</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"具体实现B方法执行"</span><span class="o">);</span>
 	<span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Abstraction</span><span class="o">{</span>
-	<span class="kd">protected</span> <span class="n">Implementor</span> <span class="n">implementor</span><span class="o">;</span>
+	<span class="kd">protected</span> <span class="nc">Implementor</span> <span class="n">implementor</span><span class="o">;</span>
 	
-	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setImplementor</span><span class="o">(</span><span class="n">Implementor</span> <span class="n">implementor</span><span class="o">){</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setImplementor</span><span class="o">(</span><span class="nc">Implementor</span> <span class="n">implementor</span><span class="o">){</span>
 		<span class="k">this</span><span class="o">.</span><span class="na">implementor</span> <span class="o">=</span> <span class="n">implementor</span><span class="o">;</span>
 	<span class="o">}</span>
 	
@@ -301,7 +301,7 @@
 </code></pre></div></div>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 被提炼抽象</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">RefinedAbstraction</span> <span class="kd">extends</span> <span class="n">Aabstraction</span><span class="o">{</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">RefinedAbstraction</span> <span class="kd">extends</span> <span class="nc">Aabstraction</span><span class="o">{</span>
 	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">operation</span><span class="o">(){</span>
 		<span class="n">implementor</span><span class="o">.</span><span class="na">operation</span><span class="o">();</span>
 	<span class="o">}</span>
@@ -309,13 +309,13 @@
 </code></pre></div></div>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">main</span><span class="o">{</span>
-	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
-		<span class="n">Absstraction</span> <span class="n">ab</span> <span class="o">=</span> <span class="k">new</span> <span class="n">RefinedAbstraction</span><span class="o">();</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
+		<span class="nc">Absstraction</span> <span class="n">ab</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">RefinedAbstraction</span><span class="o">();</span>
 		
-		<span class="n">ab</span><span class="o">.</span><span class="na">setImplementor</span><span class="o">(</span><span class="k">new</span> <span class="n">ConcreteImplementorA</span><span class="o">());</span>
+		<span class="n">ab</span><span class="o">.</span><span class="na">setImplementor</span><span class="o">(</span><span class="k">new</span> <span class="nc">ConcreteImplementorA</span><span class="o">());</span>
 		<span class="n">ab</span><span class="o">.</span><span class="na">operation</span><span class="o">();</span>
 		
-		<span class="n">ab</span><span class="o">.</span><span class="na">setImplementor</span><span class="o">(</span><span class="k">new</span> <span class="n">ConcreteImplementorB</span><span class="o">());</span>
+		<span class="n">ab</span><span class="o">.</span><span class="na">setImplementor</span><span class="o">(</span><span class="k">new</span> <span class="nc">ConcreteImplementorB</span><span class="o">());</span>
 		<span class="n">ab</span><span class="o">.</span><span class="na">operation</span><span class="o">();</span>
 	<span class="o">}</span>
 <span class="o">}</span>
@@ -329,16 +329,16 @@
 　　</p>
 <h2 id="命令模式">命令模式</h2>
 <blockquote>
-  <p><code class="highlighter-rouge">命令模式：</code>将一个请求封装为一个对象，从而使你可用不同的请求对客户进行参数化；对请求排队或记录请求日志，以及支持可撤销的操作。 <br /></p>
+  <p><code class="language-plaintext highlighter-rouge">命令模式：</code>将一个请求封装为一个对象，从而使你可用不同的请求对客户进行参数化；对请求排队或记录请求日志，以及支持可撤销的操作。 <br /></p>
 </blockquote>
 
 <p>例子：</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 用来声明执行操作的接口。</span>
 <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">Command</span><span class="o">{</span>
-	<span class="kd">protected</span> <span class="n">Receiver</span> <span class="n">receiver</span><span class="o">;</span>
+	<span class="kd">protected</span> <span class="nc">Receiver</span> <span class="n">receiver</span><span class="o">;</span>
 	
-	<span class="kd">public</span> <span class="nf">Command</span><span class="o">(</span><span class="n">Receiver</span> <span class="n">receiver</span><span class="o">){</span>
+	<span class="kd">public</span> <span class="nf">Command</span><span class="o">(</span><span class="nc">Receiver</span> <span class="n">receiver</span><span class="o">){</span>
 		<span class="k">this</span><span class="o">.</span><span class="na">receiver</span> <span class="o">=</span> <span class="n">receiver</span><span class="o">;</span>
 	<span class="o">}</span>
 	
@@ -347,8 +347,8 @@
 </code></pre></div></div>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 将一个接受者对象绑定于一个动作，调用接受者相应的操作，以实现exeute。</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ConcreteCommand</span> <span class="kd">extends</span> <span class="n">Command</span><span class="o">{</span>
-	<span class="kd">public</span> <span class="nf">ConcreteCommand</span><span class="o">(</span><span class="n">Receiver</span> <span class="n">receiver</span><span class="o">){</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ConcreteCommand</span> <span class="kd">extends</span> <span class="nc">Command</span><span class="o">{</span>
+	<span class="kd">public</span> <span class="nf">ConcreteCommand</span><span class="o">(</span><span class="nc">Receiver</span> <span class="n">receiver</span><span class="o">){</span>
 		<span class="kd">super</span><span class="o">(</span><span class="n">receiver</span><span class="o">);</span>
 	<span class="o">}</span>
 	
@@ -360,9 +360,9 @@
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 要求该命令执行这个请求。</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Invoker</span><span class="o">{</span>
-	<span class="kd">private</span> <span class="n">Command</span> <span class="n">command</span><span class="o">;</span>
+	<span class="kd">private</span> <span class="nc">Command</span> <span class="n">command</span><span class="o">;</span>
 	
-	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setCommand</span><span class="o">(</span><span class="n">Command</span> <span class="n">command</span><span class="o">){</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setCommand</span><span class="o">(</span><span class="nc">Command</span> <span class="n">command</span><span class="o">){</span>
 		<span class="k">this</span><span class="o">.</span><span class="na">command</span> <span class="o">=</span> <span class="n">command</span><span class="o">;</span>
 	<span class="o">}</span>
 	
@@ -375,17 +375,17 @@
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 知道如何实施与执行一个请求相关的操作，任何类都可能作为一个接受者。</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Receiver</span><span class="o">{</span>
 	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">action</span><span class="o">(){</span>
-		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"执行请求！"</span><span class="o">);</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"执行请求！"</span><span class="o">);</span>
 	<span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 客户端代码，创建一个具体命令对象并设定它的接受者。</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span><span class="o">{</span>
-	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
-		<span class="n">Receiver</span> <span class="n">r</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Receiver</span><span class="o">();</span>  <span class="c1">// 具体实施与执行</span>
-		<span class="n">Command</span> <span class="n">c</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ConcreteCommand</span><span class="o">(</span><span class="n">r</span><span class="o">);</span> <span class="c1">// 接受者，执行execute()里面的action();</span>
-		<span class="n">Invoker</span> <span class="n">i</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Invoker</span><span class="o">();</span> <span class="c1">// 命令对象</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
+		<span class="nc">Receiver</span> <span class="n">r</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Receiver</span><span class="o">();</span>  <span class="c1">// 具体实施与执行</span>
+		<span class="nc">Command</span> <span class="n">c</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ConcreteCommand</span><span class="o">(</span><span class="n">r</span><span class="o">);</span> <span class="c1">// 接受者，执行execute()里面的action();</span>
+		<span class="nc">Invoker</span> <span class="n">i</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Invoker</span><span class="o">();</span> <span class="c1">// 命令对象</span>
 		<span class="n">i</span><span class="o">.</span><span class="na">setCommand</span><span class="o">(</span><span class="n">c</span><span class="o">);</span>
 		<span class="n">i</span><span class="o">.</span><span class="na">executeCommand</span><span class="o">();</span> <span class="c1">// 执行command里面的execute()---还是执行Receiver的action();</span>
 	<span class="o">}</span>
@@ -405,17 +405,17 @@
 　　</p>
 <h2 id="职责链模式">职责链模式</h2>
 <blockquote>
-  <p><code class="highlighter-rouge">职责链模式：</code>使多个对象有机会处理请求，从而避免请求的发送者和接受者之间的耦合关系。将这个对象连城一条链，并沿着这条链传递该请求，知道有一个对象处理它为止。</p>
+  <p><code class="language-plaintext highlighter-rouge">职责链模式：</code>使多个对象有机会处理请求，从而避免请求的发送者和接受者之间的耦合关系。将这个对象连城一条链，并沿着这条链传递该请求，知道有一个对象处理它为止。</p>
 </blockquote>
 
 <p>例子：</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 定义一个处理请示的接口</span>
 <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">Handler</span><span class="o">{</span>
-	<span class="kd">protected</span> <span class="n">Handler</span> <span class="n">successor</span><span class="o">;</span>
+	<span class="kd">protected</span> <span class="nc">Handler</span> <span class="n">successor</span><span class="o">;</span>
 	
 	<span class="c1">//设置继承者</span>
-	<span class="n">pulbic</span> <span class="kt">void</span> <span class="nf">setSuccessor</span><span class="o">(</span><span class="n">Handler</span> <span class="n">successor</span><span class="o">){</span>
+	<span class="n">pulbic</span> <span class="kt">void</span> <span class="nf">setSuccessor</span><span class="o">(</span><span class="nc">Handler</span> <span class="n">successor</span><span class="o">){</span>
 		<span class="k">this</span><span class="o">.</span><span class="na">successor</span> <span class="o">=</span> <span class="n">successor</span><span class="o">;</span>
 	<span class="o">}</span>
 	
@@ -426,11 +426,11 @@
 </code></pre></div></div>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// ConcreteHandler类，处理它所负责的请求，可访问它的后继者，如果可处理该请求，就处理之，否则就将该请求转发给它的后继者。</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ConcreteHandle1</span> <span class="kd">extends</span> <span class="n">Hadler</span><span class="o">{</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ConcreteHandle1</span> <span class="kd">extends</span> <span class="nc">Hadler</span><span class="o">{</span>
 	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">handleRequest</span><span class="o">(</span><span class="kt">int</span> <span class="n">request</span><span class="o">){</span>
 		<span class="c1">// 0 到 10，处理此请求</span>
 		<span class="k">if</span> <span class="o">(</span><span class="n">request</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">request</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="o">){</span>
-			<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"处理请求"</span><span class="o">);</span>
+			<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"处理请求"</span><span class="o">);</span>
 		<span class="o">}</span>
 		<span class="k">else</span> <span class="nf">if</span><span class="o">(</span><span class="kc">null</span> <span class="o">!=</span> <span class="n">succesor</span><span class="o">){</span>
 			<span class="c1">// 转移到下一位</span>
@@ -441,11 +441,11 @@
 </code></pre></div></div>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// ConcreteHandler类，处理它所负责的请求，可访问它的后继者，如果可处理该请求，就处理之，否则就将该请求转发给它的后继者。</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ConcreteHandle2</span> <span class="kd">extends</span> <span class="n">Hadler</span><span class="o">{</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ConcreteHandle2</span> <span class="kd">extends</span> <span class="nc">Hadler</span><span class="o">{</span>
 	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">handleRequest</span><span class="o">(</span><span class="kt">int</span> <span class="n">request</span><span class="o">){</span>
 		<span class="c1">// 10 到 20，处理此请求</span>
 		<span class="k">if</span> <span class="o">(</span><span class="n">request</span> <span class="o">&gt;=</span> <span class="mi">10</span> <span class="o">&amp;&amp;</span> <span class="n">request</span> <span class="o">&lt;</span> <span class="mi">20</span><span class="o">){</span>
-			<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"处理请求"</span><span class="o">);</span>
+			<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"处理请求"</span><span class="o">);</span>
 		<span class="o">}</span>
 		<span class="k">else</span> <span class="nf">if</span><span class="o">(</span><span class="kc">null</span> <span class="o">!=</span> <span class="n">succesor</span><span class="o">){</span>
 			<span class="c1">// 转移到下一位</span>
@@ -456,11 +456,11 @@
 </code></pre></div></div>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// ConcreteHandler类，处理它所负责的请求，可访问它的后继者，如果可处理该请求，就处理之，否则就将该请求转发给它的后继者。</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ConcreteHandle3</span> <span class="kd">extends</span> <span class="n">Hadler</span><span class="o">{</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ConcreteHandle3</span> <span class="kd">extends</span> <span class="nc">Hadler</span><span class="o">{</span>
 	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">handleRequest</span><span class="o">(</span><span class="kt">int</span> <span class="n">request</span><span class="o">){</span>
 		<span class="c1">// 20 到 30，处理此请求</span>
 		<span class="k">if</span> <span class="o">(</span><span class="n">request</span> <span class="o">&gt;=</span> <span class="mi">20</span> <span class="o">&amp;&amp;</span> <span class="n">request</span> <span class="o">&lt;</span> <span class="mi">30</span><span class="o">){</span>
-			<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"处理请求"</span><span class="o">);</span>
+			<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"处理请求"</span><span class="o">);</span>
 		<span class="o">}</span>
 		<span class="k">else</span> <span class="nf">if</span><span class="o">(</span><span class="kc">null</span> <span class="o">!=</span> <span class="n">succesor</span><span class="o">){</span>
 			<span class="c1">// 转移到下一位</span>
@@ -471,10 +471,10 @@
 </code></pre></div></div>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">main</span><span class="o">{</span>
-	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
-		<span class="n">Handler</span> <span class="n">h1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ConcreteHandler1</span><span class="o">();</span>
-		<span class="n">Handler</span> <span class="n">h2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ConcreteHandler2</span><span class="o">();</span>
-		<span class="n">Handler</span> <span class="n">h3</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ConcreteHandler3</span><span class="o">();</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
+		<span class="nc">Handler</span> <span class="n">h1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ConcreteHandler1</span><span class="o">();</span>
+		<span class="nc">Handler</span> <span class="n">h2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ConcreteHandler2</span><span class="o">();</span>
+		<span class="nc">Handler</span> <span class="n">h3</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ConcreteHandler3</span><span class="o">();</span>
 		
 		<span class="c1">// 设置职责链上家与下家</span>
 		<span class="n">h1</span><span class="o">.</span><span class="na">setSuccessor</span><span class="o">(</span><span class="n">h2</span><span class="o">);</span>
@@ -499,7 +499,7 @@
 
 <h2 id="中介者模式">中介者模式</h2>
 <blockquote>
-  <p><code class="highlighter-rouge">中介者模式：</code>用一个中介对象来封装一系列的对象交互。中介者使各对象不需要显式地相互引用，从而使其耦合松散，而且可以独立地改变它们之间的交互。</p>
+  <p><code class="language-plaintext highlighter-rouge">中介者模式：</code>用一个中介对象来封装一系列的对象交互。中介者使各对象不需要显式地相互引用，从而使其耦合松散，而且可以独立地改变它们之间的交互。</p>
 </blockquote>
 
 <p>例子：</p>
@@ -507,37 +507,37 @@
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 抽象中介者类</span>
 <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">Mediator</span><span class="o">{</span>
 	<span class="c1">// 定义一个抽象的发送消息方法，使得同事对象和发送信息</span>
-	<span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">void</span> <span class="nf">send</span><span class="o">(</span><span class="n">String</span> <span class="n">message</span><span class="o">,</span><span class="n">Colleague</span> <span class="n">colleague</span><span class="o">);</span>
+	<span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">void</span> <span class="nf">send</span><span class="o">(</span><span class="nc">String</span> <span class="n">message</span><span class="o">,</span><span class="nc">Colleague</span> <span class="n">colleague</span><span class="o">);</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 抽象同事类</span>
 <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">Colleague</span><span class="o">{</span>
-	<span class="kd">protected</span> <span class="n">Mediator</span> <span class="n">mediator</span><span class="o">;</span>
+	<span class="kd">protected</span> <span class="nc">Mediator</span> <span class="n">mediator</span><span class="o">;</span>
 	
 	<span class="c1">// 构造方法，得到中介者对象</span>
-	<span class="kd">public</span> <span class="nf">Colleague</span><span class="o">(</span><span class="n">Mediator</span> <span class="n">mediator</span><span class="o">){</span>
+	<span class="kd">public</span> <span class="nf">Colleague</span><span class="o">(</span><span class="nc">Mediator</span> <span class="n">mediator</span><span class="o">){</span>
 		<span class="k">this</span><span class="o">.</span><span class="na">mediator</span> <span class="o">=</span> <span class="n">mediator</span><span class="o">;</span>
 	<span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 具体中介者类</span>
-<span class="kd">public</span> <span class="n">ConcreteMediator</span> <span class="kd">extends</span> <span class="n">Mediator</span><span class="o">{</span>
-	<span class="kd">private</span> <span class="n">ConcreteColleague1</span> <span class="n">colleague1</span><span class="o">;</span>
-	<span class="kd">private</span> <span class="n">ConcreteColleague2</span> <span class="n">colleague2</span><span class="o">;</span>
+<span class="kd">public</span> <span class="nc">ConcreteMediator</span> <span class="kd">extends</span> <span class="nc">Mediator</span><span class="o">{</span>
+	<span class="kd">private</span> <span class="nc">ConcreteColleague1</span> <span class="n">colleague1</span><span class="o">;</span>
+	<span class="kd">private</span> <span class="nc">ConcreteColleague2</span> <span class="n">colleague2</span><span class="o">;</span>
 	
 	
-	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setColleague1</span><span class="o">(</span><span class="n">ConcreteColleague1</span> <span class="n">concreteColleague1</span><span class="o">){</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setColleague1</span><span class="o">(</span><span class="nc">ConcreteColleague1</span> <span class="n">concreteColleague1</span><span class="o">){</span>
 		<span class="k">this</span><span class="o">.</span><span class="na">colleague1</span> <span class="o">=</span> <span class="n">concreteColleague1</span><span class="o">;</span>
 	<span class="o">}</span>
 	
-	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setColleague2</span><span class="o">(</span><span class="n">ConcreteColleague1</span> <span class="n">concreteColleague2</span><span class="o">){</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">setColleague2</span><span class="o">(</span><span class="nc">ConcreteColleague1</span> <span class="n">concreteColleague2</span><span class="o">){</span>
 		<span class="k">this</span><span class="o">.</span><span class="na">colleague2</span> <span class="o">=</span> <span class="n">concreteColleague2</span><span class="o">;</span>
 	<span class="o">}</span>
 	
 	<span class="c1">// 重写发送信息的方法，根据对象做出选择判断，通知对象</span>
-	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">send</span><span class="o">(</span><span class="n">String</span> <span class="n">message</span><span class="o">,</span> <span class="n">Colleague</span> <span class="n">colleague</span><span class="o">){</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">send</span><span class="o">(</span><span class="nc">String</span> <span class="n">message</span><span class="o">,</span> <span class="nc">Colleague</span> <span class="n">colleague</span><span class="o">){</span>
 		<span class="k">if</span> <span class="o">(</span><span class="n">colleague</span> <span class="o">==</span> <span class="n">colleague1</span><span class="o">){</span>
 			<span class="n">colleague2</span><span class="o">.</span><span class="na">notify</span><span class="o">(</span><span class="n">message</span><span class="o">);</span>
 		<span class="o">}</span><span class="k">else</span><span class="o">{</span>
@@ -548,42 +548,42 @@
 </code></pre></div></div>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// ConcreteColleague1 和 ConcreteColeague2等各种同事对象</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ConcreteColleage1</span> <span class="kd">extends</span> <span class="n">Colleague</span><span class="o">{</span>
-	<span class="kd">public</span> <span class="nf">ConcreteColleague1</span><span class="o">(</span><span class="n">Mediator</span> <span class="n">mediator</span><span class="o">){</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ConcreteColleage1</span> <span class="kd">extends</span> <span class="nc">Colleague</span><span class="o">{</span>
+	<span class="kd">public</span> <span class="nf">ConcreteColleague1</span><span class="o">(</span><span class="nc">Mediator</span> <span class="n">mediator</span><span class="o">){</span>
 		<span class="kd">super</span><span class="o">(</span><span class="n">mediator</span><span class="o">);</span>
 	<span class="o">}</span>
 	
-	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">send</span><span class="o">(</span><span class="n">String</span> <span class="n">message</span><span class="o">){</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">send</span><span class="o">(</span><span class="nc">String</span> <span class="n">message</span><span class="o">){</span>
 		<span class="n">mediator</span><span class="o">.</span><span class="na">send</span><span class="o">(</span><span class="n">message</span><span class="o">,</span><span class="k">this</span><span class="o">);</span>
 	<span class="o">}</span>
 	
-	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">notify</span><span class="o">(</span><span class="n">String</span> <span class="n">message</span><span class="o">){</span>
-		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"同事1得到信息："</span> <span class="o">+</span> <span class="n">message</span><span class="o">);</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">notify</span><span class="o">(</span><span class="nc">String</span> <span class="n">message</span><span class="o">){</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"同事1得到信息："</span> <span class="o">+</span> <span class="n">message</span><span class="o">);</span>
 	<span class="o">}</span>
 <span class="o">}</span>
 
-<span class="kd">class</span> <span class="nc">ConcreteColleage2</span> <span class="kd">extends</span> <span class="n">Colleague</span><span class="o">{</span>
-	<span class="kd">public</span> <span class="nf">ConcreteColleague2</span><span class="o">(</span><span class="n">Mediator</span> <span class="n">mediator</span><span class="o">){</span>
+<span class="kd">class</span> <span class="nc">ConcreteColleage2</span> <span class="kd">extends</span> <span class="nc">Colleague</span><span class="o">{</span>
+	<span class="kd">public</span> <span class="nf">ConcreteColleague2</span><span class="o">(</span><span class="nc">Mediator</span> <span class="n">mediator</span><span class="o">){</span>
 		<span class="kd">super</span><span class="o">(</span><span class="n">mediator</span><span class="o">);</span>
 	<span class="o">}</span>
 	
-	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">send</span><span class="o">(</span><span class="n">String</span> <span class="n">message</span><span class="o">){</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">send</span><span class="o">(</span><span class="nc">String</span> <span class="n">message</span><span class="o">){</span>
 		<span class="n">mediator</span><span class="o">.</span><span class="na">send</span><span class="o">(</span><span class="n">message</span><span class="o">,</span><span class="k">this</span><span class="o">);</span>
 	<span class="o">}</span>
 	
-	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">notify</span><span class="o">(</span><span class="n">String</span> <span class="n">message</span><span class="o">){</span>
-		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"同事2得到信息："</span> <span class="o">+</span> <span class="n">message</span><span class="o">);</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">notify</span><span class="o">(</span><span class="nc">String</span> <span class="n">message</span><span class="o">){</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"同事2得到信息："</span> <span class="o">+</span> <span class="n">message</span><span class="o">);</span>
 	<span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">main</span><span class="o">{</span>
-	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
-		<span class="n">ConcreteMediator</span> <span class="n">m</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ConcreteMediator</span><span class="o">();</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
+		<span class="nc">ConcreteMediator</span> <span class="n">m</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ConcreteMediator</span><span class="o">();</span>
 		
 		<span class="c1">// 让两个具体同事类认识中介者对象</span>
-		<span class="n">ConcreteColleague1</span> <span class="n">c1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ConcreteColleague1</span><span class="o">(</span><span class="n">m</span><span class="o">);</span>
-		<span class="n">ConcreteColleague2</span> <span class="n">c2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ConcreteColleague2</span><span class="o">(</span><span class="n">m</span><span class="o">);</span>
+		<span class="nc">ConcreteColleague1</span> <span class="n">c1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ConcreteColleague1</span><span class="o">(</span><span class="n">m</span><span class="o">);</span>
+		<span class="nc">ConcreteColleague2</span> <span class="n">c2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ConcreteColleague2</span><span class="o">(</span><span class="n">m</span><span class="o">);</span>
 		
 		<span class="c1">// 让中介者认识各个具体同事类对象</span>
 		<span class="n">m</span><span class="o">.</span> <span class="nf">setColleague1</span><span class="o">(</span><span class="n">c1</span><span class="o">);</span>
@@ -615,45 +615,45 @@
 
 <h2 id="访问者模式">访问者模式</h2>
 <blockquote>
-  <p><code class="highlighter-rouge">访问者模式：</code>表示一个作用于某对象结构中的各元素的操作。它使你可以在不改变各元素的类的前提下定义作用于这些元素的新操作。</p>
+  <p><code class="language-plaintext highlighter-rouge">访问者模式：</code>表示一个作用于某对象结构中的各元素的操作。它使你可以在不改变各元素的类的前提下定义作用于这些元素的新操作。</p>
 </blockquote>
 
 <p>先上代码：</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// visitor 类，为该对象结构中ConcreteElement的每一个类声明一个Visit操作。</span>
 <span class="kd">abstract</span> <span class="kd">class</span> <span class="nc">Visitor</span><span class="o">{</span>
-	<span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">void</span> <span class="nf">visitConcreteElementA</span><span class="o">(</span><span class="n">ConcreteElementA</span> <span class="n">concreteElementA</span><span class="o">);</span>
-	<span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">void</span> <span class="nf">visitConcreteElementB</span><span class="o">(</span><span class="n">ConcreteElementB</span> <span class="n">concreteElementB</span><span class="o">);</span>
+	<span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">void</span> <span class="nf">visitConcreteElementA</span><span class="o">(</span><span class="nc">ConcreteElementA</span> <span class="n">concreteElementA</span><span class="o">);</span>
+	<span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">void</span> <span class="nf">visitConcreteElementB</span><span class="o">(</span><span class="nc">ConcreteElementB</span> <span class="n">concreteElementB</span><span class="o">);</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// ConcreteVisitor1 和 ConcreteVisitor2 类，具体访问者，实现每个由Visitor 声明的操作。每个操作实现算法的一部分，而该算法片段乃是对应于结构中对象的类。</span>
 
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ConcreteVisitor1</span> <span class="kd">extends</span> <span class="n">Visitor</span><span class="o">{</span>
-	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">visitConcreteElementA</span><span class="o">(</span><span class="n">ConcreteElementA</span> <span class="n">concreteElementA</span><span class="o">){</span>
-		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">concreteElementA</span><span class="o">.</span><span class="na">getType</span><span class="o">().</span><span class="na">Name</span> <span class="o">+</span> <span class="s">"被"</span> <span class="o">+</span> <span class="k">this</span><span class="o">.</span><span class="na">getType</span><span class="o">().</span><span class="na">Name</span> <span class="o">+</span> <span class="s">"访问"</span><span class="o">);</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ConcreteVisitor1</span> <span class="kd">extends</span> <span class="nc">Visitor</span><span class="o">{</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">visitConcreteElementA</span><span class="o">(</span><span class="nc">ConcreteElementA</span> <span class="n">concreteElementA</span><span class="o">){</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">concreteElementA</span><span class="o">.</span><span class="na">getType</span><span class="o">().</span><span class="na">Name</span> <span class="o">+</span> <span class="s">"被"</span> <span class="o">+</span> <span class="k">this</span><span class="o">.</span><span class="na">getType</span><span class="o">().</span><span class="na">Name</span> <span class="o">+</span> <span class="s">"访问"</span><span class="o">);</span>
 	<span class="o">}</span>
 	
-	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">visitConcreteElementB</span><span class="o">(</span><span class="n">ConcreteElementB</span> <span class="n">concreteElementB</span><span class="o">){</span>
-		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">concreteElementA</span><span class="o">.</span><span class="na">getType</span><span class="o">().</span><span class="na">Name</span> <span class="o">+</span> <span class="s">"被"</span> <span class="o">+</span> <span class="k">this</span><span class="o">.</span><span class="na">getType</span><span class="o">().</span><span class="na">Name</span> <span class="o">+</span> <span class="s">"访问"</span><span class="o">);</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">visitConcreteElementB</span><span class="o">(</span><span class="nc">ConcreteElementB</span> <span class="n">concreteElementB</span><span class="o">){</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">concreteElementA</span><span class="o">.</span><span class="na">getType</span><span class="o">().</span><span class="na">Name</span> <span class="o">+</span> <span class="s">"被"</span> <span class="o">+</span> <span class="k">this</span><span class="o">.</span><span class="na">getType</span><span class="o">().</span><span class="na">Name</span> <span class="o">+</span> <span class="s">"访问"</span><span class="o">);</span>
 	<span class="o">}</span>
 <span class="o">}</span>
 
-<span class="kd">class</span> <span class="nc">ConcreteVisitor2</span> <span class="kd">extends</span> <span class="n">Visitor</span><span class="o">{</span>
+<span class="kd">class</span> <span class="nc">ConcreteVisitor2</span> <span class="kd">extends</span> <span class="nc">Visitor</span><span class="o">{</span>
 	<span class="c1">// 代码与上类类似，省略。</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 定义一个Accept操作，它以一个访问者为参数。</span>
 <span class="n">abstact</span> <span class="kd">class</span> <span class="nc">Element</span><span class="o">{</span>
-	<span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">void</span> <span class="nf">accept</span><span class="o">(</span><span class="n">Visitor</span> <span class="n">visitor</span><span class="o">);</span>
+	<span class="kd">public</span> <span class="kd">abstract</span> <span class="kt">void</span> <span class="nf">accept</span><span class="o">(</span><span class="nc">Visitor</span> <span class="n">visitor</span><span class="o">);</span>
 <span class="o">}</span>
 </code></pre></div></div>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// ConcreteElmentA 和 ConcreteElementB 类，具体元素，实现Accept</span>
-<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ConcreteElementA</span> <span class="kd">extends</span> <span class="n">Element</span><span class="o">{</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">ConcreteElementA</span> <span class="kd">extends</span> <span class="nc">Element</span><span class="o">{</span>
 	<span class="c1">// 充分利用双分派技术，实现处理与数据结构的分离</span>
-	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">accept</span><span class="o">(</span><span class="n">Visitor</span> <span class="n">visitor</span><span class="o">){</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">accept</span><span class="o">(</span><span class="nc">Visitor</span> <span class="n">visitor</span><span class="o">){</span>
 		<span class="n">visitor</span><span class="o">.</span><span class="na">visitConcreteElementA</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
 	<span class="o">}</span>
 	
@@ -661,8 +661,8 @@
 	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">operatironA</span><span class="o">(){}</span>
 <span class="o">}</span>
 
-<span class="kd">class</span> <span class="nc">ConcreteElementB</span> <span class="kd">extends</span> <span class="n">Element</span><span class="o">{</span>
-	<span class="n">pulbic</span> <span class="kt">void</span> <span class="nf">accept</span><span class="o">(</span><span class="n">Visitor</span> <span class="n">visitor</span><span class="o">){</span>
+<span class="kd">class</span> <span class="nc">ConcreteElementB</span> <span class="kd">extends</span> <span class="nc">Element</span><span class="o">{</span>
+	<span class="n">pulbic</span> <span class="kt">void</span> <span class="nf">accept</span><span class="o">(</span><span class="nc">Visitor</span> <span class="n">visitor</span><span class="o">){</span>
 		<span class="n">visitor</span><span class="o">.</span><span class="na">VisitConcreteElementB</span><span class="o">(</span><span class="k">this</span><span class="o">);</span>
 	<span class="o">}</span>
 	
@@ -672,18 +672,18 @@
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// ObjectStructure 类，能枚举它的元素，可以提供一个高层的接口以允许访问者访问它的元素。</span>
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">ObjectStructure</span><span class="o">{</span>
-	<span class="kd">private</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">Element</span><span class="o">&gt;</span> <span class="n">elements</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">Element</span><span class="o">&gt;();</span>
+	<span class="kd">private</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Element</span><span class="o">&gt;</span> <span class="n">elements</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">Element</span><span class="o">&gt;();</span>
 	
-	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">attach</span><span class="o">(</span><span class="n">Element</span> <span class="n">elment</span><span class="o">){</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">attach</span><span class="o">(</span><span class="nc">Element</span> <span class="n">elment</span><span class="o">){</span>
 		<span class="n">elements</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">element</span><span class="o">);</span>
 	<span class="o">}</span>
 	
-	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">detach</span><span class="o">(</span><span class="n">Element</span> <span class="n">element</span><span class="o">){</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">detach</span><span class="o">(</span><span class="nc">Element</span> <span class="n">element</span><span class="o">){</span>
 		<span class="n">elements</span><span class="o">.</span><span class="na">remove</span><span class="o">(</span><span class="n">element</span><span class="o">);</span>
 	<span class="o">}</span>
 	
-	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">accept</span><span class="o">(</span><span class="n">Visitor</span> <span class="n">visitor</span><span class="o">){</span>
-		<span class="k">for</span> <span class="o">(</span><span class="n">Element</span> <span class="n">e</span> <span class="o">:</span> <span class="n">elements</span><span class="o">){</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">accept</span><span class="o">(</span><span class="nc">Visitor</span> <span class="n">visitor</span><span class="o">){</span>
+		<span class="k">for</span> <span class="o">(</span><span class="nc">Element</span> <span class="n">e</span> <span class="o">:</span> <span class="n">elements</span><span class="o">){</span>
 			<span class="n">e</span><span class="o">.</span><span class="na">accept</span><span class="o">(</span><span class="n">visitor</span><span class="o">);</span>
 		<span class="o">}</span>
 	<span class="o">}</span>
@@ -691,13 +691,13 @@
 </code></pre></div></div>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">main</span><span class="o">{</span>
-	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
-		<span class="n">ObjectStructure</span> <span class="n">o</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ObjectStructure</span><span class="o">();</span>
-		<span class="n">o</span><span class="o">.</span><span class="na">attach</span><span class="o">(</span><span class="k">new</span> <span class="n">ConcreteElementA</span><span class="o">());</span>
-		<span class="n">o</span><span class="o">.</span><span class="na">attach</span><span class="o">(</span><span class="k">new</span> <span class="n">ConcreteElementB</span><span class="o">());</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
+		<span class="nc">ObjectStructure</span> <span class="n">o</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ObjectStructure</span><span class="o">();</span>
+		<span class="n">o</span><span class="o">.</span><span class="na">attach</span><span class="o">(</span><span class="k">new</span> <span class="nc">ConcreteElementA</span><span class="o">());</span>
+		<span class="n">o</span><span class="o">.</span><span class="na">attach</span><span class="o">(</span><span class="k">new</span> <span class="nc">ConcreteElementB</span><span class="o">());</span>
 		
-		<span class="n">ConcreteVisitor1</span> <span class="n">v1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ConcreteVisitor1</span><span class="o">():</span>
-		<span class="n">ConcreteVisitor2</span> <span class="n">v2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ConcreteVisitor2</span><span class="o">():</span>
+		<span class="nc">ConcreteVisitor1</span> <span class="n">v1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ConcreteVisitor1</span><span class="o">():</span>
+		<span class="nc">ConcreteVisitor2</span> <span class="n">v2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ConcreteVisitor2</span><span class="o">():</span>
 		
 		<span class="n">o</span><span class="o">.</span><span class="na">accept</span><span class="o">(</span><span class="n">v1</span><span class="o">);</span>
 		<span class="n">o</span><span class="o">.</span><span class="na">accept</span><span class="o">(</span><span class="n">v2</span><span class="o">);</span>
@@ -722,7 +722,7 @@
 　　</p>
 
 <blockquote>
-  <p>右侧可以看<code class="highlighter-rouge">目录</code>，点击直接跳转，Z 一共写了4篇(可以点击下面直接跳转然后看右侧目录)：<br /></p>
+  <p>右侧可以看<code class="language-plaintext highlighter-rouge">目录</code>，点击直接跳转，Z 一共写了4篇(可以点击下面直接跳转然后看右侧目录)：<br /></p>
   <ul>
     <li><a href="http://uniquezhangqi.top/2018/02/04/自我总结-设计模式总结(一)">自我总结-设计模式总结(一)</a><br /></li>
     <li><a href="http://uniquezhangqi.top/2018/03/02/自我总结-设计模式总结(二)">自我总结-设计模式总结(二)</a><br /></li>
@@ -819,13 +819,13 @@
                             
         				
                             
-                				<a href="/tags/#自我总结" title="自我总结" rel="34">
+                				<a href="/tags/#自我总结" title="自我总结" rel="36">
                                     自我总结
                                 </a>
                             
         				
                             
-                				<a href="/tags/#编程之路" title="编程之路" rel="88">
+                				<a href="/tags/#编程之路" title="编程之路" rel="92">
                                     编程之路
                                 </a>
                             
@@ -936,6 +936,8 @@
                 				<a href="/tags/#MongoDB" title="MongoDB" rel="2">
                                     MongoDB
                                 </a>
+                            
+        				
                             
         				
                             
@@ -1092,7 +1094,7 @@
                     
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; MY Blog 2019
+                    Copyright &copy; MY Blog 2020
                     <br>
                     Theme on <a href="https://github.com/uniquezhangqi/uniquezhangqi.github.io.git">GitHub</a> |
                     <iframe

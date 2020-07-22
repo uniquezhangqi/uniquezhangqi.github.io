@@ -228,17 +228,17 @@
 <h3 id="客户端服务端通信协议">客户端/服务端通信协议</h3>
 <p>MySQL客户端/服务端通信协议是“半双工”的：在任一时刻，要么是服务器向客户端发送数据，要么是客户端向服务器发送数据，这两个动作不能同时发生。一旦一端开始发送消息，另一端要接收完整个消息才能响应它，所以我们无法也无须将一个消息切成小块独立发送，也没有办法进行流量控制。</p>
 
-<p>客户端用一个单独的数据包将查询请求发送给服务器，所以当查询语句很长的时候，需要设置<code class="highlighter-rouge">max_allowed_packet</code>参数。但是需要注意的是，如果查询实在是太大，服务端会拒绝接收更多数据并抛出异常。</p>
+<p>客户端用一个单独的数据包将查询请求发送给服务器，所以当查询语句很长的时候，需要设置<code class="language-plaintext highlighter-rouge">max_allowed_packet</code>参数。但是需要注意的是，如果查询实在是太大，服务端会拒绝接收更多数据并抛出异常。</p>
 
-<p>与之相反的是，服务器响应给用户的数据通常会很多，由多个数据包组成。但是当服务器响应客户端请求时，客户端必须完整的接收整个返回结果，而不能简单的只取前面几条结果，然后让服务器停止发送。因而在实际开发中，尽量保持查询简单且只返回必需的数据，减小通信间数据包的大小和数量是一个非常好的习惯，这也是查询中尽量避免使用<code class="highlighter-rouge">SELECT *</code>以及加上<code class="highlighter-rouge">LIMIT</code>限制的原因之一。</p>
+<p>与之相反的是，服务器响应给用户的数据通常会很多，由多个数据包组成。但是当服务器响应客户端请求时，客户端必须完整的接收整个返回结果，而不能简单的只取前面几条结果，然后让服务器停止发送。因而在实际开发中，尽量保持查询简单且只返回必需的数据，减小通信间数据包的大小和数量是一个非常好的习惯，这也是查询中尽量避免使用<code class="language-plaintext highlighter-rouge">SELECT *</code>以及加上<code class="language-plaintext highlighter-rouge">LIMIT</code>限制的原因之一。</p>
 
 <h3 id="查询缓存">查询缓存</h3>
 <p>在解析一个查询语句前，如果查询缓存是打开的，那么MySQL会检查这个查询语句是否命中查询缓存中的数据。如果当前查询恰好命中查询缓存，在检查一次用户权限后直接返回缓存中的结果。这种情况下，查询不会被解析，也不会生成执行计划，更不会执行。</p>
 
-<p>MySQL将缓存存放在一个引用表（不要理解成<code class="highlighter-rouge">table</code>，可以认为是类似于<code class="highlighter-rouge">HashMap</code>的数据结构），通过一个哈希值索引，这个哈希值通过查询本身、当前要查询的数据库、客户端协议版本号等一些可能影响结果的信息计算得来。所以两个查询在任何字符上的不同（例如：空格、注释），都会导致缓存不会命中。</p>
+<p>MySQL将缓存存放在一个引用表（不要理解成<code class="language-plaintext highlighter-rouge">table</code>，可以认为是类似于<code class="language-plaintext highlighter-rouge">HashMap</code>的数据结构），通过一个哈希值索引，这个哈希值通过查询本身、当前要查询的数据库、客户端协议版本号等一些可能影响结果的信息计算得来。所以两个查询在任何字符上的不同（例如：空格、注释），都会导致缓存不会命中。</p>
 
 <p>如果查询中包含任何用户自定义函数、存储函数、用户变量、临时表、mysql库中的系统表，其查询结果
-都不会被缓存。比如函数<code class="highlighter-rouge">NOW()</code>或者<code class="highlighter-rouge">CURRENT_DATE()</code>会因为不同的查询时间，返回不同的查询结果，再比如包含<code class="highlighter-rouge">CURRENT_USER</code>或者<code class="highlighter-rouge">CONNECION_ID()</code>的查询语句会因为不同的用户而返回不同的结果，将这样的查询结果缓存起来没有任何的意义。</p>
+都不会被缓存。比如函数<code class="language-plaintext highlighter-rouge">NOW()</code>或者<code class="language-plaintext highlighter-rouge">CURRENT_DATE()</code>会因为不同的查询时间，返回不同的查询结果，再比如包含<code class="language-plaintext highlighter-rouge">CURRENT_USER</code>或者<code class="language-plaintext highlighter-rouge">CONNECION_ID()</code>的查询语句会因为不同的用户而返回不同的结果，将这样的查询结果缓存起来没有任何的意义。</p>
 
 <p>既然是缓存，就会失效，那查询缓存何时失效呢？MySQL的查询缓存系统会跟踪查询中涉及的每个表，如果这些表（数据或结构）发生变化，那么和这张表相关的所有缓存数据都将失效。正因为如此，在任何的写操作时，MySQL必须将对应表的所有缓存都设置为失效。如果查询缓存非常大或者碎片很多，这个操作就可能带来很大的系统消耗，甚至导致系统僵死一会儿。而且查询缓存对系统的额外消耗也不仅仅在写操作，读操作也不例外：</p>
 
@@ -253,10 +253,10 @@
   <li>用多个小表代替一个大表，注意不要过度设计</li>
   <li>批量插入代替循环单条插入</li>
   <li>合理控制缓存空间大小，一般来说其大小设置为几十兆比较合适</li>
-  <li>可以通过<code class="highlighter-rouge">SQL_CACHE</code>和<code class="highlighter-rouge">SQL_NO_CACHE</code>来控制某个查询语句是否需要进行缓存</li>
+  <li>可以通过<code class="language-plaintext highlighter-rouge">SQL_CACHE</code>和<code class="language-plaintext highlighter-rouge">SQL_NO_CACHE</code>来控制某个查询语句是否需要进行缓存</li>
 </ol>
 
-<p>最后的忠告是不要轻易打开查询缓存，特别是写密集型应用。如果你实在是忍不住，可以将<code class="highlighter-rouge">query_cache_type</code>设置为<code class="highlighter-rouge">DEMAND</code>，这时只有加入<code class="highlighter-rouge">SQL_CACHE</code>的查询才会走缓存，其他查询则不会，这样可以非常自由地控制哪些查询需要被缓存。</p>
+<p>最后的忠告是不要轻易打开查询缓存，特别是写密集型应用。如果你实在是忍不住，可以将<code class="language-plaintext highlighter-rouge">query_cache_type</code>设置为<code class="language-plaintext highlighter-rouge">DEMAND</code>，这时只有加入<code class="language-plaintext highlighter-rouge">SQL_CACHE</code>的查询才会走缓存，其他查询则不会，这样可以非常自由地控制哪些查询需要被缓存。</p>
 
 <p>当然查询缓存系统本身是非常复杂的，这里讨论的也只是很小的一部分，其他更深入的话题，比如：缓存是如何使用内存的？如何控制内存的碎片化？事务对查询缓存有何影响等等，读者可以自行阅读相关资料，这里权当抛砖引玉吧。</p>
 
@@ -266,7 +266,7 @@
 <h3 id="查询优化">查询优化</h3>
 <p>经过前面的步骤生成的语法树被认为是合法的了，并且由优化器将其转化成查询计划。多数情况下，一条查询可以有很多种执行方式，最后都返回相应的结果。优化器的作用就是找到这其中最好的执行计划。</p>
 
-<p>MySQL使用基于成本的优化器，它尝试预测一个查询使用某种执行计划时的成本，并选择其中成本最小的一个。在MySQL可以通过查询当前会话的<code class="highlighter-rouge">last_query_cost</code>的值来得到其计算当前查询的成本。</p>
+<p>MySQL使用基于成本的优化器，它尝试预测一个查询使用某种执行计划时的成本，并选择其中成本最小的一个。在MySQL可以通过查询当前会话的<code class="language-plaintext highlighter-rouge">last_query_cost</code>的值来得到其计算当前查询的成本。</p>
 
 <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">t_message</span> <span class="k">limit</span> <span class="mi">10</span><span class="p">;</span>
 <span class="p">...</span><span class="err">省略结果集</span>
@@ -287,15 +287,15 @@
 
 <ul>
   <li>重新定义表的关联顺序（多张表关联查询时，并不一定按照SQL中指定的顺序进行，但有一些技巧可以指定关联顺序）</li>
-  <li>优化<code class="highlighter-rouge">MIN()</code>和<code class="highlighter-rouge">MAX()</code>函数（找某列的最小值，如果该列有索引，只需要查找B+Tree索引最左端，反之则可以找到最大值，具体原理见下文）</li>
-  <li>提前终止查询（比如：使用<code class="highlighter-rouge">Limit</code>时，查找到满足数量的结果集后会立即终止查询）</li>
+  <li>优化<code class="language-plaintext highlighter-rouge">MIN()</code>和<code class="language-plaintext highlighter-rouge">MAX()</code>函数（找某列的最小值，如果该列有索引，只需要查找B+Tree索引最左端，反之则可以找到最大值，具体原理见下文）</li>
+  <li>提前终止查询（比如：使用<code class="language-plaintext highlighter-rouge">Limit</code>时，查找到满足数量的结果集后会立即终止查询）</li>
   <li>优化排序（在老版本MySQL会使用两次传输排序，即先读取行指针和需要排序的字段在内存中对其排序，然后再根据排序结果去读取数据行，而新版本采用的是单次传输排序，也就是一次读取所有的数据行，然后根据给定的列排序。对于I/O密集型应用，效率会高很多）</li>
 </ul>
 
 <p>随着MySQL的不断发展，优化器使用的优化策略也在不断的进化，这里仅仅介绍几个非常常用且容易理解的优化策略，其他的优化策略，大家自行查阅吧。</p>
 
 <h3 id="查询执行引擎">查询执行引擎</h3>
-<p>在完成解析和优化阶段以后，MySQL会生成对应的执行计划，查询执行引擎根据执行计划给出的指令逐步执行得出结果。整个执行过程的大部分操作均是通过调用存储引擎实现的接口来完成，这些接口被称为<code class="highlighter-rouge">handler API</code>。查询过程中的每一张表由一个<code class="highlighter-rouge">handler</code>实例表示。实际上，MySQL在查询优化阶段就为每一张表创建了一个<code class="highlighter-rouge">handler</code>实例，优化器可以根据这些实例的接口来获取表的相关信息，包括表的所有列名、索引统计信息等。存储引擎接口提供了非常丰富的功能，但其底层仅有几十个接口，这些接口像搭积木一样完成了一次查询的大部分操作。</p>
+<p>在完成解析和优化阶段以后，MySQL会生成对应的执行计划，查询执行引擎根据执行计划给出的指令逐步执行得出结果。整个执行过程的大部分操作均是通过调用存储引擎实现的接口来完成，这些接口被称为<code class="language-plaintext highlighter-rouge">handler API</code>。查询过程中的每一张表由一个<code class="language-plaintext highlighter-rouge">handler</code>实例表示。实际上，MySQL在查询优化阶段就为每一张表创建了一个<code class="language-plaintext highlighter-rouge">handler</code>实例，优化器可以根据这些实例的接口来获取表的相关信息，包括表的所有列名、索引统计信息等。存储引擎接口提供了非常丰富的功能，但其底层仅有几十个接口，这些接口像搭积木一样完成了一次查询的大部分操作。</p>
 
 <h3 id="返回结果给客户端">返回结果给客户端</h3>
 <p>查询执行的最后一个阶段就是将结果返回给客户端。即使查询不到数据，MySQL仍然会返回这个查询的相关信息，比如该查询影响到的行数以及执行时间等等。</p>
@@ -323,14 +323,14 @@
 <p>这里总结几个可能容易理解错误的技巧：</p>
 
 <ol>
-  <li>通常来说把可为<code class="highlighter-rouge">NULL</code>的列改为<code class="highlighter-rouge">NOT NULL</code>不会对性能提升有多少帮助，只是如果计划在列上创建索引，就应该将该列设置为<code class="highlighter-rouge">NOT NULL</code>。</li>
-  <li>对整数类型指定宽度，比如<code class="highlighter-rouge">INT(11)</code>，没有任何卵用。INT使用32位（4个字节）存储空间，那么它的表示范围已经确定，所以<code class="highlighter-rouge">INT(1)</code>和<code class="highlighter-rouge">INT(20)</code>对于存储和计算是相同的。</li>
-  <li><code class="highlighter-rouge">UNSIGNED</code>表示不允许负值，大致可以使正数的上限提高一倍。比如<code class="highlighter-rouge">TINYINT</code>存储范围是-128 ~ 127，而<code class="highlighter-rouge">UNSIGNED TINYINT</code>存储的范围却是0 - 255。</li>
-  <li>通常来讲，没有太大的必要使用<code class="highlighter-rouge">DECIMAL</code>数据类型。即使是在需要存储财务数据时，仍然可以使用<code class="highlighter-rouge">BIGINT</code>。比如需要精确到万分之一，那么可以将数据乘以一百万然后使用<code class="highlighter-rouge">BIGINT</code>存储。这样可以避免浮点数计算不准确和<code class="highlighter-rouge">DECIMAL</code>精确计算代价高的问题。</li>
-  <li><code class="highlighter-rouge">TIMESTAMP</code>使用4个字节存储空间，<code class="highlighter-rouge">DATETIME</code>使用8个字节存储空间。因而，TIMESTAMP只能表示1970 - 2038年，比<code class="highlighter-rouge">DATETIME</code>表示的范围小得多，而且<code class="highlighter-rouge">TIMESTAMP</code>的值因时区不同而不同。</li>
+  <li>通常来说把可为<code class="language-plaintext highlighter-rouge">NULL</code>的列改为<code class="language-plaintext highlighter-rouge">NOT NULL</code>不会对性能提升有多少帮助，只是如果计划在列上创建索引，就应该将该列设置为<code class="language-plaintext highlighter-rouge">NOT NULL</code>。</li>
+  <li>对整数类型指定宽度，比如<code class="language-plaintext highlighter-rouge">INT(11)</code>，没有任何卵用。INT使用32位（4个字节）存储空间，那么它的表示范围已经确定，所以<code class="language-plaintext highlighter-rouge">INT(1)</code>和<code class="language-plaintext highlighter-rouge">INT(20)</code>对于存储和计算是相同的。</li>
+  <li><code class="language-plaintext highlighter-rouge">UNSIGNED</code>表示不允许负值，大致可以使正数的上限提高一倍。比如<code class="language-plaintext highlighter-rouge">TINYINT</code>存储范围是-128 ~ 127，而<code class="language-plaintext highlighter-rouge">UNSIGNED TINYINT</code>存储的范围却是0 - 255。</li>
+  <li>通常来讲，没有太大的必要使用<code class="language-plaintext highlighter-rouge">DECIMAL</code>数据类型。即使是在需要存储财务数据时，仍然可以使用<code class="language-plaintext highlighter-rouge">BIGINT</code>。比如需要精确到万分之一，那么可以将数据乘以一百万然后使用<code class="language-plaintext highlighter-rouge">BIGINT</code>存储。这样可以避免浮点数计算不准确和<code class="language-plaintext highlighter-rouge">DECIMAL</code>精确计算代价高的问题。</li>
+  <li><code class="language-plaintext highlighter-rouge">TIMESTAMP</code>使用4个字节存储空间，<code class="language-plaintext highlighter-rouge">DATETIME</code>使用8个字节存储空间。因而，TIMESTAMP只能表示1970 - 2038年，比<code class="language-plaintext highlighter-rouge">DATETIME</code>表示的范围小得多，而且<code class="language-plaintext highlighter-rouge">TIMESTAMP</code>的值因时区不同而不同。</li>
   <li>大多数情况下没有使用枚举类型的必要，其中一个缺点是枚举的字符串列表是固定的，添加和删除字符串（枚举选项）必须使用ALTER TABLE（如果只只是在列表末尾追加元素，不需要重建表）。</li>
-  <li><code class="highlighter-rouge">schema</code>的列不要太多。原因是存储引擎的API工作时需要在服务器层和存储引擎层之间通过行缓冲格式拷贝数据，然后在服务器层将缓冲内容解码成各个列，这个转换过程的代价是非常高的。如果列太多而实际使用的列又很少的话，有可能会导致CPU占用过高。</li>
-  <li>大表<code class="highlighter-rouge">ALTER TABLE</code>非常耗时，MySQL执行大部分修改表结果操作的方法是用新的结构创建一个张空表，从旧表中查出所有的数据插入新表，然后再删除旧表。尤其当内存不足而表又很大，而且还有很大索引的情况下，耗时更久。当然有一些奇技淫巧可以解决这个问题，有兴趣可自行查阅。</li>
+  <li><code class="language-plaintext highlighter-rouge">schema</code>的列不要太多。原因是存储引擎的API工作时需要在服务器层和存储引擎层之间通过行缓冲格式拷贝数据，然后在服务器层将缓冲内容解码成各个列，这个转换过程的代价是非常高的。如果列太多而实际使用的列又很少的话，有可能会导致CPU占用过高。</li>
+  <li>大表<code class="language-plaintext highlighter-rouge">ALTER TABLE</code>非常耗时，MySQL执行大部分修改表结果操作的方法是用新的结构创建一个张空表，从旧表中查出所有的数据插入新表，然后再删除旧表。尤其当内存不足而表又很大，而且还有很大索引的情况下，耗时更久。当然有一些奇技淫巧可以解决这个问题，有兴趣可自行查阅。</li>
 </ol>
 
 <h3 id="创建高性能索引">创建高性能索引</h3>
@@ -339,11 +339,11 @@
 <p>接下来将向你展示一系列创建高性能索引的策略，以及每条策略其背后的工作原理。但在此之前，先了解与索引相关的一些算法和数据结构，将有助于更好的理解后文的内容。</p>
 
 <h3 id="索引相关的数据结构和算法">索引相关的数据结构和算法</h3>
-<p>通常我们所说的索引是指<code class="highlighter-rouge">B-Tree</code>索引，它是目前关系型数据库中查找数据最为常用和有效的索引，大多数存储引擎都支持这种索引。使用<code class="highlighter-rouge">B-Tree</code>这个术语，是因为<code class="highlighter-rouge">MySQL</code>在<code class="highlighter-rouge">CREATE TABLE</code>或其它语句中使用了这个关键字，但实际上不同的存储引擎可能使用不同的数据结构，比如<code class="highlighter-rouge">InnoDB</code>就是使用的<code class="highlighter-rouge">B+Tree</code>。</p>
+<p>通常我们所说的索引是指<code class="language-plaintext highlighter-rouge">B-Tree</code>索引，它是目前关系型数据库中查找数据最为常用和有效的索引，大多数存储引擎都支持这种索引。使用<code class="language-plaintext highlighter-rouge">B-Tree</code>这个术语，是因为<code class="language-plaintext highlighter-rouge">MySQL</code>在<code class="language-plaintext highlighter-rouge">CREATE TABLE</code>或其它语句中使用了这个关键字，但实际上不同的存储引擎可能使用不同的数据结构，比如<code class="language-plaintext highlighter-rouge">InnoDB</code>就是使用的<code class="language-plaintext highlighter-rouge">B+Tree</code>。</p>
 
-<p><code class="highlighter-rouge">B+Tree</code>中的B是指balance，意为平衡。需要注意的是，B+树索引并不能找到一个给定键值的具体行，它找到的只是被查找数据行所在的页，接着数据库会把页读入到内存，再在内存中进行查找，最后得到要查找的数据。</p>
+<p><code class="language-plaintext highlighter-rouge">B+Tree</code>中的B是指balance，意为平衡。需要注意的是，B+树索引并不能找到一个给定键值的具体行，它找到的只是被查找数据行所在的页，接着数据库会把页读入到内存，再在内存中进行查找，最后得到要查找的数据。</p>
 
-<p>在介绍<code class="highlighter-rouge">B+Tree</code>前，先了解一下二叉查找树，它是一种经典的数据结构，其左子树的值总是小于根的值，右子树的值总是大于根的值，如下图①。如果要在这课树中查找值为5的记录，其大致流程：先找到根，其值为6，大于5，所以查找左子树，找到3，而5大于3，接着找3的右子树，总共找了3次。同样的方法，如果查找值为8的记录，也需要查找3次。所以二叉查找树的平均查找次数为(3 + 3 + 3 + 2 + 2 + 1) / 6 = 2.3次，而顺序查找的话，查找值为2的记录，仅需要1次，但查找值为8的记录则需要6次，所以顺序查找的平均查找次数为：(1 + 2 + 3 + 4 + 5 + 6) / 6 = 3.3次，因此大多数情况下二叉查找树的平均查找速度比顺序查找要快。</p>
+<p>在介绍<code class="language-plaintext highlighter-rouge">B+Tree</code>前，先了解一下二叉查找树，它是一种经典的数据结构，其左子树的值总是小于根的值，右子树的值总是大于根的值，如下图①。如果要在这课树中查找值为5的记录，其大致流程：先找到根，其值为6，大于5，所以查找左子树，找到3，而5大于3，接着找3的右子树，总共找了3次。同样的方法，如果查找值为8的记录，也需要查找3次。所以二叉查找树的平均查找次数为(3 + 3 + 3 + 2 + 2 + 1) / 6 = 2.3次，而顺序查找的话，查找值为2的记录，仅需要1次，但查找值为8的记录则需要6次，所以顺序查找的平均查找次数为：(1 + 2 + 3 + 4 + 5 + 6) / 6 = 3.3次，因此大多数情况下二叉查找树的平均查找速度比顺序查找要快。</p>
 
 <p><img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-05-04-%E5%9B%BE%E7%89%873.png" alt="" /></p>
 
@@ -357,7 +357,7 @@
 
 <p>随着数据库中数据的增加，索引本身大小随之增加，不可能全部存储在内存中，因此索引往往以索引文件的形式存储的磁盘上。这样的话，索引查找过程中就要产生磁盘I/O消耗，相对于内存存取，I/O存取的消耗要高几个数量级。可以想象一下一棵几百万节点的二叉树的深度是多少？如果将这么大深度的一颗二叉树放磁盘上，每读取一个节点，需要一次磁盘的I/O读取，整个查找的耗时显然是不能够接受的。那么如何减少查找过程中的I/O存取次数？</p>
 
-<p>一种行之有效的解决方法是减少树的深度，将二叉树变为m叉树（多路搜索树），而<code class="highlighter-rouge">B+Tree</code>就是一种多路搜索树。理解<code class="highlighter-rouge">B+Tree</code>时，只需要理解其最重要的两个特征即可：第一，所有的关键字（可以理解为数据）都存储在叶子节点（<code class="highlighter-rouge">Leaf Page</code>），非叶子节点（<code class="highlighter-rouge">Index Page</code>）并不存储真正的数据，所有记录节点都是按键值大小顺序存放在同一层叶子节点上。其次，所有的叶子节点由指针连接。如下图为高度为2的简化了的<code class="highlighter-rouge">B+Tree</code>。</p>
+<p>一种行之有效的解决方法是减少树的深度，将二叉树变为m叉树（多路搜索树），而<code class="language-plaintext highlighter-rouge">B+Tree</code>就是一种多路搜索树。理解<code class="language-plaintext highlighter-rouge">B+Tree</code>时，只需要理解其最重要的两个特征即可：第一，所有的关键字（可以理解为数据）都存储在叶子节点（<code class="language-plaintext highlighter-rouge">Leaf Page</code>），非叶子节点（<code class="language-plaintext highlighter-rouge">Index Page</code>）并不存储真正的数据，所有记录节点都是按键值大小顺序存放在同一层叶子节点上。其次，所有的叶子节点由指针连接。如下图为高度为2的简化了的<code class="language-plaintext highlighter-rouge">B+Tree</code>。</p>
 
 <p><img src="http://uniquezhangqi.oss-cn-shenzhen.aliyuncs.com/blog/2018-05-04-%E5%9B%BE%E7%89%875.png" alt="" /></p>
 
@@ -398,7 +398,7 @@
 <h3 id="高性能策略">高性能策略</h3>
 <p>通过上文，相信你对B+Tree的数据结构已经有了大致的了解，但MySQL中索引是如何组织数据的存储呢？以一个简单的示例来说明，假如有如下数据表：</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">CREATE</span> <span class="n">TABLE</span> <span class="nf">People</span><span class="o">(</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="no">CREATE</span> <span class="no">TABLE</span> <span class="nf">People</span><span class="o">(</span>
     <span class="n">last_name</span> <span class="nf">varchar</span><span class="o">(</span><span class="mi">50</span><span class="o">)</span> <span class="n">not</span> <span class="kc">null</span><span class="o">,</span>
     <span class="n">first_name</span> <span class="nf">varchar</span><span class="o">(</span><span class="mi">50</span><span class="o">)</span> <span class="n">not</span> <span class="kc">null</span><span class="o">,</span>
     <span class="n">dob</span> <span class="n">date</span> <span class="n">not</span> <span class="kc">null</span><span class="o">,</span>
@@ -425,7 +425,7 @@
 <p>如果列很长，通常可以索引开始的部分字符，这样可以有效节约索引空间，从而提高索引效率。</p>
 
 <h4 id="多列索引和索引顺序">多列索引和索引顺序</h4>
-<p>在多数情况下，在多个列上建立独立的索引并不能提高查询性能。理由非常简单，MySQL不知道选择哪个索引的查询效率更好，所以在老版本，比如MySQL5.0之前就会随便选择一个列的索引，而新的版本会采用合并索引的策略。举个简单的例子，在一张电影演员表中，在<code class="highlighter-rouge">actor_id</code>和<code class="highlighter-rouge">film_id</code>两个列上都建立了独立的索引，然后有如下查询：</p>
+<p>在多数情况下，在多个列上建立独立的索引并不能提高查询性能。理由非常简单，MySQL不知道选择哪个索引的查询效率更好，所以在老版本，比如MySQL5.0之前就会随便选择一个列的索引，而新的版本会采用合并索引的策略。举个简单的例子，在一张电影演员表中，在<code class="language-plaintext highlighter-rouge">actor_id</code>和<code class="language-plaintext highlighter-rouge">film_id</code>两个列上都建立了独立的索引，然后有如下查询：</p>
 
 <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">select</span> <span class="n">film_id</span><span class="p">,</span><span class="n">actor_id</span> <span class="k">from</span> <span class="n">film_actor</span> <span class="k">where</span> <span class="n">actor_id</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">or</span> <span class="n">film_id</span> <span class="o">=</span> <span class="mi">1</span>
 </code></pre></div></div>
@@ -442,7 +442,7 @@
   <li>当出现多个索引做联合操作时（多个OR条件），对结果集的合并、排序等操作需要耗费大量的CPU和内存资源，特别是当其中的某些索引的选择性不高，需要返回合并大量数据时，查询成本更高。所以这种情况下还不如走全表扫描。</li>
 </ul>
 
-<p>因此explain时如果发现有索引合并（<code class="highlighter-rouge">Extra</code>字段出现<code class="highlighter-rouge">Using union</code>），应该好好检查一下查询和表结构是不是已经是最优的，如果查询和表都没有问题，那只能说明索引建的非常糟糕，应当慎重考虑索引是否合适，有可能一个包含所有相关列的多列索引更适合。</p>
+<p>因此explain时如果发现有索引合并（<code class="language-plaintext highlighter-rouge">Extra</code>字段出现<code class="language-plaintext highlighter-rouge">Using union</code>），应该好好检查一下查询和表结构是不是已经是最优的，如果查询和表都没有问题，那只能说明索引建的非常糟糕，应当慎重考虑索引是否合适，有可能一个包含所有相关列的多列索引更适合。</p>
 
 <p>前面我们提到过索引如何组织数据存储的，从图中可以看到多列索引时，索引的顺序对于查询是至关重要的，很明显应该把选择性更高的字段放到索引的前面，这样通过第一个字段就可以过滤掉大多数不符合条件的数据。</p>
 
@@ -455,7 +455,7 @@
 <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">payment</span> <span class="k">where</span> <span class="n">staff_id</span> <span class="o">=</span> <span class="mi">2</span> <span class="k">and</span> <span class="n">customer_id</span> <span class="o">=</span> <span class="mi">584</span>
 </code></pre></div></div>
 
-<p>是应该创建(<code class="highlighter-rouge">staff_id</code>,<code class="highlighter-rouge">customer_id</code>)的索引还是应该颠倒一下顺序？执行下面的查询，哪个字段的选择性更接近1就把哪个字段索引前面就好。</p>
+<p>是应该创建(<code class="language-plaintext highlighter-rouge">staff_id</code>,<code class="language-plaintext highlighter-rouge">customer_id</code>)的索引还是应该颠倒一下顺序？执行下面的查询，哪个字段的选择性更接近1就把哪个字段索引前面就好。</p>
 
 <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">select</span> <span class="k">count</span><span class="p">(</span><span class="k">distinct</span> <span class="n">staff_id</span><span class="p">)</span><span class="o">/</span><span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="k">as</span> <span class="n">staff_id_selectivity</span><span class="p">,</span>
        <span class="k">count</span><span class="p">(</span><span class="k">distinct</span> <span class="n">customer_id</span><span class="p">)</span><span class="o">/</span><span class="k">count</span><span class="p">(</span><span class="o">*</span><span class="p">)</span> <span class="k">as</span> <span class="n">customer_id_selectivity</span><span class="p">,</span>
@@ -467,7 +467,7 @@
 <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">select</span> <span class="n">user_id</span> <span class="k">from</span> <span class="n">trade</span> <span class="k">where</span> <span class="n">user_group_id</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">and</span> <span class="n">trade_amount</span> <span class="o">&gt;</span> <span class="mi">0</span>
 </code></pre></div></div>
 
-<p>MySQL为这个查询选择了索引(<code class="highlighter-rouge">user_group_id</code>,<code class="highlighter-rouge">trade_amount</code>)，如果不考虑特殊情况，这看起来没有任何问题，但实际情况是这张表的大多数数据都是从老系统中迁移过来的，由于新老系统的数据不兼容，所以就给老系统迁移过来的数据赋予了一个默认的用户组。这种情况下，通过索引扫描的行数跟全表扫描基本没什么区别，索引也就起不到任何作用。</p>
+<p>MySQL为这个查询选择了索引(<code class="language-plaintext highlighter-rouge">user_group_id</code>,<code class="language-plaintext highlighter-rouge">trade_amount</code>)，如果不考虑特殊情况，这看起来没有任何问题，但实际情况是这张表的大多数数据都是从老系统中迁移过来的，由于新老系统的数据不兼容，所以就给老系统迁移过来的数据赋予了一个默认的用户组。这种情况下，通过索引扫描的行数跟全表扫描基本没什么区别，索引也就起不到任何作用。</p>
 
 <p>推广开来说，经验法则和推论在多数情况下是有用的，可以指导我们开发和设计，但实际情况往往会更复杂，实际业务场景下的某些特殊情况可能会摧毁你的整个设计。</p>
 
@@ -477,7 +477,7 @@
 <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">select</span> <span class="k">user</span><span class="p">.</span><span class="o">*</span> <span class="k">from</span> <span class="k">user</span> <span class="k">where</span> <span class="n">login_time</span> <span class="o">&gt;</span> <span class="s1">'2017-04-01'</span> <span class="k">and</span> <span class="n">age</span> <span class="k">between</span> <span class="mi">18</span> <span class="k">and</span> <span class="mi">30</span><span class="p">;</span>
 </code></pre></div></div>
 
-<p>这个查询有一个问题：它有两个范围条件，<code class="highlighter-rouge">login_time</code>列和<code class="highlighter-rouge">age</code>列，MySQL可以使用<code class="highlighter-rouge">login_time</code>列的索引或者<code class="highlighter-rouge">age</code>列的索引，但无法同时使用它们。</p>
+<p>这个查询有一个问题：它有两个范围条件，<code class="language-plaintext highlighter-rouge">login_time</code>列和<code class="language-plaintext highlighter-rouge">age</code>列，MySQL可以使用<code class="language-plaintext highlighter-rouge">login_time</code>列的索引或者<code class="language-plaintext highlighter-rouge">age</code>列的索引，但无法同时使用它们。</p>
 
 <h4 id="覆盖索引">覆盖索引</h4>
 <p>如果一个索引包含或者说覆盖所有需要查询的字段的值，那么就没有必要再回表查询，这就称为覆盖索引。覆盖索引是非常有用的工具，可以极大的提高性能，因为查询只需要扫描索引会带来许多好处：</p>
@@ -488,16 +488,16 @@
 </ul>
 
 <h4 id="使用索引扫描来排序">使用索引扫描来排序</h4>
-<p>MySQL有两种方式可以生产有序的结果集，其一是对结果集进行排序的操作，其二是按照索引顺序扫描得出的结果自然是有序的。如果<code class="highlighter-rouge">explain</code>的结果中<code class="highlighter-rouge">type</code>列的值为<code class="highlighter-rouge">index</code>表示使用了索引扫描来做排序。</p>
+<p>MySQL有两种方式可以生产有序的结果集，其一是对结果集进行排序的操作，其二是按照索引顺序扫描得出的结果自然是有序的。如果<code class="language-plaintext highlighter-rouge">explain</code>的结果中<code class="language-plaintext highlighter-rouge">type</code>列的值为<code class="language-plaintext highlighter-rouge">index</code>表示使用了索引扫描来做排序。</p>
 
 <p>扫描索引本身很快，因为只需要从一条索引记录移动到相邻的下一条记录。但如果索引本身不能覆盖所有需要查询的列，那么就不得不每扫描一条索引记录就回表查询一次对应的行。这个读取操作基本上是随机I/O，因此按照索引顺序读取数据的速度通常要比顺序地全表扫描要慢。</p>
 
 <p>在设计索引时，如果一个索引既能够满足排序，又满足查询，是最好的。</p>
 
-<p>只有当索引的列顺序和<code class="highlighter-rouge">ORDER BY</code>子句的顺序完全一致，并且所有列的排序方向也一样时，才能够使用索引来对结果做排序。如果查询需要关联多张表，则只有<code class="highlighter-rouge">ORDER BY</code>子句引用的字段全部为第一张表时，才能使用索引做排序。<code class="highlighter-rouge">ORDER BY</code>子句和查询的限制是一样的，都要满足最左前缀的要求（有一种情况例外，就是最左的列被指定为常数，下面是一个简单的示例），其他情况下都需要执行排序操作，而无法利用索引排序。</p>
+<p>只有当索引的列顺序和<code class="language-plaintext highlighter-rouge">ORDER BY</code>子句的顺序完全一致，并且所有列的排序方向也一样时，才能够使用索引来对结果做排序。如果查询需要关联多张表，则只有<code class="language-plaintext highlighter-rouge">ORDER BY</code>子句引用的字段全部为第一张表时，才能使用索引做排序。<code class="language-plaintext highlighter-rouge">ORDER BY</code>子句和查询的限制是一样的，都要满足最左前缀的要求（有一种情况例外，就是最左的列被指定为常数，下面是一个简单的示例），其他情况下都需要执行排序操作，而无法利用索引排序。</p>
 
-<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">//</span> <span class="err">最左列为常数，索引：</span><span class="p">(</span><span class="n">date</span><span class="p">,</span><span class="n">staff_id</span><span class="p">,</span><span class="n">customer_id</span><span class="p">)</span>
-<span class="k">select</span>  <span class="n">staff_id</span><span class="p">,</span><span class="n">customer_id</span> <span class="k">from</span> <span class="n">demo</span> <span class="k">where</span> <span class="n">date</span> <span class="o">=</span> <span class="s1">'2015-06-01'</span> <span class="k">order</span> <span class="k">by</span> <span class="n">staff_id</span><span class="p">,</span><span class="n">customer_id</span>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">//</span> <span class="err">最左列为常数，索引：</span><span class="p">(</span><span class="nb">date</span><span class="p">,</span><span class="n">staff_id</span><span class="p">,</span><span class="n">customer_id</span><span class="p">)</span>
+<span class="k">select</span>  <span class="n">staff_id</span><span class="p">,</span><span class="n">customer_id</span> <span class="k">from</span> <span class="n">demo</span> <span class="k">where</span> <span class="nb">date</span> <span class="o">=</span> <span class="s1">'2015-06-01'</span> <span class="k">order</span> <span class="k">by</span> <span class="n">staff_id</span><span class="p">,</span><span class="n">customer_id</span>
 </code></pre></div></div>
 
 <h4 id="冗余和重复索引">冗余和重复索引</h4>
@@ -512,26 +512,26 @@
 
 <h4 id="特定类型查询优化">特定类型查询优化</h4>
 <h5 id="优化count查询">优化COUNT()查询</h5>
-<p><code class="highlighter-rouge">COUNT()</code>可能是被大家误解最多的函数了，它有两种不同的作用，其一是统计某个列值的数量，其二是统计行数。统计列值时，要求列值是非空的，它不会统计NULL。如果确认括号中的表达式不可能为空时，实际上就是在统计行数。最简单的就是当使用<code class="highlighter-rouge">COUNT(*)</code>时，并不是我们所想象的那样扩展成所有的列，实际上，它会忽略所有的列而直接统计行数。</p>
+<p><code class="language-plaintext highlighter-rouge">COUNT()</code>可能是被大家误解最多的函数了，它有两种不同的作用，其一是统计某个列值的数量，其二是统计行数。统计列值时，要求列值是非空的，它不会统计NULL。如果确认括号中的表达式不可能为空时，实际上就是在统计行数。最简单的就是当使用<code class="language-plaintext highlighter-rouge">COUNT(*)</code>时，并不是我们所想象的那样扩展成所有的列，实际上，它会忽略所有的列而直接统计行数。</p>
 
-<p>我们最常见的误解也就在这儿，在括号内指定了一列却希望统计结果是行数，而且还常常误以为前者的性能会更好。但实际并非这样，如果要统计行数，直接使用<code class="highlighter-rouge">COUNT(*)</code>，意义清晰，且性能更好。</p>
+<p>我们最常见的误解也就在这儿，在括号内指定了一列却希望统计结果是行数，而且还常常误以为前者的性能会更好。但实际并非这样，如果要统计行数，直接使用<code class="language-plaintext highlighter-rouge">COUNT(*)</code>，意义清晰，且性能更好。</p>
 
-<p>有时候某些业务场景并不需要完全精确的<code class="highlighter-rouge">COUNT</code>值，可以用近似值来代替，<code class="highlighter-rouge">EXPLAIN</code>出来的行数就是一个不错的近似值，而且执行<code class="highlighter-rouge">EXPLAIN</code>并不需要真正地去执行查询，所以成本非常低。通常来说，执行<code class="highlighter-rouge">COUNT()</code>都需要扫描大量的行才能获取到精确的数据，因此很难优化，MySQL层面还能做得也就只有覆盖索引了。如果不还能解决问题，只有从架构层面解决了，比如添加汇总表，或者使用redis这样的外部缓存系统。</p>
+<p>有时候某些业务场景并不需要完全精确的<code class="language-plaintext highlighter-rouge">COUNT</code>值，可以用近似值来代替，<code class="language-plaintext highlighter-rouge">EXPLAIN</code>出来的行数就是一个不错的近似值，而且执行<code class="language-plaintext highlighter-rouge">EXPLAIN</code>并不需要真正地去执行查询，所以成本非常低。通常来说，执行<code class="language-plaintext highlighter-rouge">COUNT()</code>都需要扫描大量的行才能获取到精确的数据，因此很难优化，MySQL层面还能做得也就只有覆盖索引了。如果不还能解决问题，只有从架构层面解决了，比如添加汇总表，或者使用redis这样的外部缓存系统。</p>
 
 <h5 id="优化关联查询">优化关联查询</h5>
 <p>在大数据场景下，表与表之间通过一个冗余字段来关联，要比直接使用JOIN有更好的性能。如果确实需要使用关联查询的情况下，需要特别注意的是：</p>
 
-<p>确保<code class="highlighter-rouge">ON</code>和<code class="highlighter-rouge">USING</code>字句中的列上有索引。在创建索引的时候就要考虑到关联的顺序。当表A和表B用列c关联的时候，如果优化器关联的顺序是A、B，那么就不需要在A表的对应列上创建索引。没有用到的索引会带来额外的负担，一般来说，除非有其他理由，只需要在关联顺序中的第二张表的相应列上创建索引（具体原因下文分析）。
-确保任何的<code class="highlighter-rouge">GROUP BY</code>和<code class="highlighter-rouge">ORDER BY</code>中的表达式只涉及到一个表中的列，这样MySQL才有可能使用索引来优化。
+<p>确保<code class="language-plaintext highlighter-rouge">ON</code>和<code class="language-plaintext highlighter-rouge">USING</code>字句中的列上有索引。在创建索引的时候就要考虑到关联的顺序。当表A和表B用列c关联的时候，如果优化器关联的顺序是A、B，那么就不需要在A表的对应列上创建索引。没有用到的索引会带来额外的负担，一般来说，除非有其他理由，只需要在关联顺序中的第二张表的相应列上创建索引（具体原因下文分析）。
+确保任何的<code class="language-plaintext highlighter-rouge">GROUP BY</code>和<code class="language-plaintext highlighter-rouge">ORDER BY</code>中的表达式只涉及到一个表中的列，这样MySQL才有可能使用索引来优化。
 要理解优化关联查询的第一个技巧，就需要理解MySQL是如何执行关联查询的。当前MySQL关联执行的策略非常简单，它对任何的关联都执行嵌套循环关联操作，即先在一个表中循环取出单条数据，然后在嵌套循环到下一个表中寻找匹配的行，依次下去，直到找到所有表中匹配的行为为止。然后根据各个表匹配的行，返回查询中需要的各个列。</p>
 
 <p>太抽象了？以上面的示例来说明，比如有这样的一个查询：</p>
 
-<h4>#</h4>
-<p>SELECT A.xx,B.yy 
+<p>#####
+SELECT A.xx,B.yy 
 FROM A INNER JOIN B USING(c)
 WHERE A.xx IN (5,6)</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 假设MySQL按照查询中的关联顺序A、B来进行关联操作，那么可以用下面的伪代码表示MySQL如何完成这个查询：
 
 #####
@@ -551,9 +551,9 @@ while(outer_row) {
 <p>可以看到，最外层的查询是根据A.xx列来查询的，A.c上如果有索引的话，整个关联查询也不会使用。再看内层的查询，很明显B.c上如果有索引的话，能够加速查询，因此只需要在关联顺序中的第二张表的相应列上创建索引即可。</p>
 
 <h5 id="优化limit分页">优化LIMIT分页</h5>
-<p>当需要分页操作时，通常会使用<code class="highlighter-rouge">LIMIT</code>加上偏移量的办法实现，同时加上合适的<code class="highlighter-rouge">ORDER BY</code>字句。如果有对应的索引，通常效率会不错，否则，MySQL需要做大量的文件排序操作。</p>
+<p>当需要分页操作时，通常会使用<code class="language-plaintext highlighter-rouge">LIMIT</code>加上偏移量的办法实现，同时加上合适的<code class="language-plaintext highlighter-rouge">ORDER BY</code>字句。如果有对应的索引，通常效率会不错，否则，MySQL需要做大量的文件排序操作。</p>
 
-<p>一个常见的问题是当偏移量非常大的时候，比如：<code class="highlighter-rouge">LIMIT 10000 20</code>这样的查询，MySQL需要查询10020条记录然后只返回20条记录，前面的10000条都将被抛弃，这样的代价非常高。</p>
+<p>一个常见的问题是当偏移量非常大的时候，比如：<code class="language-plaintext highlighter-rouge">LIMIT 10000 20</code>这样的查询，MySQL需要查询10020条记录然后只返回20条记录，前面的10000条都将被抛弃，这样的代价非常高。</p>
 
 <p>优化这种查询一个最简单的办法就是尽可能的使用覆盖索引扫描，而不是查询所有的列。然后根据需要做一次关联查询再返回所有的列。对于偏移量很大时，这样做的效率会提升非常大。考虑下面的查询：</p>
 
@@ -570,7 +570,7 @@ while(outer_row) {
 
 <p>这里的延迟关联将大大提升查询效率，让MySQL扫描尽可能少的页面，获取需要访问的记录后在根据关联列回原表查询所需要的列。</p>
 
-<p>有时候如果可以使用书签记录上次取数据的位置，那么下次就可以直接从该书签记录的位置开始扫描，这样就可以避免使用<code class="highlighter-rouge">OFFSET</code>，比如下面的查询：</p>
+<p>有时候如果可以使用书签记录上次取数据的位置，那么下次就可以直接从该书签记录的位置开始扫描，这样就可以避免使用<code class="language-plaintext highlighter-rouge">OFFSET</code>，比如下面的查询：</p>
 
 <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">id</span> <span class="k">FROM</span> <span class="n">t</span> <span class="k">LIMIT</span> <span class="mi">10000</span><span class="p">,</span> <span class="mi">10</span><span class="p">;</span>
 <span class="err">改为：</span>
@@ -579,9 +579,9 @@ while(outer_row) {
 </code></pre></div></div>
 
 <h5 id="优化union">优化UNION</h5>
-<p>MySQL处理<code class="highlighter-rouge">UNION</code>的策略是先创建临时表，然后再把各个查询结果插入到临时表中，最后再来做查询。因此很多优化策略在<code class="highlighter-rouge">UNION</code>查询中都没有办法很好的时候。经常需要手动将<code class="highlighter-rouge">WHERE</code>、<code class="highlighter-rouge">LIMIT</code>、<code class="highlighter-rouge">ORDER BY</code>等字句“下推”到各个子查询中，以便优化器可以充分利用这些条件先优化。</p>
+<p>MySQL处理<code class="language-plaintext highlighter-rouge">UNION</code>的策略是先创建临时表，然后再把各个查询结果插入到临时表中，最后再来做查询。因此很多优化策略在<code class="language-plaintext highlighter-rouge">UNION</code>查询中都没有办法很好的时候。经常需要手动将<code class="language-plaintext highlighter-rouge">WHERE</code>、<code class="language-plaintext highlighter-rouge">LIMIT</code>、<code class="language-plaintext highlighter-rouge">ORDER BY</code>等字句“下推”到各个子查询中，以便优化器可以充分利用这些条件先优化。</p>
 
-<p>除非确实需要服务器去重，否则就一定要使用<code class="highlighter-rouge">UNION ALL</code>，如果没有<code class="highlighter-rouge">ALL</code>关键字，MySQL会给临时表加上<code class="highlighter-rouge">DISTINCT</code>选项，这会导致整个临时表的数据做唯一性检查，这样做的代价非常高。当然即使使用ALL关键字，MySQL总是将结果放入临时表，然后再读出，再返回给客户端。虽然很多时候没有这个必要，比如有时候可以直接把每个子查询的结果返回给客户端。</p>
+<p>除非确实需要服务器去重，否则就一定要使用<code class="language-plaintext highlighter-rouge">UNION ALL</code>，如果没有<code class="language-plaintext highlighter-rouge">ALL</code>关键字，MySQL会给临时表加上<code class="language-plaintext highlighter-rouge">DISTINCT</code>选项，这会导致整个临时表的数据做唯一性检查，这样做的代价非常高。当然即使使用ALL关键字，MySQL总是将结果放入临时表，然后再读出，再返回给客户端。虽然很多时候没有这个必要，比如有时候可以直接把每个子查询的结果返回给客户端。</p>
 
 <p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1fqj5aochgoj309k09kmwz.jpg" alt="" />
 <b><center>扫描关注：热爱生活的大叔</center>
@@ -663,13 +663,13 @@ while(outer_row) {
                             
         				
                             
-                				<a href="/tags/#自我总结" title="自我总结" rel="34">
+                				<a href="/tags/#自我总结" title="自我总结" rel="36">
                                     自我总结
                                 </a>
                             
         				
                             
-                				<a href="/tags/#编程之路" title="编程之路" rel="88">
+                				<a href="/tags/#编程之路" title="编程之路" rel="92">
                                     编程之路
                                 </a>
                             
@@ -780,6 +780,8 @@ while(outer_row) {
                 				<a href="/tags/#MongoDB" title="MongoDB" rel="2">
                                     MongoDB
                                 </a>
+                            
+        				
                             
         				
                             
@@ -936,7 +938,7 @@ while(outer_row) {
                     
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; MY Blog 2019
+                    Copyright &copy; MY Blog 2020
                     <br>
                     Theme on <a href="https://github.com/uniquezhangqi/uniquezhangqi.github.io.git">GitHub</a> |
                     <iframe

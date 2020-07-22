@@ -234,13 +234,13 @@
 
 <h3 id="程序计数器">程序计数器</h3>
 <h4 id="是什么">是什么</h4>
-<p><code class="highlighter-rouge">程序计数器</code>是一块较小的内存空间，它可以看作是当前线程所执行的字节码的型号指示器。</p>
+<p><code class="language-plaintext highlighter-rouge">程序计数器</code>是一块较小的内存空间，它可以看作是当前线程所执行的字节码的型号指示器。</p>
 
 <h4 id="应用场景">应用场景</h4>
-<p><code class="highlighter-rouge">字节码解释器</code>工作时就是通过改变这个计数器的值来选取下一条需要执行的字节码指令，分支、循环、跳转、异常处理、线程恢复等基础功能都需要依赖这个计数器完成。</p>
+<p><code class="language-plaintext highlighter-rouge">字节码解释器</code>工作时就是通过改变这个计数器的值来选取下一条需要执行的字节码指令，分支、循环、跳转、异常处理、线程恢复等基础功能都需要依赖这个计数器完成。</p>
 
 <h4 id="java虚拟机多线程实现">Java虚拟机多线程实现</h4>
-<p>Java 虚拟机的多线程 是通过线程轮流切换并分配处理器时间的方式来实现的。 在任何一个确定的时刻，一个处理器（对于多核处理器来说是一个内核）都只会执行一条线程中的指令。每条线程都需要有一个独立的<code class="highlighter-rouge">程序计数器</code>，各条线程之间计数器互不影响，独立存储， 这个内存区域叫“<code class="highlighter-rouge">线程私有</code>”的内存。</p>
+<p>Java 虚拟机的多线程 是通过线程轮流切换并分配处理器时间的方式来实现的。 在任何一个确定的时刻，一个处理器（对于多核处理器来说是一个内核）都只会执行一条线程中的指令。每条线程都需要有一个独立的<code class="language-plaintext highlighter-rouge">程序计数器</code>，各条线程之间计数器互不影响，独立存储， 这个内存区域叫“<code class="language-plaintext highlighter-rouge">线程私有</code>”的内存。</p>
 
 <h3 id="java虚拟机栈">Java虚拟机栈</h3>
 <h4 id="是什么-1">是什么</h4>
@@ -259,7 +259,7 @@
 </ul>
 
 <h3 id="本地方法栈">本地方法栈</h3>
-<p>本地方法栈与虚拟机栈所发挥的作用是非常相似的，它们之间的区别不过是虚拟机栈为<code class="highlighter-rouge">虚拟机</code>执行Java方法（也就是）字节码服务，而<code class="highlighter-rouge">本地方法栈</code>则为虚拟机使用到的<a href="https://blog.csdn.net/wike163/article/details/6635321">Native方法服务</a>。与虚拟机栈一样，会抛出StackOverflowError、OutOfMemoryError异常。</p>
+<p>本地方法栈与虚拟机栈所发挥的作用是非常相似的，它们之间的区别不过是虚拟机栈为<code class="language-plaintext highlighter-rouge">虚拟机</code>执行Java方法（也就是）字节码服务，而<code class="language-plaintext highlighter-rouge">本地方法栈</code>则为虚拟机使用到的<a href="https://blog.csdn.net/wike163/article/details/6635321">Native方法服务</a>。与虚拟机栈一样，会抛出StackOverflowError、OutOfMemoryError异常。</p>
 
 <h3 id="java堆">Java堆</h3>
 <h4 id="什么是java堆">什么是Java堆</h4>
@@ -274,7 +274,7 @@
 <p>方法区与Java堆一样，是各个线程共享的内存区域，它用于存储已被虚拟机加载的类信息、常量、静态变量、即时编译器编译后的代码等数据。有一个别名叫做Non-Heap（非堆），目的是与Java堆区分开来。</p>
 
 <h3 id="运行时常量池">运行时常量池</h3>
-<p>运行时常量池是方法区的一部分。Class文件中除了有类的版本、字段、方法、接口等描述信息外 ，还有一项信息是常量池，用于存放编译期生成的各种字面量和符号引用，这部分内容将在类加载后进入方法区的运行时常量池中存放。一般来说，除了保存Class文件中描述的<code class="highlighter-rouge">符号引用</code>外，还会把翻译出来的<code class="highlighter-rouge">直接引用</code>也存储在运行时常量池中。</p>
+<p>运行时常量池是方法区的一部分。Class文件中除了有类的版本、字段、方法、接口等描述信息外 ，还有一项信息是常量池，用于存放编译期生成的各种字面量和符号引用，这部分内容将在类加载后进入方法区的运行时常量池中存放。一般来说，除了保存Class文件中描述的<code class="language-plaintext highlighter-rouge">符号引用</code>外，还会把翻译出来的<code class="language-plaintext highlighter-rouge">直接引用</code>也存储在运行时常量池中。</p>
 
 <h4 id="限制">限制</h4>
 <p>运行时常量池是方法区的一部分，自然受到方法区内存的限制，当常量池无法再申请到内存时会抛出OutOfMemoryError异常。</p>
@@ -288,8 +288,8 @@
 <p>在类加载检查通过后，接下来虚拟机就将为新生对象分配内存。对象所需内存的大小在类加载完成后便可完全确定，为对象分配空间的任务等同于把一块确定大小的内存从Java堆中划分出来。</p>
 
 <ul>
-  <li>假设Java堆中的内存是<code class="highlighter-rouge">绝对规整的</code>，所有用过的内存都放在一边，空闲的内存放在另一边，中间放着一个指针作为分界点的指示器，那所分配内存就仅仅是把那个指针向空闲空间那边挪动一段与对象大小相等的距离。这种分配方式称为“<code class="highlighter-rouge">指针碰撞</code>”。</li>
-  <li>如果Java堆中的内存并<code class="highlighter-rouge">不是规整的</code>,已使用的内存和空闲的内存相互交错，虚拟机就会必须维护一个列表，记录上哪些内存块是可用的，在分配的时候好从列表中找到一块足够大的空间划分给对象实例，并更新列表上的记录，这种分配方式称为“<code class="highlighter-rouge">空闲列表</code>”，</li>
+  <li>假设Java堆中的内存是<code class="language-plaintext highlighter-rouge">绝对规整的</code>，所有用过的内存都放在一边，空闲的内存放在另一边，中间放着一个指针作为分界点的指示器，那所分配内存就仅仅是把那个指针向空闲空间那边挪动一段与对象大小相等的距离。这种分配方式称为“<code class="language-plaintext highlighter-rouge">指针碰撞</code>”。</li>
+  <li>如果Java堆中的内存并<code class="language-plaintext highlighter-rouge">不是规整的</code>,已使用的内存和空闲的内存相互交错，虚拟机就会必须维护一个列表，记录上哪些内存块是可用的，在分配的时候好从列表中找到一块足够大的空间划分给对象实例，并更新列表上的记录，这种分配方式称为“<code class="language-plaintext highlighter-rouge">空闲列表</code>”，</li>
 </ul>
 
 <p>选择哪种分配方式都是由Java堆是否规整决定。–因此，<strong>在使用Serial、ParNew等带Compact过程的收集器时，系统采用的分配算法</strong>是指针碰撞，而是<strong>用CMS这种基于Mark-Sweep算法的收集器时</strong>，通常采用空闲列表。</p>
@@ -299,14 +299,14 @@
 
 <ul>
   <li>一种是对分配内存空间的动作进行同步处理–实际上虚拟机采用CAS配上失败重试的方式保证更新操作的原子性；</li>
-  <li>另一种是把内存分配的动作按照线程划分在不同的空间之中进行，即每个线程在Java堆中预先分配一小块内存，称为“<code class="highlighter-rouge">本地线程分配缓冲</code>”。</li>
+  <li>另一种是把内存分配的动作按照线程划分在不同的空间之中进行，即每个线程在Java堆中预先分配一小块内存，称为“<code class="language-plaintext highlighter-rouge">本地线程分配缓冲</code>”。</li>
 </ul>
 
 <h4 id="对象的产生">对象的产生</h4>
 <p>上面工作都完成之后，从虚拟机的视角来看，一个新的对象已经产生了，但从Java程序的视角来看对象创建才刚刚开始–<init>方法还没有执行，所有的字段都还为零。所以，一般来说（由字节码中是否跟随invokespecial指令所决定），执行new 指令之后会接着执行<init>方法，把对象按照程序员的意愿进行初始化，这样一个真正可用的对象才算完全产生出来。</init></init></p>
 
 <h3 id="对象的内存布局">对象的内存布局</h3>
-<p>在HotSpot虚拟机中，对象在内存中存储的布局可以分为3块区域；<code class="highlighter-rouge">对象头</code>、<code class="highlighter-rouge">实例数据</code>、<code class="highlighter-rouge">对齐填充</code>。</p>
+<p>在HotSpot虚拟机中，对象在内存中存储的布局可以分为3块区域；<code class="language-plaintext highlighter-rouge">对象头</code>、<code class="language-plaintext highlighter-rouge">实例数据</code>、<code class="language-plaintext highlighter-rouge">对齐填充</code>。</p>
 
 <h4 id="对象头">对象头</h4>
 <p>一共包括两部分信息：</p>
@@ -432,13 +432,13 @@ reference： reference类型是一个指向对象的引用。</p>
                             
         				
                             
-                				<a href="/tags/#自我总结" title="自我总结" rel="34">
+                				<a href="/tags/#自我总结" title="自我总结" rel="36">
                                     自我总结
                                 </a>
                             
         				
                             
-                				<a href="/tags/#编程之路" title="编程之路" rel="88">
+                				<a href="/tags/#编程之路" title="编程之路" rel="92">
                                     编程之路
                                 </a>
                             
@@ -549,6 +549,8 @@ reference： reference类型是一个指向对象的引用。</p>
                 				<a href="/tags/#MongoDB" title="MongoDB" rel="2">
                                     MongoDB
                                 </a>
+                            
+        				
                             
         				
                             
@@ -705,7 +707,7 @@ reference： reference类型是一个指向对象的引用。</p>
                     
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; MY Blog 2019
+                    Copyright &copy; MY Blog 2020
                     <br>
                     Theme on <a href="https://github.com/uniquezhangqi/uniquezhangqi.github.io.git">GitHub</a> |
                     <iframe

@@ -210,7 +210,7 @@
 <h4 id="方法一循环元素删除">方法一：循环元素删除</h4>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//  删除ArrayList中重复元素 </span>
-<span class="kd">public</span>   <span class="kd">static</span>   <span class="kt">void</span>  <span class="nf">removeDuplicate</span><span class="o">(</span><span class="n">List</span> <span class="n">list</span><span class="o">)</span>   <span class="o">{</span> 
+<span class="kd">public</span>   <span class="kd">static</span>   <span class="kt">void</span>  <span class="nf">removeDuplicate</span><span class="o">(</span><span class="nc">List</span> <span class="n">list</span><span class="o">)</span>   <span class="o">{</span> 
    <span class="k">for</span>  <span class="o">(</span> <span class="kt">int</span>  <span class="n">i</span>  <span class="o">=</span>   <span class="mi">0</span> <span class="o">;</span> <span class="n">i</span>  <span class="o">&lt;</span>  <span class="n">list</span><span class="o">.</span><span class="na">size</span><span class="o">()</span>  <span class="o">-</span>   <span class="mi">1</span> <span class="o">;</span> <span class="n">i</span> <span class="o">++</span> <span class="o">)</span>   <span class="o">{</span> 
     <span class="k">for</span>  <span class="o">(</span> <span class="kt">int</span>  <span class="n">j</span>  <span class="o">=</span>  <span class="n">list</span><span class="o">.</span><span class="na">size</span><span class="o">()</span>  <span class="o">-</span>   <span class="mi">1</span> <span class="o">;</span> <span class="n">j</span>  <span class="o">&gt;</span>  <span class="n">i</span><span class="o">;</span> <span class="n">j</span> <span class="o">--</span> <span class="o">)</span>   <span class="o">{</span> 
       <span class="k">if</span>  <span class="o">(</span><span class="n">list</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">j</span><span class="o">).</span><span class="na">equals</span><span class="o">(</span><span class="n">list</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">i</span><span class="o">)))</span>   <span class="o">{</span> 
@@ -218,45 +218,45 @@
       <span class="o">}</span> 
     <span class="o">}</span> 
   <span class="o">}</span> 
-  <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">list</span><span class="o">);</span> 
+  <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">list</span><span class="o">);</span> 
 <span class="o">}</span> 
 </code></pre></div></div>
 
 <h4 id="方法二通过hashset剔除">方法二：通过HashSet剔除</h4>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//  删除ArrayList中重复元素 </span>
- <span class="kd">public</span>   <span class="kd">static</span>   <span class="kt">void</span>  <span class="nf">removeDuplicate</span><span class="o">(</span><span class="n">List</span> <span class="n">list</span><span class="o">)</span>   <span class="o">{</span> 
-    <span class="n">HashSet</span> <span class="n">h</span>  <span class="o">=</span>   <span class="k">new</span>  <span class="n">HashSet</span><span class="o">(</span><span class="n">list</span><span class="o">);</span> 
+ <span class="kd">public</span>   <span class="kd">static</span>   <span class="kt">void</span>  <span class="nf">removeDuplicate</span><span class="o">(</span><span class="nc">List</span> <span class="n">list</span><span class="o">)</span>   <span class="o">{</span> 
+    <span class="nc">HashSet</span> <span class="n">h</span>  <span class="o">=</span>   <span class="k">new</span>  <span class="nc">HashSet</span><span class="o">(</span><span class="n">list</span><span class="o">);</span> 
     <span class="n">list</span><span class="o">.</span><span class="na">clear</span><span class="o">();</span> 
     <span class="n">list</span><span class="o">.</span><span class="na">addAll</span><span class="o">(</span><span class="n">h</span><span class="o">);</span> 
-    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">list</span><span class="o">);</span> 
+    <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">list</span><span class="o">);</span> 
 <span class="o">}</span> 
 </code></pre></div></div>
 
 <h4 id="方法三-删除arraylist中重复元素保持顺序">方法三： 删除ArrayList中重复元素，保持顺序</h4>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 删除ArrayList中重复元素，保持顺序 </span>
-<span class="kd">public</span>   <span class="kd">static</span>   <span class="kt">void</span>  <span class="nf">removeDuplicateWithOrder</span><span class="o">(</span><span class="n">List</span> <span class="n">list</span><span class="o">)</span>   <span class="o">{</span> 
-      <span class="n">Set</span> <span class="n">set</span>  <span class="o">=</span>   <span class="k">new</span>  <span class="n">HashSet</span><span class="o">();</span> 
-      <span class="n">List</span> <span class="n">newList</span>  <span class="o">=</span>   <span class="k">new</span>  <span class="n">ArrayList</span><span class="o">();</span> 
-   <span class="k">for</span>  <span class="o">(</span><span class="n">Iterator</span> <span class="n">iter</span>  <span class="o">=</span>  <span class="n">list</span><span class="o">.</span><span class="na">iterator</span><span class="o">();</span> <span class="n">iter</span><span class="o">.</span><span class="na">hasNext</span><span class="o">();)</span>   <span class="o">{</span> 
-         <span class="n">Object</span> <span class="n">element</span>  <span class="o">=</span>  <span class="n">iter</span><span class="o">.</span><span class="na">next</span><span class="o">();</span> 
+<span class="kd">public</span>   <span class="kd">static</span>   <span class="kt">void</span>  <span class="nf">removeDuplicateWithOrder</span><span class="o">(</span><span class="nc">List</span> <span class="n">list</span><span class="o">)</span>   <span class="o">{</span> 
+      <span class="nc">Set</span> <span class="n">set</span>  <span class="o">=</span>   <span class="k">new</span>  <span class="nc">HashSet</span><span class="o">();</span> 
+      <span class="nc">List</span> <span class="n">newList</span>  <span class="o">=</span>   <span class="k">new</span>  <span class="nc">ArrayList</span><span class="o">();</span> 
+   <span class="k">for</span>  <span class="o">(</span><span class="nc">Iterator</span> <span class="n">iter</span>  <span class="o">=</span>  <span class="n">list</span><span class="o">.</span><span class="na">iterator</span><span class="o">();</span> <span class="n">iter</span><span class="o">.</span><span class="na">hasNext</span><span class="o">();)</span>   <span class="o">{</span> 
+         <span class="nc">Object</span> <span class="n">element</span>  <span class="o">=</span>  <span class="n">iter</span><span class="o">.</span><span class="na">next</span><span class="o">();</span> 
          <span class="k">if</span>  <span class="o">(</span><span class="n">set</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">element</span><span class="o">))</span> 
             <span class="n">newList</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">element</span><span class="o">);</span> 
      <span class="o">}</span> 
      <span class="n">list</span><span class="o">.</span><span class="na">clear</span><span class="o">();</span> 
      <span class="n">list</span><span class="o">.</span><span class="na">addAll</span><span class="o">(</span><span class="n">newList</span><span class="o">);</span> 
-     <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span> <span class="s">" remove duplicate "</span>   <span class="o">+</span>  <span class="n">list</span><span class="o">);</span> 
+     <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span> <span class="s">" remove duplicate "</span>   <span class="o">+</span>  <span class="n">list</span><span class="o">);</span> 
 <span class="o">}</span> 
 </code></pre></div></div>
 
 <h4 id="方法四定义一个方法">方法四：定义一个方法</h4>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-    <span class="n">publi</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">getNewList</span><span class="o">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">li</span><span class="o">){</span>
-        <span class="n">List</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;();</span>
+    <span class="n">publi</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="nf">getNewList</span><span class="o">(</span><span class="nc">List</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">li</span><span class="o">){</span>
+        <span class="nc">List</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">list</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;();</span>
         <span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">li</span><span class="o">.</span><span class="na">size</span><span class="o">();</span> <span class="n">i</span><span class="o">++){</span>
-            <span class="n">String</span> <span class="n">str</span> <span class="o">=</span> <span class="n">li</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>  <span class="c1">//获取传入集合对象的每一个元素</span>
+            <span class="nc">String</span> <span class="n">str</span> <span class="o">=</span> <span class="n">li</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>  <span class="c1">//获取传入集合对象的每一个元素</span>
             <span class="k">if</span><span class="o">(!</span><span class="n">list</span><span class="o">.</span><span class="na">contains</span><span class="o">(</span><span class="n">str</span><span class="o">)){</span>   <span class="c1">//查看新集合中是否有指定的元素，如果没有则加入</span>
                 <span class="n">list</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">str</span><span class="o">);</span>
             <span class="o">}</span>
@@ -265,14 +265,14 @@
     <span class="o">}</span>
 
     <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Test</span><span class="o">{</span>
-        <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
-           <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="n">arr</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;();</span>
+        <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">){</span>
+           <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">arr</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;();</span>
            <span class="n">arr</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">"aaa"</span><span class="o">);</span>
            <span class="n">arr</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">"bbb"</span><span class="o">);</span>
            <span class="n">arr</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">"aaa"</span><span class="o">);</span>
            <span class="n">arr</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="s">"ccc"</span><span class="o">);</span>
            <span class="n">arr</span> <span class="o">=</span> <span class="n">getNewList</span><span class="o">(</span><span class="n">arr</span><span class="o">);</span>  <span class="c1">//方法去重</span>
-           <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">arr</span><span class="o">);</span>
+           <span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">arr</span><span class="o">);</span>
         <span class="o">}</span>
     <span class="o">}</span>
 </code></pre></div></div>
@@ -357,13 +357,13 @@
                             
         				
                             
-                				<a href="/tags/#自我总结" title="自我总结" rel="34">
+                				<a href="/tags/#自我总结" title="自我总结" rel="36">
                                     自我总结
                                 </a>
                             
         				
                             
-                				<a href="/tags/#编程之路" title="编程之路" rel="88">
+                				<a href="/tags/#编程之路" title="编程之路" rel="92">
                                     编程之路
                                 </a>
                             
@@ -474,6 +474,8 @@
                 				<a href="/tags/#MongoDB" title="MongoDB" rel="2">
                                     MongoDB
                                 </a>
+                            
+        				
                             
         				
                             
@@ -630,7 +632,7 @@
                     
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; MY Blog 2019
+                    Copyright &copy; MY Blog 2020
                     <br>
                     Theme on <a href="https://github.com/uniquezhangqi/uniquezhangqi.github.io.git">GitHub</a> |
                     <iframe

@@ -183,6 +183,151 @@
             ">
     			
 <div class="post-preview">
+    <a href="/2018/04/12/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-java%E7%88%AC%E8%99%AB%E4%B9%8B%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/">
+        <h2 class="post-title">
+            java爬虫之正则表达式
+        </h2>
+        
+        <h3 class="post-subtitle">
+            🐛🐍
+        </h3>
+        
+        <div class="post-content-preview">
+            
+  本文首次发布于My Blog,作者@张琦(Ian),转载请保留原文链接。
+
+
+　　公司大佬写的爬虫，然后教我用Java的正则表达式进行解析(负责解析工作)，我是看大佬爬虫源码然后总结的。
+
+Java正则表达式
+java 正则表达式
+
+类库包：
+java.util.regex
+
+该包中包含是Pattern、Matcher这两个工具类：
+
+
+  Pattern：编译好的带匹配的模板(如：P...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Ian on April 12, 2018
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2018/04/12/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Tomcat%E5%90%AF%E5%8A%A8%E6%8A%A5%E9%94%99/">
+        <h2 class="post-title">
+            Tomcat启动报错
+        </h2>
+        
+        <h3 class="post-subtitle">
+            🙈
+        </h3>
+        
+        <div class="post-content-preview">
+            
+  本文首次发布于My Blog,作者@张琦(Ian),转载请保留原文链接。
+
+
+　　WebXml.setVersion Unknown version string [4.0]. Default version will be used.
+　　
+我用的是Tomcat8，JDK1.8,是支持web.xml的头文件引入的版本3.1version="3.1"下面是web.xml头文件。
+
+　　...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Ian on April 12, 2018
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2018/04/12/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-SpringContextHolder-%E9%9D%99%E6%80%81%E6%8C%81%E6%9C%89SpringContext%E7%9A%84%E5%BC%95%E7%94%A8/">
+        <h2 class="post-title">
+            SpringContextHolder静态持有SpringContext的引用
+        </h2>
+        
+        <h3 class="post-subtitle">
+            转载江南烟雨
+        </h3>
+        
+        <div class="post-content-preview">
+            SpringContextHolder静态持有SpringContext的引用
+public class SpringContextHolder implements ApplicationContextAware{
+ 
+    private static ApplicationContext applicationContext;
+ 
+     
+    //实现ApplicationC...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Ian on April 12, 2018
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2018/04/12/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-ChromeGoogle%E7%99%BB%E5%BD%95%E4%B8%8D%E4%BA%86/">
+        <h2 class="post-title">
+            Chrome Google登录不了
+        </h2>
+        
+        <h3 class="post-subtitle">
+            🌕
+        </h3>
+        
+        <div class="post-content-preview">
+            
+  本文首次发布于My Blog,作者@张琦(Ian),转载请保留原文链接。
+
+
+　　最近Z 的谷歌邮箱被人异地登录了，然后当然是修改密码💁🏻‍♂️然后Chrome登录不上了🌝解决办法有一下二个：
+
+
+  第一种方法(官方)：
+    
+      删除你的cookies
+  Cookie是由您访问过的用于存储浏览信息的网站创建的文件，例如您的个人资料或网站偏好。有时候，破损的cookie...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Ian on April 12, 2018
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2018/04/08/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E4%B8%8D%E5%80%9F%E7%94%A8%E7%AC%AC%E4%B8%89%E4%B8%AA%E5%8F%98%E9%87%8F,%E6%80%8E%E4%B9%88%E6%8A%8Aa,b%E7%9A%84%E5%80%BC%E4%BA%92%E6%8D%A2/">
+        <h2 class="post-title">
+            不借用第三个变量,怎么把a,b的值互换
+        </h2>
+        
+        <h3 class="post-subtitle">
+            🎧
+        </h3>
+        
+        <div class="post-content-preview">
+            int  a =10;int b=5;  
+a= a+b;  
+b=a-b;  
+a=a-b;
+
+
+　　上面这个很有意思，a是a加b的和，a减去b等于10实际上是原a的值 但是赋给了b；a减去b等于5是原b的值 但是赋给了a；完成了不用第三者当中间者的互换。虽然非常简单，但是很难get到这个idea。 　　这个很有意思，a是a加b的和，a减去b等于10实际上是原a的值 但是赋给了b；a减去b...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Ian on April 8, 2018
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
     <a href="/2018/04/07/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E5%B8%B8%E7%94%A8xml%E5%A4%B4%E6%96%87%E4%BB%B6/">
         <h2 class="post-title">
             常用xml头文件
@@ -331,128 +476,6 @@ Element+Vue.js 选择器常用属性
 </div>
 <hr>
 
-<div class="post-preview">
-    <a href="/2018/03/28/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-List%E5%8E%BB%E9%87%8D/">
-        <h2 class="post-title">
-            List去重
-        </h2>
-        
-        <h3 class="post-subtitle">
-            方便复制粘贴
-        </h3>
-        
-        <div class="post-content-preview">
-            
-  本文首次发布于My Blog,作者@张琦(Ian),转载请保留原文链接。
-
-
-方法一：循环元素删除
-
-//  删除ArrayList中重复元素 
-public   static   void  removeDuplicate(List list)   { 
-   for  ( int  i  =   0 ; i  &lt;  list.size()  -   1 ; i ++ )   ...
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Ian on March 28, 2018
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2018/03/28/%E6%9D%82%E8%B0%88-%E6%AF%94%E7%89%B9%E5%B8%81/">
-        <h2 class="post-title">
-            【链接】调查显示：超20%美国大学生曾花学生贷款投
-        </h2>
-        
-        <div class="post-content-preview">
-            
-
-
-
-
-
-看了这则新闻之后，实在是不知道该说些什么好。。。
-
-
-  转载：【链接】调查显示：超20%美国大学生曾花学生贷款投
-
-
-
-扫描关注：热爱生活的大叔
-（转载本站文章请注明作者和出处 热爱生活的大叔-uniquezhangqi）
-
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Ian on March 28, 2018
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2018/03/25/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-SpringDataJPA/">
-        <h2 class="post-title">
-            SpringDataJPA
-        </h2>
-        
-        <div class="post-content-preview">
-            Spring Data JPA
-　　自从用了Spring Data JPA之后个人感觉比hibernate、mybatis好用太多了—SpringData JAP非常契合OOP思想。如：设计模式的开放-封闭原则、依赖倒转原则、单一职责、迪米特法则等等，也是OOP非常非常核心的东西（按住Ctrl+鼠标左键点击蓝色的可以查看对应模式)…我的GitHub上最近在更新一个Spring、SpringD...
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Ian on March 25, 2018
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2018/03/24/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Error-during-artifact-deployment.-See-server-log-for-details/">
-        <h2 class="post-title">
-            IDEA:Error during artifact deployment. See server log for details.详解
-        </h2>
-        
-        <div class="post-content-preview">
-            
-  本文首次发布于My Blog,作者@张琦(Ian),转载请保留原文链接。
-
-
-Error during artifact deployment. See server log for details详解.
-
-可能出错的地方：
-
-
-  
-    web.xml文件   web应用部署描述符，里面的部署的xml文件或者类，如果这些找不到就会发生startup failed due to p...
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Ian on March 24, 2018
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2018/03/23/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Intellij-IDEA%E8%AE%BE%E7%BD%AEHTTP-Proxy/">
-        <h2 class="post-title">
-            Intellij IDEA设置HTTP Proxy
-        </h2>
-        
-        <div class="post-content-preview">
-            Intellij IDEA设置HTTP Proxy
-MAC版：
-打开Appearance &amp; Behavior &gt; System Settings &gt; Http Proxy
-点选 Auto-detect proxy settings &gt; Automatic proxy configuration URL
-输入URL: http://127.0.0.1:1080即可。...
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Ian on March 23, 2018
-    </p>
-</div>
-<hr>
-
 
 <!-- Pager -->
 
@@ -495,13 +518,13 @@ MAC版：
                             
                         
                             
-                                <a href="/tags/#自我总结" title="自我总结" rel="34">
+                                <a href="/tags/#自我总结" title="自我总结" rel="36">
                                     自我总结
                                 </a>
                             
                         
                             
-                                <a href="/tags/#编程之路" title="编程之路" rel="88">
+                                <a href="/tags/#编程之路" title="编程之路" rel="92">
                                     编程之路
                                 </a>
                             
@@ -612,6 +635,8 @@ MAC版：
                                 <a href="/tags/#MongoDB" title="MongoDB" rel="2">
                                     MongoDB
                                 </a>
+                            
+                        
                             
                         
                             
@@ -788,7 +813,7 @@ MAC版：
                     
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; MY Blog 2019
+                    Copyright &copy; MY Blog 2020
                     <br>
                     Theme on <a href="https://github.com/uniquezhangqi/uniquezhangqi.github.io.git">GitHub</a> |
                     <iframe

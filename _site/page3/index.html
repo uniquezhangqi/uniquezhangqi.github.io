@@ -183,6 +183,165 @@
             ">
     			
 <div class="post-preview">
+    <a href="/2019/02/17/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-String.format%E8%AF%A6%E8%A7%A3/">
+        <h2 class="post-title">
+            String.format详解
+        </h2>
+        
+        <div class="post-content-preview">
+            
+  转载 ^_^肥仔John –Java魔法堂：String.format详解： https://www.cnblogs.com/fsjohnhuang/p/4094777.html#a7
+
+
+前言
+String.format 作为文本处理工具，为我们提供强大而丰富的字符串格式化功能，为了不止步于简单调用 String.format(“Hello %s”, “John”);
+
+重载方法
+
+...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Ian on February 17, 2019
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2019/02/17/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-PostConstruct%E6%B3%A8%E8%A7%A3/">
+        <h2 class="post-title">
+            PostConstruct注解
+        </h2>
+        
+        <div class="post-content-preview">
+            最近在公司项目中碰到了@PostConstruct这个注解，不解其意，查阅了下，总结如下：
+
+  从Java EE5规范开始，Servlet中增加了两个影响Servlet生命周期的注解，@PostConstruct和@PreDestroy，这两个注解被用来修饰一个非静态的void（）方法。
+  写法有如下两种方式：@PostConstructpublic void someMethod(){...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Ian on February 17, 2019
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2019/02/05/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E5%BE%AE%E6%9C%8D%E5%8A%A1%E6%8B%A6%E6%88%AA%E5%99%A8%E5%A4%84%E7%90%86%E8%B7%A8%E5%9F%9F%E9%AA%8C%E8%AF%81token/">
+        <h2 class="post-title">
+            微服务拦截器处理跨域验证token
+        </h2>
+        
+        <div class="post-content-preview">
+            
+  本文首次发布于My Blog,作者@张琦(Ian),转载请保留原文链接。
+
+
+import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.alibaba.fastjson.serializer.ValueFilter;
+import com.alibaba.fastjson.support.config.Fa...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Ian on February 5, 2019
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2019/02/05/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-mysql%E8%87%AA%E6%88%91%E6%80%BB%E7%BB%93%E4%B8%80/">
+        <h2 class="post-title">
+            mysql自我总结一
+        </h2>
+        
+        <div class="post-content-preview">
+            
+  本文首次发布于My Blog,作者@张琦(Ian),转载请保留原文链接。
+
+
+
+
+ZEROFILL 补零
+
+零填充会自动使用无符号位
+
+零填充指的是位数固定，如果数值长度不足字段类型的长度，则使用0来填充
+
+
+
+
+
+
+  IFNULL（P1，P2）如果如果P1不为空，则返回值为P1；P1为NULL，则返回为P2；P2有点类似替补球员；
+  注意，IFNULL只是针对局部字段的替换；如果...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Ian on February 5, 2019
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2019/02/04/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E5%87%A0%E7%A7%8D%E8%AF%BB%E5%8F%96%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E7%9A%84%E6%96%B9%E6%B3%95/">
+        <h2 class="post-title">
+            几种读取配置文件的方法
+        </h2>
+        
+        <div class="post-content-preview">
+            
+  本文首次发布于My Blog,作者@张琦(Ian),转载请保留原文链接。
+
+
+/**
+ * web层全局常量配置帮助类
+ */
+public class GlobalSetting {
+	private static final String FILE_NAME = "/global.properties";
+	private GlobalSetting(){}
+	private st...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Ian on February 4, 2019
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
+    <a href="/2018/11/04/%E4%BD%BF%E7%94%A8ConfigFilter%E5%9C%A8Spring-Boot%E9%85%8D%E7%BD%AE%E6%95%B0%E6%8D%AE%E5%BA%93%E5%AF%86%E7%A0%81%E5%8A%A0%E8%A7%A3%E5%AF%86/">
+        <h2 class="post-title">
+            使用ConfigFilter在Spring Boot配置数据库密码加解密
+        </h2>
+        
+        <div class="post-content-preview">
+            
+  本文首次发布于My Blog,作者@张琦(Ian),转载请保留原文链接。
+
+
+使用ConfigFilter
+
+ConfigFilter的作用包括：
+
+
+  从配置文件中读取配置
+  从远程http文件中读取配置
+  为数据库密码提供加密功能
+
+
+1 配置ConfigFilter
+
+1.1 配置文件从本地文件系统中读取
+ &lt;bean id="dataSource" class="c...
+        </div>
+    </a>
+    <p class="post-meta">
+        Posted by Ian on November 4, 2018
+    </p>
+</div>
+<hr>
+
+<div class="post-preview">
     <a href="/2018/10/27/%E8%87%AA%E6%88%91%E6%80%BB%E7%BB%93-Spring-MVC-Controller%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E6%80%A7%E9%97%AE%E9%A2%98/">
         <h2 class="post-title">
             Spring MVC Controller线程安全性问题
@@ -278,162 +437,6 @@ Shiro架构有三个主要的...
 </div>
 <hr>
 
-<div class="post-preview">
-    <a href="/2018/10/27/MongoDB-MongoDB%E7%9A%84%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E4%BB%8B%E7%BB%8D/">
-        <h2 class="post-title">
-            MongoDB的数据类型介绍
-        </h2>
-        
-        <div class="post-content-preview">
-            
-  MongoDB官网：https://docs.mongodb.com/manual/reference/bson-types/
-
-
-MongoDB文档存储是使用BSON类型，BSON（BSON short for Bin­ary JSON, is a bin­ary-en­coded seri­al­iz­a­tion of JSON-like doc­u­ments）是二进制序列化的...
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Ian on October 27, 2018
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2018/10/12/%E7%94%9F%E6%B4%BB-Workflow-%E6%8D%B7%E5%BE%84/">
-        <h2 class="post-title">
-            Workflow（捷径，效率神器）
-        </h2>
-        
-        <h3 class="post-subtitle">
-            手机和iPad神器，没有之一
-        </h3>
-        
-        <div class="post-content-preview">
-            
-  本文首次发布于My Blog,作者@张琦(Ian),转载请保留原文链接。
-
-
-手机和iPad神器，没有之一
-
-
-
-
-重要提示：用自带Safari浏览器打开本页面（右上角扩展菜单栏选择Safari打开）后，点击捷径链接即可快速保存到捷径库。
-
-
-  删除最近一张图片(删除图片之前会有个分享，不需要可以删掉，不影响)
-
-https://www.icloud.com/shortcuts/4f...
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Ian on October 12, 2018
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2018/09/09/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-Java8%E6%96%B0%E7%89%B9%E6%80%A7%E5%AE%9E%E6%88%98/">
-        <h2 class="post-title">
-            Java8新特性实战
-        </h2>
-        
-        <div class="post-content-preview">
-            
-  本文首次发布于My Blog,作者@张琦(Ian),转载请保留原文链接。
-
-
-引言
-之前有自我总结Java8新特性 和 Java8之前版本的特性两篇 Java8相关的文章，Z公司里面用Java8 的新特性也用的多，越是深入这个越发现这个Lambda越强大，下面直接上例子，理论就不说了。
-
-传递代码：一个例子
-假设你有一个Apple类，它有一个getColor方法，还有一个变量inven...
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Ian on September 9, 2018
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2018/09/09/%E7%90%86%E8%B4%A2-%E7%90%86%E8%B4%A2%E5%B0%8F%E7%99%BD%E8%AE%A4%E8%AF%86%E5%9F%BA%E9%87%91/">
-        <h2 class="post-title">
-            理财小白认识基金
-        </h2>
-        
-        <div class="post-content-preview">
-            
-  转载：七点半理财 - https://post.smzdm.com/p/673671/
-
-
-引言
-投资基金，年收益从4%—25%不等。当然，如果行情好，你又选择得当，买到一只年利率50%的基金有可能的~
-
-好的，接来下跟大家讲讲：基金是什么，为什么能帮我们赚钱；基金有哪些种类，它们分别有什么收益、风险；你属于哪种投资人，适合哪种类型的基金；怎么选购基金。
-
-基金是什么，为什么能帮我们赚...
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Ian on September 9, 2018
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2018/08/18/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-MongoDB%E5%B8%B8%E7%94%A8%E6%93%8D%E4%BD%9C/">
-        <h2 class="post-title">
-            MongoDB常用操作
-        </h2>
-        
-        <div class="post-content-preview">
-            
-  本文首次发布于My Blog,作者@张琦(Ian),转载请保留原文链接。
-
-
-引言
-最近在用MongoDB 所以总结，方便以后查看，也希望能帮助你。
-
-import org.springframework.data.mongodb.core.MongoTemplate;
-
-@Autowired
-    MongoTemplate mongoTemplate;
-
-    @Overrid...
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Ian on August 18, 2018
-    </p>
-</div>
-<hr>
-
-<div class="post-preview">
-    <a href="/2018/08/13/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-UUID/">
-        <h2 class="post-title">
-            UUID
-        </h2>
-        
-        <div class="post-content-preview">
-            
-  本文首次发布于My Blog,作者@张琦(Ian),转载请保留原文链接。
-
-
-import java.util.UUID;
-
-public class UuidTool {
-    public static String get4UUID() {
-        UUID id = UUID.randomUUID();
-        String[] idd = id.toStri...
-        </div>
-    </a>
-    <p class="post-meta">
-        Posted by Ian on August 13, 2018
-    </p>
-</div>
-<hr>
-
 
 <!-- Pager -->
 
@@ -476,13 +479,13 @@ public class UuidTool {
                             
                         
                             
-                                <a href="/tags/#自我总结" title="自我总结" rel="34">
+                                <a href="/tags/#自我总结" title="自我总结" rel="36">
                                     自我总结
                                 </a>
                             
                         
                             
-                                <a href="/tags/#编程之路" title="编程之路" rel="88">
+                                <a href="/tags/#编程之路" title="编程之路" rel="92">
                                     编程之路
                                 </a>
                             
@@ -593,6 +596,8 @@ public class UuidTool {
                                 <a href="/tags/#MongoDB" title="MongoDB" rel="2">
                                     MongoDB
                                 </a>
+                            
+                        
                             
                         
                             
@@ -769,7 +774,7 @@ public class UuidTool {
                     
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; MY Blog 2019
+                    Copyright &copy; MY Blog 2020
                     <br>
                     Theme on <a href="https://github.com/uniquezhangqi/uniquezhangqi.github.io.git">GitHub</a> |
                     <iframe

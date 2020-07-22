@@ -370,25 +370,25 @@ spring-config.xml中把ehcache注掉，把redis放开！</p>
 		<span class="c1">// 创建输出文件路径</span>
 		<span class="n">mkdirs</span><span class="o">(</span><span class="n">config</span><span class="o">.</span><span class="na">getPathInfo</span><span class="o">());</span>
 		<span class="c1">// 获取上下文</span>
-		<span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">VelocityContext</span><span class="o">&gt;</span> <span class="n">ctxData</span> <span class="o">=</span> <span class="n">analyzeData</span><span class="o">(</span><span class="n">config</span><span class="o">);</span>
+		<span class="nc">Map</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">VelocityContext</span><span class="o">&gt;</span> <span class="n">ctxData</span> <span class="o">=</span> <span class="n">analyzeData</span><span class="o">(</span><span class="n">config</span><span class="o">);</span>
 		<span class="c1">// 循环生成文件</span>
-		<span class="k">for</span> <span class="o">(</span><span class="n">Map</span><span class="o">.</span><span class="na">Entry</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">VelocityContext</span><span class="o">&gt;</span> <span class="n">ctx</span> <span class="o">:</span> <span class="n">ctxData</span><span class="o">.</span><span class="na">entrySet</span><span class="o">())</span> <span class="o">{</span>
+		<span class="k">for</span> <span class="o">(</span><span class="nc">Map</span><span class="o">.</span><span class="na">Entry</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">VelocityContext</span><span class="o">&gt;</span> <span class="n">ctx</span> <span class="o">:</span> <span class="n">ctxData</span><span class="o">.</span><span class="na">entrySet</span><span class="o">())</span> <span class="o">{</span>
 			<span class="n">batchOutput</span><span class="o">(</span><span class="n">ctx</span><span class="o">.</span><span class="na">getKey</span><span class="o">(),</span> <span class="n">ctx</span><span class="o">.</span><span class="na">getValue</span><span class="o">());</span>
 		<span class="o">}</span>
 		<span class="c1">// 打开输出目录</span>
 		<span class="k">if</span> <span class="o">(</span><span class="n">config</span><span class="o">.</span><span class="na">getGlobalConfig</span><span class="o">().</span><span class="na">isOpen</span><span class="o">())</span> <span class="o">{</span>
 			<span class="k">try</span> <span class="o">{</span>
-				<span class="n">String</span> <span class="n">osName</span> <span class="o">=</span> <span class="n">System</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="s">"os.name"</span><span class="o">);</span>
+				<span class="nc">String</span> <span class="n">osName</span> <span class="o">=</span> <span class="nc">System</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="s">"os.name"</span><span class="o">);</span>
 				<span class="k">if</span> <span class="o">(</span><span class="n">osName</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
 					<span class="k">if</span> <span class="o">(</span><span class="n">osName</span><span class="o">.</span><span class="na">contains</span><span class="o">(</span><span class="s">"Mac"</span><span class="o">))</span> <span class="o">{</span>
-						<span class="n">Runtime</span><span class="o">.</span><span class="na">getRuntime</span><span class="o">().</span><span class="na">exec</span><span class="o">(</span><span class="s">"open "</span> <span class="o">+</span> <span class="n">config</span><span class="o">.</span><span class="na">getGlobalConfig</span><span class="o">().</span><span class="na">getOutputDir</span><span class="o">());</span>
+						<span class="nc">Runtime</span><span class="o">.</span><span class="na">getRuntime</span><span class="o">().</span><span class="na">exec</span><span class="o">(</span><span class="s">"open "</span> <span class="o">+</span> <span class="n">config</span><span class="o">.</span><span class="na">getGlobalConfig</span><span class="o">().</span><span class="na">getOutputDir</span><span class="o">());</span>
 					<span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="n">osName</span><span class="o">.</span><span class="na">contains</span><span class="o">(</span><span class="s">"Windows"</span><span class="o">))</span> <span class="o">{</span>
-						<span class="n">Runtime</span><span class="o">.</span><span class="na">getRuntime</span><span class="o">().</span><span class="na">exec</span><span class="o">(</span><span class="s">"cmd /c start "</span> <span class="o">+</span> <span class="n">config</span><span class="o">.</span><span class="na">getGlobalConfig</span><span class="o">().</span><span class="na">getOutputDir</span><span class="o">());</span>
+						<span class="nc">Runtime</span><span class="o">.</span><span class="na">getRuntime</span><span class="o">().</span><span class="na">exec</span><span class="o">(</span><span class="s">"cmd /c start "</span> <span class="o">+</span> <span class="n">config</span><span class="o">.</span><span class="na">getGlobalConfig</span><span class="o">().</span><span class="na">getOutputDir</span><span class="o">());</span>
 					<span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
 						<span class="n">logger</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="s">"文件输出目录:"</span> <span class="o">+</span> <span class="n">config</span><span class="o">.</span><span class="na">getGlobalConfig</span><span class="o">().</span><span class="na">getOutputDir</span><span class="o">());</span>
 					<span class="o">}</span>
 				<span class="o">}</span>
-			<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+			<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">IOException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
 				<span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
 			<span class="o">}</span>
 		<span class="o">}</span>
@@ -574,7 +574,7 @@ spring-config.xml中把ehcache注掉，把redis放开！</p>
 <p>注解形式：</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nd">@Cacheable</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="s">"hour"</span><span class="o">,</span> <span class="n">key</span> <span class="o">=</span> <span class="s">"#id"</span><span class="o">)</span>
-	<span class="kd">public</span> <span class="n">User</span> <span class="nf">selectById</span><span class="o">(</span><span class="n">Serializable</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="nc">User</span> <span class="nf">selectById</span><span class="o">(</span><span class="nc">Serializable</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
 		<span class="k">return</span> <span class="n">userMapper</span><span class="o">.</span><span class="na">selectById</span><span class="o">(</span><span class="n">id</span><span class="o">);</span>
 	<span class="o">}</span>
 </code></pre></div></div>
@@ -584,15 +584,15 @@ spring-config.xml中把ehcache注掉，把redis放开！</p>
 
 <p>编码形式：</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Autowired</span> <span class="kd">private</span> <span class="n">CacheManager</span> <span class="n">cacheManager</span><span class="o">;</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Autowired</span> <span class="kd">private</span> <span class="nc">CacheManager</span> <span class="n">cacheManager</span><span class="o">;</span>
 	
 	<span class="nd">@Scheduled</span><span class="o">(</span><span class="n">cron</span> <span class="o">=</span> <span class="s">"0 5/20 * * * ?"</span><span class="o">)</span>
 	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">cronTest</span><span class="o">()</span> <span class="o">{</span>
 		<span class="c1">// 测试手动存储cache</span>
-		<span class="n">Cache</span> <span class="n">cache</span> <span class="o">=</span> <span class="n">cacheManager</span><span class="o">.</span><span class="na">getCache</span><span class="o">(</span><span class="s">"hour"</span><span class="o">);</span>
-		<span class="n">Integer</span> <span class="n">xx</span> <span class="o">=</span> <span class="n">cache</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"x"</span><span class="o">,</span> <span class="k">new</span> <span class="n">Callable</span><span class="o">&lt;</span><span class="n">Integer</span><span class="o">&gt;()</span> <span class="o">{</span>
+		<span class="nc">Cache</span> <span class="n">cache</span> <span class="o">=</span> <span class="n">cacheManager</span><span class="o">.</span><span class="na">getCache</span><span class="o">(</span><span class="s">"hour"</span><span class="o">);</span>
+		<span class="nc">Integer</span> <span class="n">xx</span> <span class="o">=</span> <span class="n">cache</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="s">"x"</span><span class="o">,</span> <span class="k">new</span> <span class="nc">Callable</span><span class="o">&lt;</span><span class="nc">Integer</span><span class="o">&gt;()</span> <span class="o">{</span>
 			<span class="nd">@Override</span>
-			<span class="kd">public</span> <span class="n">Integer</span> <span class="nf">call</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+			<span class="kd">public</span> <span class="nc">Integer</span> <span class="nf">call</span><span class="o">()</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
 				<span class="k">return</span> <span class="mi">111111</span><span class="o">;</span>
 			<span class="o">}</span>
 			
@@ -606,7 +606,7 @@ spring-config.xml中把ehcache注掉，把redis放开！</p>
 		<span class="n">testService</span><span class="o">.</span><span class="na">selectById</span><span class="o">(</span><span class="mi">1L</span><span class="o">);</span>
 		
 		<span class="n">logger</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="n">xx</span><span class="o">);</span>
-		<span class="n">logger</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="k">new</span> <span class="n">Date</span><span class="o">());</span>
+		<span class="n">logger</span><span class="o">.</span><span class="na">debug</span><span class="o">(</span><span class="k">new</span> <span class="nc">Date</span><span class="o">());</span>
 	<span class="o">}</span>
 </code></pre></div></div>
 
@@ -810,13 +810,13 @@ spring-config.xml中把ehcache注掉，把redis放开！</p>
                             
         				
                             
-                				<a href="/tags/#自我总结" title="自我总结" rel="34">
+                				<a href="/tags/#自我总结" title="自我总结" rel="36">
                                     自我总结
                                 </a>
                             
         				
                             
-                				<a href="/tags/#编程之路" title="编程之路" rel="88">
+                				<a href="/tags/#编程之路" title="编程之路" rel="92">
                                     编程之路
                                 </a>
                             
@@ -927,6 +927,8 @@ spring-config.xml中把ehcache注掉，把redis放开！</p>
                 				<a href="/tags/#MongoDB" title="MongoDB" rel="2">
                                     MongoDB
                                 </a>
+                            
+        				
                             
         				
                             
@@ -1083,7 +1085,7 @@ spring-config.xml中把ehcache注掉，把redis放开！</p>
                     
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; MY Blog 2019
+                    Copyright &copy; MY Blog 2020
                     <br>
                     Theme on <a href="https://github.com/uniquezhangqi/uniquezhangqi.github.io.git">GitHub</a> |
                     <iframe

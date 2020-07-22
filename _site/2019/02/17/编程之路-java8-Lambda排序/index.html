@@ -210,19 +210,19 @@
 <h2 id="使用外部比较器comparator进行排序">使用外部比较器Comparator进行排序</h2>
 <p>当我们需要对集合的元素进行排序的时候，可以使用java.util.Comparator 创建一个比较器来进行排序。Comparator接口同样也是一个函数式接口，我们可以把使用lambda表达式。如下示例，</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="n">com</span><span class="o">.</span><span class="na">common</span><span class="o">;</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">com.common</span><span class="o">;</span>
 
 <span class="kn">import</span> <span class="nn">java.util.*</span><span class="o">;</span>
 <span class="kn">import</span> <span class="nn">java.util.stream.Collectors</span><span class="o">;</span>
 
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">ComparatorTest</span> <span class="o">{</span>
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
 
-        <span class="n">Employee</span> <span class="n">e1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Employee</span><span class="o">(</span><span class="s">"John"</span><span class="o">,</span> <span class="mi">25</span><span class="o">,</span> <span class="mi">3000</span><span class="o">,</span> <span class="mi">9922001</span><span class="o">);</span>
-        <span class="n">Employee</span> <span class="n">e2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Employee</span><span class="o">(</span><span class="s">"Ace"</span><span class="o">,</span> <span class="mi">22</span><span class="o">,</span> <span class="mi">2000</span><span class="o">,</span> <span class="mi">5924001</span><span class="o">);</span>
-        <span class="n">Employee</span> <span class="n">e3</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Employee</span><span class="o">(</span><span class="s">"Keith"</span><span class="o">,</span> <span class="mi">35</span><span class="o">,</span> <span class="mi">4000</span><span class="o">,</span> <span class="mi">3924401</span><span class="o">);</span>
+        <span class="nc">Employee</span> <span class="n">e1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Employee</span><span class="o">(</span><span class="s">"John"</span><span class="o">,</span> <span class="mi">25</span><span class="o">,</span> <span class="mi">3000</span><span class="o">,</span> <span class="mi">9922001</span><span class="o">);</span>
+        <span class="nc">Employee</span> <span class="n">e2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Employee</span><span class="o">(</span><span class="s">"Ace"</span><span class="o">,</span> <span class="mi">22</span><span class="o">,</span> <span class="mi">2000</span><span class="o">,</span> <span class="mi">5924001</span><span class="o">);</span>
+        <span class="nc">Employee</span> <span class="n">e3</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Employee</span><span class="o">(</span><span class="s">"Keith"</span><span class="o">,</span> <span class="mi">35</span><span class="o">,</span> <span class="mi">4000</span><span class="o">,</span> <span class="mi">3924401</span><span class="o">);</span>
 
-        <span class="n">List</span><span class="o">&lt;</span><span class="n">Employee</span><span class="o">&gt;</span> <span class="n">employees</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+        <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Employee</span><span class="o">&gt;</span> <span class="n">employees</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;&gt;();</span>
         <span class="n">employees</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">e1</span><span class="o">);</span>
         <span class="n">employees</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">e2</span><span class="o">);</span>
         <span class="n">employees</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">e3</span><span class="o">);</span>
@@ -243,9 +243,9 @@
          */</span>
         <span class="n">employees</span><span class="o">.</span><span class="na">sort</span><span class="o">((</span><span class="n">o1</span><span class="o">,</span> <span class="n">o2</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">o1</span><span class="o">.</span><span class="na">getName</span><span class="o">().</span><span class="na">compareTo</span><span class="o">(</span><span class="n">o2</span><span class="o">.</span><span class="na">getName</span><span class="o">()));</span>
 
-        <span class="n">Collections</span><span class="o">.</span><span class="na">sort</span><span class="o">(</span><span class="n">employees</span><span class="o">,</span> <span class="o">(</span><span class="n">o1</span><span class="o">,</span> <span class="n">o2</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">o1</span><span class="o">.</span><span class="na">getName</span><span class="o">().</span><span class="na">compareTo</span><span class="o">(</span><span class="n">o2</span><span class="o">.</span><span class="na">getName</span><span class="o">()));</span>
+        <span class="nc">Collections</span><span class="o">.</span><span class="na">sort</span><span class="o">(</span><span class="n">employees</span><span class="o">,</span> <span class="o">(</span><span class="n">o1</span><span class="o">,</span> <span class="n">o2</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">o1</span><span class="o">.</span><span class="na">getName</span><span class="o">().</span><span class="na">compareTo</span><span class="o">(</span><span class="n">o2</span><span class="o">.</span><span class="na">getName</span><span class="o">()));</span>
 
-        <span class="n">employees</span><span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
+        <span class="n">employees</span><span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
     <span class="o">}</span>
 <span class="o">}</span>
 
@@ -256,7 +256,7 @@
  * Employee(name=Keith, age=35, salary=4000.0, mobile=3924401)]
  */</span>
 <span class="kd">class</span> <span class="nc">Employee</span> <span class="o">{</span>
-    <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
     <span class="kt">int</span> <span class="n">age</span><span class="o">;</span>
     <span class="kt">double</span> <span class="n">salary</span><span class="o">;</span>
     <span class="kt">long</span> <span class="n">mobile</span><span class="o">;</span>
@@ -264,18 +264,18 @@
     <span class="c1">// constructors, getters &amp; setters</span>
 
 
-    <span class="kd">public</span> <span class="nf">Employee</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="kt">int</span> <span class="n">age</span><span class="o">,</span> <span class="kt">double</span> <span class="n">salary</span><span class="o">,</span> <span class="kt">long</span> <span class="n">mobile</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">Employee</span><span class="o">(</span><span class="nc">String</span> <span class="n">name</span><span class="o">,</span> <span class="kt">int</span> <span class="n">age</span><span class="o">,</span> <span class="kt">double</span> <span class="n">salary</span><span class="o">,</span> <span class="kt">long</span> <span class="n">mobile</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
         <span class="k">this</span><span class="o">.</span><span class="na">age</span> <span class="o">=</span> <span class="n">age</span><span class="o">;</span>
         <span class="k">this</span><span class="o">.</span><span class="na">salary</span> <span class="o">=</span> <span class="n">salary</span><span class="o">;</span>
         <span class="k">this</span><span class="o">.</span><span class="na">mobile</span> <span class="o">=</span> <span class="n">mobile</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getName</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">getName</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">return</span> <span class="n">name</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setName</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setName</span><span class="o">(</span><span class="nc">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
     <span class="o">}</span>
 
@@ -304,8 +304,8 @@
     <span class="o">}</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span>
-        <span class="kd">final</span> <span class="n">StringBuilder</span> <span class="n">sb</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">(</span><span class="s">"Employee{"</span><span class="o">);</span>
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kd">final</span> <span class="nc">StringBuilder</span> <span class="n">sb</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">StringBuilder</span><span class="o">(</span><span class="s">"Employee{"</span><span class="o">);</span>
         <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">"name='"</span><span class="o">).</span><span class="na">append</span><span class="o">(</span><span class="n">name</span><span class="o">).</span><span class="na">append</span><span class="o">(</span><span class="sc">'\''</span><span class="o">);</span>
         <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">", age="</span><span class="o">).</span><span class="na">append</span><span class="o">(</span><span class="n">age</span><span class="o">);</span>
         <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">", salary="</span><span class="o">).</span><span class="na">append</span><span class="o">(</span><span class="n">salary</span><span class="o">);</span>
@@ -320,29 +320,29 @@
 <h3 id="comparing-方法一">comparing 方法一</h3>
 <p>查看 Comparator 类内部实现，还有一个 comparing 方法，实现如下，</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">public</span> <span class="kd">static</span> <span class="o">&lt;</span><span class="n">T</span><span class="o">,</span> <span class="n">U</span> <span class="kd">extends</span> <span class="n">Comparable</span><span class="o">&lt;?</span> <span class="kd">super</span> <span class="n">U</span><span class="o">&gt;&gt;</span> <span class="n">Comparator</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="nf">comparing</span><span class="o">(</span>
-            <span class="n">Function</span><span class="o">&lt;?</span> <span class="kd">super</span> <span class="n">T</span><span class="o">,</span> <span class="o">?</span> <span class="kd">extends</span> <span class="n">U</span><span class="o">&gt;</span> <span class="n">keyExtractor</span><span class="o">)</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="kd">public</span> <span class="kd">static</span> <span class="o">&lt;</span><span class="no">T</span><span class="o">,</span> <span class="no">U</span> <span class="kd">extends</span> <span class="nc">Comparable</span><span class="o">&lt;?</span> <span class="kd">super</span> <span class="no">U</span><span class="o">&gt;&gt;</span> <span class="nc">Comparator</span><span class="o">&lt;</span><span class="no">T</span><span class="o">&gt;</span> <span class="nf">comparing</span><span class="o">(</span>
+            <span class="nc">Function</span><span class="o">&lt;?</span> <span class="kd">super</span> <span class="no">T</span><span class="o">,</span> <span class="o">?</span> <span class="kd">extends</span> <span class="no">U</span><span class="o">&gt;</span> <span class="n">keyExtractor</span><span class="o">)</span>
     <span class="o">{</span>
-        <span class="n">Objects</span><span class="o">.</span><span class="na">requireNonNull</span><span class="o">(</span><span class="n">keyExtractor</span><span class="o">);</span>
-        <span class="k">return</span> <span class="o">(</span><span class="n">Comparator</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">&amp;</span> <span class="n">Serializable</span><span class="o">)</span>
+        <span class="nc">Objects</span><span class="o">.</span><span class="na">requireNonNull</span><span class="o">(</span><span class="n">keyExtractor</span><span class="o">);</span>
+        <span class="k">return</span> <span class="o">(</span><span class="nc">Comparator</span><span class="o">&lt;</span><span class="no">T</span><span class="o">&gt;</span> <span class="o">&amp;</span> <span class="nc">Serializable</span><span class="o">)</span>
             <span class="o">(</span><span class="n">c1</span><span class="o">,</span> <span class="n">c2</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">keyExtractor</span><span class="o">.</span><span class="na">apply</span><span class="o">(</span><span class="n">c1</span><span class="o">).</span><span class="na">compareTo</span><span class="o">(</span><span class="n">keyExtractor</span><span class="o">.</span><span class="na">apply</span><span class="o">(</span><span class="n">c2</span><span class="o">));</span>
     <span class="o">}</span>
 </code></pre></div></div>
 
 <p>其返回值是 (c1, c2) -&gt; keyExtractor.apply(c1).compareTo(keyExtractor.apply(c2)); 一个lambda表达式，也就是一个Compator 。所以上面那个例子也可以改造成 如下，</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="n">com</span><span class="o">.</span><span class="na">common</span><span class="o">;</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="nn">com.common</span><span class="o">;</span>
 
 <span class="kn">import</span> <span class="nn">java.util.*</span><span class="o">;</span>
 
 <span class="kd">public</span> <span class="kd">class</span> <span class="nc">ComparatorTest</span> <span class="o">{</span>
-    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
 
-        <span class="n">Employee</span> <span class="n">e1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Employee</span><span class="o">(</span><span class="s">"John"</span><span class="o">,</span> <span class="mi">25</span><span class="o">,</span> <span class="mi">3000</span><span class="o">,</span> <span class="mi">9922001</span><span class="o">);</span>
-        <span class="n">Employee</span> <span class="n">e2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Employee</span><span class="o">(</span><span class="s">"Ace"</span><span class="o">,</span> <span class="mi">22</span><span class="o">,</span> <span class="mi">2000</span><span class="o">,</span> <span class="mi">5924001</span><span class="o">);</span>
-        <span class="n">Employee</span> <span class="n">e3</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Employee</span><span class="o">(</span><span class="s">"Keith"</span><span class="o">,</span> <span class="mi">35</span><span class="o">,</span> <span class="mi">4000</span><span class="o">,</span> <span class="mi">3924401</span><span class="o">);</span>
+        <span class="nc">Employee</span> <span class="n">e1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Employee</span><span class="o">(</span><span class="s">"John"</span><span class="o">,</span> <span class="mi">25</span><span class="o">,</span> <span class="mi">3000</span><span class="o">,</span> <span class="mi">9922001</span><span class="o">);</span>
+        <span class="nc">Employee</span> <span class="n">e2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Employee</span><span class="o">(</span><span class="s">"Ace"</span><span class="o">,</span> <span class="mi">22</span><span class="o">,</span> <span class="mi">2000</span><span class="o">,</span> <span class="mi">5924001</span><span class="o">);</span>
+        <span class="nc">Employee</span> <span class="n">e3</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Employee</span><span class="o">(</span><span class="s">"Keith"</span><span class="o">,</span> <span class="mi">35</span><span class="o">,</span> <span class="mi">4000</span><span class="o">,</span> <span class="mi">3924401</span><span class="o">);</span>
 
-        <span class="n">List</span><span class="o">&lt;</span><span class="n">Employee</span><span class="o">&gt;</span> <span class="n">employees</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+        <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Employee</span><span class="o">&gt;</span> <span class="n">employees</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;&gt;();</span>
         <span class="n">employees</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">e1</span><span class="o">);</span>
         <span class="n">employees</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">e2</span><span class="o">);</span>
         <span class="n">employees</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">e3</span><span class="o">);</span>
@@ -363,9 +363,9 @@
          */</span>
         <span class="n">employees</span><span class="o">.</span><span class="na">sort</span><span class="o">((</span><span class="n">o1</span><span class="o">,</span> <span class="n">o2</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">o1</span><span class="o">.</span><span class="na">getName</span><span class="o">().</span><span class="na">compareTo</span><span class="o">(</span><span class="n">o2</span><span class="o">.</span><span class="na">getName</span><span class="o">()));</span>
 
-        <span class="n">Collections</span><span class="o">.</span><span class="na">sort</span><span class="o">(</span><span class="n">employees</span><span class="o">,</span> <span class="o">(</span><span class="n">o1</span><span class="o">,</span> <span class="n">o2</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">o1</span><span class="o">.</span><span class="na">getName</span><span class="o">().</span><span class="na">compareTo</span><span class="o">(</span><span class="n">o2</span><span class="o">.</span><span class="na">getName</span><span class="o">()));</span>
+        <span class="nc">Collections</span><span class="o">.</span><span class="na">sort</span><span class="o">(</span><span class="n">employees</span><span class="o">,</span> <span class="o">(</span><span class="n">o1</span><span class="o">,</span> <span class="n">o2</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">o1</span><span class="o">.</span><span class="na">getName</span><span class="o">().</span><span class="na">compareTo</span><span class="o">(</span><span class="n">o2</span><span class="o">.</span><span class="na">getName</span><span class="o">()));</span>
 
-        <span class="n">employees</span><span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
+        <span class="n">employees</span><span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
 
 
         <span class="cm">/**
@@ -374,12 +374,12 @@
          * comparing 方法接收一个 Function 函数式接口 ，通过一个 lambda 表达式传入
          *
          */</span>
-        <span class="n">employees</span><span class="o">.</span><span class="na">sort</span><span class="o">(</span><span class="n">Comparator</span><span class="o">.</span><span class="na">comparing</span><span class="o">(</span><span class="n">e</span> <span class="o">-&gt;</span> <span class="n">e</span><span class="o">.</span><span class="na">getName</span><span class="o">()));</span>
+        <span class="n">employees</span><span class="o">.</span><span class="na">sort</span><span class="o">(</span><span class="nc">Comparator</span><span class="o">.</span><span class="na">comparing</span><span class="o">(</span><span class="n">e</span> <span class="o">-&gt;</span> <span class="n">e</span><span class="o">.</span><span class="na">getName</span><span class="o">()));</span>
 
         <span class="cm">/**
          * 该方法引用 Employee::getName 可以代替 lambda表达式
          */</span>
-        <span class="n">employees</span><span class="o">.</span><span class="na">sort</span><span class="o">(</span><span class="n">Comparator</span><span class="o">.</span><span class="na">comparing</span><span class="o">(</span><span class="nl">Employee:</span><span class="o">:</span><span class="n">getName</span><span class="o">));</span>
+        <span class="n">employees</span><span class="o">.</span><span class="na">sort</span><span class="o">(</span><span class="nc">Comparator</span><span class="o">.</span><span class="na">comparing</span><span class="o">(</span><span class="nl">Employee:</span><span class="o">:</span><span class="n">getName</span><span class="o">));</span>
 
     <span class="o">}</span>
 <span class="o">}</span>
@@ -391,7 +391,7 @@
  * Employee(name=Keith, age=35, salary=4000.0, mobile=3924401)]
  */</span>
 <span class="kd">class</span> <span class="nc">Employee</span> <span class="o">{</span>
-    <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+    <span class="nc">String</span> <span class="n">name</span><span class="o">;</span>
     <span class="kt">int</span> <span class="n">age</span><span class="o">;</span>
     <span class="kt">double</span> <span class="n">salary</span><span class="o">;</span>
     <span class="kt">long</span> <span class="n">mobile</span><span class="o">;</span>
@@ -399,18 +399,18 @@
     <span class="c1">// constructors, getters &amp; setters</span>
 
 
-    <span class="kd">public</span> <span class="nf">Employee</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">,</span> <span class="kt">int</span> <span class="n">age</span><span class="o">,</span> <span class="kt">double</span> <span class="n">salary</span><span class="o">,</span> <span class="kt">long</span> <span class="n">mobile</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nf">Employee</span><span class="o">(</span><span class="nc">String</span> <span class="n">name</span><span class="o">,</span> <span class="kt">int</span> <span class="n">age</span><span class="o">,</span> <span class="kt">double</span> <span class="n">salary</span><span class="o">,</span> <span class="kt">long</span> <span class="n">mobile</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
         <span class="k">this</span><span class="o">.</span><span class="na">age</span> <span class="o">=</span> <span class="n">age</span><span class="o">;</span>
         <span class="k">this</span><span class="o">.</span><span class="na">salary</span> <span class="o">=</span> <span class="n">salary</span><span class="o">;</span>
         <span class="k">this</span><span class="o">.</span><span class="na">mobile</span> <span class="o">=</span> <span class="n">mobile</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getName</span><span class="o">()</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">getName</span><span class="o">()</span> <span class="o">{</span>
         <span class="k">return</span> <span class="n">name</span><span class="o">;</span>
     <span class="o">}</span>
 
-    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setName</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setName</span><span class="o">(</span><span class="nc">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
         <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
     <span class="o">}</span>
 
@@ -439,8 +439,8 @@
     <span class="o">}</span>
 
     <span class="nd">@Override</span>
-    <span class="kd">public</span> <span class="n">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span>
-        <span class="kd">final</span> <span class="n">StringBuilder</span> <span class="n">sb</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">(</span><span class="s">"Employee{"</span><span class="o">);</span>
+    <span class="kd">public</span> <span class="nc">String</span> <span class="nf">toString</span><span class="o">()</span> <span class="o">{</span>
+        <span class="kd">final</span> <span class="nc">StringBuilder</span> <span class="n">sb</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">StringBuilder</span><span class="o">(</span><span class="s">"Employee{"</span><span class="o">);</span>
         <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">"name='"</span><span class="o">).</span><span class="na">append</span><span class="o">(</span><span class="n">name</span><span class="o">).</span><span class="na">append</span><span class="o">(</span><span class="sc">'\''</span><span class="o">);</span>
         <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">", age="</span><span class="o">).</span><span class="na">append</span><span class="o">(</span><span class="n">age</span><span class="o">);</span>
         <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">", salary="</span><span class="o">).</span><span class="na">append</span><span class="o">(</span><span class="n">salary</span><span class="o">);</span>
@@ -453,13 +453,13 @@
 
 <h3 id="comparing-方法二">comparing 方法二</h3>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   <span class="kd">public</span> <span class="kd">static</span> <span class="o">&lt;</span><span class="n">T</span><span class="o">,</span> <span class="n">U</span><span class="o">&gt;</span> <span class="n">Comparator</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="nf">comparing</span><span class="o">(</span>
-            <span class="n">Function</span><span class="o">&lt;?</span> <span class="kd">super</span> <span class="n">T</span><span class="o">,</span> <span class="o">?</span> <span class="kd">extends</span> <span class="n">U</span><span class="o">&gt;</span> <span class="n">keyExtractor</span><span class="o">,</span>
-            <span class="n">Comparator</span><span class="o">&lt;?</span> <span class="kd">super</span> <span class="n">U</span><span class="o">&gt;</span> <span class="n">keyComparator</span><span class="o">)</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>   <span class="kd">public</span> <span class="kd">static</span> <span class="o">&lt;</span><span class="no">T</span><span class="o">,</span> <span class="no">U</span><span class="o">&gt;</span> <span class="nc">Comparator</span><span class="o">&lt;</span><span class="no">T</span><span class="o">&gt;</span> <span class="nf">comparing</span><span class="o">(</span>
+            <span class="nc">Function</span><span class="o">&lt;?</span> <span class="kd">super</span> <span class="no">T</span><span class="o">,</span> <span class="o">?</span> <span class="kd">extends</span> <span class="no">U</span><span class="o">&gt;</span> <span class="n">keyExtractor</span><span class="o">,</span>
+            <span class="nc">Comparator</span><span class="o">&lt;?</span> <span class="kd">super</span> <span class="no">U</span><span class="o">&gt;</span> <span class="n">keyComparator</span><span class="o">)</span>
     <span class="o">{</span>
-        <span class="n">Objects</span><span class="o">.</span><span class="na">requireNonNull</span><span class="o">(</span><span class="n">keyExtractor</span><span class="o">);</span>
-        <span class="n">Objects</span><span class="o">.</span><span class="na">requireNonNull</span><span class="o">(</span><span class="n">keyComparator</span><span class="o">);</span>
-        <span class="k">return</span> <span class="o">(</span><span class="n">Comparator</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="o">&amp;</span> <span class="n">Serializable</span><span class="o">)</span>
+        <span class="nc">Objects</span><span class="o">.</span><span class="na">requireNonNull</span><span class="o">(</span><span class="n">keyExtractor</span><span class="o">);</span>
+        <span class="nc">Objects</span><span class="o">.</span><span class="na">requireNonNull</span><span class="o">(</span><span class="n">keyComparator</span><span class="o">);</span>
+        <span class="k">return</span> <span class="o">(</span><span class="nc">Comparator</span><span class="o">&lt;</span><span class="no">T</span><span class="o">&gt;</span> <span class="o">&amp;</span> <span class="nc">Serializable</span><span class="o">)</span>
             <span class="o">(</span><span class="n">c1</span><span class="o">,</span> <span class="n">c2</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">keyComparator</span><span class="o">.</span><span class="na">compare</span><span class="o">(</span><span class="n">keyExtractor</span><span class="o">.</span><span class="na">apply</span><span class="o">(</span><span class="n">c1</span><span class="o">),</span>
                                               <span class="n">keyExtractor</span><span class="o">.</span><span class="na">apply</span><span class="o">(</span><span class="n">c2</span><span class="o">));</span>
     <span class="o">}</span>
@@ -467,7 +467,7 @@
 
 <p>和comparing 方法一不同的是 该方法多了一个参数 keyComparator ，keyComparator 是创建一个自定义的比较器。</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Collections</span><span class="o">.</span><span class="na">sort</span><span class="o">(</span><span class="n">employees</span><span class="o">,</span> <span class="n">Comparator</span><span class="o">.</span><span class="na">comparing</span><span class="o">(</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Collections</span><span class="o">.</span><span class="na">sort</span><span class="o">(</span><span class="n">employees</span><span class="o">,</span> <span class="nc">Comparator</span><span class="o">.</span><span class="na">comparing</span><span class="o">(</span>
                 <span class="nl">Employee:</span><span class="o">:</span><span class="n">getName</span><span class="o">,</span> <span class="o">(</span><span class="n">s1</span><span class="o">,</span> <span class="n">s2</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="o">{</span>
                     <span class="k">return</span> <span class="n">s2</span><span class="o">.</span><span class="na">compareTo</span><span class="o">(</span><span class="n">s1</span><span class="o">);</span>
                 <span class="o">}));</span>
@@ -479,15 +479,15 @@
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/**
  *  相反的排序规则
  */</span>
-<span class="n">Collections</span><span class="o">.</span><span class="na">sort</span><span class="o">(</span><span class="n">employees</span><span class="o">,</span> <span class="n">Comparator</span><span class="o">.</span><span class="na">comparing</span><span class="o">(</span><span class="nl">Employee:</span><span class="o">:</span><span class="n">getName</span><span class="o">).</span><span class="na">reversed</span><span class="o">());</span>
+<span class="nc">Collections</span><span class="o">.</span><span class="na">sort</span><span class="o">(</span><span class="n">employees</span><span class="o">,</span> <span class="nc">Comparator</span><span class="o">.</span><span class="na">comparing</span><span class="o">(</span><span class="nl">Employee:</span><span class="o">:</span><span class="n">getName</span><span class="o">).</span><span class="na">reversed</span><span class="o">());</span>
 
-<span class="n">employees</span><span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
+<span class="n">employees</span><span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
 
 <span class="c1">//输出，</span>
 
-<span class="n">Employee</span><span class="o">{</span><span class="n">name</span><span class="o">=</span><span class="err">'</span><span class="n">Keith</span><span class="err">'</span><span class="o">,</span> <span class="n">age</span><span class="o">=</span><span class="mi">35</span><span class="o">,</span> <span class="n">salary</span><span class="o">=</span><span class="mf">4000.0</span><span class="o">,</span> <span class="n">mobile</span><span class="o">=</span><span class="mi">3924401</span><span class="o">}</span>
-<span class="n">Employee</span><span class="o">{</span><span class="n">name</span><span class="o">=</span><span class="err">'</span><span class="n">John</span><span class="err">'</span><span class="o">,</span> <span class="n">age</span><span class="o">=</span><span class="mi">25</span><span class="o">,</span> <span class="n">salary</span><span class="o">=</span><span class="mf">3000.0</span><span class="o">,</span> <span class="n">mobile</span><span class="o">=</span><span class="mi">9922001</span><span class="o">}</span>
-<span class="n">Employee</span><span class="o">{</span><span class="n">name</span><span class="o">=</span><span class="err">'</span><span class="n">Ace</span><span class="err">'</span><span class="o">,</span> <span class="n">age</span><span class="o">=</span><span class="mi">22</span><span class="o">,</span> <span class="n">salary</span><span class="o">=</span><span class="mf">2000.0</span><span class="o">,</span> <span class="n">mobile</span><span class="o">=</span><span class="mi">5924001</span><span class="o">}</span>
+<span class="nc">Employee</span><span class="o">{</span><span class="n">name</span><span class="o">=</span><span class="err">'</span><span class="nc">Keith</span><span class="err">'</span><span class="o">,</span> <span class="n">age</span><span class="o">=</span><span class="mi">35</span><span class="o">,</span> <span class="n">salary</span><span class="o">=</span><span class="mf">4000.0</span><span class="o">,</span> <span class="n">mobile</span><span class="o">=</span><span class="mi">3924401</span><span class="o">}</span>
+<span class="nc">Employee</span><span class="o">{</span><span class="n">name</span><span class="o">=</span><span class="err">'</span><span class="nc">John</span><span class="err">'</span><span class="o">,</span> <span class="n">age</span><span class="o">=</span><span class="mi">25</span><span class="o">,</span> <span class="n">salary</span><span class="o">=</span><span class="mf">3000.0</span><span class="o">,</span> <span class="n">mobile</span><span class="o">=</span><span class="mi">9922001</span><span class="o">}</span>
+<span class="nc">Employee</span><span class="o">{</span><span class="n">name</span><span class="o">=</span><span class="err">'</span><span class="nc">Ace</span><span class="err">'</span><span class="o">,</span> <span class="n">age</span><span class="o">=</span><span class="mi">22</span><span class="o">,</span> <span class="n">salary</span><span class="o">=</span><span class="mf">2000.0</span><span class="o">,</span> <span class="n">mobile</span><span class="o">=</span><span class="mi">5924001</span><span class="o">}</span>
 
 </code></pre></div></div>
 
@@ -495,19 +495,19 @@
 <p>当集合中存在null元素时，可以使用针对null友好的比较器，null元素排在集合的最前面</p>
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">employees</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="kc">null</span><span class="o">);</span>  <span class="c1">//插入一个null元素</span>
-<span class="n">Collections</span><span class="o">.</span><span class="na">sort</span><span class="o">(</span><span class="n">employees</span><span class="o">,</span> <span class="n">Comparator</span><span class="o">.</span><span class="na">nullsFirst</span><span class="o">(</span><span class="n">Comparator</span><span class="o">.</span><span class="na">comparing</span><span class="o">(</span><span class="nl">Employee:</span><span class="o">:</span><span class="n">getName</span><span class="o">)));</span>
-<span class="n">employees</span><span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
+<span class="nc">Collections</span><span class="o">.</span><span class="na">sort</span><span class="o">(</span><span class="n">employees</span><span class="o">,</span> <span class="nc">Comparator</span><span class="o">.</span><span class="na">nullsFirst</span><span class="o">(</span><span class="nc">Comparator</span><span class="o">.</span><span class="na">comparing</span><span class="o">(</span><span class="nl">Employee:</span><span class="o">:</span><span class="n">getName</span><span class="o">)));</span>
+<span class="n">employees</span><span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
 
 
-<span class="n">Collections</span><span class="o">.</span><span class="na">sort</span><span class="o">(</span><span class="n">employees</span><span class="o">,</span> <span class="n">Comparator</span><span class="o">.</span><span class="na">nullsLast</span><span class="o">(</span><span class="n">Comparator</span><span class="o">.</span><span class="na">comparing</span><span class="o">(</span><span class="nl">Employee:</span><span class="o">:</span><span class="n">getName</span><span class="o">)));</span>
-<span class="n">employees</span><span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
+<span class="nc">Collections</span><span class="o">.</span><span class="na">sort</span><span class="o">(</span><span class="n">employees</span><span class="o">,</span> <span class="nc">Comparator</span><span class="o">.</span><span class="na">nullsLast</span><span class="o">(</span><span class="nc">Comparator</span><span class="o">.</span><span class="na">comparing</span><span class="o">(</span><span class="nl">Employee:</span><span class="o">:</span><span class="n">getName</span><span class="o">)));</span>
+<span class="n">employees</span><span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
 </code></pre></div></div>
 
 <h2 id="使用-comparatorthencomparing-排序">使用 Comparator.thenComparing 排序</h2>
 <p>首先使用 name 排序，紧接着在使用ege 排序，来看下使用效果</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Collections</span><span class="o">.</span><span class="na">sort</span><span class="o">(</span><span class="n">employees</span><span class="o">,</span> <span class="n">Comparator</span><span class="o">.</span><span class="na">comparing</span><span class="o">(</span><span class="nl">Employee:</span><span class="o">:</span><span class="n">getAge</span><span class="o">).</span><span class="na">thenComparing</span><span class="o">(</span><span class="nl">Employee:</span><span class="o">:</span><span class="n">getName</span><span class="o">));</span>
-<span class="n">employees</span><span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Collections</span><span class="o">.</span><span class="na">sort</span><span class="o">(</span><span class="n">employees</span><span class="o">,</span> <span class="nc">Comparator</span><span class="o">.</span><span class="na">comparing</span><span class="o">(</span><span class="nl">Employee:</span><span class="o">:</span><span class="n">getAge</span><span class="o">).</span><span class="na">thenComparing</span><span class="o">(</span><span class="nl">Employee:</span><span class="o">:</span><span class="n">getName</span><span class="o">));</span>
+<span class="n">employees</span><span class="o">.</span><span class="na">forEach</span><span class="o">(</span><span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">::</span><span class="n">println</span><span class="o">);</span>
 </code></pre></div></div>
 
 
@@ -525,9 +525,9 @@
                     
                     
                     <li class="next">
-                        <a href="/2019/02/17/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-zipkin%E5%88%86%E5%B8%83%E5%BC%8F%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/" data-toggle="tooltip" data-placement="top" title="zipkin分布式链路追踪">
+                        <a href="/2019/02/17/%E7%BC%96%E7%A8%8B%E4%B9%8B%E8%B7%AF-%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E7%AE%A1%E7%90%86bean%E4%BA%8C%E7%A7%8D%E6%96%B9%E5%BC%8F/" data-toggle="tooltip" data-placement="top" title="动态代理管理bean二种方式">
                         Next<br>
-                        <span>zipkin分布式链路追踪</span>
+                        <span>动态代理管理bean二种方式</span>
                         </a>
                     </li>
                     
@@ -587,13 +587,13 @@
                             
         				
                             
-                				<a href="/tags/#自我总结" title="自我总结" rel="34">
+                				<a href="/tags/#自我总结" title="自我总结" rel="36">
                                     自我总结
                                 </a>
                             
         				
                             
-                				<a href="/tags/#编程之路" title="编程之路" rel="88">
+                				<a href="/tags/#编程之路" title="编程之路" rel="92">
                                     编程之路
                                 </a>
                             
@@ -704,6 +704,8 @@
                 				<a href="/tags/#MongoDB" title="MongoDB" rel="2">
                                     MongoDB
                                 </a>
+                            
+        				
                             
         				
                             
@@ -860,7 +862,7 @@
                     
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; MY Blog 2019
+                    Copyright &copy; MY Blog 2020
                     <br>
                     Theme on <a href="https://github.com/uniquezhangqi/uniquezhangqi.github.io.git">GitHub</a> |
                     <iframe

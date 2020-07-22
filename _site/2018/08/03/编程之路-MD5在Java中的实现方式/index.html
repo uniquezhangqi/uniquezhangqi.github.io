@@ -225,7 +225,7 @@
   <li>获取MessageDigest对象，参数为MD5字符串，标识这是一个MD5算法(其它还有SHA1算法等)：</li>
 </ol>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">MessageDigest</span> <span class="n">md5</span> <span class="o">=</span> <span class="n">MessageDigest</span><span class="o">.</span><span class="na">getInstance</span><span class="o">(</span><span class="s">"MD5"</span><span class="o">);</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">MessageDigest</span> <span class="n">md5</span> <span class="o">=</span> <span class="nc">MessageDigest</span><span class="o">.</span><span class="na">getInstance</span><span class="o">(</span><span class="s">"MD5"</span><span class="o">);</span>
 </code></pre></div></div>
 
 <ol>
@@ -245,19 +245,19 @@
 
 <ol>
   <li>计算MD5值：
-    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">String</span> <span class="n">resultArray</span> <span class="o">=</span> <span class="n">md5</span><span class="o">.</span><span class="na">digest</span><span class="o">();</span>
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">String</span> <span class="n">resultArray</span> <span class="o">=</span> <span class="n">md5</span><span class="o">.</span><span class="na">digest</span><span class="o">();</span>
 </code></pre></div>    </div>
     <p>注意：digest() 方法被调用后，MessageDigest对象就被重置，也就说你不能紧接着再次调用该方法计算原数据的MD5值。当然，你可以手动调用reset()方重置输入源。</p>
   </li>
 </ol>
 
 <p>digest() 方法返回值是一个字节数组类型的16位长度的哈希值，通常，我们会转化为十六进制的32位长度的字符串来使用，可以利用BigInteger类来做这个转化：</p>
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">BigInteger</span> <span class="n">bigInt</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BigInteger</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span><span class="n">resultArray</span><span class="o">);</span>
-<span class="n">String</span> <span class="n">resultStr</span> <span class="o">=</span> <span class="n">bigInt</span><span class="o">.</span><span class="na">toString</span><span class="o">(</span><span class="mi">16</span><span class="o">);</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">BigInteger</span> <span class="n">bigInt</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">BigInteger</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span><span class="n">resultArray</span><span class="o">);</span>
+<span class="nc">String</span> <span class="n">resultStr</span> <span class="o">=</span> <span class="n">bigInt</span><span class="o">.</span><span class="na">toString</span><span class="o">(</span><span class="mi">16</span><span class="o">);</span>
 </code></pre></div></div>
 
 <p>当然，还有很多其它方式也能实现字节数组到十六进制的转换，比如通过位运算：</p>
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="nf">byteArrayToHex</span><span class="o">(</span><span class="kt">byte</span><span class="o">[]</span> <span class="n">byteArray</span><span class="o">){</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="nc">String</span> <span class="nf">byteArrayToHex</span><span class="o">(</span><span class="kt">byte</span><span class="o">[]</span> <span class="n">byteArray</span><span class="o">){</span>
     <span class="kt">char</span><span class="o">[]</span> <span class="n">hexDigits</span> <span class="o">=</span> <span class="o">{</span><span class="sc">'0'</span><span class="o">,</span><span class="sc">'1'</span><span class="o">,</span><span class="sc">'2'</span><span class="o">,</span><span class="sc">'3'</span><span class="o">,</span><span class="sc">'4'</span><span class="o">,</span><span class="sc">'5'</span><span class="o">,</span><span class="sc">'6'</span><span class="o">,</span><span class="sc">'7'</span><span class="o">,</span><span class="sc">'8'</span><span class="o">,</span><span class="sc">'9'</span><span class="o">,</span> <span class="sc">'A'</span><span class="o">,</span><span class="sc">'B'</span><span class="o">,</span><span class="sc">'C'</span><span class="o">,</span><span class="sc">'D'</span><span class="o">,</span><span class="sc">'E'</span><span class="o">,</span><span class="sc">'F'</span> <span class="o">};</span> 
     <span class="kt">char</span><span class="o">[]</span> <span class="n">resultCharArray</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">char</span><span class="o">[</span><span class="n">byteArray</span><span class="o">.</span><span class="na">length</span> <span class="o">*</span> <span class="mi">2</span><span class="o">];</span>
     <span class="kt">int</span> <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>
@@ -268,28 +268,86 @@
     <span class="k">return</span> <span class="k">new</span> <span class="nf">String</span><span class="o">(</span><span class="n">resultCharArray</span><span class="o">);</span>
 <span class="o">}</span>
 </code></pre></div></div>
-<p>通过这层转换，得到的MD5值便是一个长度为32位的十六进制字符串，方便使用，类似这样：<code class="highlighter-rouge">301d61853fc9ce94bbfb55b56c218d06</code></p>
+<p>通过这层转换，得到的MD5值便是一个长度为32位的十六进制字符串，方便使用，类似这样：<code class="language-plaintext highlighter-rouge">301d61853fc9ce94bbfb55b56c218d06</code></p>
 
 <p>有了以上这些基础知识，再来看看如何将文件转换为一个MD5字符串：</p>
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="n">String</span> <span class="nf">fileToMD5</span><span class="o">(</span><span class="n">String</span> <span class="n">path</span><span class="o">){</span>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">static</span> <span class="nc">String</span> <span class="nf">fileToMD5</span><span class="o">(</span><span class="nc">String</span> <span class="n">path</span><span class="o">){</span>
     <span class="k">try</span><span class="o">{</span>
-        <span class="n">FileInputStream</span> <span class="n">fis</span> <span class="o">=</span> <span class="n">nwe</span> <span class="nf">FileInputStream</span><span class="o">(</span><span class="n">path</span><span class="o">);</span>
-        <span class="n">MessageDigest</span> <span class="n">digest</span> <span class="o">=</span> <span class="n">MessageDigest</span><span class="o">.</span><span class="na">getInstance</span><span class="o">(</span><span class="s">"MD5"</span><span class="o">);</span>
+        <span class="nc">FileInputStream</span> <span class="n">fis</span> <span class="o">=</span> <span class="n">nwe</span> <span class="nf">FileInputStream</span><span class="o">(</span><span class="n">path</span><span class="o">);</span>
+        <span class="nc">MessageDigest</span> <span class="n">digest</span> <span class="o">=</span> <span class="nc">MessageDigest</span><span class="o">.</span><span class="na">getInstance</span><span class="o">(</span><span class="s">"MD5"</span><span class="o">);</span>
         <span class="kt">byte</span><span class="o">[]</span> <span class="n">buffer</span> <span class="o">=</span> <span class="k">new</span> <span class="kt">byte</span><span class="o">[</span><span class="mi">1024</span><span class="o">];</span>
         <span class="kt">int</span> <span class="n">len</span><span class="o">;</span>
         <span class="k">while</span> <span class="o">((</span><span class="n">len</span> <span class="o">=</span> <span class="n">fis</span><span class="o">.</span><span class="na">read</span><span class="o">(</span><span class="n">buffer</span><span class="o">))</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="o">){</span>
             <span class="n">digest</span><span class="o">.</span><span class="na">update</span><span class="o">(</span><span class="n">buffer</span><span class="o">,</span><span class="mi">0</span><span class="o">,</span><span class="n">len</span><span class="o">);</span>
         <span class="o">}</span>
         <span class="n">fis</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
-        <span class="n">BigInteger</span> <span class="n">bigInt</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BigInteger</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span><span class="n">digest</span><span class="o">.</span><span class="na">digest</span><span class="o">());</span>
+        <span class="nc">BigInteger</span> <span class="n">bigInt</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">BigInteger</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span><span class="n">digest</span><span class="o">.</span><span class="na">digest</span><span class="o">());</span>
         <span class="k">return</span> <span class="n">bigInt</span><span class="o">.</span><span class="na">toString</span><span class="o">(</span><span class="mi">16</span><span class="o">);</span>
-    <span class="o">}</span> <span class="k">catch</span><span class="o">(</span><span class="n">IOException</span> <span class="o">|</span> <span class="n">NoSuchAlgorithmException</span> <span class="n">e</span><span class="o">){</span>
+    <span class="o">}</span> <span class="k">catch</span><span class="o">(</span><span class="nc">IOException</span> <span class="o">|</span> <span class="nc">NoSuchAlgorithmException</span> <span class="n">e</span><span class="o">){</span>
         <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
     <span class="o">}</span>
     <span class="k">return</span> <span class="s">""</span><span class="o">;</span>
 <span class="o">}</span>
 </code></pre></div></div>
 <p>注意：文件的大小直接影响字节流的读取速度，间接影响这里 MD5 的计算时长。Java 语言提供有多种方式读取文件，除了上面用到的 FileInputStream 这种顺序读取的 API 类，还有采用随机读取方式的 RandomAccessFile 类等。关于各种读取方式的效率，推荐大家阅读这篇文章：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/** 
+* MD5加密算法工具类 
+*  
+*/</span>  
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MD5Utils</span> <span class="o">{</span>
+
+    <span class="cm">/**
+     * 加盐
+     * @param length
+     * @return
+     */</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="nc">String</span> <span class="nf">getComplexRandomString</span><span class="o">(</span><span class="kt">int</span> <span class="n">length</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">String</span> <span class="n">str</span> <span class="o">=</span> <span class="s">"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"</span><span class="o">;</span>
+        <span class="nc">Random</span> <span class="n">random</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Random</span><span class="o">();</span>
+        <span class="nc">StringBuffer</span> <span class="n">sb</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">StringBuffer</span><span class="o">();</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">length</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="kt">int</span> <span class="n">number</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="na">nextInt</span><span class="o">(</span><span class="mi">62</span><span class="o">);</span>
+            <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">str</span><span class="o">.</span><span class="na">charAt</span><span class="o">(</span><span class="n">number</span><span class="o">));</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">sb</span><span class="o">.</span><span class="na">toString</span><span class="o">();</span>
+    <span class="o">}</span>
+
+    <span class="cm">/**
+     * MD5加密
+     * @param plainText
+     * @return
+     */</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="nc">String</span> <span class="nf">getMD5Encode</span><span class="o">(</span><span class="nc">String</span> <span class="n">plainText</span><span class="o">){</span>
+        <span class="k">if</span><span class="o">(</span><span class="nc">StringUtil</span><span class="o">.</span><span class="na">isNotBlank</span><span class="o">(</span><span class="n">plainText</span><span class="o">)){</span>
+            <span class="c1">//定义一个字节数组</span>
+            <span class="kt">byte</span><span class="o">[]</span> <span class="n">secretBytes</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+            <span class="k">try</span> <span class="o">{</span>
+                <span class="c1">// 生成一个MD5加密计算摘要</span>
+                <span class="nc">MessageDigest</span> <span class="n">md</span> <span class="o">=</span> <span class="nc">MessageDigest</span><span class="o">.</span><span class="na">getInstance</span><span class="o">(</span><span class="s">"MD5"</span><span class="o">);</span>
+                <span class="c1">//对字符串进行加密</span>
+                <span class="n">md</span><span class="o">.</span><span class="na">update</span><span class="o">(</span><span class="n">plainText</span><span class="o">.</span><span class="na">getBytes</span><span class="o">());</span>
+                <span class="c1">//获得加密后的数据</span>
+                <span class="n">secretBytes</span> <span class="o">=</span> <span class="n">md</span><span class="o">.</span><span class="na">digest</span><span class="o">();</span>
+            <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">NoSuchAlgorithmException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">throw</span> <span class="k">new</span> <span class="nf">RuntimeException</span><span class="o">(</span><span class="s">"没有md5这个算法！"</span><span class="o">);</span>
+            <span class="o">}</span>
+            <span class="c1">//将加密后的数据转换为16进制数字</span>
+            <span class="nc">String</span> <span class="n">md5code</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">BigInteger</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="n">secretBytes</span><span class="o">).</span><span class="na">toString</span><span class="o">(</span><span class="mi">16</span><span class="o">);</span>
+            <span class="c1">// 如果生成数字未满32位，需要前面补0</span>
+            <span class="kt">int</span> <span class="n">num</span> <span class="o">=</span> <span class="mi">32</span><span class="o">;</span>
+            <span class="nc">String</span> <span class="n">str</span> <span class="o">=</span> <span class="s">"0"</span><span class="o">;</span>
+            <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">num</span> <span class="o">-</span> <span class="n">md5code</span><span class="o">.</span><span class="na">length</span><span class="o">();</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+                <span class="n">md5code</span> <span class="o">=</span> <span class="n">str</span> <span class="o">+</span> <span class="n">md5code</span><span class="o">;</span>
+            <span class="o">}</span>
+            <span class="k">return</span> <span class="n">md5code</span><span class="o">;</span>
+        <span class="o">}</span><span class="k">else</span> <span class="o">{</span>
+            <span class="nc">String</span> <span class="n">str</span> <span class="o">=</span> <span class="s">"密码不能为空"</span><span class="o">;</span>
+            <span class="k">return</span> <span class="n">str</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+<span class="o">}</span>  
+</code></pre></div></div>
 
 <p><a href="http://nadeausoftware.com/articles/2008/02/java_tip_how_read_files_quickly">Java tip: How to read files quickly</a></p>
 
@@ -373,13 +431,13 @@
                             
         				
                             
-                				<a href="/tags/#自我总结" title="自我总结" rel="34">
+                				<a href="/tags/#自我总结" title="自我总结" rel="36">
                                     自我总结
                                 </a>
                             
         				
                             
-                				<a href="/tags/#编程之路" title="编程之路" rel="88">
+                				<a href="/tags/#编程之路" title="编程之路" rel="92">
                                     编程之路
                                 </a>
                             
@@ -490,6 +548,8 @@
                 				<a href="/tags/#MongoDB" title="MongoDB" rel="2">
                                     MongoDB
                                 </a>
+                            
+        				
                             
         				
                             
@@ -646,7 +706,7 @@
                     
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; MY Blog 2019
+                    Copyright &copy; MY Blog 2020
                     <br>
                     Theme on <a href="https://github.com/uniquezhangqi/uniquezhangqi.github.io.git">GitHub</a> |
                     <iframe

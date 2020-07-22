@@ -216,7 +216,7 @@
 <h2 id="1-配置configfilter">1 配置ConfigFilter</h2>
 
 <h3 id="11-配置文件从本地文件系统中读取">1.1 配置文件从本地文件系统中读取</h3>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> &lt;bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> &lt;bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
 ​     init-method="init" destroy-method="close"&gt;
 ​     &lt;property name="filters" value="config" /&gt;
 ​     &lt;property name="connectionProperties" value="config.file=file:///home/admin/druid-pool.properties" /&gt;
@@ -225,7 +225,7 @@
 
 <h3 id="12-配置文件从远程http服务器中读取">1.2 配置文件从远程http服务器中读取</h3>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code> &lt;bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code> &lt;bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
 ​     init-method="init" destroy-method="close"&gt;
 ​     &lt;property name="filters" value="config" /&gt;
 ​     &lt;property name="connectionProperties" value="config.file=http://127.0.0.1/druid-pool.properties" /&gt;
@@ -235,7 +235,7 @@
 
 <h3 id="13-通过jvm启动参数来使用configfilter">1.3 通过jvm启动参数来使用ConfigFilter</h3>
 <p>DruidDataSource支持jvm启动参数配置filters，所以你可以：</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>java -Ddruid.filters=config ....
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>java -Ddruid.filters=config ....
 </code></pre></div></div>
 <h2 id="2-数据库密码加密">2 数据库密码加密</h2>
 <p>数据库密码直接写在配置中，对运维安全来说，是一个很大的挑战。Druid为此提供一种数据库密码加密的手段ConfigFilter。</p>
@@ -243,17 +243,17 @@
 <h3 id="21-执行命令加密数据库密码">2.1 执行命令加密数据库密码</h3>
 <p>在命令行中执行如下命令：</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>java -cp druid-1.0.16.jar com.alibaba.druid.filter.config.ConfigTools you_password
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>java -cp druid-1.0.16.jar com.alibaba.druid.filter.config.ConfigTools you_password
 </code></pre></div></div>
 <p>输出</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>privateKey:MIIBVgIBADANBgkqhkiG9w0BAQEFAASCAUAwggE8AgEAAkEA6+4avFnQKP+O7bu5YnxWoOZjv3no4aFV558HTPDoXs6EGD0HP7RzzhGPOKmpLQ1BbA5viSht+aDdaxXp6SvtMQIDAQABAkAeQt4fBo4SlCTrDUcMANLDtIlax/I87oqsONOg5M2JS0jNSbZuAXDv7/YEGEtMKuIESBZh7pvVG8FV531/fyOZAiEA+POkE+QwVbUfGyeugR6IGvnt4yeOwkC3bUoATScsN98CIQDynBXC8YngDNwZ62QPX+ONpqCel6g8NO9VKC+ETaS87wIhAKRouxZL38PqfqV/WlZ5ZGd0YS9gA360IK8zbOmHEkO/AiEAsES3iuvzQNYXFL3x9Tm2GzT1fkSx9wx+12BbJcVD7AECIQCD3Tv9S+AgRhQoNcuaSDNluVrL/B/wOmJRLqaOVJLQGg==
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>privateKey:MIIBVgIBADANBgkqhkiG9w0BAQEFAASCAUAwggE8AgEAAkEA6+4avFnQKP+O7bu5YnxWoOZjv3no4aFV558HTPDoXs6EGD0HP7RzzhGPOKmpLQ1BbA5viSht+aDdaxXp6SvtMQIDAQABAkAeQt4fBo4SlCTrDUcMANLDtIlax/I87oqsONOg5M2JS0jNSbZuAXDv7/YEGEtMKuIESBZh7pvVG8FV531/fyOZAiEA+POkE+QwVbUfGyeugR6IGvnt4yeOwkC3bUoATScsN98CIQDynBXC8YngDNwZ62QPX+ONpqCel6g8NO9VKC+ETaS87wIhAKRouxZL38PqfqV/WlZ5ZGd0YS9gA360IK8zbOmHEkO/AiEAsES3iuvzQNYXFL3x9Tm2GzT1fkSx9wx+12BbJcVD7AECIQCD3Tv9S+AgRhQoNcuaSDNluVrL/B/wOmJRLqaOVJLQGg==
 publicKey:MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAOvuGrxZ0Cj/ju27uWJ8VqDmY7956OGhVeefB0zw6F7OhBg9Bz+0c84RjzipqS0NQWwOb4kobfmg3WsV6ekr7TECAwEAAQ==
 password:PNak4Yui0+2Ft6JSoKBsgNPl+A033rdLhFw+L0np1o+HDRrCo9VkCuiiXviEMYwUgpHZUFxb2FpE0YmSguuRww==
 </code></pre></div></div>
 <p>输入你的数据库密码，输出的是加密后的结果。</p>
 
 <h3 id="22-配置数据源提示druid数据源需要对数据库密码进行解密">2.2 配置数据源，提示Druid数据源需要对数据库密码进行解密。</h3>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
 ​     init-method="init" destroy-method="close"&gt;
 ​     &lt;property name="url" value="jdbc:derby:memory:spring-test;create=true" /&gt;
 ​     &lt;property name="username" value="sa" /&gt;
@@ -353,13 +353,13 @@ password:PNak4Yui0+2Ft6JSoKBsgNPl+A033rdLhFw+L0np1o+HDRrCo9VkCuiiXviEMYwUgpHZUFx
                             
         				
                             
-                				<a href="/tags/#自我总结" title="自我总结" rel="34">
+                				<a href="/tags/#自我总结" title="自我总结" rel="36">
                                     自我总结
                                 </a>
                             
         				
                             
-                				<a href="/tags/#编程之路" title="编程之路" rel="88">
+                				<a href="/tags/#编程之路" title="编程之路" rel="92">
                                     编程之路
                                 </a>
                             
@@ -470,6 +470,8 @@ password:PNak4Yui0+2Ft6JSoKBsgNPl+A033rdLhFw+L0np1o+HDRrCo9VkCuiiXviEMYwUgpHZUFx
                 				<a href="/tags/#MongoDB" title="MongoDB" rel="2">
                                     MongoDB
                                 </a>
+                            
+        				
                             
         				
                             
@@ -626,7 +628,7 @@ password:PNak4Yui0+2Ft6JSoKBsgNPl+A033rdLhFw+L0np1o+HDRrCo9VkCuiiXviEMYwUgpHZUFx
                     
                 </ul>
                 <p class="copyright text-muted">
-                    Copyright &copy; MY Blog 2019
+                    Copyright &copy; MY Blog 2020
                     <br>
                     Theme on <a href="https://github.com/uniquezhangqi/uniquezhangqi.github.io.git">GitHub</a> |
                     <iframe
