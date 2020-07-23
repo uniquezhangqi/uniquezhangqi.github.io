@@ -1,0 +1,87 @@
+I"�<blockquote>
+  <p>本文首次发布于<a href="http://uniquezhangqi.top">My Blog</a>,作者<a href="http://uniquezhangqi.top/about/">@张琦(Ian)</a>,转载请保留原文链接。</p>
+</blockquote>
+
+<p>　　最近在搭建一个项目框架，用到了oracle，所以从中遇到些问题跟大家分享下，也方便自己以后复制粘贴✍🏿</p>
+
+<p>####在Maven仓库中添加Oracle数据库的JDBC驱动依赖</p>
+<blockquote>
+  <p>参考：<a href="https://blog.csdn.net/erlian1992/article/details/74279106">https://blog.csdn.net/erlian1992/article/details/74279106</a></p>
+</blockquote>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">&lt;!-- 添加oracle jdbc driver --&gt;</span>
+<span class="nt">&lt;dependency&gt;</span>
+    <span class="nt">&lt;groupId&gt;</span>com.oracle<span class="nt">&lt;/groupId&gt;</span>
+    <span class="nt">&lt;artifactId&gt;</span>ojdbc14<span class="nt">&lt;/artifactId&gt;</span>
+    <span class="nt">&lt;version&gt;</span>10.2.0.4.0<span class="nt">&lt;/version&gt;</span>
+    <span class="nt">&lt;type&gt;</span>pom<span class="nt">&lt;/type&gt;</span>
+<span class="nt">&lt;/dependency&gt;</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">&lt;bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource"&gt;</code>
+找不到数据源的class</p>
+
+<p><strong>ctrl+alt+shift+s -&gt; Artifacts 里面把jar包添加到maven里面去</strong></p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;dependency&gt;
+    &lt;groupId&gt;com.oracle&lt;/groupId&gt;
+    &lt;artifactId&gt;ojdbc6&lt;/artifactId&gt;
+    &lt;scope&gt;system&lt;/scope&gt;
+    &lt;systemPath&gt;
+        ${project.basedir}/src/lib/ojdbc6.jar
+    &lt;/systemPath&gt;
+&lt;/dependency&gt;
+</code></pre></div></div>
+
+<p>配置DBCP2.0数据库连接池：<a href="https://my.oschina.net/liu13430/blog/298684">https://my.oschina.net/liu13430/blog/298684</a></p>
+
+<p>####Cannot create PoolableConnectionFactory (ORA-00923: 未找到预期 FROM 关键字</p>
+<ol>
+  <li>配置SQL Server 2000数据库连接池时，属性validationQuery默认值为“select 1”，</li>
+  <li>配置 MySql 数据库连接池时，属性validationQuery默认值为select ‘x’，</li>
+  <li>而在Oracle数据库连接池中应设置为“validationQuery=”select 1 from dual””</li>
+</ol>
+
+<h4 id="mysql-数据库连接池配置">MySql 数据库连接池配置：</h4>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>&lt;Context&gt;  
+    &lt;Resource  
+        type="javax.sql.DataSource"  
+        username="test"  
+        password="test"  
+        driverClassName="com.mysql.jdbc.Driver"  
+        maxIdle="5"   
+        maxWait="5000"  
+        validationQuery= select 'x'  
+        url="jdbc:mysql://127.0.0.1:3306/test?useUnicode=true&amp;amp;characterEncoding=utf8"  
+        maxActive="20"  
+     /&gt;  
+&lt;/Context&gt; 
+</code></pre></div></div>
+
+<h4 id="oracle-数据库连接池配置">Oracle 数据库连接池配置：</h4>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;Context&gt;</span>  
+    <span class="nt">&lt;Resource</span>  
+        <span class="na">type=</span><span class="s">"javax.sql.DataSource"</span>  
+        <span class="na">username=</span><span class="s">"test"</span>  
+        <span class="na">password=</span><span class="s">"test"</span>  
+        <span class="na">driverClassName=</span><span class="s">"oracle.jdbc.driver.OracleDriver"</span>  
+        <span class="na">maxIdle=</span><span class="s">"5"</span>   
+        <span class="na">maxWait=</span><span class="s">"5000"</span>  
+        <span class="na">validationQuery=</span><span class="s">"select 1 from dual"</span>  
+        <span class="na">url=</span><span class="s">"jdbc:oracle:thin:@192.168.1.1:1521:test"</span>  
+        <span class="na">maxActive=</span><span class="s">"20"</span>  
+     <span class="nt">/&gt;</span>  
+<span class="nt">&lt;/Context&gt;</span> 
+</code></pre></div></div>
+
+<h4 id="validationquery">validationQuery:</h4>
+<p>DruidDataSource配置属性列表: <a href="https://github.com/alibaba/druid/wiki/DruidDataSource%E9%85%8D%E7%BD%AE%E5%B1%9E%E6%80%A7%E5%88%97%E8%A1%A8">https://github.com/alibaba/druid/wiki/DruidDataSource%E9%85%8D%E7%BD%AE%E5%B1%9E%E6%80%A7%E5%88%97%E8%A1%A8</a>
+用来检测连接是否有效的sql，要求是一个查询语句，常用select ‘x’。
+如果validationQuery为null，testOnBorrow、testOnReturn、testWhileIdle都不会起作用。</p>
+
+<p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1fqj5aochgoj309k09kmwz.jpg" alt="" />
+<b><center>扫描关注：热爱生活的大叔</center>
+<b><center><font size="2">（<font size="2" color="#FF0000">转载本站文章请注明作者和出处</font> <font size="2" color="#0000FF">热爱生活的大叔-uniquezhangqi</font><font size="2">）</font></font></center></b></b></p>
+:ET

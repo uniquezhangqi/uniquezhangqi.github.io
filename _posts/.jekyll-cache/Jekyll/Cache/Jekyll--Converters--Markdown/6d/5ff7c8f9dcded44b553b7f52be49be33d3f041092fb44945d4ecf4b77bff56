@@ -1,0 +1,28 @@
+I"�<blockquote>
+  <p>本文首次发布于<a href="http://uniquezhangqi.top">My Blog</a>,作者<a href="http://uniquezhangqi.top/about/">@张琦(Ian)</a>,转载请保留原文链接。</p>
+</blockquote>
+
+<p>　　window.location.href.indexOf()</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">这个是源码的</span><span class="err">：</span>
+ <span class="cm">/**
+      * Returns the position of the first occurrence of a substring.
+      * @param searchString The substring to search for in the string
+      * @param position The index at which to begin searching the String object. If omitted, search starts at the beginning of the string.
+      */</span>
+ 
+<span class="n">这个是翻译后的</span><span class="err">：</span>     
+<span class="o">*</span> <span class="n">返回一个字符串中第一次出现的位置</span><span class="err">。</span>
+
+<span class="o">*</span> <span class="nd">@param要查找的字符串的子串搜索的字符串</span>
+
+<span class="o">*</span> <span class="nd">@param位置指数在开始搜索的字符串对象</span><span class="err">。</span><span class="n">如果省略</span><span class="err">，</span><span class="n">搜索在字符串的开头开始</span><span class="err">。</span>
+      
+      <span class="n">window</span><span class="o">.</span><span class="na">location</span><span class="o">.</span><span class="na">href</span><span class="o">.</span><span class="na">indexOf</span><span class="o">()</span>
+
+</code></pre></div></div>
+
+<p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1fqj5aochgoj309k09kmwz.jpg" alt="" />
+<b><center>扫描关注：热爱生活的大叔</center>
+<b><center><font size="2">（<font size="2" color="#FF0000">转载本站文章请注明作者和出处</font> <font size="2" color="#0000FF">热爱生活的大叔-uniquezhangqi</font><font size="2">）</font></font></center></b></b></p>
+:ET

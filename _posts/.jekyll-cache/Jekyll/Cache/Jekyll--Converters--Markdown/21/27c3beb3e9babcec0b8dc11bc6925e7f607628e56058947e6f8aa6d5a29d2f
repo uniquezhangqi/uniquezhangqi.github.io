@@ -1,0 +1,16 @@
+I"u<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span>  <span class="n">a</span> <span class="o">=</span><span class="mi">10</span><span class="o">;</span><span class="kt">int</span> <span class="n">b</span><span class="o">=</span><span class="mi">5</span><span class="o">;</span>  
+<span class="n">a</span><span class="o">=</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="o">;</span>  
+<span class="n">b</span><span class="o">=</span><span class="n">a</span><span class="o">-</span><span class="n">b</span><span class="o">;</span>  
+<span class="n">a</span><span class="o">=</span><span class="n">a</span><span class="o">-</span><span class="n">b</span><span class="o">;</span>
+</code></pre></div></div>
+
+<p>　　上面这个很有意思，a是a加b的和，a减去b等于10实际上是原a的值 但是赋给了b；a减去b等于5是原b的值 但是赋给了a；完成了不用第三者当中间者的互换。虽然非常简单，但是很难get到这个idea。 　　这个很有意思，a是a加b的和，a减去b等于10实际上是原a的值 但是赋给了b；a减去b等于5是原b的值 但是赋给了a；完成了不用第三者当中间者的互换。虽然非常简单，但是很难get到这个idea。</p>
+
+<blockquote>
+  <p>转载：Carserdadi <a href="https://blog.csdn.net/Caesardadi/article/details/22106483">https://blog.csdn.net/Caesardadi/article/details/22106483</a></p>
+</blockquote>
+
+<p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1fqj5aochgoj309k09kmwz.jpg" alt="" />
+<b><center>扫描关注：热爱生活的大叔</center>
+<b><center><font size="2">（<font size="2" color="#FF0000">转载本站文章请注明作者和出处</font> <font size="2" color="#0000FF">热爱生活的大叔-uniquezhangqi</font><font size="2">）</font></font></center></b></b></p>
+:ET

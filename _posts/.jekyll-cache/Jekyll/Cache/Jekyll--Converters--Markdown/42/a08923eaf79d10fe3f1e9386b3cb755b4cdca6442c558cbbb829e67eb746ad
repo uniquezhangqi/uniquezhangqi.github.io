@@ -1,0 +1,24 @@
+I"�<h2 id="intellij-idea设置http-proxy">Intellij IDEA设置HTTP Proxy</h2>
+<h4 id="mac版">MAC版：</h4>
+<p>打开<code class="language-plaintext highlighter-rouge">Appearance &amp; Behavior </code>&gt; <code class="language-plaintext highlighter-rouge">System Settings</code> &gt; <code class="language-plaintext highlighter-rouge">Http Proxy</code>
+点选 <code class="language-plaintext highlighter-rouge">Auto-detect proxy settings</code> &gt; <code class="language-plaintext highlighter-rouge">Automatic proxy configuration URL</code>
+输入URL: <code class="language-plaintext highlighter-rouge">http://127.0.0.1:1080</code>即可。
+如图：
+<img src="https://ws1.sinaimg.cn/large/006tKfTcgy1fpm38fsnjcj31kw0zpdhc.jpg" alt="" /></p>
+
+<h4 id="win-pc">win pc:</h4>
+<p>输入URL: <code class="language-plaintext highlighter-rouge">http://127.0.0.1:1080/pac</code>即可。</p>
+
+<h4 id="可以试试">可以试试:</h4>
+<p>选第三个<code class="language-plaintext highlighter-rouge">Manual proxy configuration</code><br />
+类型选<code class="language-plaintext highlighter-rouge">HTTP</code><br />
+Host name：<code class="language-plaintext highlighter-rouge">127.0.0.1</code><br />
+Port number：<code class="language-plaintext highlighter-rouge">1080</code></p>
+
+<p>####参考：
+<a href="https://www.jianshu.com/p/a0ec13a34a4b">https://www.jianshu.com/p/a0ec13a34a4b</a></p>
+
+<p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1fqj5aochgoj309k09kmwz.jpg" alt="" />
+<b><center>扫描关注：热爱生活的大叔</center>
+<b><center><font size="2">（<font size="2" color="#FF0000">转载本站文章请注明作者和出处</font> <font size="2" color="#0000FF">热爱生活的大叔-uniquezhangqi</font><font size="2">）</font></font></center></b></b></p>
+:ET

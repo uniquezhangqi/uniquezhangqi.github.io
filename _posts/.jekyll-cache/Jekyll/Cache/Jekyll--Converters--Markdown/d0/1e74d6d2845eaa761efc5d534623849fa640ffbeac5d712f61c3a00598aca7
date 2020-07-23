@@ -1,0 +1,64 @@
+I"�<blockquote>
+  <p>本文首次发布于<a href="http://uniquezhangqi.top">My Blog</a>,作者<a href="http://uniquezhangqi.top/about/">@张琦(Ian)</a>,转载请保留原文链接。</p>
+</blockquote>
+
+<h2 id="error-during-artifact-deployment-see-server-log-for-details详解">Error during artifact deployment. See server log for details详解.</h2>
+
+<h4 id="可能出错的地方">可能出错的地方：</h4>
+
+<ol>
+  <li>
+    <p>web.xml文件   web应用部署描述符，里面的部署的xml文件或者类，如果这些找不到就会发生startup failed due to previous errors错误。</p>
+  </li>
+  <li>
+    <p>如果在应用spring的话，在配置文件applicationContext.xml中定义的类、xml文件找不到也会报这个错误。</p>
+  </li>
+  <li>
+    <p>在web.xml，struts.xml，applicationContext.xml文件中自身有任何一点错误都可能引起上面的这个问题，而不仅仅是附带的文件错误导致。</p>
+  </li>
+  <li>
+    <p>如果使用ibatis的话，在SqlMapConfig.xml中定义的xml文件找不到也会报这个错误。（hibernate的配置在整合spring的时候使用spring的配置文件）</p>
+  </li>
+  <li>
+    <p>JDK的版本问题，最好使用JDK5.0 或者更高的版本。</p>
+  </li>
+  <li>
+    <p>Eclipse和tomcat的版本兼容问题</p>
+  </li>
+  <li>
+    <p>框架整合的过程中在导入到lib下的jar包冲突也可能产生该错误。</p>
+  </li>
+  <li>
+    <p>jar包的缺少以及jar包的版本也可产生该错误。</p>
+  </li>
+  <li>
+    <p>其他的原因</p>
+  </li>
+</ol>
+
+<h4 id="我的问题">我的问题：</h4>
+
+<ol>
+  <li><code class="language-plaintext highlighter-rouge">&lt;listener&gt;</code>的生命周期没走完。– web.xml里面<code class="language-plaintext highlighter-rouge">&lt;listener&gt;</code>是从上往下顺序执行。</li>
+  <li>在InitLoadJobRunListener还用Spring的注解注入了。</li>
+</ol>
+
+<p>然后Tomcat就报标题错误，最后根据下面解决方案解决。</p>
+
+<h4 id="解决方案">解决方案：</h4>
+<p>　　我用的是<code class="language-plaintext highlighter-rouge">Spring、SpringMVC、SpringDataJpa、Maven</code>Tomcat 启动不起来，报标题错误。下面截图是<code class="language-plaintext highlighter-rouge">web.xml</code>里面的片段：
+　　<img src="https://ws4.sinaimg.cn/large/006tKfTcgy1fpphge1nrij30l005jt8k.jpg" alt="" /></p>
+
+<ol>
+  <li>第一个<code class="language-plaintext highlighter-rouge">&lt;listener-class&gt;</code>是载入spring的上下文，加载spring的配置文件。　　</li>
+  <li>第二个<code class="language-plaintext highlighter-rouge">&lt;listener-class&gt;</code>是获取spring启动完毕以后为工具类注入 spring上下文,方便获取spring上下文直接得到bean实例，会实现spring的ServletContextListener接口。</li>
+  <li>第三个<code class="language-plaintext highlighter-rouge">&lt;listener-class&gt;</code>是我写的定时任务–启动系统时需要启动状态为开启的job一次需要用到的–InitLoadJobRunListener类里面spring的注解还有log4j都是不起作用的，还有几个也是不归spring管理的，也不会起作用。</li>
+</ol>
+
+<h4 id="希望对你们有所帮助">希望对你们有所帮助！！！</h4>
+<p>最后感谢<strong>连晋</strong>大佬对我的帮助。</p>
+
+<p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1fqj5aochgoj309k09kmwz.jpg" alt="" />
+<b><center>扫描关注：热爱生活的大叔</center>
+<b><center><font size="2">（<font size="2" color="#FF0000">转载本站文章请注明作者和出处</font> <font size="2" color="#0000FF">热爱生活的大叔-uniquezhangqi</font><font size="2">）</font></font></center></b></b></p>
+:ET

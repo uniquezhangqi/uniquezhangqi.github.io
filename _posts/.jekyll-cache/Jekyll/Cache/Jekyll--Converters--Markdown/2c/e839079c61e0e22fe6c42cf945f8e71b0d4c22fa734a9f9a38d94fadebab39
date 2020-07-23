@@ -1,0 +1,116 @@
+I"'<blockquote>
+  <p>本文首次发布于<a href="http://uniquezhangqi.top">My Blog</a>,作者<a href="http://uniquezhangqi.top/about/">@张琦(Ian)</a>,转载请保留原文链接。</p>
+</blockquote>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="cm">/**
+ * SpringDataJPA 几种sql方式。
+ */</span>
+
+<span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">login</span><span class="o">(</span><span class="nc">String</span> <span class="n">name</span><span class="o">,</span><span class="nc">String</span> <span class="n">password</span><span class="o">){</span>
+
+ <span class="c1">//   User user = userDao.findByNameAndPassword(name,password);</span>
+
+ <span class="cm">/**   User user = userDao.findOne(new Specifiaction&lt;User&gt;() {
+        public Predicate toPredicate(Root&lt;User&gt; root, CrieriaQuery&lt;?&gt; cq, CriteriaBuilder cb){
+            return cb.and(
+                cb.equal(
+                    root.get("name").as(String.class),
+                    name
+                ),
+                cb.equal(
+                    root.get("password").as(Stirng.class),
+                    password
+                )
+            );
+        }
+
+    });
+    return user != null;
+*/</span>
+
+<span class="nd">@Modifying</span>
+<span class="nd">@Query</span><span class="o">(</span><span class="s">"delete User u where u.id =: id"</span><span class="o">)</span>
+<span class="nd">@Transactional</span>
+<span class="kt">void</span> <span class="nf">delByUserId</span><span class="o">(</span><span class="nd">@Param</span><span class="o">(</span><span class="s">"id"</span><span class="o">)</span> <span class="nc">Long</span> <span class="n">id</span><span class="o">);</span>
+<span class="c1">// select * from user where name =? and password =?</span>
+
+
+<span class="cm">/**
+* JPA 运行原生 sql 语句进行删除 一个user
+*/</span>
+<span class="nd">@Modifying</span>
+<span class="nd">@Query</span><span class="o">(</span><span class="n">value</span><span class="o">=</span><span class="s">"DELETE FORM user WHERE id=:id"</span><span class="o">,</span><span class="n">nativeQuery</span> <span class="o">=</span> <span class="kc">true</span><span class="o">)</span>
+<span class="nd">@Transactional</span>
+<span class="kt">void</span> <span class="nf">delUserByNativeSql</span><span class="o">(</span><span class="nd">@Param</span><span class="o">(</span><span class="s">"id"</span><span class="o">)</span><span class="nc">Long</span> <span class="n">id</span><span class="o">);</span>
+
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ol>
+  <li>@Component	加到类路径自动扫描</li>
+  <li>@Controller	一个web的控制层，在Spring MVC中使用</li>
+  <li>@Repository	数据管理/存储,企业级应用使用(Dao, DDD)</li>
+  <li>@Service	提供一个商业逻辑 - 一个无状态的切面</li>
+</ol>
+
+<p><code class="language-plaintext highlighter-rouge">Page&lt;AcquisitionResults&gt; AcquisitionResultsPage = acquisitionResultsService.findAll((root, cq, cb) -&gt; {</code></p>
+
+<blockquote>
+  <p>root 路径相关  <a href="https://www.objectdb.com/api/java/jpa/criteria/Root">https://www.objectdb.com/api/java/jpa/criteria/Root</a></p>
+</blockquote>
+
+<blockquote>
+  <p>cq 查询相关   <a href="https://docs.oracle.com/javaee/6/api/javax/persistence/criteria/CriteriaQuery.html">https://docs.oracle.com/javaee/6/api/javax/persistence/criteria/CriteriaQuery.html</a></p>
+</blockquote>
+
+<blockquote>
+  <p>cb 创建相关   <a href="https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/CriteriaBuilder.html">https://docs.oracle.com/javaee/7/api/javax/persistence/criteria/CriteriaBuilder.html</a>
+条件对象<br />
+equal  等价于  and<br />
+大于  gn<br />
+小于  le<br /></p>
+</blockquote>
+
+<h4 id="springdatajpa-需要注意的注解">springDataJpa 需要注意的注解</h4>
+<ol>
+  <li>@Modifying</li>
+  <li>@Query(value=”DELETE from user where id=:id”,nativeQuery = true  这个里面的sql语句 前面是 类名 不是表名)  加nativeQuery = true 表示使用原生sql</li>
+  <li>@Transactional</li>
+</ol>
+
+<h4 id="shiro生命周期">shiro生命周期</h4>
+<p>生命周期：</p>
+
+<ul>
+  <li>spring 把shiro 注入进去</li>
+  <li>例子：
+    <ul>
+      <li>登录请求会转发给shiro 里面</li>
+      <li>controller servlet 让shiro 来管理servlet</li>
+      <li>用aop的方式去管理所有的controller，然后定义用shiro来代理它</li>
+    </ul>
+  </li>
+  <li>白名单：
+    <ul>
+      <li>
+        <p><code class="language-plaintext highlighter-rouge">spring-shiro.xml:</code> anon 当前所有请求登录都可以处理</p>
+      </li>
+      <li>
+        <p>logout 登出</p>
+      </li>
+      <li>
+        <p>/** = authc 指定哪个请求   验证器</p>
+      </li>
+      <li>
+        <p>/** = user 除了上面的，其它的都要登录以后才能访问。</p>
+      </li>
+    </ul>
+  </li>
+  <li>redirect：/admin/index   redirect转发。</li>
+</ul>
+
+<p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1fqj5aochgoj309k09kmwz.jpg" alt="" />
+<b><center>扫描关注：热爱生活的大叔</center>
+<b><center><font size="2">（<font size="2" color="#FF0000">转载本站文章请注明作者和出处</font> <font size="2" color="#0000FF">热爱生活的大叔-uniquezhangqi</font><font size="2">）</font></font></center></b></b></p>
+:ET

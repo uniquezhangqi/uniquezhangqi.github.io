@@ -1,0 +1,102 @@
+I"�"<blockquote>
+  <p>本文首次发布于<a href="http://uniquezhangqi.top">My Blog</a>,作者<a href="http://uniquezhangqi.top/about/">@张琦(Ian)</a>,转载请保留原文链接。</p>
+</blockquote>
+
+<h4 id="spring-corexml">spring-core.xml</h4>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+<span class="nt">&lt;beans</span> <span class="na">xmlns:xsi=</span><span class="s">"http://www.w3.org/2001/XMLSchema-instance"</span>
+       <span class="na">xmlns:context=</span><span class="s">"http://www.springframework.org/schema/context"</span>
+       <span class="na">xmlns=</span><span class="s">"http://www.springframework.org/schema/beans"</span>
+       <span class="na">xsi:schemaLocation=</span><span class="s">"http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/context
+						http://www.springframework.org/schema/context/spring-context.xsd"</span><span class="nt">&gt;</span>
+
+</code></pre></div></div>
+
+<h4 id="spring-ehcachexml">spring-ehcache.xml</h4>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+<span class="nt">&lt;beans</span> <span class="na">xmlns=</span><span class="s">"http://www.springframework.org/schema/beans"</span> <span class="na">xmlns:xsi=</span><span class="s">"http://www.w3.org/2001/XMLSchema-instance"</span>
+	<span class="na">xsi:schemaLocation=</span><span class="s">"http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd"</span>
+	<span class="na">default-lazy-init=</span><span class="s">"true"</span><span class="nt">&gt;</span>
+	
+</code></pre></div></div>
+
+<h4 id="spring-jpaxml">spring-jpa.xml</h4>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+<span class="nt">&lt;beans</span> <span class="na">xmlns=</span><span class="s">"http://www.springframework.org/schema/beans"</span> <span class="na">xmlns:xsi=</span><span class="s">"http://www.w3.org/2001/XMLSchema-instance"</span>
+	<span class="na">xsi:schemaLocation=</span><span class="s">"http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd"</span>
+	<span class="na">default-lazy-init=</span><span class="s">"true"</span><span class="nt">&gt;</span>
+
+</code></pre></div></div>
+
+<h4 id="spring-mvcxml">spring mvc.xml</h4>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+<span class="nt">&lt;beans</span> <span class="na">xmlns:xsi=</span><span class="s">"http://www.w3.org/2001/XMLSchema-instance"</span>
+       <span class="na">xmlns:mvc=</span><span class="s">"http://www.springframework.org/schema/mvc"</span>
+       <span class="na">xmlns=</span><span class="s">"http://www.springframework.org/schema/beans"</span>
+       <span class="na">xsi:schemaLocation=</span><span class="s">"http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd"</span><span class="nt">&gt;</span>
+</code></pre></div></div>
+
+<h4 id="spring-schedulerxml">spring-scheduler.xml</h4>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+<span class="nt">&lt;beans</span> <span class="na">xmlns:xsi=</span><span class="s">"http://www.w3.org/2001/XMLSchema-instance"</span> <span class="na">xmlns:task=</span><span class="s">"http://www.springframework.org/schema/task"</span>
+       <span class="na">xmlns=</span><span class="s">"http://www.springframework.org/schema/beans"</span>
+       <span class="na">xsi:schemaLocation=</span><span class="s">"http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+	http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-4.0.xsd"</span>
+       <span class="na">default-lazy-init=</span><span class="s">"true"</span><span class="nt">&gt;</span>
+
+    <span class="nt">&lt;description&gt;</span>使用Spring的 Scheduled的定时任务配置<span class="nt">&lt;/description&gt;</span>
+
+    <span class="c">&lt;!-- namespace 方式 的便捷版 --&gt;</span>
+    <span class="nt">&lt;task:scheduler</span> <span class="na">id=</span><span class="s">"springScheduler"</span> <span class="na">pool-size=</span><span class="s">"1"</span><span class="nt">/&gt;</span>
+    <span class="c">&lt;!--&lt;task:scheduled-tasks scheduler="springScheduler"&gt;--&gt;</span>
+    <span class="c">&lt;!--&amp;lt;!&amp;ndash; timer 每隔五分钟通知一次远程服务器 有订单完成 &amp;ndash;&amp;gt;--&gt;</span>
+    <span class="c">&lt;!--&amp;lt;!&amp;ndash;&lt;task:scheduled ref="scheduleProcess" method="callBackUrlToRomeService" fixed-delay="300000"/&gt;&amp;ndash;&amp;gt;--&gt;</span>
+    <span class="c">&lt;!--&amp;lt;!&amp;ndash; 2分钟执行一次 &amp;ndash;&amp;gt;--&gt;</span>
+    <span class="c">&lt;!--&lt;task:scheduled ref="cleanExpiredOrder" method="cleanExpiredOrderMethod" fixed-delay="120000"/&gt;--&gt;</span>
+
+    <span class="c">&lt;!--&lt;/task:scheduled-tasks&gt;--&gt;</span>
+<span class="nt">&lt;/beans&gt;</span>
+
+</code></pre></div></div>
+
+<h4 id="spring-shiroxml">spring-shiro.xml</h4>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+<span class="nt">&lt;beans</span> <span class="na">xmlns:xsi=</span><span class="s">"http://www.w3.org/2001/XMLSchema-instance"</span> <span class="na">xmlns=</span><span class="s">"http://www.springframework.org/schema/beans"</span>
+       <span class="na">xsi:schemaLocation=</span><span class="s">"http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd"</span>
+       <span class="na">default-lazy-init=</span><span class="s">"true"</span><span class="nt">&gt;</span>
+
+    <span class="nt">&lt;description&gt;</span>Shiro安全配置<span class="nt">&lt;/description&gt;</span>
+</code></pre></div></div>
+
+<h4 id="springxml">spring.xml</h4>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+<span class="nt">&lt;beans</span> <span class="na">xmlns:xsi=</span><span class="s">"http://www.w3.org/2001/XMLSchema-instance"</span>
+       <span class="na">xmlns:util=</span><span class="s">"http://www.springframework.org/schema/util"</span> <span class="na">xmlns=</span><span class="s">"http://www.springframework.org/schema/beans"</span>
+       <span class="na">xsi:schemaLocation=</span><span class="s">"http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd"</span>
+       <span class="na">default-lazy-init=</span><span class="s">"false"</span><span class="nt">&gt;</span>
+
+    <span class="nt">&lt;util:properties</span> <span class="na">id=</span><span class="s">"config"</span> <span class="na">location=</span><span class="s">"classpath*:**.properties"</span><span class="nt">/&gt;</span>
+</code></pre></div></div>
+
+<h4 id="webxml">web.xml</h4>
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+<span class="nt">&lt;web-app</span> <span class="na">xmlns:xsi=</span><span class="s">"http://www.w3.org/2001/XMLSchema-instance"</span>
+         <span class="na">xmlns=</span><span class="s">"http://xmlns.jcp.org/xml/ns/javaee"</span>
+         <span class="na">xsi:schemaLocation=</span><span class="s">"http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"</span>
+         <span class="na">version=</span><span class="s">"3.1"</span><span class="nt">&gt;</span>
+</code></pre></div></div>
+
+<p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1fqj5aochgoj309k09kmwz.jpg" alt="" />
+<b><center>扫描关注：热爱生活的大叔</center>
+<b><center><font size="2">（<font size="2" color="#FF0000">转载本站文章请注明作者和出处</font> <font size="2" color="#0000FF">热爱生活的大叔-uniquezhangqi</font><font size="2">）</font></font></center></b></b></p>
+:ET

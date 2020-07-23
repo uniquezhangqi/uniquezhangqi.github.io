@@ -1,0 +1,335 @@
+I"��<h2 id="spring-data-jpa">Spring Data JPA</h2>
+<p>　　自从用了Spring Data JPA之后个人感觉比hibernate、mybatis好用太多了—SpringData JAP非常契合OOP思想。如：设计模式的<a href="http://uniquezhangqi.top/2018/02/04/自我总结-设计模式总结(一)/">开放-封闭原则、依赖倒转原则、单一职责</a>、<a href="http://uniquezhangqi.top/2018/03/02/自我总结-设计模式总结(二)/">迪米特法则</a>等等，也是OOP非常非常核心的东西（按住Ctrl+鼠标左键点击蓝色的可以查看对应模式)…我的GitHub上最近在更新一个<a href="https://github.com/uniquezhangqi/SpringDemo">Spring、SpringDataJPA、shiro</a>框架整合的一个小项目,有兴趣可以瞅瞅；下面是我转载的一篇SpringDataJPA入门的文章，GitHub上还有一个<a href="https://github.com/spring-projects/spring-data-examples/tree/master/jpa/showcase">Demo</a>。
+　　</p>
+<h4 id="the-domain">The domain</h4>
+
+<p>为了简单起见，我们从一个很小的着名域开始：我们<code class="language-plaintext highlighter-rouge">Customer</code>和<code class="language-plaintext highlighter-rouge">Accounts</code>。</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Entity</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Customer</span> <span class="o">{</span>
+
+  <span class="nd">@Id</span>
+  <span class="nd">@GeneratedValue</span><span class="o">(</span><span class="n">strategy</span> <span class="o">=</span> <span class="nc">GenerationType</span><span class="o">.</span><span class="na">AUTO</span><span class="o">)</span>
+  <span class="kd">private</span> <span class="nc">Long</span> <span class="n">id</span><span class="o">;</span>
+
+  <span class="kd">private</span> <span class="nc">String</span> <span class="n">firstname</span><span class="o">;</span>
+  <span class="kd">private</span> <span class="nc">String</span> <span class="n">lastname</span><span class="o">;</span>
+
+  <span class="c1">// … methods omitted</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Entity</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">Account</span> <span class="o">{</span>
+
+  <span class="nd">@Id</span>
+  <span class="nd">@GeneratedValue</span><span class="o">(</span><span class="n">strategy</span> <span class="o">=</span> <span class="nc">GenerationType</span><span class="o">.</span><span class="na">AUTO</span><span class="o">)</span>
+  <span class="kd">private</span> <span class="nc">Long</span> <span class="n">id</span><span class="o">;</span>
+
+  <span class="nd">@ManyToOne</span>
+  <span class="kd">private</span> <span class="nc">Customer</span> <span class="n">customer</span><span class="o">;</span>
+
+  <span class="nd">@Temporal</span><span class="o">(</span><span class="nc">TemporalType</span><span class="o">.</span><span class="na">DATE</span><span class="o">)</span>
+  <span class="kd">private</span> <span class="nc">Date</span> <span class="n">expiryDate</span><span class="o">;</span>
+
+  <span class="c1">// … methods omitted</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>该<code class="language-plaintext highlighter-rouge">Account</code>有我们将在稍后阶段使用的有效期限。除此之外，对于类或映射没有什么特别的地方 - 它使用普通的JPA注释。现在我们来看看组件管理<code class="language-plaintext highlighter-rouge">Account</code>对象</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Repository</span>
+<span class="nd">@Transactional</span><span class="o">(</span><span class="n">readOnly</span> <span class="o">=</span> <span class="kc">true</span><span class="o">)</span>
+<span class="kd">class</span> <span class="nc">AccountServiceImpl</span> <span class="kd">implements</span> <span class="nc">AccountService</span> <span class="o">{</span>
+
+  <span class="nd">@PersistenceContext</span>
+  <span class="kd">private</span> <span class="nc">EntityManager</span> <span class="n">em</span><span class="o">;</span>
+
+  <span class="nd">@Override</span>
+  <span class="nd">@Transactional</span>
+  <span class="kd">public</span> <span class="nc">Account</span> <span class="nf">save</span><span class="o">(</span><span class="nc">Account</span> <span class="n">account</span><span class="o">)</span> <span class="o">{</span>
+
+    <span class="k">if</span> <span class="o">(</span><span class="n">account</span><span class="o">.</span><span class="na">getId</span><span class="o">()</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+      <span class="n">em</span><span class="o">.</span><span class="na">persist</span><span class="o">(</span><span class="n">account</span><span class="o">);</span>
+      <span class="k">return</span> <span class="n">account</span><span class="o">;</span>
+    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+      <span class="k">return</span> <span class="n">em</span><span class="o">.</span><span class="na">merge</span><span class="o">(</span><span class="n">account</span><span class="o">);</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Account</span><span class="o">&gt;</span> <span class="nf">findByCustomer</span><span class="o">(</span><span class="nc">Customer</span> <span class="n">customer</span><span class="o">)</span> <span class="o">{</span>
+
+    <span class="nc">TypedQuery</span> <span class="n">query</span> <span class="o">=</span> <span class="n">em</span><span class="o">.</span><span class="na">createQuery</span><span class="o">(</span><span class="s">"select a from Account a where a.customer = ?1"</span><span class="o">,</span> <span class="nc">Account</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="n">query</span><span class="o">.</span><span class="na">setParameter</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="n">customer</span><span class="o">);</span>
+
+    <span class="k">return</span> <span class="n">query</span><span class="o">.</span><span class="na">getResultList</span><span class="o">();</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>我故意命名该类<code class="language-plaintext highlighter-rouge">*Service</code>以避免名称冲突，因为我们将在开始重构时引入一个存储库层。但从概念上讲，这里的课程是一个存储库而不是服务。那么我们在这里实际上有什么？</p>
+
+<p>该类用注释<code class="language-plaintext highlighter-rouge">@Repository</code>来启用从JPA异常到Spring <code class="language-plaintext highlighter-rouge">DataAccessException</code>层次结构的异常转换。除此之外，我们使用它<code class="language-plaintext highlighter-rouge">@Transactional</code>来确保<code class="language-plaintext highlighter-rouge">save(…)</code>操作在事务中运行并允许设置<code class="language-plaintext highlighter-rouge">readOnly-flag（在类级别）findByCustomer(…)</code>。这会在持久性提供程序内部以及数据库级别上导致一些性能优化。</p>
+
+<p>当我们想从决定是否拨打免费客户端<code class="language-plaintext highlighter-rouge">merge(…)</code>或<code class="language-plaintext highlighter-rouge">persist(…)</code>在EntityManager我们使用id的-场<code class="language-plaintext highlighter-rouge">Account</code>来决定我们是否考虑一个<code class="language-plaintext highlighter-rouge">Account</code>对象作为新的或不。这个逻辑当然可以被提取到一个通用的超类中，因为我们可能不希望为每个域对象特定的存储库实现重复此代码。查询方法也很简单：我们创建一个查询，绑定一个参数并执行查询以获得结果。这几乎让直行向前，人们可以把代码的执行作为样板与想象的有点是源自方法签名：我们预期List的<code class="language-plaintext highlighter-rouge">Accounts</code>，查询非常接近方法名称，我们只需将方法参数绑定到它。正如你所看到的，还有改进的空间。</p>
+
+<h4 id="spring-data-repository-support">Spring Data repository support</h4>
+
+<p>在我们开始重构实现之前，请注意，示例项目包含可以在重构过程中运行的测试用例，以验证代码是否仍然有效。现在让我们看看我们如何改进实施。</p>
+
+<p>Spring Data JPA提供了一个以每个托管域对象的接口开始的存储库编程模型：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">AccountRepository</span> <span class="kd">extends</span> <span class="nc">JpaRepository</span><span class="o">&lt;</span><span class="nc">Account</span><span class="o">,</span> <span class="nc">Long</span><span class="o">&gt;</span> <span class="o">{</span> <span class="err">…</span> <span class="o">}</span>
+</code></pre></div></div>
+
+<p>定义这个接口有两个目的：首先，通过扩展，<code class="language-plaintext highlighter-rouge">JpaRepository</code>我们得到了一些通用的CRUD方法到我们的类型中，允许保存<code class="language-plaintext highlighter-rouge">Account</code>，删除它们等等。其次，这将允许Spring Data JPA存储库基础结构扫描该接口的类路径并为其创建一个<code class="language-plaintext highlighter-rouge">Spring bean</code>。</p>
+
+<p>为了让Spring创建一个实现此接口的bean，您只需使用Spring JPA命名空间并使用相应的元素激活存储库支持：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;</span><span class="nl">jpa:</span><span class="n">repositories</span> <span class="n">base</span><span class="o">-</span><span class="kn">package</span><span class="err">="</span><span class="nn">com.acme.repositories</span><span class="err">"</span> <span class="o">/&gt;</span>
+</code></pre></div></div>
+
+<p>这将扫描下面所有包的<code class="language-plaintext highlighter-rouge">com.acme.repositories</code>扩展接口，JpaRepository并为它创建一个<code class="language-plaintext highlighter-rouge">Spring bean</code>，它由一个实现支持<code class="language-plaintext highlighter-rouge">SimpleJpaRepository</code>。让我们迈出第一步，重新构建<code class="language-plaintext highlighter-rouge">AccountService</code>一下我们的实现来使用我们新引入的存储库接口：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Repository</span>
+<span class="nd">@Transactional</span><span class="o">(</span><span class="n">readOnly</span> <span class="o">=</span> <span class="kc">true</span><span class="o">)</span>
+<span class="kd">class</span> <span class="nc">AccountServiceImpl</span> <span class="kd">implements</span> <span class="nc">AccountService</span> <span class="o">{</span>
+
+  <span class="nd">@PersistenceContext</span>
+  <span class="kd">private</span> <span class="nc">EntityManager</span> <span class="n">em</span><span class="o">;</span>
+
+  <span class="nd">@Autowired</span>
+  <span class="kd">private</span> <span class="nc">AccountRepository</span> <span class="n">repository</span><span class="o">;</span>
+
+  <span class="nd">@Override</span>
+  <span class="nd">@Transactional</span>
+  <span class="kd">public</span> <span class="nc">Account</span> <span class="nf">save</span><span class="o">(</span><span class="nc">Account</span> <span class="n">account</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">repository</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="n">account</span><span class="o">);</span>
+  <span class="o">}</span>
+
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Account</span><span class="o">&gt;</span> <span class="nf">findByCustomer</span><span class="o">(</span><span class="nc">Customer</span> <span class="n">customer</span><span class="o">)</span> <span class="o">{</span>
+
+    <span class="nc">TypedQuery</span> <span class="n">query</span> <span class="o">=</span> <span class="n">em</span><span class="o">.</span><span class="na">createQuery</span><span class="o">(</span><span class="s">"select a from Account a where a.customer = ?1"</span><span class="o">,</span> <span class="nc">Account</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+    <span class="n">query</span><span class="o">.</span><span class="na">setParameter</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="n">customer</span><span class="o">);</span>
+
+    <span class="k">return</span> <span class="n">query</span><span class="o">.</span><span class="na">getResultList</span><span class="o">();</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>在重构之后，我们只需将调用委托<code class="language-plaintext highlighter-rouge">save(…)</code>给存储库。默认情况下，如果存储库实现的<code class="language-plaintext highlighter-rouge">id</code>属性<code class="language-plaintext highlighter-rouge">null</code>与您在前面的示例中看到的一样（注意，如果需要，您可以获得对该决定的更详细控制），则存储库实现将考虑一个新的实体。此外，我们可以删除<code class="language-plaintext highlighter-rouge">@Transactional</code>该方法的注释，因为Spring Data JPA存储库实现的CRUD方法已经注释了<code class="language-plaintext highlighter-rouge">@Transactional</code>。</p>
+
+<p>接下来我们将重构查询方法。让我们按照与save方法相同的查询方法的委托策略。我们在存储库接口上引入一个查询方法，并将我们原来的方法委托给新引入的方法：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Transactional</span><span class="o">(</span><span class="n">readOnly</span> <span class="o">=</span> <span class="kc">true</span><span class="o">)</span> 
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">AccountRepository</span> <span class="kd">extends</span> <span class="nc">JpaRepository</span><span class="o">&lt;</span><span class="nc">Account</span><span class="o">,</span> <span class="nc">Long</span><span class="o">&gt;</span> <span class="o">{</span>
+
+  <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Account</span><span class="o">&gt;</span> <span class="nf">findByCustomer</span><span class="o">(</span><span class="nc">Customer</span> <span class="n">customer</span><span class="o">);</span> 
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Repository</span>
+<span class="nd">@Transactional</span><span class="o">(</span><span class="n">readOnly</span> <span class="o">=</span> <span class="kc">true</span><span class="o">)</span>
+<span class="kd">class</span> <span class="nc">AccountServiceImpl</span> <span class="kd">implements</span> <span class="nc">AccountService</span> <span class="o">{</span>
+
+  <span class="nd">@Autowired</span>
+  <span class="kd">private</span> <span class="nc">AccountRepository</span> <span class="n">repository</span><span class="o">;</span>
+
+  <span class="nd">@Override</span>
+  <span class="nd">@Transactional</span>
+  <span class="kd">public</span> <span class="nc">Account</span> <span class="nf">save</span><span class="o">(</span><span class="nc">Account</span> <span class="n">account</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">repository</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="n">account</span><span class="o">);</span>
+  <span class="o">}</span>
+
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Account</span><span class="o">&gt;</span> <span class="nf">findByCustomer</span><span class="o">(</span><span class="nc">Customer</span> <span class="n">customer</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">repository</span><span class="o">.</span><span class="na">findByCustomer</span><span class="o">(</span><span class="nc">Customer</span> <span class="n">customer</span><span class="o">);</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>让我在这里添加关于事务处理的简要说明。在这种非常简单的情况下，我们可以完全删除类中的<code class="language-plaintext highlighter-rouge">@Transactional</code>注释，<code class="language-plaintext highlighter-rouge">AccountServiceImpl</code>因为存储库的CRUD方法是事务性的，查询方法用<code class="language-plaintext highlighter-rouge">@Transactional(readOnly = true)</code>已经在储存库界面。当前的设置（服务级别的方法标记为事务性的（即使在这种情况下不需要））是最好的，因为在查看事务中正在发生的操作的服务级别时，它是明确清晰的。除此之外，如果修改服务层方法以对存储库方法进行多次调用，则所有代码仍将在单个事务中执行，因为存储库的内部事务只会加入在服务层启动的外部事务。存储库的交易行为和调整它的可能性在参考文档中详细记录。</p>
+
+<p>尝试再次运行测试用例并查看它的工作原理。停止，我们没有提供任何<code class="language-plaintext highlighter-rouge">findByCustomer(…)</code>正确的实施？这个怎么用？</p>
+
+<h4 id="query-methods">Query methods</h4>
+<p>当Spring Data JPA为<code class="language-plaintext highlighter-rouge">AccountRepository</code>接口创建Spring bean实例时，它将检查其中定义的所有查询方法并为它们中的每个查询派生查询。默认情况下，Spring Data JPA将自动分析方法名称并从中创建一个查询。该查询是使用JPA标准API实现的。在这种情况下，该<code class="language-plaintext highlighter-rouge">findByCustomer(…)</code>方法在逻辑上等同于JPQL查询<code class="language-plaintext highlighter-rouge">select a from Account a where a.customer = ?1</code>。该分析方法名解析器支持相当大集如关键字<code class="language-plaintext highlighter-rouge">And</code>，<code class="language-plaintext highlighter-rouge">Or</code>，<code class="language-plaintext highlighter-rouge">GreaterThan</code>，<code class="language-plaintext highlighter-rouge">LessThan</code>，<code class="language-plaintext highlighter-rouge">Like</code>，<code class="language-plaintext highlighter-rouge">IsNull</code>，<code class="language-plaintext highlighter-rouge">Not</code>等。<code class="language-plaintext highlighter-rouge">OrderBy</code>如果你喜欢，你也可以添加子句。有关详细概述，请查阅参考文档。这种机制为我们提供了一种查询方法编程模型，就像您在Grails或Spring Roo中使用的那样。</p>
+
+<p>现在让我们假设你想明确要使用的查询。为此，您可以<code class="language-plaintext highlighter-rouge">Account.findByCustomer</code>在实体或您的注释中声明遵循命名约定（本例中为）的JPA命名查询<code class="language-plaintext highlighter-rouge">orm.xml</code>。或者，您可以使用以下注释库方法<code class="language-plaintext highlighter-rouge">@Query</code>：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Transactional</span><span class="o">(</span><span class="n">readOnly</span> <span class="o">=</span> <span class="kc">true</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">AccountRepository</span> <span class="kd">extends</span> <span class="nc">JpaRepository</span><span class="o">&lt;</span><span class="nc">Account</span><span class="o">,</span> <span class="nc">Long</span><span class="o">&gt;</span> <span class="o">{</span>
+
+  <span class="nd">@Query</span><span class="o">(</span><span class="s">"&lt;JPQ statement here&gt;"</span><span class="o">)</span>
+  <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Account</span><span class="o">&gt;</span> <span class="nf">findByCustomer</span><span class="o">(</span><span class="nc">Customer</span> <span class="n">customer</span><span class="o">);</span> 
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>现在让我们在<code class="language-plaintext highlighter-rouge">CustomerServiceImpl</code>应用我们迄今为止看到的功能之前/之后做一个比较：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Repository</span>
+<span class="nd">@Transactional</span><span class="o">(</span><span class="n">readOnly</span> <span class="o">=</span> <span class="kc">true</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">CustomerServiceImpl</span> <span class="kd">implements</span> <span class="nc">CustomerService</span> <span class="o">{</span>
+
+  <span class="nd">@PersistenceContext</span>
+  <span class="kd">private</span> <span class="nc">EntityManager</span> <span class="n">em</span><span class="o">;</span>
+
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="nc">Customer</span> <span class="nf">findById</span><span class="o">(</span><span class="nc">Long</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">em</span><span class="o">.</span><span class="na">find</span><span class="o">(</span><span class="nc">Customer</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">id</span><span class="o">);</span>
+  <span class="o">}</span>
+
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Customer</span><span class="o">&gt;</span> <span class="nf">findAll</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">em</span><span class="o">.</span><span class="na">createQuery</span><span class="o">(</span><span class="s">"select c from Customer c"</span><span class="o">,</span> <span class="nc">Customer</span><span class="o">.</span><span class="na">class</span><span class="o">).</span><span class="na">getResultList</span><span class="o">();</span>
+  <span class="o">}</span>
+
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Customer</span><span class="o">&gt;</span> <span class="nf">findAll</span><span class="o">(</span><span class="kt">int</span> <span class="n">page</span><span class="o">,</span> <span class="kt">int</span> <span class="n">pageSize</span><span class="o">)</span> <span class="o">{</span>
+
+    <span class="nc">TypedQuery</span> <span class="n">query</span> <span class="o">=</span> <span class="n">em</span><span class="o">.</span><span class="na">createQuery</span><span class="o">(</span><span class="s">"select c from Customer c"</span><span class="o">,</span> <span class="nc">Customer</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+
+    <span class="n">query</span><span class="o">.</span><span class="na">setFirstResult</span><span class="o">(</span><span class="n">page</span> <span class="o">*</span> <span class="n">pageSize</span><span class="o">);</span>
+    <span class="n">query</span><span class="o">.</span><span class="na">setMaxResults</span><span class="o">(</span><span class="n">pageSize</span><span class="o">);</span>
+
+    <span class="k">return</span> <span class="n">query</span><span class="o">.</span><span class="na">getResultList</span><span class="o">();</span>
+  <span class="o">}</span>
+
+  <span class="nd">@Override</span>
+  <span class="nd">@Transactional</span>
+  <span class="kd">public</span> <span class="nc">Customer</span> <span class="nf">save</span><span class="o">(</span><span class="nc">Customer</span> <span class="n">customer</span><span class="o">)</span> <span class="o">{</span>
+
+    <span class="c1">// Is new?</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">customer</span><span class="o">.</span><span class="na">getId</span><span class="o">()</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+      <span class="n">em</span><span class="o">.</span><span class="na">persist</span><span class="o">(</span><span class="n">customer</span><span class="o">);</span>
+      <span class="k">return</span> <span class="n">customer</span><span class="o">;</span>
+    <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+      <span class="k">return</span> <span class="n">em</span><span class="o">.</span><span class="na">merge</span><span class="o">(</span><span class="n">customer</span><span class="o">);</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Customer</span><span class="o">&gt;</span> <span class="nf">findByLastname</span><span class="o">(</span><span class="nc">String</span> <span class="n">lastname</span><span class="o">,</span> <span class="kt">int</span> <span class="n">page</span><span class="o">,</span> <span class="kt">int</span> <span class="n">pageSize</span><span class="o">)</span> <span class="o">{</span>
+
+    <span class="nc">TypedQuery</span> <span class="n">query</span> <span class="o">=</span> <span class="n">em</span><span class="o">.</span><span class="na">createQuery</span><span class="o">(</span><span class="s">"select c from Customer c where c.lastname = ?1"</span><span class="o">,</span> <span class="nc">Customer</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+
+    <span class="n">query</span><span class="o">.</span><span class="na">setParameter</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="n">lastname</span><span class="o">);</span>
+    <span class="n">query</span><span class="o">.</span><span class="na">setFirstResult</span><span class="o">(</span><span class="n">page</span> <span class="o">*</span> <span class="n">pageSize</span><span class="o">);</span>
+    <span class="n">query</span><span class="o">.</span><span class="na">setMaxResults</span><span class="o">(</span><span class="n">pageSize</span><span class="o">);</span>
+
+    <span class="k">return</span> <span class="n">query</span><span class="o">.</span><span class="na">getResultList</span><span class="o">();</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>好的，我们先创建<code class="language-plaintext highlighter-rouge">CustomerRepository</code>并删除CRUD方法：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Transactional</span><span class="o">(</span><span class="n">readOnly</span> <span class="o">=</span> <span class="kc">true</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">CustomerRepository</span> <span class="kd">extends</span> <span class="nc">JpaRepository</span><span class="o">&lt;</span><span class="nc">Customer</span><span class="o">,</span> <span class="nc">Long</span><span class="o">&gt;</span> <span class="o">{</span> <span class="err">…</span> <span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Repository</span>
+<span class="nd">@Transactional</span><span class="o">(</span><span class="n">readOnly</span> <span class="o">=</span> <span class="kc">true</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">CustomerServiceImpl</span> <span class="kd">implements</span> <span class="nc">CustomerService</span> <span class="o">{</span>
+
+  <span class="nd">@PersistenceContext</span>
+  <span class="kd">private</span> <span class="nc">EntityManager</span> <span class="n">em</span><span class="o">;</span>
+
+  <span class="nd">@Autowired</span>
+  <span class="kd">private</span> <span class="nc">CustomerRepository</span> <span class="n">repository</span><span class="o">;</span>
+
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="nc">Customer</span> <span class="nf">findById</span><span class="o">(</span><span class="nc">Long</span> <span class="n">id</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">repository</span><span class="o">.</span><span class="na">findById</span><span class="o">(</span><span class="n">id</span><span class="o">);</span>
+  <span class="o">}</span>
+
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Customer</span><span class="o">&gt;</span> <span class="nf">findAll</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">repository</span><span class="o">.</span><span class="na">findAll</span><span class="o">();</span>
+  <span class="o">}</span>
+
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Customer</span><span class="o">&gt;</span> <span class="nf">findAll</span><span class="o">(</span><span class="kt">int</span> <span class="n">page</span><span class="o">,</span> <span class="kt">int</span> <span class="n">pageSize</span><span class="o">)</span> <span class="o">{</span>
+
+    <span class="nc">TypedQuery</span> <span class="n">query</span> <span class="o">=</span> <span class="n">em</span><span class="o">.</span><span class="na">createQuery</span><span class="o">(</span><span class="s">"select c from Customer c"</span><span class="o">,</span> <span class="nc">Customer</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+
+    <span class="n">query</span><span class="o">.</span><span class="na">setFirstResult</span><span class="o">(</span><span class="n">page</span> <span class="o">*</span> <span class="n">pageSize</span><span class="o">);</span>
+    <span class="n">query</span><span class="o">.</span><span class="na">setMaxResults</span><span class="o">(</span><span class="n">pageSize</span><span class="o">);</span>
+
+    <span class="k">return</span> <span class="n">query</span><span class="o">.</span><span class="na">getResultList</span><span class="o">();</span>
+  <span class="o">}</span>
+
+  <span class="nd">@Override</span>
+  <span class="nd">@Transactional</span>
+  <span class="kd">public</span> <span class="nc">Customer</span> <span class="nf">save</span><span class="o">(</span><span class="nc">Customer</span> <span class="n">customer</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">repository</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="n">customer</span><span class="o">);</span>
+  <span class="o">}</span>
+
+  <span class="nd">@Override</span>
+  <span class="kd">public</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Customer</span><span class="o">&gt;</span> <span class="nf">findByLastname</span><span class="o">(</span><span class="nc">String</span> <span class="n">lastname</span><span class="o">,</span> <span class="kt">int</span> <span class="n">page</span><span class="o">,</span> <span class="kt">int</span> <span class="n">pageSize</span><span class="o">)</span> <span class="o">{</span>
+
+    <span class="nc">TypedQuery</span> <span class="n">query</span> <span class="o">=</span> <span class="n">em</span><span class="o">.</span><span class="na">createQuery</span><span class="o">(</span><span class="s">"select c from Customer c where c.lastname = ?1"</span><span class="o">,</span> <span class="nc">Customer</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+
+    <span class="n">query</span><span class="o">.</span><span class="na">setParameter</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="n">lastname</span><span class="o">);</span>
+    <span class="n">query</span><span class="o">.</span><span class="na">setFirstResult</span><span class="o">(</span><span class="n">page</span> <span class="o">*</span> <span class="n">pageSize</span><span class="o">);</span>
+    <span class="n">query</span><span class="o">.</span><span class="na">setMaxResults</span><span class="o">(</span><span class="n">pageSize</span><span class="o">);</span>
+
+    <span class="k">return</span> <span class="n">query</span><span class="o">.</span><span class="na">getResultList</span><span class="o">();</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>到现在为止还挺好。现在剩下的是处理常见场景的两种方法：您不想访问给定查询的所有实体，而仅访问其中的一个页面（例如，页面1的页面大小为10）。现在，这是用两个适当限制查询的整数来解决的。这有两个问题。两个整数实际上代表了一个概念，这里没有明确说明。除此之外，我们返回一个简单的<code class="language-plaintext highlighter-rouge">List</code>数据，因此我们失去了关于实际数据页面的元数据信息：它是第一页吗？这是最后一个吗？总共有几页？Spring Data提供了一个由两个接口组成的抽象<code class="language-plaintext highlighter-rouge">Pageable</code>（捕获分页请求信息）以及<code class="language-plaintext highlighter-rouge">Page</code>（捕获结果以及元信息）。所以让我们尝试添加<code class="language-plaintext highlighter-rouge">findByLastname(…)</code>到版本库接口并重写<code class="language-plaintext highlighter-rouge">findAll(…)</code>，<code class="language-plaintext highlighter-rouge">findByLastname(…)</code>如下所示：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Transactional</span><span class="o">(</span><span class="n">readOnly</span> <span class="o">=</span> <span class="kc">true</span><span class="o">)</span> 
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">CustomerRepository</span> <span class="kd">extends</span> <span class="nc">JpaRepository</span><span class="o">&lt;</span><span class="nc">Customer</span><span class="o">,</span> <span class="nc">Long</span><span class="o">&gt;</span> <span class="o">{</span>
+
+  <span class="nc">Page</span><span class="o">&lt;</span><span class="nc">Customer</span><span class="o">&gt;</span> <span class="nf">findByLastname</span><span class="o">(</span><span class="nc">String</span> <span class="n">lastname</span><span class="o">,</span> <span class="nc">Pageable</span> <span class="n">pageable</span><span class="o">);</span> 
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Override</span> 
+<span class="kd">public</span> <span class="nc">Page</span><span class="o">&lt;</span><span class="nc">Customer</span><span class="o">&gt;</span> <span class="nf">findAll</span><span class="o">(</span><span class="nc">Pageable</span> <span class="n">pageable</span><span class="o">)</span> <span class="o">{</span>
+  <span class="k">return</span> <span class="n">repository</span><span class="o">.</span><span class="na">findAll</span><span class="o">(</span><span class="n">pageable</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="nd">@Override</span>
+<span class="kd">public</span> <span class="nc">Page</span><span class="o">&lt;</span><span class="nc">Customer</span><span class="o">&gt;</span> <span class="nf">findByLastname</span><span class="o">(</span><span class="nc">String</span> <span class="n">lastname</span><span class="o">,</span> <span class="nc">Pageable</span> <span class="n">pageable</span><span class="o">)</span> <span class="o">{</span>
+  <span class="k">return</span> <span class="n">repository</span><span class="o">.</span><span class="na">findByLastname</span><span class="o">(</span><span class="n">lastname</span><span class="o">,</span> <span class="n">pageable</span><span class="o">);</span> 
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>确保你根据签名的变化调整测试用例，但是他们应该运行良好。有两件事情可以归结到这里：我们有支持分页的CRUD方法，并且查询执行机制也知道<code class="language-plaintext highlighter-rouge">Pageable</code>参数。在这个阶段，我们的包装类实际上已经过时，因为客户端可能直接使用我们的存储库接口。我们摆脱了整个实施代码。</p>
+
+<h4 id="summary">Summary</h4>
+<p>在本博客文章中，我们已经使用3种方法和一行XML将用于存储库的代码量减少到两个接口：</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Transactional</span><span class="o">(</span><span class="n">readOnly</span> <span class="o">=</span> <span class="kc">true</span><span class="o">)</span> 
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">CustomerRepository</span> <span class="kd">extends</span> <span class="nc">JpaRepository</span><span class="o">&lt;</span><span class="nc">Customer</span><span class="o">,</span> <span class="nc">Long</span><span class="o">&gt;</span> <span class="o">{</span>
+
+    <span class="nc">Page</span><span class="o">&lt;</span><span class="nc">Customer</span><span class="o">&gt;</span> <span class="nf">findByLastname</span><span class="o">(</span><span class="nc">String</span> <span class="n">lastname</span><span class="o">,</span> <span class="nc">Pageable</span> <span class="n">pageable</span><span class="o">);</span> 
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nd">@Transactional</span><span class="o">(</span><span class="n">readOnly</span> <span class="o">=</span> <span class="kc">true</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">interface</span> <span class="nc">AccountRepository</span> <span class="kd">extends</span> <span class="nc">JpaRepository</span><span class="o">&lt;</span><span class="nc">Account</span><span class="o">,</span> <span class="nc">Long</span><span class="o">&gt;</span> <span class="o">{</span>
+
+    <span class="nc">List</span><span class="o">&lt;</span><span class="nc">Account</span><span class="o">&gt;</span> <span class="nf">findByCustomer</span><span class="o">(</span><span class="nc">Customer</span> <span class="n">customer</span><span class="o">);</span> 
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">&lt;</span><span class="nl">jpa:</span><span class="n">repositories</span> <span class="n">base</span><span class="o">-</span><span class="kn">package</span><span class="err">="</span><span class="nn">com.acme.repositories</span><span class="err">"</span> <span class="o">/&gt;</span>
+</code></pre></div></div>
+
+<p>我们有类型安全的CRUD方法，查询执行和内置的分页。最酷的是，这不仅适用于基于JPA的存储库，而且适用于非关系数据库。支持这种方法的第一个非关系数据库将作为Spring Data Data发布的一部分在几天内成为MongoDB。您将获得与Mongo DB完全相同的功能，并且我们也在为其他数据库提供支持。还有一些额外的功能需要探讨（例如，实体审核，自定义数据访问代码的集成），<a href="https://github.com/spring-projects/spring-data-examples/tree/master/jpa/showcase">GitHub</a>有个Demo。</p>
+
+<blockquote>
+  <p><strong>转载： 奥利弗吉尔克:<a href="http://spring.io/blog/2011/02/10/getting-started-with-spring-data-jpa/">http://spring.io/blog/2011/02/10/getting-started-with-spring-data-jpa/</a></strong></p>
+</blockquote>
+
+<p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1fqj5aochgoj309k09kmwz.jpg" alt="" />
+<b><center>扫描关注：热爱生活的大叔</center>
+<b><center><font size="2">（<font size="2" color="#FF0000">转载本站文章请注明作者和出处</font> <font size="2" color="#0000FF">热爱生活的大叔-uniquezhangqi</font><font size="2">）</font></font></center></b></b></p>
+:ET

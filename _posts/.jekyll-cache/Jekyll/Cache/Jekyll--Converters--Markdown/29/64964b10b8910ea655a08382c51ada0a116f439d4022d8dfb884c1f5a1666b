@@ -1,0 +1,30 @@
+I"�<blockquote>
+  <p>本文首次发布于<a href="http://uniquezhangqi.top">My Blog</a>,作者<a href="http://uniquezhangqi.top/about/">@张琦(Ian)</a>,转载请保留原文链接。</p>
+</blockquote>
+
+<p>　　公司大佬写的爬虫，然后教我用Java的正则表达式进行解析(负责解析工作)，我是看大佬爬虫源码然后总结的。</p>
+
+<h4 id="java正则表达式">Java正则表达式</h4>
+<p>java 正则表达式</p>
+
+<p>类库包：
+java.util.regex</p>
+
+<p>该包中包含是Pattern、Matcher这两个工具类：</p>
+
+<ol>
+  <li>Pattern：编译好的带匹配的模板(如：Pattern.compile(“[a-z]{2}”);// 取2个小写字母)；</li>
+  <li>Matcher：匹配目标字符串后产生的结果(如：pattern.matcher(“目标字符串”);)。</li>
+</ol>
+
+<p>我写博客一般会提前把重要的东西准备好，放到文稿里面，然后当天抽时间或者第二天抽时间发出去，由于这个已经过去好几天了，要说的都忘了🤦🏻‍♂️就只发这个重要的吧。。。其实还有一些常用的正则表达式要说的，下次再总结java正则表达式的时候一起写吧。。。</p>
+
+<blockquote>
+  <p>参考(正则表达式参考)：<a href="https://blog.csdn.net/mhmyqn/article/details/7858161">https://blog.csdn.net/mhmyqn/article/details/7858161</a><br />
+参考(爬虫需要用到的)：<a href="https://www.cnblogs.com/lonelysharer/archive/2012/03/08/2384773.html">https://www.cnblogs.com/lonelysharer/archive/2012/03/08/2384773.html</a></p>
+</blockquote>
+
+<p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1fqj5aochgoj309k09kmwz.jpg" alt="" />
+<b><center>扫描关注：热爱生活的大叔</center>
+<b><center><font size="2">（<font size="2" color="#FF0000">转载本站文章请注明作者和出处</font> <font size="2" color="#0000FF">热爱生活的大叔-uniquezhangqi</font><font size="2">）</font></font></center></b></b></p>
+:ET

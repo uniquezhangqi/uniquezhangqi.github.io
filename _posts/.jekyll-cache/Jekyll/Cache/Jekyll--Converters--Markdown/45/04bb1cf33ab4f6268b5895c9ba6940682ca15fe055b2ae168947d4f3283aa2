@@ -1,0 +1,338 @@
+I"�<blockquote>
+  <p>本文首次发布于<a href="http://uniquezhangqi.top">My Blog</a>,作者<a href="http://uniquezhangqi.top/about/">@张琦(Ian)</a>,转载请保留原文链接。</p>
+</blockquote>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="kd">public</span> <span class="kd">class</span> <span class="nc">Test</span> <span class="o">{</span>
+	<span class="kd">static</span> <span class="nc">Logger</span> <span class="n">logger</span><span class="o">;</span>
+
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="nc">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">ParseException</span><span class="o">,</span> <span class="nc">IOException</span> <span class="o">{</span>
+		<span class="n">logger</span> <span class="o">=</span> <span class="nc">Logger</span><span class="o">.</span><span class="na">getLogger</span><span class="o">(</span> <span class="nc">CreateOrderTest</span><span class="o">.</span><span class="na">class</span> <span class="o">);</span>
+		<span class="nc">String</span> <span class="n">url</span> <span class="o">=</span> <span class="s">"需要的url"</span><span class="o">;</span>
+		<span class="nc">EssentialParaDto</span> <span class="n">essentialParaDto</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">EssentialParaDto</span><span class="o">();</span>
+		<span class="c1">// 随机数</span>
+		<span class="n">essentialParaDto</span><span class="o">.</span><span class="na">setNonceStr</span><span class="o">(</span> <span class="nc">RandomNumber</span><span class="o">.</span><span class="na">getOrderIdByUUId</span><span class="o">()</span> <span class="o">);</span>
+		<span class="c1">// 时间戳</span>
+		<span class="n">essentialParaDto</span><span class="o">.</span><span class="na">setTimeStamp</span><span class="o">(</span> <span class="nc">Timestamp</span><span class="o">.</span><span class="na">getTimestamp</span><span class="o">()</span> <span class="o">);</span>
+		<span class="c1">// 测试秘钥</span>
+		<span class="nc">String</span> <span class="n">secret</span> <span class="o">=</span> <span class="nc">InternetPortConstant</span><span class="o">.</span><span class="na">SECRET</span><span class="o">;</span>
+		<span class="nc">Map</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">String</span><span class="o">&gt;</span> <span class="n">mapes</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">TreeMap</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">String</span><span class="o">&gt;();</span>
+		<span class="n">mapes</span><span class="o">.</span><span class="na">put</span><span class="o">(</span> <span class="s">"nonceStr"</span><span class="o">,</span> <span class="n">essentialParaDto</span><span class="o">.</span><span class="na">getNonceStr</span><span class="o">()</span> <span class="o">);</span>
+		
+		<span class="n">mapes</span><span class="o">.</span><span class="na">put</span><span class="o">(</span> <span class="s">"secret"</span><span class="o">,</span> <span class="n">secret</span> <span class="o">);</span>
+		<span class="n">mapes</span><span class="o">.</span><span class="na">put</span><span class="o">(</span> <span class="s">"timeStamp"</span><span class="o">,</span> <span class="nc">String</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span> <span class="n">essentialParaDto</span><span class="o">.</span><span class="na">getTimeStamp</span><span class="o">()</span> <span class="o">)</span> <span class="o">);</span>	
+		<span class="n">essentialParaDto</span><span class="o">.</span><span class="na">setSign</span><span class="o">(</span> <span class="nc">SignCommon</span><span class="o">.</span><span class="na">getSign</span><span class="o">(</span> <span class="n">mapes</span> <span class="o">)</span> <span class="o">);</span>
+
+		<span class="nc">String</span> <span class="n">nonceStr</span> <span class="o">=</span> <span class="n">essentialParaDto</span><span class="o">.</span><span class="na">getNonceStr</span><span class="o">();</span><span class="c1">// 随机数</span>
+		<span class="nc">String</span> <span class="n">sign</span> <span class="o">=</span> <span class="n">essentialParaDto</span><span class="o">.</span><span class="na">getSign</span><span class="o">();</span><span class="c1">// 加密签名</span>
+		<span class="nc">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span> <span class="s">"sign:"</span> <span class="o">+</span> <span class="n">sign</span> <span class="o">);</span>
+		<span class="nc">String</span> <span class="n">timeStamp</span> <span class="o">=</span> <span class="nc">String</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span> <span class="n">essentialParaDto</span><span class="o">.</span><span class="na">getTimeStamp</span><span class="o">()</span> <span class="o">);</span><span class="c1">// 时间戳</span>
+
+		<span class="c1">// 传入的参数</span>
+		<span class="nc">CancelOrderV2Dto</span> <span class="n">dto</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">CancelOrderV2Dto</span><span class="o">();</span>
+		<span class="n">dto</span><span class="o">.</span><span class="na">setUserId</span><span class="o">(</span> <span class="s">"123"</span> <span class="o">);</span>
+		<span class="n">dto</span><span class="o">.</span><span class="na">setOrderNo</span><span class="o">(</span> <span class="s">"CCWP000010951"</span> <span class="o">);</span>
+		<span class="nc">Gson</span> <span class="n">gson</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">Gson</span><span class="o">();</span>
+		<span class="nc">String</span> <span class="n">orderJSON</span> <span class="o">=</span> <span class="n">gson</span><span class="o">.</span><span class="na">toJson</span><span class="o">(</span> <span class="n">dto</span> <span class="o">);</span>
+		<span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span> <span class="s">"orderJSON:"</span> <span class="o">+</span> <span class="n">orderJSON</span> <span class="o">);</span>
+
+		<span class="nc">Map</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">String</span><span class="o">&gt;</span> <span class="n">maps</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">HashMap</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">String</span><span class="o">&gt;();</span>
+		<span class="n">maps</span><span class="o">.</span><span class="na">put</span><span class="o">(</span> <span class="s">"orderJSON"</span><span class="o">,</span> <span class="n">orderJSON</span> <span class="o">);</span>
+		<span class="n">maps</span><span class="o">.</span><span class="na">put</span><span class="o">(</span> <span class="s">"nonceStr"</span><span class="o">,</span> <span class="n">nonceStr</span> <span class="o">);</span>
+		<span class="n">maps</span><span class="o">.</span><span class="na">put</span><span class="o">(</span> <span class="s">"sign"</span><span class="o">,</span> <span class="n">sign</span> <span class="o">);</span>
+		<span class="n">maps</span><span class="o">.</span><span class="na">put</span><span class="o">(</span> <span class="s">"timeStamp"</span><span class="o">,</span> <span class="n">timeStamp</span> <span class="o">);</span>
+		<span class="n">maps</span><span class="o">.</span><span class="na">put</span><span class="o">(</span> <span class="s">"orderChannel"</span><span class="o">,</span> <span class="s">"22"</span> <span class="o">);</span>
+		<span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span> <span class="s">"maps传入之前:"</span> <span class="o">+</span> <span class="n">maps</span> <span class="o">);</span>
+
+		<span class="nc">String</span> <span class="n">orderJSONes</span> <span class="o">=</span> <span class="n">send</span><span class="o">(</span> <span class="n">url</span><span class="o">,</span> <span class="n">maps</span><span class="o">,</span> <span class="s">"utf-8"</span> <span class="o">);</span>
+		<span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span> <span class="s">"响应结果:"</span> <span class="o">);</span>
+		<span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span> <span class="n">orderJSONes</span> <span class="o">);</span>
+	<span class="o">}</span>
+
+	<span class="kd">public</span> <span class="kd">static</span> <span class="nc">String</span> <span class="nf">send</span><span class="o">(</span><span class="nc">String</span> <span class="n">url</span><span class="o">,</span> <span class="nc">Map</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">String</span><span class="o">&gt;</span> <span class="n">maps</span><span class="o">,</span> <span class="nc">String</span> <span class="n">encoding</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">ParseException</span><span class="o">,</span> <span class="nc">IOException</span> <span class="o">{</span>
+		<span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span> <span class="s">"mapParameteres传入后的值:"</span> <span class="o">+</span> <span class="n">maps</span> <span class="o">);</span>
+		<span class="nc">String</span> <span class="n">orderJSON</span> <span class="o">=</span> <span class="s">""</span><span class="o">;</span>
+		<span class="c1">// 创建httpclient对象</span>
+		<span class="nc">CloseableHttpClient</span> <span class="n">client</span> <span class="o">=</span> <span class="nc">HttpClients</span><span class="o">.</span><span class="na">createDefault</span><span class="o">();</span>
+		<span class="c1">//url = url + "?nonceStr=" + maps.get( "nonceStr" ) + "&amp;sign=" + maps.get( "sign" ) + "&amp;timeStamp=" + maps.get( "timeStamp" );</span>
+		
+		<span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span> <span class="s">"url = "</span> <span class="o">+</span> <span class="n">url</span><span class="o">);</span>
+		<span class="c1">// 创建post方式请求对象</span>
+		<span class="nc">HttpPost</span> <span class="n">httpPost</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">HttpPost</span><span class="o">(</span> <span class="n">url</span> <span class="o">);</span>
+
+		<span class="c1">// 装填参数</span>
+		<span class="nc">List</span><span class="o">&lt;</span><span class="nc">NameValuePair</span><span class="o">&gt;</span> <span class="n">nvps</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">NameValuePair</span><span class="o">&gt;();</span>
+		<span class="k">if</span> <span class="o">(</span><span class="n">maps</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+			<span class="k">for</span> <span class="o">(</span><span class="nc">Entry</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">String</span><span class="o">&gt;</span> <span class="n">entry</span> <span class="o">:</span> <span class="n">maps</span><span class="o">.</span><span class="na">entrySet</span><span class="o">())</span> <span class="o">{</span>
+				<span class="n">nvps</span><span class="o">.</span><span class="na">add</span><span class="o">(</span> <span class="k">new</span> <span class="nc">BasicNameValuePair</span><span class="o">(</span> <span class="n">entry</span><span class="o">.</span><span class="na">getKey</span><span class="o">(),</span> <span class="n">entry</span><span class="o">.</span><span class="na">getValue</span><span class="o">()</span> <span class="o">)</span> <span class="o">);</span>
+			<span class="o">}</span>
+		<span class="o">}</span>
+		<span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span> <span class="s">"nvps:"</span> <span class="o">+</span> <span class="n">nvps</span> <span class="o">);</span>
+
+		<span class="c1">// 设置参数到请求对象中</span>
+		<span class="n">httpPost</span><span class="o">.</span><span class="na">setEntity</span><span class="o">(</span> <span class="k">new</span> <span class="nc">UrlEncodedFormEntity</span><span class="o">(</span> <span class="n">nvps</span><span class="o">,</span> <span class="n">encoding</span> <span class="o">)</span> <span class="o">);</span>
+
+		<span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span> <span class="s">"请求地址："</span> <span class="o">+</span> <span class="n">url</span> <span class="o">);</span>
+		<span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span> <span class="s">"请求参数："</span> <span class="o">+</span> <span class="n">nvps</span><span class="o">.</span><span class="na">toString</span><span class="o">()</span> <span class="o">);</span>
+		<span class="c1">// 设置header信息</span>
+		<span class="c1">// 指定报文头【Content-type】、【User-Agent】</span>
+		<span class="n">httpPost</span><span class="o">.</span><span class="na">setHeader</span><span class="o">(</span> <span class="s">"X-Requested-With"</span><span class="o">,</span> <span class="s">"XMLHttpRequest"</span> <span class="o">);</span>
+		<span class="n">httpPost</span><span class="o">.</span><span class="na">setHeader</span><span class="o">(</span> <span class="s">"Content-type"</span><span class="o">,</span> <span class="s">"application/x-www-form-urlencoded;charset=UTF-8"</span> <span class="o">);</span>
+		<span class="c1">// 执行请求操作，并拿到结果（同步阻塞）</span>
+		<span class="nc">CloseableHttpResponse</span> <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span> <span class="n">httpPost</span> <span class="o">);</span>
+		<span class="nc">HttpEntity</span> <span class="n">entitys</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="na">getEntity</span><span class="o">();</span>
+		<span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span> <span class="s">"entity:"</span> <span class="o">+</span> <span class="n">entitys</span> <span class="o">);</span>
+
+		<span class="c1">// 获取结果实体</span>
+		<span class="k">if</span> <span class="o">(</span><span class="n">entitys</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+			<span class="c1">// 按指定编码转换结果实体为String类型</span>
+			<span class="n">orderJSON</span> <span class="o">=</span> <span class="nc">EntityUtils</span><span class="o">.</span><span class="na">toString</span><span class="o">(</span> <span class="n">entitys</span><span class="o">,</span> <span class="n">encoding</span> <span class="o">);</span>
+			<span class="n">logger</span><span class="o">.</span><span class="na">info</span><span class="o">(</span> <span class="s">"orderJSON:"</span> <span class="o">+</span> <span class="n">orderJSON</span> <span class="o">);</span>
+		<span class="o">}</span>
+		<span class="nc">EntityUtils</span><span class="o">.</span><span class="na">consume</span><span class="o">(</span> <span class="n">entitys</span> <span class="o">);</span>
+
+		<span class="c1">// 释放链接</span>
+		<span class="n">client</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+		<span class="n">response</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+		<span class="k">return</span> <span class="n">orderJSON</span><span class="o">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">CommonMethod</span> <span class="o">{</span>
+
+    <span class="kd">private</span> <span class="kd">static</span> <span class="nc">Logger</span> <span class="n">logger</span> <span class="o">=</span> <span class="nc">LoggerFactory</span><span class="o">.</span><span class="na">getLogger</span><span class="o">(</span><span class="nc">CommonMethod</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+
+    <span class="cm">/**
+     * 拼接参数
+     *
+     * @param str
+     * @return
+     * @throws Exception
+     */</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="nc">String</span> <span class="nf">splicingParameters</span><span class="o">(</span><span class="nc">String</span> <span class="n">str</span><span class="o">,</span> <span class="nc">String</span> <span class="n">appKey</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
+
+        <span class="nc">String</span> <span class="n">strNew</span> <span class="o">=</span> <span class="n">str</span> <span class="o">+</span> <span class="n">appKey</span><span class="o">;</span>
+        <span class="nc">String</span> <span class="n">strMd5</span> <span class="o">=</span> <span class="nc">UuidUntil</span><span class="o">.</span><span class="na">MD5</span><span class="o">(</span><span class="n">strNew</span><span class="o">).</span><span class="na">toLowerCase</span><span class="o">();</span>
+        <span class="k">return</span> <span class="n">str</span> <span class="o">+</span> <span class="s">"&amp;SignMsg="</span> <span class="o">+</span> <span class="n">strMd5</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="cm">/**
+     * 拼接参数
+     *
+     * @param str
+     * @throws Exception
+     * @return不参与拼接
+     */</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="nc">String</span> <span class="nf">splicingParameter</span><span class="o">(</span><span class="nc">String</span> <span class="n">str</span><span class="o">,</span> <span class="nc">String</span> <span class="n">appKey</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">Exception</span> <span class="o">{</span>
+        <span class="nc">String</span> <span class="n">strNew</span> <span class="o">=</span> <span class="n">str</span> <span class="o">+</span> <span class="n">appKey</span><span class="o">;</span>
+        <span class="nc">String</span> <span class="n">strMd5</span> <span class="o">=</span> <span class="nc">UuidUntil</span><span class="o">.</span><span class="na">MD5</span><span class="o">(</span><span class="n">strNew</span><span class="o">).</span><span class="na">toLowerCase</span><span class="o">();</span>
+        <span class="k">return</span> <span class="n">strMd5</span><span class="o">;</span>
+    <span class="o">}</span>
+
+
+    <span class="cm">/**
+     * * 通用接口
+     *
+     * @param jsonObject       请求参数字符串，不加appkey，例如：a=1&amp;b=2&amp;c=3
+     * @param interfaceAddress 请求地址
+     * @param appKey
+     * @return 服务器响应的json对象
+     */</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="nc">JSONObject</span> <span class="nf">sendReqRes</span><span class="o">(</span><span class="nc">String</span> <span class="n">jsonObject</span><span class="o">,</span> <span class="nc">String</span> <span class="n">interfaceAddress</span><span class="o">,</span> <span class="nc">String</span> <span class="n">appKey</span><span class="o">)</span> <span class="o">{</span>
+
+        <span class="nc">String</span> <span class="n">str</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="k">try</span> <span class="o">{</span>
+
+            <span class="n">str</span> <span class="o">=</span> <span class="nc">CommonMethod</span><span class="o">.</span><span class="na">splicingParameters</span><span class="o">(</span><span class="n">jsonObject</span><span class="o">,</span> <span class="n">appKey</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+            <span class="n">logger</span><span class="o">.</span><span class="na">error</span><span class="o">(</span><span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+            <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="nc">JSONObject</span> <span class="n">json</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="n">json</span> <span class="o">=</span> <span class="nc">HttpRequestUtil</span><span class="o">.</span><span class="na">sendPost</span><span class="o">(</span><span class="n">interfaceAddress</span><span class="o">,</span> <span class="n">str</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+            <span class="n">logger</span><span class="o">.</span><span class="na">error</span><span class="o">(</span><span class="n">e</span><span class="o">.</span><span class="na">getMessage</span><span class="o">());</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">json</span><span class="o">;</span>
+    <span class="o">}</span>
+
+
+    <span class="cm">/**
+     * @param param
+     * @return
+     * @Title: MapToStr
+     * @Description: 将MAP参数转成STR字符串(返回字符串示例 : a = 1 &amp; b = 2)
+     */</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="nc">String</span> <span class="nf">MapToStr</span><span class="o">(</span><span class="nc">Map</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">String</span><span class="o">&gt;</span> <span class="n">param</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">Set</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">keys</span> <span class="o">=</span> <span class="n">param</span><span class="o">.</span><span class="na">keySet</span><span class="o">();</span>
+        <span class="nc">List</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">ks</span> <span class="o">=</span> <span class="nc">CommonMethod</span><span class="o">.</span><span class="na">sortKeys</span><span class="o">(</span><span class="n">keys</span><span class="o">);</span>
+        <span class="nc">StringBuilder</span> <span class="n">sb</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">StringBuilder</span><span class="o">();</span>
+        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">ks</span><span class="o">.</span><span class="na">size</span><span class="o">();</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+            <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">ks</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">i</span><span class="o">));</span>
+            <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">"="</span><span class="o">);</span>
+            <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">param</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">ks</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">i</span><span class="o">)));</span>
+            <span class="k">if</span> <span class="o">(</span><span class="n">i</span> <span class="o">==</span> <span class="n">ks</span><span class="o">.</span><span class="na">size</span><span class="o">()</span> <span class="o">-</span> <span class="mi">1</span><span class="o">)</span> <span class="o">{</span>
+                <span class="k">continue</span><span class="o">;</span>
+            <span class="o">}</span>
+            <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="s">"&amp;"</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="n">sb</span><span class="o">.</span><span class="na">toString</span><span class="o">();</span>
+    <span class="o">}</span>
+
+
+    <span class="cm">/**
+     * @param keys
+     * @return
+     * @Title: sortKeys
+     * @Description: 将SET集合转成LIST集合，并按升序排列
+     */</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="nc">List</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="nf">sortKeys</span><span class="o">(</span><span class="nc">Set</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">keys</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">List</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">sortKeys</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ArrayList</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;();</span>
+        <span class="k">for</span> <span class="o">(</span><span class="nc">String</span> <span class="n">key</span> <span class="o">:</span> <span class="n">keys</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">sortKeys</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">key</span><span class="o">);</span>
+        <span class="o">}</span>
+        <span class="n">sort</span><span class="o">(</span><span class="n">sortKeys</span><span class="o">,</span> <span class="mi">0</span><span class="o">,</span> <span class="n">sortKeys</span><span class="o">.</span><span class="na">size</span><span class="o">()</span> <span class="o">-</span> <span class="mi">1</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">sortKeys</span><span class="o">;</span>
+    <span class="o">}</span>
+
+    <span class="cm">/**
+     * @param keys
+     * @param start
+     * @param end
+     * @Title: sort
+     * @Description: 快速排序
+     */</span>
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">sort</span><span class="o">(</span><span class="nc">List</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">&gt;</span> <span class="n">keys</span><span class="o">,</span> <span class="kt">int</span> <span class="n">start</span><span class="o">,</span> <span class="kt">int</span> <span class="n">end</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">start</span> <span class="o">&gt;=</span> <span class="n">end</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">return</span><span class="o">;</span>
+        <span class="o">}</span>
+        <span class="kt">int</span> <span class="n">l</span> <span class="o">=</span> <span class="n">start</span><span class="o">;</span>
+        <span class="kt">int</span> <span class="n">r</span> <span class="o">=</span> <span class="n">end</span><span class="o">;</span>
+        <span class="nc">String</span> <span class="n">k</span> <span class="o">=</span> <span class="n">keys</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">start</span><span class="o">);</span>
+        <span class="k">while</span> <span class="o">(</span><span class="n">l</span> <span class="o">&lt;</span> <span class="n">r</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">while</span> <span class="o">(</span><span class="n">k</span><span class="o">.</span><span class="na">compareTo</span><span class="o">(</span><span class="n">keys</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">r</span><span class="o">))</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">l</span> <span class="o">&lt;</span> <span class="n">r</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">r</span><span class="o">--;</span>
+            <span class="o">}</span>
+            <span class="n">keys</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">l</span><span class="o">,</span> <span class="n">keys</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">r</span><span class="o">));</span>
+            <span class="k">while</span> <span class="o">(</span><span class="n">k</span><span class="o">.</span><span class="na">compareTo</span><span class="o">(</span><span class="n">keys</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">l</span><span class="o">))</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">l</span> <span class="o">&lt;</span> <span class="n">r</span><span class="o">)</span> <span class="o">{</span>
+                <span class="n">l</span><span class="o">++;</span>
+            <span class="o">}</span>
+            <span class="n">keys</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">r</span><span class="o">,</span> <span class="n">keys</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">l</span><span class="o">));</span>
+        <span class="o">}</span>
+        <span class="n">keys</span><span class="o">.</span><span class="na">set</span><span class="o">(</span><span class="n">l</span><span class="o">,</span> <span class="n">k</span><span class="o">);</span>
+        <span class="n">sort</span><span class="o">(</span><span class="n">keys</span><span class="o">,</span> <span class="n">start</span><span class="o">,</span> <span class="n">l</span><span class="o">);</span>
+        <span class="n">sort</span><span class="o">(</span><span class="n">keys</span><span class="o">,</span> <span class="n">l</span> <span class="o">+</span> <span class="mi">1</span><span class="o">,</span> <span class="n">end</span><span class="o">);</span>
+    <span class="o">}</span>
+
+
+    <span class="kd">public</span> <span class="kd">static</span> <span class="nc">String</span> <span class="nf">msg</span><span class="o">(</span><span class="nc">Map</span><span class="o">&lt;</span><span class="nc">String</span><span class="o">,</span> <span class="nc">String</span><span class="o">&gt;</span> <span class="n">map</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">String</span> <span class="n">str1</span> <span class="o">=</span> <span class="nc">CommonMethod</span><span class="o">.</span><span class="na">MapToStr</span><span class="o">(</span><span class="n">map</span><span class="o">);</span>
+        <span class="nc">String</span> <span class="n">appKey</span> <span class="o">=</span> <span class="nc">SysInitConfigParam</span><span class="o">.</span><span class="na">INTERFACE_APPKEY</span><span class="o">;</span>
+        <span class="nc">String</span> <span class="nc">SignMsg</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="k">try</span> <span class="o">{</span>
+            <span class="nc">SignMsg</span> <span class="o">=</span> <span class="nc">CommonMethod</span><span class="o">.</span><span class="na">splicingParameter</span><span class="o">(</span><span class="n">str1</span><span class="o">,</span> <span class="n">appKey</span><span class="o">);</span>
+        <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+            <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+        <span class="o">}</span>
+        <span class="k">return</span> <span class="nc">SignMsg</span><span class="o">;</span>
+    <span class="o">}</span>
+
+
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">HttpRequestUtil</span> <span class="o">{</span>
+
+	<span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="nc">Logger</span> <span class="no">LOGGER</span> <span class="o">=</span> <span class="nc">LoggerFactory</span><span class="o">.</span><span class="na">getLogger</span><span class="o">(</span><span class="nc">HttpRequestUtil</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+
+	<span class="kd">public</span> <span class="kd">static</span> <span class="nc">JSONObject</span> <span class="nf">sendPost</span><span class="o">(</span><span class="nc">String</span> <span class="n">url</span><span class="o">,</span> <span class="nc">String</span> <span class="n">param</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">Exception</span> 
+	<span class="o">{</span>
+        
+		<span class="no">LOGGER</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"http请求参数：{}"</span><span class="o">,</span> <span class="n">param</span><span class="o">);</span>
+		<span class="nc">PrintWriter</span> <span class="n">out</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="nc">BufferedReader</span> <span class="n">in</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="nc">String</span> <span class="n">result</span> <span class="o">=</span> <span class="s">""</span><span class="o">;</span>
+		<span class="nc">JSONObject</span> <span class="n">jsonObject</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">JSONObject</span><span class="o">();</span>
+		<span class="k">try</span> <span class="o">{</span>
+
+			<span class="no">URL</span> <span class="n">realUrl</span> <span class="o">=</span> <span class="k">new</span> <span class="no">URL</span><span class="o">(</span><span class="n">url</span><span class="o">);</span>
+			<span class="c1">// 打开和URL之间的连接</span>
+			<span class="nc">URLConnection</span> <span class="n">conn</span> <span class="o">=</span> <span class="n">realUrl</span><span class="o">.</span><span class="na">openConnection</span><span class="o">();</span>
+			<span class="c1">// 设置通用的请求属性</span>
+			<span class="n">conn</span><span class="o">.</span><span class="na">setRequestProperty</span><span class="o">(</span><span class="s">"accept"</span><span class="o">,</span> <span class="s">"application/json"</span><span class="o">);</span>
+			<span class="n">conn</span><span class="o">.</span><span class="na">setRequestProperty</span><span class="o">(</span><span class="s">"connection"</span><span class="o">,</span> <span class="s">"Keep-Alive"</span><span class="o">);</span>
+			<span class="n">conn</span><span class="o">.</span><span class="na">setRequestProperty</span><span class="o">(</span><span class="s">"Accept-Encoding"</span><span class="o">,</span> <span class="s">"UTF-8"</span><span class="o">);</span>
+			<span class="n">conn</span><span class="o">.</span><span class="na">setRequestProperty</span><span class="o">(</span><span class="s">"user-agent"</span><span class="o">,</span> <span class="s">"Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)"</span><span class="o">);</span>
+			<span class="c1">// 发送POST请求必须设置如下两行</span>
+			<span class="n">conn</span><span class="o">.</span><span class="na">setDoOutput</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+			<span class="n">conn</span><span class="o">.</span><span class="na">setDoInput</span><span class="o">(</span><span class="kc">true</span><span class="o">);</span>
+			<span class="n">conn</span><span class="o">.</span><span class="na">setConnectTimeout</span><span class="o">(</span><span class="mi">20000</span><span class="o">);</span><span class="c1">//连接超时</span>
+			<span class="c1">// 获取URLConnection对象对应的输出流</span>
+			<span class="n">out</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">PrintWriter</span><span class="o">(</span><span class="n">conn</span><span class="o">.</span><span class="na">getOutputStream</span><span class="o">());</span>
+			<span class="c1">// 发送请求参数</span>
+			<span class="n">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="n">param</span><span class="o">);</span>
+			<span class="c1">// flush输出流的缓冲</span>
+			<span class="n">out</span><span class="o">.</span><span class="na">flush</span><span class="o">();</span>
+			<span class="c1">// 定义BufferedReader输入流来读取URL的响应</span>
+			<span class="n">in</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">BufferedReader</span><span class="o">(</span><span class="k">new</span> <span class="nc">InputStreamReader</span><span class="o">(</span><span class="n">conn</span><span class="o">.</span><span class="na">getInputStream</span><span class="o">()));</span>
+			<span class="nc">String</span> <span class="n">line</span><span class="o">;</span>
+			<span class="k">while</span> <span class="o">((</span><span class="n">line</span> <span class="o">=</span> <span class="n">in</span><span class="o">.</span><span class="na">readLine</span><span class="o">())</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> 
+			<span class="o">{</span>
+				
+				<span class="n">result</span> <span class="o">+=</span> <span class="n">line</span><span class="o">;</span>
+			<span class="o">}</span>
+			<span class="no">LOGGER</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"http响应数据：{}"</span><span class="o">,</span> <span class="n">result</span><span class="o">);</span>
+		<span class="o">}</span><span class="k">catch</span> <span class="o">(</span><span class="nc">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+			<span class="no">LOGGER</span><span class="o">.</span><span class="na">error</span><span class="o">(</span><span class="s">"请求异常！"</span><span class="o">,</span> <span class="n">e</span><span class="o">);</span>
+		<span class="o">}</span><span class="k">finally</span> <span class="o">{</span>
+		
+			<span class="k">if</span> <span class="o">(</span><span class="n">out</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+				<span class="n">out</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+			<span class="o">}</span>
+			<span class="k">if</span> <span class="o">(</span><span class="n">in</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+				<span class="n">in</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+			<span class="o">}</span>
+		<span class="o">}</span>
+		<span class="n">jsonObject</span> <span class="o">=</span> <span class="nc">JSONObject</span><span class="o">.</span><span class="na">parseObject</span><span class="o">(</span><span class="n">result</span><span class="o">);</span>
+		<span class="k">return</span> <span class="n">jsonObject</span><span class="o">;</span>
+	<span class="o">}</span>
+	
+	
+  <span class="cm">/**
+	* 
+	* @Title: sendPostJson
+	* @Description: 通用POST,JSON请求
+	* @param url
+	* @param json
+	* @return
+	*/</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="nc">JSONObject</span> <span class="nf">sendPostJson</span><span class="o">(</span><span class="nc">String</span> <span class="n">url</span><span class="o">,</span> <span class="nc">String</span> <span class="n">json</span><span class="o">)</span> <span class="kd">throws</span> <span class="nc">Exception</span> 
+	<span class="o">{</span>
+	
+		<span class="no">LOGGER</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"请求url:"</span><span class="o">+</span><span class="n">url</span><span class="o">);</span>
+		<span class="no">LOGGER</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"请求参数:"</span><span class="o">+</span><span class="n">json</span><span class="o">);</span>
+		<span class="nc">CloseableHttpClient</span> <span class="n">httpClient</span> <span class="o">=</span> <span class="nc">HttpClients</span><span class="o">.</span><span class="na">createDefault</span><span class="o">();</span>
+		<span class="nc">HttpPost</span> <span class="n">httpPost</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">HttpPost</span><span class="o">(</span><span class="n">url</span><span class="o">);</span>
+		<span class="n">httpPost</span><span class="o">.</span><span class="na">addHeader</span><span class="o">(</span><span class="s">"Content-Type"</span><span class="o">,</span> <span class="s">"application/json"</span><span class="o">);</span>
+		<span class="n">httpPost</span><span class="o">.</span><span class="na">setEntity</span><span class="o">(</span><span class="k">new</span> <span class="nc">StringEntity</span><span class="o">(</span><span class="n">json</span><span class="o">));</span>
+		<span class="nc">CloseableHttpResponse</span> <span class="n">response</span> <span class="o">=</span> <span class="n">httpClient</span><span class="o">.</span><span class="na">execute</span><span class="o">(</span><span class="n">httpPost</span><span class="o">);</span>
+		<span class="nc">HttpEntity</span> <span class="n">entity</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="na">getEntity</span><span class="o">();</span>
+		<span class="nc">String</span> <span class="n">responseContent</span> <span class="o">=</span> <span class="nc">EntityUtils</span><span class="o">.</span><span class="na">toString</span><span class="o">(</span><span class="n">entity</span><span class="o">,</span> <span class="s">"UTF-8"</span><span class="o">);</span> 
+		<span class="no">LOGGER</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">"返回参数:"</span><span class="o">+</span><span class="n">responseContent</span><span class="o">);</span>
+		<span class="nc">JSONObject</span> <span class="n">jsonObject</span> <span class="o">=</span> <span class="nc">JSONObject</span><span class="o">.</span><span class="na">parseObject</span><span class="o">(</span><span class="n">responseContent</span><span class="o">);</span>
+		<span class="n">response</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+		<span class="n">httpClient</span><span class="o">.</span><span class="na">close</span><span class="o">();</span>
+		<span class="k">return</span> <span class="n">jsonObject</span><span class="o">;</span>
+	<span class="o">}</span>
+	
+</code></pre></div></div>
+
+<p><strong>参考：</strong><a href="https://blog.csdn.net/caesardadi/article/details/8621595">https://blog.csdn.net/caesardadi/article/details/8621595</a></p>
+
+<p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1fqj5aochgoj309k09kmwz.jpg" alt="" />
+<b><center>扫描关注：热爱生活的大叔</center>
+<b><center><font size="2">（<font size="2" color="#FF0000">转载本站文章请注明作者和出处</font> <font size="2" color="#0000FF">热爱生活的大叔-uniquezhangqi</font><font size="2">）</font></font></center></b></b></p>
+:ET

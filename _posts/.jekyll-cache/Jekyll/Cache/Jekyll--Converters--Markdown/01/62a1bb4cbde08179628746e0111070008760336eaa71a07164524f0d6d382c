@@ -1,0 +1,91 @@
+I"�"<h4 id="springcontextholder静态持有springcontext的引用">SpringContextHolder静态持有SpringContext的引用</h4>
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SpringContextHolder</span> <span class="kd">implements</span> <span class="nc">ApplicationContextAware</span><span class="o">{</span>
+ 
+    <span class="kd">private</span> <span class="kd">static</span> <span class="nc">ApplicationContext</span> <span class="n">applicationContext</span><span class="o">;</span>
+ 
+     
+    <span class="c1">//实现ApplicationContextAware接口的context注入函数, 将其存入静态变量.</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setApplicationContext</span><span class="o">(</span><span class="nc">ApplicationContext</span> <span class="n">applicationContext</span><span class="o">)</span> <span class="o">{</span>
+        <span class="nc">SpringContextHolder</span><span class="o">.</span><span class="na">applicationContext</span> <span class="o">=</span> <span class="n">applicationContext</span><span class="o">;</span>
+    <span class="o">}</span>
+ 
+    
+    <span class="c1">//取得存储在静态变量中的ApplicationContext.</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="nc">ApplicationContext</span> <span class="nf">getApplicationContext</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">checkApplicationContext</span><span class="o">();</span>
+        <span class="k">return</span> <span class="n">applicationContext</span><span class="o">;</span>
+    <span class="o">}</span>
+     
+    <span class="c1">//从静态变量ApplicationContext中取得Bean, 自动转型为所赋值对象的类型.</span>
+    <span class="nd">@SuppressWarnings</span><span class="o">(</span><span class="s">"unchecked"</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="o">&lt;</span><span class="no">T</span><span class="o">&gt;</span> <span class="no">T</span> <span class="nf">getBean</span><span class="o">(</span><span class="nc">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">checkApplicationContext</span><span class="o">();</span>
+        <span class="k">return</span> <span class="o">(</span><span class="no">T</span><span class="o">)</span> <span class="n">applicationContext</span><span class="o">.</span><span class="na">getBean</span><span class="o">(</span><span class="n">name</span><span class="o">);</span>
+    <span class="o">}</span>
+ 
+     
+    <span class="c1">//从静态变量ApplicationContext中取得Bean, 自动转型为所赋值对象的类型.</span>
+    <span class="c1">//如果有多个Bean符合Class, 取出第一个.</span>
+    <span class="nd">@SuppressWarnings</span><span class="o">(</span><span class="s">"unchecked"</span><span class="o">)</span>
+    <span class="kd">public</span> <span class="kd">static</span> <span class="o">&lt;</span><span class="no">T</span><span class="o">&gt;</span> <span class="no">T</span> <span class="nf">getBean</span><span class="o">(</span><span class="nc">Class</span><span class="o">&lt;</span><span class="no">T</span><span class="o">&gt;</span> <span class="n">clazz</span><span class="o">)</span> <span class="o">{</span>
+        <span class="n">checkApplicationContext</span><span class="o">();</span>
+        <span class="nd">@SuppressWarnings</span><span class="o">(</span><span class="s">"rawtypes"</span><span class="o">)</span>
+                <span class="nc">Map</span> <span class="n">beanMaps</span> <span class="o">=</span> <span class="n">applicationContext</span><span class="o">.</span><span class="na">getBeansOfType</span><span class="o">(</span><span class="n">clazz</span><span class="o">);</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">beanMaps</span><span class="o">!=</span><span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="o">!</span><span class="n">beanMaps</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">())</span> <span class="o">{</span>
+            <span class="k">return</span> <span class="o">(</span><span class="no">T</span><span class="o">)</span> <span class="n">beanMaps</span><span class="o">.</span><span class="na">values</span><span class="o">().</span><span class="na">iterator</span><span class="o">().</span><span class="na">next</span><span class="o">();</span>
+        <span class="o">}</span> <span class="k">else</span><span class="o">{</span>
+            <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+ 
+    <span class="kd">private</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">checkApplicationContext</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">if</span> <span class="o">(</span><span class="n">applicationContext</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nf">IllegalStateException</span><span class="o">(</span><span class="s">"applicaitonContext未注入,请在applicationContext.xml中定义SpringContextHolder"</span><span class="o">);</span>
+        <span class="o">}</span>
+    <span class="o">}</span>
+ 
+<span class="o">}</span>
+<span class="o">&lt;!--</span> <span class="n">用于持有ApplicationContext</span><span class="o">,</span><span class="n">可以使用SpringContextHolder</span><span class="o">.</span><span class="na">getBean</span><span class="o">(</span><span class="err">'</span><span class="n">xxxx</span><span class="err">'</span><span class="o">)</span><span class="n">的静态方法得到spring</span> <span class="n">bean对象</span> <span class="o">--&gt;</span>  
+
+<span class="o">&lt;</span><span class="n">bean</span> <span class="kd">class</span><span class="err">="</span><span class="nc">com</span><span class="o">.</span><span class="na">xxxxx</span><span class="o">.</span><span class="na">SpringContextHolder</span><span class="err">"</span>  <span class="o">/&gt;</span>
+
+</code></pre></div></div>
+
+<p>该工具类主要用于：那些没有归入spring框架管理的类却要调用spring容器中的bean提供的工具类。</p>
+
+<p>在spring中要通过IOC依赖注入来取得对应的对象，但是该类通过实现ApplicationContextAware接口，以静态变量保存Spring ApplicationContext, 可在任何代码任何地方任何时候中取出ApplicaitonContext.</p>
+
+<p>如此就不能说说org.springframework.context.ApplicationContextAware这个接口了：</p>
+
+<p>当一个类实现了这个接口（ApplicationContextAware）之后，这个类就可以方便获得ApplicationContext中的所有bean。换句话说，就是这个类可以直接获取spring配置文件中，所有有引用到的bean对象。</p>
+
+<p>除了以上SpringContextHolder类之外，还有不需要多次加载spring配置文件就可以取得bean的类：</p>
+
+<p>1.Struts2框架中，在监听器中有这么一句
+ApplicationContext context = WebApplicationContextUtils.getWebApplicationContext(event.getServletContext());
+之后可以用
+scheduleService = (IScheduleService)context.getBean(“scheduleService”);
+取到对象，请问context都可以取到什么信息，这些信息的来源在哪？是XML里配置了呢，还是固定的一部分信息呢？
+2、这个 application封装的是web.xml 内部的信息
+而你的web.xml里面有spring的配置文件，所有，里面还包含spring的信息
+同样包含struts2的filter信息
+总之就是和web.xml有关系的所有信息</p>
+
+<p>3、在web.xml里有这么一段
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>/WEB-INF/applicationContext*.xml</param-value>
+    </context-param></p>
+
+<p>那么在取信息的时候，也会把applicationContext.xml里的信息取出来
+1
+<br /><br /><br /><br /><br /></p>
+
+<blockquote>
+  <p>转载江南烟雨：<a href="https://www.cnblogs.com/wcyBlog/p/4657885.html">https://www.cnblogs.com/wcyBlog/p/4657885.html</a></p>
+</blockquote>
+
+<p><img src="https://ws3.sinaimg.cn/large/006tKfTcgy1fqj5aochgoj309k09kmwz.jpg" alt="" />
+<b><center>扫描关注：热爱生活的大叔</center>
+<b><center><font size="2">（<font size="2" color="#FF0000">转载本站文章请注明作者和出处</font> <font size="2" color="#0000FF">热爱生活的大叔-uniquezhangqi</font><font size="2">）</font></font></center></b></b></p>
+:ET
