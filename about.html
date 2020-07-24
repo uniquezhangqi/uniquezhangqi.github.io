@@ -130,14 +130,16 @@ header-img: "img/post-bg-rwd.jpg"
 
 <!-- valine 评论框 start-->
 {% if site.valine_comment.enable %}
+<div class="comments"></div>
 <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
-<script type="text/javascript">
+<script src="//unpkg.com/valine@1.4.14/dist/Valine.min.js"></script>
+<script>
     new Valine({
         el: '#comments',
-        appId: '{{site.valine_comment.leancloud_appid}}',
-        appKey: '{{site.valine_comment.leancloud_appkey}}',
-        placeholder: '{{site.valine_comment.placeholder}}'
+        app_id: '{{site.valine_comment.leancloud_appid}}',
+        app_key: '{{site.valine_comment.leancloud_appkey}}',
+        placeholder: '{{site.valine_comment.placeholder}}',
+        visitor: true
     });
 </script>
 {% endif %}
