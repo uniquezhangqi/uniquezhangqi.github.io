@@ -70,12 +70,24 @@ gitalk:
   admin: uniquezhangqi
   distractionFreeMode: true #是否启用类似FB的阴影遮罩
 
-# https://valine.js.org
-valine_comment:
+
+# Valine评论系统开关
+# Valine.
+# You can get your appid and appkey from https://leancloud.app
+# more info please open https://valine.js.org
+valine:
   enable: true
-  leancloud_appid: wwokD6b2cmKtpdsY12h94v8B-gzGzoHsz
-  leancloud_appkey: vNkfpewxdInaHsX56b4sJFBu
-  placeholder: "在这里写评论-不用登录 ~"
+  appid:  wwokD6b2cmKtpdsY12h94v8B-gzGzoHsz # your leancloud app id
+  appkey: vNkfpewxdInaHsX56b4sJFBu # your leancloud app key
+  notify: true # mail notifier , https://github.com/xCss/Valine/wiki，v1.4.0+ 已废弃
+  verify: true # Verification code，v1.4.0+ 已废弃
+  placeholder: "不需要登录，不需要翻墙，可以直接留言" # comment box placeholder
+  avatar:   # gravatar style
+  guest_info: 昵称,邮件,网址 # custom comment header
+  pageSize: 10 # pagination size
+  # path: window.location.pathname #  v1.4.0+不要使用参数“app_key: 'LHvLGcwcauE5B2JpMxJ3lbtF',”
+  recordIP: true # 是否记录评论者IP
+  enableQQ: true # 是否启用昵称框自动获取QQ昵称和QQ头像, 默认关闭
 
 
 # 统计
