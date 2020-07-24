@@ -35,12 +35,12 @@ layout: default
                     </div>
                     <h1>{{ page.title }}</h1>
                     {% comment %}
-                        always create a h2 for keeping the margin , Hux
+                    always create a h2 for keeping the margin , Hux
                     {% endcomment %}
                     {% comment %} if page.subtitle {% endcomment %}
                     <h2 class="subheading">{{ page.subtitle }}</h2>
                     {% comment %} endif {% endcomment %}
-                    <span class="meta">Posted by {% if page.author %}{{ page.author }}{% else %}{{ site.title }}{% endif %} on {{ page.date | date: "%B %-d, %Y" }}</span>
+                    <span class="meta">作者: {% if page.author %}{{ page.author }}{% else %}{{ site.title }}{% endif %} | {{ page.date | date: "%Y-%m-%d" }} | 阅读<span id="busuanzi_value_page_pv"></span> 次</span>
                 </div>
             </div>
         </div>
@@ -52,13 +52,50 @@ layout: default
     <div class="container">
         <div class="row">
 
-    <!-- Post Container -->
+            <!-- Post Container -->
             <div class="
                 col-lg-8 col-lg-offset-2
                 col-md-10 col-md-offset-1
                 post-container">
 
-				{{ content }}
+                <!-- 文章编辑与Markdown源码 -->
+                <div style="width: 170px;
+		                background-color:#fff;
+		                border: 1px solid #ddd;
+			        margin: 2px 0px 0px 3px;
+                                padding: 0px;
+		                border-radius: 6px 6px 6px 6px;
+		                -moz-border-radius: 6px 6px 6px 6px;
+		                -webkit-border-radius: 6px 6px 6px 6px;" text-align="center">
+                    <a href="//github.com/{{ site.github_username }}/{{ site.github_username }}.github.io/blob/master/{{ page.path }}" target="_blank" title="编辑本文" >「编辑」</a>
+                    <a href="//raw.githubusercontent.com/{{ site.github_username }}/{{ site.github_username }}.github.io/master/{{ page.path }}" target="_blank" title="查看本文Markdown源码" >「本文源码」</a>
+                </div>
+
+                <!-- 在正文开头添加网易云音乐插件 -->
+                <!-- cloud music -->
+                {% if page.music-id %}
+                {% include cloud-music.html %}
+                {% endif %}
+
+                <!-- cloud music full -->
+                {% if page.music-idfull %}
+                {% include cloud-music-full.html %}
+                {% endif %}
+
+                <!-- APlayer 音乐模块 -->
+                {% if page.apsongid %}
+                {% include aplayer.html %}
+                {% endif %}
+
+                {{ content }}
+
+                <!-- 版权声明 -->
+                {% include copyright.html %}
+
+                <!-- 社交分享按钮 -->
+                {% if site.post_share %}
+                {% include share.html %}
+                {% endif %}
 
                 <hr style="visibility: hidden;">
 
@@ -66,20 +103,47 @@ layout: default
                     {% if page.previous.url %}
                     <li class="previous">
                         <a href="{{ page.previous.url | prepend: site.baseurl | replace: '//', '/' }}" data-toggle="tooltip" data-placement="top" title="{{page.previous.title}}">
-                        Previous<br>
-                        <span>{{page.previous.title}}</span>
+                            上一篇<br>
+                            <span>{{page.previous.title}}</span>
                         </a>
                     </li>
                     {% endif %}
                     {% if page.next.url %}
                     <li class="next">
                         <a href="{{ page.next.url | prepend: site.baseurl | replace: '//', '/' }}" data-toggle="tooltip" data-placement="top" title="{{page.next.title}}">
-                        Next<br>
-                        <span>{{page.next.title}}</span>
+                            下一篇<br>
+                            <span>{{page.next.title}}</span>
                         </a>
                     </li>
                     {% endif %}
                 </ul>
+                <br>      <!-- 添加一行空行 -->
+
+
+                <!-- 相关文章推荐 开始-->
+                <div style="border: 1px solid #ddd;">
+                    {% for eachtag in site.tags %}
+                    {% if page.tags.first != eachtag.first %}
+                    {% continue %}
+                    {% endif %}
+                    <h4 align="left">&nbsp;&nbsp;相关文章：</h4>
+                    <ul>
+                        {% for post in eachtag.last offset: 0 limit: 5 %}
+                        <li>
+                            <a href="{{ post.url }}" target="_blank">{{ post.title }} <font color="brown">[{{ post.date | date: "%Y-%m-%d" }}]</font></a>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    {% endfor %}
+                </div>
+                <!-- 相关文章推荐 结束-->
+
+
+                <!-- Valine 评论框 start -->
+                {% if site.valine.enable %}
+                {% include valine_comments.html %}
+                {% endif %}
+                <!-- Valine 评论框 end -->
 
 
                 <!--Gitalk评论start  -->
@@ -87,16 +151,20 @@ layout: default
                 <!-- 引入Gitalk评论插件  -->
                 <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
                 <script src="https://unpkg.com/gitalk@latest/dist/gitalk.min.js"></script>
+                <h4 align="left">「Github登录用户留言」：</h4>
                 <div id="gitalk-container"></div>
+                <!-- 引入一个生产md5的js，用于对id值进行处理，防止其过长 -->
+                <!-- Thank DF:https://github.com/NSDingFan/NSDingFan.github.io/issues/3#issuecomment-407496538 -->
+                <script src="{{ site.baseurl }}/js/md5.min.js"></script>
                 <script type="text/javascript">
                     var gitalk = new Gitalk({
-                    clientID: '{{site.gitalk.clientID}}',
-                    clientSecret: '{{site.gitalk.clientSecret}}',
-                    repo: '{{site.gitalk.repo}}',
-                    owner: '{{site.gitalk.owner}}',
-                    admin: ['{{site.gitalk.admin}}'],
-                    distractionFreeMode: {{site.gitalk.distractionFreeMode}},
-                    id: window.location.pathname,
+                        clientID: '{{site.gitalk.clientID}}',
+                        clientSecret: '{{site.gitalk.clientSecret}}',
+                        repo: '{{site.gitalk.repo}}',
+                        owner: '{{site.gitalk.owner}}',
+                        admin: ['{{site.gitalk.admin}}'],
+                        distractionFreeMode: {{site.gitalk.distractionFreeMode}},
+                    id: md5(location.pathname),
                     });
                     gitalk.render('gitalk-container');
                 </script>
@@ -118,10 +186,10 @@ layout: default
                 {% endif %}
                 <!-- Valine 评论框 end -->
 
-            </div>  
+            </div>
 
-    <!-- Side Catalog Container -->
-        {% if page.catalog %}
+            <!-- Side Catalog Container -->
+            {% if page.catalog %}
             <div class="
                 col-lg-2 col-lg-offset-0
                 visible-lg-block
@@ -135,9 +203,9 @@ layout: default
                     <ul class="catalog-body"></ul>
                 </div>
             </div>
-        {% endif %}
+            {% endif %}
 
-    <!-- Sidebar Container -->
+            <!-- Sidebar Container -->
             <div class="
                 col-lg-8 col-lg-offset-2
                 col-md-10 col-md-offset-1
@@ -147,26 +215,26 @@ layout: default
                 {% if site.featured-tags %}
                 <section>
                     <hr class="hidden-sm hidden-xs">
-                    <h5><a href="/tags/">FEATURED TAGS</a></h5>
+                    <h5><a href="/tags/" target="_blank">特色标签</a></h5>
                     <div class="tags">
-        				{% for tag in site.tags %}
-                            {% if tag[1].size > {{site.featured-condition-size}} %}
-                				<a href="/tags/#{{ tag[0] }}" title="{{ tag[0] }}" rel="{{ tag[1].size }}">
-                                    {{ tag[0] }}
-                                </a>
-                            {% endif %}
-        				{% endfor %}
-        			</div>
+                        {% for tag in site.tags %}
+                        {% if tag[1].size > {{site.featured-condition-size}} %}
+                        <a href="/tags/#{{ tag[0] }}" title="{{ tag[0] }}" rel="{{ tag[1].size }}" target="_blank">
+                            {{ tag[0] }}
+                        </a>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
                 </section>
                 {% endif %}
 
                 <!-- Friends Blog -->
                 {% if site.friends %}
                 <hr>
-                <h5>FRIENDS</h5>
+                <h5>友情链接</h5>
                 <ul class="list-inline">
                     {% for friend in site.friends %}
-                        <li><a href="{{friend.href}}">{{friend.title}}</a></li>
+                    <li><a href="{{friend.href}}" target="_blank">{{friend.title}}</a></li>
                     {% endfor %}
                 </ul>
                 {% endif %}
@@ -209,11 +277,12 @@ layout: default
 <!-- anchor-js, Doc:http://bryanbraun.github.io/anchorjs/ -->
 <script>
     async("//cdnjs.cloudflare.com/ajax/libs/anchor-js/1.1.1/anchor.min.js",function(){
-        anchors.options = {
-          visible: 'always',
-          placement: 'right',
-          icon: '#'
-        };
+        // BY Fix:去除标题前的‘#’ issues:<https://github.com/qiubaiying/qiubaiying.github.io/issues/137>
+        // anchors.options = {
+        //   visible: 'always',
+        //   placement: 'right',
+        //   icon: '#'
+        // };
         anchors.add().remove('.intro-header h1').remove('.subheading').remove('.sidebar-container h5');
     })
 </script>
@@ -229,6 +298,3 @@ layout: default
     }
 </style>
 {% endif %}
-
-<span id="busuanzi_container_page_pv"> | 访问量：<span id="busuanzi_value_page_pv"></span> 次</span>
-

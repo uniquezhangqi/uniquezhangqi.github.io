@@ -128,20 +128,20 @@ header-img: "img/post-bg-rwd.jpg"
 <!--&lt;!&ndash; disqus 公共JS代码 end &ndash;&gt;-->
 <!--{% endif %}-->
 
-<!-- valine 评论框 start-->
-{% if site.valine_comment.enable %}
-<div class="comments"></div>
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<script src="//unpkg.com/valine@1.4.14/dist/Valine.min.js"></script>
-<script>
-    new Valine({
-        el: '#comments',
-        app_id: '{{site.valine_comment.leancloud_appid}}',
-        app_key: '{{site.valine_comment.leancloud_appkey}}',
-        placeholder: '{{site.valine_comment.placeholder}}',
-        visitor: true
-    });
-</script>
-{% endif %}
-<!-- valine 评论框 end-->
+<!--&lt;!&ndash; valine 评论框 start&ndash;&gt;-->
+<!--{% if site.valine_comment.enable %}-->
+<!--<div class="comments"></div>-->
+<!--<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>-->
+<!--<script src="//unpkg.com/valine@1.4.14/dist/Valine.min.js"></script>-->
+<!--<script>-->
+<!--    new Valine({-->
+<!--        el: '#comments',-->
+<!--        app_id: '{{site.valine_comment.leancloud_appid}}',-->
+<!--        app_key: '{{site.valine_comment.leancloud_appkey}}',-->
+<!--        placeholder: '{{site.valine_comment.placeholder}}',-->
+<!--        visitor: true-->
+<!--    });-->
+<!--</script>-->
+<!--{% endif %}-->
+<!--&lt;!&ndash; valine 评论框 end&ndash;&gt;-->
 

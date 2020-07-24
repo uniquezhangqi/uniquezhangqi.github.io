@@ -1,6 +1,6 @@
 # Site settings
-title: MY Blog
-SEOTitle: 伊恩的博客 | MY Blog
+title: 爱生活的大叔
+SEOTitle: 伊恩的博客 | 爱生活的大叔
 header-img: img/post-bg-desk.jpg     #显示在首页的背景图片
 email: schooljavaian@gmail.com
 description: "Always on the way of programming."    #网站介绍
@@ -19,7 +19,7 @@ sidebar-avatar: /img/avatar-by.jpg      # use absolute URL, seeing it's used in 
 
 # SNS settings
 RSS: false
-weibo_username: _____ZzZzZzq
+weibo_username: 爱生活的阿琦
 zhihu_username: 伊恩
 github_username: uniquezhangqi
 facebook_username: schooljavaian@gmail.com
@@ -89,6 +89,9 @@ valine:
   recordIP: true # 是否记录评论者IP
   enableQQ: true # 是否启用昵称框自动获取QQ昵称和QQ头像, 默认关闭
 
+
+# intensedebate评论系统开关
+intensedebate_comments: false
 
 # 统计
 
