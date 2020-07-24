@@ -70,6 +70,13 @@ gitalk:
   admin: uniquezhangqi
   distractionFreeMode: true #是否启用类似FB的阴影遮罩
 
+# https://valine.js.org
+valine_comment:
+  enable: true
+  leancloud_appid: wwokD6b2cmKtpdsY12h94v8B-gzGzoHsz
+  leancloud_appkey: vNkfpewxdInaHsX56b4sJFBu
+  placeholder: "在这里写评论-不用登录 ~"
+
 
 # 统计
 
