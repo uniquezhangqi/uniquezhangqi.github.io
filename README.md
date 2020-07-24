@@ -9,8 +9,9 @@
 - 喜欢的可以点个 `Star`，搭建过程中有问题可以留言 !!!
     
  
-#### Disqus优缺点：
+#### 所用到的第三方：
 
-优点：国际比较流行，界面也很大气、简洁，如果有人评论，还能实时通知，直接回复通知的邮件就行了；
-
-缺点：评论必须要去注册一个disqus账号，分享一般只有Facebook和Twitter，另外在墙内加载速度略慢了一点。
+- 留言系统 valine  
+- 留言统计 intensedebate
+- 网站流量监控 Google Analytics
+- Valine 的[Gravatar](https://cn.gravatar.com/) 设置评论[头像](https://valine.js.org/avatar.html)
