@@ -18,13 +18,13 @@ sidebar-avatar: /img/avatar-by.jpg      # use absolute URL, seeing it's used in 
 
 
 # SNS settings
-RSS: false
+RSS: true
 weibo_username: 爱生活的阿琦
 zhihu_username: 伊恩
 github_username: uniquezhangqi
-facebook_username: schooljavaian@gmail.com
+#facebook_username: schooljavaian@gmail.com
 #jianshu_username:   e71990ada2fd
-twitter_username: Mr_javaian
+#twitter_username: Mr_javaian
 
 
 
@@ -104,9 +104,6 @@ ga_track_id: 'UA-113450573-1'            # Format: UA-xxxxxx-xx
 ga_domain: uniquezhangqi.top               # 默认的是 auto, 这里我是自定义了的域名，你如果没有自己的域名，需要改成auto
 
 
-
-
-
 # Featured Tags
 featured-tags: true                     # 是否使用首页标签
 featured-condition-size: 1              # 相同标签数量大于这个数，才会出现在首页
@@ -138,3 +135,18 @@ friends: [
         href: "https://www.csdn.net/"
     }
 ]
+
+# Jekyll-Search settings
+# 是否启用jekyll博客搜索插件
+# url: https://github.com/androiddevelop/jekyll-search
+Jekyll-Search: true
+
+
+
+# lightbox 图片预览插件
+lightbox: true
+
+
+
+# Share社交分享按钮开关
+post_share: true
