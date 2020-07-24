@@ -18,9 +18,9 @@ sidebar-avatar: /img/avatar-by.jpg      # use absolute URL, seeing it's used in 
 
 
 # SNS settings
-RSS: true
-weibo_username: 爱生活的阿琦
-zhihu_username: 伊恩
+#RSS: true
+weibo_username: uniqueian?topnav=1&wvr=6&topsug=1&is_all=1
+#zhihu_username: 伊恩
 github_username: uniquezhangqi
 #facebook_username: schooljavaian@gmail.com
 #jianshu_username:   e71990ada2fd
