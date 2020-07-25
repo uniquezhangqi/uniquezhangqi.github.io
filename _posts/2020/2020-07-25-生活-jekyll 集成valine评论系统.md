@@ -51,7 +51,7 @@ valine:
 
 `_includes`目录下创建valine_comments.html文件。文件内容如下:
 
-``` html
+``` java
 <br>
 <h4 align="left">留言区：</h4>
 <div id="comments"></div>
