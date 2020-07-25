@@ -122,14 +122,20 @@ friends: [
         title: "Apple",
         href: "https://apple.com"
     },{
-        title: "google",
-        href: "https://www.google.com"
+        title: "Spring Boot 中文索引",
+        href: "http://springboot.fun/"
     },{
-        title: "ImportNew",
-        href: "http://www.importnew.com/"
+        title: "让一切变得有趣",
+        href: "http://tooool.org/"
     },{
-        title: "CSND",
-        href: "https://www.csdn.net/"
+        title: "wallhaven(无版权的图片)",
+        href: "https://wallhaven.cc/"
+    },{
+        title: "草民电影",
+        href: "https://www.cmdy5.com/"
+    },{
+        title: "蚂窝蜂旅游",
+        href: "http://www.mafengwo.cn/"
     }
 ]
 
