@@ -51,27 +51,27 @@ valine:
 
 `_includes`目录下创建valine_comments.html文件。文件内容如下:
 
-``` java
+``` xml
 <br>
-<h4 align="left">留言区：</h4>
+<h4 align="left">留言区：</h4>    
 <div id="comments"></div>
-<!--Leancloud 操作库:-->
-<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
-<!--Valine 的核心代码库:-->
-<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
-<script>
-    new Valine({
-        av: AV,
-        el: '#comments',
-        app_id: '{{ site.valine.appid }}',
-        app_key: '{{ site.valine.appkey }}',
-        placeholder: '{{ site.valine.placeholder }}',
-        notify: '{{ site.valine.notify }}',
-        verify: '{{ site.valine.verify }}',
-        recordIP: 'true',
-        enableQQ: 'true',
-    })
-</script>
+    <!--Leancloud 操作库:-->
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <!--Valine 的核心代码库:-->
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <script>
+         new Valine([
+            av: AV,
+            el: '#comments',
+            app_id: '[[ site.valine.appid ]]',
+            app_key: '[[ site.valine.appkey ]]',
+            placeholder: '[[ site.valine.placeholder ]]',
+            notify: '[[ site.valine.notify ]]',
+            verify: '[[ site.valine.verify ]]',
+	    recordIP: 'true',
+            enableQQ: 'true',
+        ])
+    </script>
 ```
 
 在post.html文件末尾后面（或你认为合适的位置）添加代码引用valine_comments.html来显示评论框:
