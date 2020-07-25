@@ -3,7 +3,7 @@ title: 爱生活的大叔
 SEOTitle: 伊恩的博客 | 爱生活的大叔
 header-img: img/home-bg-o.jpg     #显示在首页的背景图片
 email: schooljavaian@gmail.com
-description: "Always on the way of programming."    #网站介绍
+description: "我们总是老得太快，聪明得太晚."    #网站介绍
 keyword: "伊恩的博客, Ian, 伊恩, java，爱生活的，爱生活的大叔，uniquezhangqi"
 url: "https://uniquezhangqi.github.io"          # your host, for absolute URL
 baseurl: ""      # for example, '/blog' if your blog hosted on 'host/blog'
