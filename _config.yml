@@ -4,7 +4,7 @@ SEOTitle: 伊恩的博客 | 爱生活的大叔
 header-img: img/home-bg-o.jpg     #显示在首页的背景图片
 email: schooljavaian@gmail.com
 description: "Always on the way of programming."    #网站介绍
-keyword: " MY Blog, 伊恩的博客, Ian, 伊恩, java, Apple"
+keyword: "伊恩的博客, Ian, 伊恩, java，爱生活的，爱生活的大叔，uniquezhangqi"
 url: "https://uniquezhangqi.github.io"          # your host, for absolute URL
 baseurl: ""      # for example, '/blog' if your blog hosted on 'host/blog'
 github_repo: "https://github.com/uniquezhangqi/uniquezhangqi.github.io.git" # you code repository
