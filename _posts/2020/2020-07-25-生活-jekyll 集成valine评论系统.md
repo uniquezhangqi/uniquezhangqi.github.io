@@ -54,7 +54,10 @@ valine:
 `_includes`目录下创建valine_comments.html文件。文件内容如下:
 
 
+**注意：** `[[     ]]`   需要改成 2 个花括号 ， 这 Macdown 如果用 花括号 就会自动显示引用里面的内容🌚，具体可以看留言板
+
 ``` html
+
 <br>
 <h4 align="left">留言区：</h4>
 <div id="comments"></div>
