@@ -530,6 +530,4 @@ data-options和这里效果是一样，但是API里面大部分是按照属性�
 ```
 
 
-![](https://ws3.sinaimg.cn/large/006tKfTcgy1fqj5aochgoj309k09kmwz.jpg)
-<b><center>扫描关注：热爱生活的大叔</center>
-<b><center><font size="2">（<font size="2" color="#FF0000">转载本站文章请注明作者和出处</font> <font size="2" color="#0000FF">热爱生活的大叔-uniquezhangqi</font><font size="2">）</font>
+

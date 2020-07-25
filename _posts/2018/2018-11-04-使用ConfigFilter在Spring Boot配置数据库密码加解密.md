@@ -10,7 +10,7 @@ tags:                              		#标签
     - 编程之路
 ---
 
-> 本文首次发布于[My Blog](http://uniquezhangqi.top),作者[@张琦(Ian)](http://uniquezhangqi.top/about/),转载请保留原文链接。
+
 
 
 # 使用ConfigFilter
@@ -87,6 +87,4 @@ password:PNak4Yui0+2Ft6JSoKBsgNPl+A033rdLhFw+L0np1o+HDRrCo9VkCuiiXviEMYwUgpHZUFx
 
 文章中若有不足之处，还望指出。坚持是一种精神，分享是一种快乐！
 
-![](https://ws3.sinaimg.cn/large/006tKfTcgy1fqj5aochgoj309k09kmwz.jpg)
-<b><center>扫描关注：热爱生活的大叔</center>
-<b><center><font size="2">（<font size="2" color="#FF0000">转载本站文章请注明作者和出处</font> <font size="2" color="#0000FF">热爱生活的大叔-uniquezhangqi</font><font size="2">）</font>
+
