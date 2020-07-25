@@ -1,7 +1,7 @@
 ---
 layout: page
 title: "关于我"
-description: "todo"
+description: "路漫漫其修远兮,吾将上下而求索"
 header-img: "img/home-bg-o.jpg"
 ---
 
@@ -15,8 +15,8 @@ header-img: "img/home-bg-o.jpg"
 <div class="zh post-container">
 
     <!--copied from markdown -->
-    <blockquote><p>冰冻三尺 非一日之寒<br>
-        积土成山 非斯须之作</p></blockquote>
+<!--    <blockquote><p>冰冻三尺 非一日之寒<br>-->
+<!--        积土成山 非斯须之作</p></blockquote>-->
 
     <!--<p>Hey，我是<strong>Ian</strong>，一只后台程序猿，现在成都工作。</p>-->
 
@@ -26,16 +26,8 @@ header-img: "img/home-bg-o.jpg"
 
     <p> 个人介绍:  TODO </p>
 
-    <p>如果有什么问题，欢迎提出探讨~</p>
 
-    <h5>Talks</h5>
 
-    <ul>
-        <li><a href="http://www.cnblogs.com/uniquezhangqi/">博客园</a></li>
-        <li><a href="https://github.com/uniquezhangqi">GitHub</a></li>
-        <li><a href="http://uniquezhangqi/">个人博客</a></li>
-        <li><a href="https://analytics.google.com/analytics">Google Analytics</a></li>
-    </ul>
 </div>
 
 <!-- Handle Language Change -->
@@ -78,6 +70,12 @@ header-img: "img/home-bg-o.jpg"
     _render();
 </script>
 
+
+<!-- Valine 评论框 start -->
+{% if site.valine.enable %}
+{% include valine_comments.html %}
+{% endif %}
+<!-- Valine 评论框 end -->
 
 <!-- Gitalk 评论 start  -->
 <!--{% if site.gitalk.enable %}-->
@@ -131,20 +129,5 @@ header-img: "img/home-bg-o.jpg"
 <!--&lt;!&ndash; disqus 公共JS代码 end &ndash;&gt;-->
 <!--{% endif %}-->
 
-<!--&lt;!&ndash; valine 评论框 start&ndash;&gt;-->
-<!--{% if site.valine_comment.enable %}-->
-<!--<div class="comments"></div>-->
-<!--<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>-->
-<!--<script src="//unpkg.com/valine@1.4.14/dist/Valine.min.js"></script>-->
-<!--<script>-->
-<!--    new Valine({-->
-<!--        el: '#comments',-->
-<!--        app_id: '{{site.valine_comment.leancloud_appid}}',-->
-<!--        app_key: '{{site.valine_comment.leancloud_appkey}}',-->
-<!--        placeholder: '{{site.valine_comment.placeholder}}',-->
-<!--        visitor: true-->
-<!--    });-->
-<!--</script>-->
-<!--{% endif %}-->
-<!--&lt;!&ndash; valine 评论框 end&ndash;&gt;-->
+
 
