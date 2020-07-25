@@ -8,7 +8,7 @@ header-img: img/post-bg-re-vs-ng2.jpg	#这篇文章标题背景图片
 catalog: true                        	# 是否归档
 tags:                              		#标签
     - 编程之路
-    - SpringDataJPA
+    - DB
 ---
 
 ## Spring Data JPA

@@ -4,10 +4,10 @@ title:         MongoDB的数据类型介绍    # 标题
 subtitle:    					  				#副标题
 date:       2018-10-27  					# 时间
 author:     Ian                  			# 作者
-header-img: img/ian-bg-red.jpg	#这篇文章标题背景图片
+header-img: img/home-bg-o.jpg	#这篇文章标题背景图片
 catalog: true                        	# 是否归档
 tags:                              		#标签
-    - MongoDB
+    - DB
     - 编程之路
     - 自我总结
 ---

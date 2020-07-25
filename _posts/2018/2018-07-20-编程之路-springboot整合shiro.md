@@ -4,11 +4,11 @@ title:      springboot整合shiro   # 标题
 subtitle:    					  				#副标题
 date:       2018-07-20 					# 时间
 author:     Ian                  			# 作者
-header-img: img/ian-bg-red.jpg	#这篇文章标题背景图片
+header-img: img/img/home-bg-o.jpg	#这篇文章标题背景图片
 catalog: true                        	# 是否归档
 tags:                              		#标签
     - 编程之路
-    - shiro
+    - 鉴权
 ---
 
 > 转载：作者：Howie_Y   链接：https://www.jianshu.com/p/ef0a82d471d2

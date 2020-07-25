@@ -4,12 +4,12 @@ title:         java8--Lambda排序   # 标题
 subtitle:    					  				#副标题
 date:       2019-02-17  					# 时间
 author:     Ian                  			# 作者
-header-img: img/ian-bg-red.jpg	#这篇文章标题背景图片
+header-img: img/home-bg-o.jpg	#这篇文章标题背景图片
 catalog: true                        	# 是否归档
 tags:                              		#标签
     - 编程之路
     - 自我总结
-    - java8
+    - Java Basics
 ---
 
 > 转载 Java8 - 使用 Comparator.comparing 进行排序 ：https://my.oschina.net/xinxingegeya/blog/2046405

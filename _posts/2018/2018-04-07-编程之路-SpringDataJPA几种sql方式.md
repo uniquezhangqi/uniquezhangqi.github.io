@@ -9,7 +9,7 @@ catalog: true                        	# 是否归档
 tags:                              		#标签
     - 编程之路
     - 自我总结
-    - SpringDataJPA
+    - DB
 ---
 
 > 本文首次发布于[My Blog](http://uniquezhangqi.top),作者[@张琦(Ian)](http://uniquezhangqi.top/about/),转载请保留原文链接。
