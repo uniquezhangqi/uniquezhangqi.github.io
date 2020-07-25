@@ -125,6 +125,9 @@ friends: [
         title: "Spring Boot 中文索引",
         href: "http://springboot.fun/"
     },{
+        title: "Spring Cloud 中文索引",
+        href: "http://springcloud.fun/"
+    },{
         title: "让一切变得有趣",
         href: "http://tooool.org/"
     },{
