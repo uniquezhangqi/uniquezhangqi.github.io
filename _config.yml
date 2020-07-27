@@ -97,7 +97,7 @@ intensedebate_comments: false
 
 # Analytics settings
 # Baidu Analytics
-ba_track_id: b50bf2b12b5338a1845e33832976fd68
+ba_track_id: 61da666ff936808680505acb9a5062f9
 
 # Google Analytics
 ga_track_id: 'UA-113450573-1'            # Format: UA-xxxxxx-xx
