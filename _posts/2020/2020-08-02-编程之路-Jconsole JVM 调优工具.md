@@ -1,7 +1,7 @@
 ---
 layout:     post             				# 使用的布局（不需要改）
 title:         Jconsole JVM 调优工具使用   # 标题 
-subtitle:    转载：https://blog.csdn.net/shijing266/article/details/81511687					  				#副标题
+subtitle:    			  				#副标题
 date:       2020-08-02  					# 时间
 author:     Ian                  			# 作者
 header-img: img/home-bg-o.jpg 	#这篇文章标题背景图片
@@ -18,6 +18,8 @@ tags:                              	           	#标签
 
 &nbsp;
 &nbsp;
+
+> 转载：https://blog.csdn.net/shijing266/article/details/81511687
 
 ## JConsole查看当前程序/进程的全局情况
 
@@ -54,6 +56,8 @@ tags:                              	           	#标签
 ### GC原理：
 
 > 参考：https://blog.csdn.net/Javazhoumou/article/details/99298624
+
+![](https://tva1.sinaimg.cn/large/007S8ZIlgy1ghcsy2s2lrj30r00bqt9r.jpg)
 
 我们可以看到年轻代包括Eden区(对象刚被new出来的时候，放到该区)，S0和S1，是幸存者1区和幸存者2区，从名字可以看出，是当发生YGC，没有被任何其他对象所引用的对象将会从内存中被清除，还被其他对象引用的则放到幸存者区。当发生多次YGC，在S0、S1区多次没有被清楚的对象，则会被移到老年代区域。当老年代区域被占满的时候，则会发送FullGC。
 
@@ -93,3 +97,4 @@ tags:                              	           	#标签
 总物理内存、闲置物理内存、总交换空间、闲置交换空间
 
 
+> JVM的内存分布结构分析：<http://www.codeceo.com/article/jvm-memory-stack.html>
