@@ -120,7 +120,7 @@ service-worker: true
 friends: [
     {
         title: "Apple",
-        href: "https://apple.com"
+        href: "https://www.apple.com.cn/"
     },{
         title: "Spring Boot 中文索引",
         href: "http://springboot.fun/"
