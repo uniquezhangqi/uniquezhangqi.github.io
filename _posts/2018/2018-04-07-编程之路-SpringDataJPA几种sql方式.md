@@ -6,6 +6,7 @@ date:       2018-04-07  					# 时间
 author:     Ian                  			# 作者
 header-img: img/post-bg-universe.jpg 	#这篇文章标题背景图片
 catalog: true                        	# 是否归档
+iscopyright: true                      # 是否版权
 tags:                              		#标签
     - 编程之路
     - 自我总结
