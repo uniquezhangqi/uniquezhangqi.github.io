@@ -89,8 +89,10 @@ layout: default
 
                 {{ content }}
 
+                {% if page.iscopyright %}
                 <!-- 版权声明 -->
                 {% include copyright.html %}
+                {% endif %}
 
                 <!-- 社交分享按钮 -->
                 {% if site.post_share %}
