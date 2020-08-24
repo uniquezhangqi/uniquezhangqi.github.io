@@ -7,7 +7,7 @@ author:     Ian                  			# 作者
 header-img: img/home-bg-o.jpg 	#这篇文章标题背景图片
 catalog: true                        	# 是否归档
 istop:  false                             # 是否置顶
-iscopyright: true                      # 是否版权，默认有
+iscopyright: false                      # 是否版权，默认有
 music-id:                                        # 网易云音乐单曲嵌入
 music-idfull:                               # 网易云音乐歌单嵌入
 apserver:                           # 音乐平台netease/tencent/kugou/xiami/baidu
