@@ -1,10 +1,10 @@
 # Site settings
-title: 热爱生活的阿琦
-SEOTitle: 伊恩的博客 | 热爱生活的阿琦
+title: 爱生活的阿琦
+SEOTitle: 阿琦的博客 | 爱生活的阿琦
 header-img: img/home-bg-o.jpg     #显示在首页的背景图片
 email: schooljavaian@gmail.com
 description: "我们总是老得太快，聪明得太晚."    #网站介绍
-keyword: "伊恩的博客, Ian, 伊恩, java，爱生活的，热爱生活，热爱生活的阿琦，uniquezhangqi"
+keyword: "阿琦的博客, Ian, 伊恩, 阿琦，java，爱生活的，热爱生活，爱生活的阿琦，爱生活，uniquezhangqi"
 url: "https://uniquezhangqi.github.io"          # your host, for absolute URL
 baseurl: ""      # for example, '/blog' if your blog hosted on 'host/blog'
 github_repo: "https://github.com/uniquezhangqi/uniquezhangqi.github.io.git" # you code repository
