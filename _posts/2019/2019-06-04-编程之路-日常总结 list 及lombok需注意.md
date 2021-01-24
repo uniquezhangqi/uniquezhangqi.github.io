@@ -67,7 +67,10 @@ public static String formatList(List<String> list, String delimiter) {
 
 
 > 参考：lombok @EqualsAndHashCode 注解的影响--<https://www.cnblogs.com/liaojie970/p/8939951.html>
+> 
 > 参考：Java8（2）：Java8 对字符串连接的改进:<https://segmentfault.com/a/1190000007835105>
+> 
+> 官方文档：@EqualsAndHashCode:  <https://projectlombok.org/features/EqualsAndHashCode>
 
 
 文章中若有不足之处，还望指出。坚持是一种精神，分享是一种快乐！
