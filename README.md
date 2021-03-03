@@ -15,3 +15,7 @@
 - 留言统计 intensedebate
 - 网站流量监控 Google Analytics
 - Valine 的[Gravatar](https://cn.gravatar.com/) 设置评论[头像](https://valine.js.org/avatar.html)
+
+#### 个人公众号
+
+![](https://tva1.sinaimg.cn/large/e6c9d24egy1go6phmqnnkj2076076glp.jpg)
