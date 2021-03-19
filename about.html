@@ -14,73 +14,77 @@ header-img: "img/home-bg-o.jpg"
 <!-- Chinese Version -->
 <div class="zh post-container">
 
-    <b><strong>个人介绍: </strong></b>
+  <b><strong>个人介绍: </strong></b>
 
-    <p>阿琦目前在杭州工作，一般般，就是芸芸众生中一个普通的打工人，这号主要内容有阿琦的工作 [技术]、生活 [游记、摄影、股市、绘画、八卦] 等一些文章，定时随机更新，每周至少一篇。</p>
+  <p>阿琦目前在杭州工作，一般般，就是芸芸众生中一个普通的打工人，这博客主要内容有阿琦的工作 [Java 相关技术]、生活 [游记、摄影、股市、绘画、八卦]
+    等一些文章或笔记总结，定时随机更新，每周至少一篇。</p>
 
-    <p>做这个公众号目的主要是为了逼自己学习提升个人能力；如果用价值投资思想来说的话，投资做公众号这件事是有价值的，这是一支好股，如果能拿得住，我将得到丰厚的回报。</p>
+  <p>写博客的目地主要是为了逼自己学习提升个人能力；如果有幸能帮助到你，我会很开心。</p>
 
-    <p>这号不会刻意去弄微信指数、百度指数啊seo优化这些。 好吧，我承认了，其实肚子里也没啥货 <img src="https://res.smzdm.com/images/emotions/78.png" style="float:right"></p>
+  <p>我不会运营。</p>
 
-    <p>自己有几斤几两还是有点逼数的 ……</p>
+  <p>写不了感人的文字。</p>
 
-    <p>如果有什么做的不好的地方可以留言板指出，毕竟不是文科生 文章又写的也少，文笔就那样，这个的靠时间慢慢练。</p>
+  <p>没有耀眼的履历。</p>
 
-    <p>如果这号里的笔记或者文章能让你得到收获的话，我将倍感荣幸 ～</p>
+  <p>不会吹牛、不会玩套路。</p>
 
-    <p>望正在看的你与我快乐常伴，健康永随，一起进步。</p>
+  <p>如果有什么写的不好的地方可以留言板指出，毕竟不是文科生 基本都是硬写。</p>
 
-    简书文章目录<a href="https://www.jianshu.com/u/e53a4c67bf53">👉BY</a>
-    <br>
-    <br>
+  <p>望正在看的你与我快乐常伴，健康永随，一起进步。</p>
 
-    博客园文章目录<a href="https://www.cnblogs.com/uniquezhangqi">👉BY</a>
-    <br>
+<!--  简书文章目录<a href="https://www.jianshu.com/u/e53a4c67bf53">👉BY</a>-->
+<!--  <br>-->
+<!--  <br>-->
 
-    <p>下面是我微信公众号二维码，可以后台留言，可以加微信私聊。</p>
+  博客园文章目录<a href="https://www.cnblogs.com/uniquezhangqi">👉BY</a>
+  <br>
 
-    <p><img width="200px" height="200px;" src="https://tva1.sinaimg.cn/large/0081Kckwgy1gm2ijf3arkj3076076glp.jpg" /></p>
+  <p>下面是我微信公众号二维码，可以后台留言，可以加微信私聊。</p>
+
+  <p><img width="200px" height="200px;"
+          src="https://tva1.sinaimg.cn/large/0081Kckwgy1gm2ijf3arkj3076076glp.jpg"/></p>
 
 </div>
 
 <!-- Handle Language Change -->
 <script type="text/javascript">
-    // get nodes
-    var $zh = document.querySelector(".zh");
-    var $en = document.querySelector(".en");
-    var $select = document.querySelector("select");
+  // get nodes
+  var $zh = document.querySelector(".zh");
+  var $en = document.querySelector(".en");
+  var $select = document.querySelector("select");
 
-    // bind hashchange event
-    window.addEventListener('hashchange', _render);
+  // bind hashchange event
+  window.addEventListener('hashchange', _render);
 
-    // handle render
-    function _render() {
-        var _hash = window.location.hash;
-        // en
-        if (_hash == "#en") {
-            $select.selectedIndex = 1;
-            $en.style.display = "block";
-            $zh.style.display = "none";
-            // zh by default
-        } else {
-            // not trigger onChange, otherwise cause a loop call.
-            $select.selectedIndex = 0;
-            $zh.style.display = "block";
-            $en.style.display = "none";
-        }
+  // handle render
+  function _render() {
+    var _hash = window.location.hash;
+    // en
+    if (_hash == "#en") {
+      $select.selectedIndex = 1;
+      $en.style.display = "block";
+      $zh.style.display = "none";
+      // zh by default
+    } else {
+      // not trigger onChange, otherwise cause a loop call.
+      $select.selectedIndex = 0;
+      $zh.style.display = "block";
+      $en.style.display = "none";
     }
+  }
 
-    // handle select change
-    function onLanChange(index) {
-        if (index == 0) {
-            window.location.hash = "#zh"
-        } else {
-            window.location.hash = "#en"
-        }
+  // handle select change
+  function onLanChange(index) {
+    if (index == 0) {
+      window.location.hash = "#zh"
+    } else {
+      window.location.hash = "#en"
     }
+  }
 
-    // init
-    _render();
+  // init
+  _render();
 </script>
 
 
