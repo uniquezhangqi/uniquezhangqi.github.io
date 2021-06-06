@@ -1,6 +1,6 @@
 ---
 layout:     post             				# 使用的布局（不需要改）
-title:      Error: Cannot install in Homebrew on ARM 	 # 标题 
+title:      Error Cannot install in Homebrew on ARM 	 # 标题 
 subtitle:    					  				#副标题
 date:       2021-03-17  					# 时间
 author:     阿琦                  			# 作者
